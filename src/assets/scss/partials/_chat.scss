@@ -1,0 +1,29 @@
+.chat-container {
+  background: lighten($backgray, 10%);
+
+
+  .messages {
+    min-height: 300px;
+    max-height: 800px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .chat-message {
+      border-radius: $border-radius;
+
+      &.sent {
+        background: $white;
+        color: $darkbackgray;
+        text-align: right;
+      }
+
+      &.received {
+        background: $buttongray;
+      }
+
+      .name {
+        font-size: 11px;
+      }
+    }
+  }
+}

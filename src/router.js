@@ -1,6 +1,14 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
+import MainLayout from './layouts/main/MainLayout.vue';
+import CreateTask from './views/CreateTask.vue';
+import Search from './views/Search.vue';
+import Auth from './views/Auth.vue';
+import EmailConfirmation from './views/EmailConfirmation.vue';
+import Task from './views/Task.vue';
+import Entry from './Entry.vue';
+import Application from './views/Application.vue';
 
 Vue.use(Router);
 
@@ -10,16 +18,50 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
-    },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: Entry,
+      children: [
+        {
+          path: '/',
+          component: MainLayout,
+          children: [
+            {
+              path: '/',
+              name: 'home',
+              component: Home,
+            },
+            {
+              path: '/auth/confirm-email/:hash',
+              name: 'confirmEmail',
+              component: EmailConfirmation,
+            },
+            {
+              path: '/auth',
+              name: 'auth',
+              component: Auth,
+            },
+            {
+              path: '/create-task',
+              name: 'create',
+              component: CreateTask,
+            },
+            {
+              path: '/search',
+              name: 'search',
+              component: Search,
+            },
+            {
+              path: '/task/:id',
+              name: 'task',
+              component: Task,
+            },
+            {
+              path: '/applications/:id',
+              name: 'application',
+              component: Application,
+            },
+          ],
+        },
+      ],
     },
   ],
 });
