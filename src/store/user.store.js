@@ -2,6 +2,7 @@
 import authService from '../services/auth.service';
 import tokenService from '../services/token.service';
 import apiService from '../services/api.service';
+import userService from '../services/user.service';
 import router from '../router';
 
 const initialState = {
@@ -59,17 +60,25 @@ const actions = {
   /**
    * Login user
    * @param commit
+   * @param dispatch
    * @param {Object} credentials
    * @return {Promise<*>}
    */
-  async login({ commit }, credentials) {
+  async login({ commit, dispatch }, credentials) {
     const login = await authService.login(credentials);
 
     commit('setToken', login.data.data.token);
     commit('setUser', login.data.data.user);
+    commit('setUser', login.data.data.user);
 
     tokenService.saveToken(login.data.data.token);
     apiService.setHeader();
+
+    // get unread messages
+    dispatch('chat/getUnreadMessages', null, { root: true });
+
+    this._vm.$socket.disconnect();
+    this._vm.$socket.connect();
 
     return login;
   },
@@ -97,6 +106,18 @@ const actions = {
     apiService.removeHeader();
 
     router.replace('/auth');
+  },
+
+  /**
+   * Update current user
+   * @param commit
+   * @param {Object} data
+   * @return {*}
+   */
+  async updateMe({ commit }, data) {
+    const user = await userService.updateMe(data);
+
+    commit('setUser', user.data.data);
   },
 };
 

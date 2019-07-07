@@ -9,8 +9,8 @@
             </router-link>
           </div>
         </div>
-        <div class="col-md-9">
-          <div class="header-data text-md-right text-lg-right text-xl-right text-center">
+        <div class="col-md-9 d-flex justify-content-end align-content-center">
+          <!--<div class="header-data text-md-right text-lg-right text-xl-right text-center">
             <p class="m-0">
               <span>Wallet: {{balance}} CTF</span><span
               class="normal"> ⎜ </span><span>Allowance: {{allowance}} CTF</span>
@@ -21,8 +21,8 @@
               <router-link to="/funds/stakeAdd">Add</router-link>
               /
               <router-link to="/funds/stakeWithdraw">Withdraw</router-link>
-            </p>
-          </div>
+            </p></div>-->
+          <header-menu/>
         </div>
       </div>
     </div>
@@ -31,8 +31,11 @@
 
 <script>
 // noinspection JSUnusedGlobalSymbols
+import HeaderMenu from '../../components/HeaderMenu.vue';
+
 export default {
   name: 'MainLayoutHeader',
+  components: { HeaderMenu },
   data() {
     return {
       balance: 0,

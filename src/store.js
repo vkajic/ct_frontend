@@ -7,6 +7,7 @@ import search from './store/search.store';
 import tasks from './store/tasks.store';
 import user from './store/user.store';
 import chat from './store/chat.store';
+import util from './store/util.store';
 
 Vue.use(Vuex);
 
@@ -17,5 +18,6 @@ export default new Vuex.Store({
     tasks,
     user,
     chat,
+    util,
   },
 });

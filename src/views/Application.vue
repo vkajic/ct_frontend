@@ -53,7 +53,11 @@ import RemainingDays from '../components/tasks/RemainingDays.vue';
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'Application',
-  components: { RemainingDays, ChatContainer, BackButton },
+  components: {
+    RemainingDays,
+    ChatContainer,
+    BackButton,
+  },
   computed: {
     ...mapState('tasks', {
       application: state => state.selectedApplication,
@@ -63,9 +67,25 @@ export default {
     },
   },
   created() {
+    const id = parseInt(this.$route.params.id, 10);
+
+    // get application data
+    this.$store.dispatch('tasks/getApplication', id);
+
+    // set messages as read for this application
+    this.$store.dispatch('chat/readMessages', id)
+      .then(() => {
+        // subscribe to chat
+        this.$socket.emit('subscribe', id);
+      });
+  },
+  destroyed() {
     const { id } = this.$route.params;
 
-    this.$store.dispatch('tasks/getApplication', id);
+    // deselect application
+    this.$store.commit('tasks/setSelectedApplication', {});
+
+    this.$socket.emit('unsubscribe', id);
   },
 };
 </script>

@@ -7,7 +7,8 @@
           {{item.description}}
         </div>
         <task-apply-for-job :task="item"/>
-        <task-application-link :task="item" :application="application"/>
+        <task-application-link v-if="application.id" :task="item" :application="application"/>
+        <task-applications-list :task="item" :applications="applications" v-if="isOwner"/>
       </div>
       <div class="col-md-4 seccol">
         <!-- div class="secondary">
@@ -28,6 +29,8 @@
             <remaining-days :item="item"/>
           </div>
         </div>
+
+        <task-delete-form :task="item"/>
       </div>
     </div>
   </div>
@@ -38,11 +41,15 @@ import RemainingDays from './RemainingDays.vue';
 import TaskApplyForJob from './TaskApplyForJob.vue';
 import tasksService from '../../services/tasks.service';
 import TaskApplicationLink from './TaskApplicationLink.vue';
+import TaskApplicationsList from './TaskApplicationsList.vue';
+import TaskDeleteForm from './TaskDeleteForm.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'TaskDetails',
   components: {
+    TaskDeleteForm,
+    TaskApplicationsList,
     TaskApplicationLink,
     TaskApplyForJob,
     RemainingDays,
@@ -81,6 +88,15 @@ export default {
       }
 
       return {};
+    },
+
+    /**
+     * Check if current user is owner of this task
+     * @return {default.props.item|{type, required}|boolean}
+     */
+    isOwner() {
+      const userId = this.$store.getters['user/getCurrentUserId'];
+      return this.item && userId && this.item.postedBy === userId;
     },
   },
 };

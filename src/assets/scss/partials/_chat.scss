@@ -24,6 +24,15 @@
       .name {
         font-size: 11px;
       }
+
+      .attachment {
+        position: relative;
+
+        img.thumbnail {
+          max-height: 80px;
+          width: auto;
+        }
+      }
     }
   }
 }

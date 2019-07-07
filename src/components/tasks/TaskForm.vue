@@ -1,5 +1,5 @@
 <template>
-  <b-form @submit.prevent="createTask">
+  <b-form @submit.prevent="saveTask">
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
@@ -74,6 +74,16 @@
           </span>
       </div>
     </div>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <b-form-checkbox v-model="form.published"
+                         name="published"
+                         :value="true"
+                         :unchecked-value="false">
+          Published
+        </b-form-checkbox>
+      </div>
+    </div>
     <div class="row submitrow">
       <div class="col-md-12 text-center">
         <button class="btn btn-primary" type="submit" :disabled="sending">Submit job</button>
@@ -87,7 +97,12 @@ import { required } from 'vuelidate/lib/validators';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
-  name: 'CreateTaskForm',
+  name: 'TaskForm',
+  props: {
+    task: {
+      type: Object,
+    },
+  },
   data() {
     return {
       form: {
@@ -95,9 +110,17 @@ export default {
         description: null,
         price: null,
         worktime: null,
+        published: false,
       },
       sending: false,
     };
+  },
+  watch: {
+    task(nv) {
+      if (nv) {
+        this.form = Object.assign({}, this.form, this.task);
+      }
+    },
   },
   validations: {
     form: {
@@ -125,26 +148,33 @@ export default {
     },
   },
   methods: {
-    async createTask() {
+    async saveTask() {
       this.$v.$touch();
 
       if (!this.$v.$invalid) {
         this.sending = true;
 
         try {
-          await this.$store.dispatch('task/create', this.form);
-          this.form = {};
+          if (!this.task) {
+            await this.$store.dispatch('tasks/create', this.form);
+            this.form = {};
+          } else {
+            await this.$store.dispatch('tasks/update', {
+              id: this.task.id,
+              data: this.form,
+            });
+          }
           this.$v.$reset();
           this.sending = false;
-          this.$store.commit('ui/showNotification', {
+          this.$store.dispatch('ui/showNotification', {
             type: 'success',
-            text: 'Task created successfully',
+            text: 'Task saved successfully',
           });
         } catch (err) {
           this.sending = false;
-          this.$store.commit('ui/showNotification', {
+          this.$store.dispatch('ui/showNotification', {
             type: 'danger',
-            text: `Task creation failed. ${err.response.data.message}`,
+            text: `Task save failed. ${err.response.data.message}`,
           });
         }
       }

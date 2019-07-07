@@ -12,7 +12,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="block newtask">
-          <create-task-form/>
+          <task-form/>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import CreateTaskForm from '../components/tasks/CreateTaskForm.vue';
+import TaskForm from '../components/tasks/TaskForm.vue';
 import BackButton from '../components/BackButton.vue';
 
 // noinspection JSUnusedGlobalSymbols
@@ -28,7 +28,7 @@ export default {
   name: 'CreateTask',
   components: {
     BackButton,
-    CreateTaskForm,
+    TaskForm,
   },
 };
 </script>

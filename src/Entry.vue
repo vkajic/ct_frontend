@@ -12,6 +12,7 @@ export default {
       .then(() => {
         // load users tasks
         this.$store.dispatch('tasks/loadMyTasks');
+        this.$store.dispatch('chat/getUnreadMessages');
       });
   },
 };

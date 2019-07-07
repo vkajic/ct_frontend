@@ -21,7 +21,22 @@ const mutations = {
   },
 };
 
-const actions = {};
+const actions = {
+  /**
+   * Show notification with auto-close function
+   * @param commit
+   * @param {Object} data
+   * @param {String} data.text
+   * @param {String} data.type
+   */
+  showNotification({ commit }, data) {
+    commit('showNotification', data);
+
+    setTimeout(() => {
+      commit('hideNotification');
+    }, 5000);
+  },
+};
 
 const store = {
   namespaced: true,

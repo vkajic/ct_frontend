@@ -2,9 +2,8 @@
 
 @import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-vue/src/index";
+@import "~vue-select/src/scss/vue-select";
 @import "partials/fonts";
-
-
 
 body {
   color: $white;
@@ -546,4 +545,6 @@ footer {
   }
 }
 
+@import "partials/header";
 @import "partials/chat";
+@import "partials/avatar";

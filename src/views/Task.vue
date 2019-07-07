@@ -14,7 +14,14 @@
         <div class="block">
           <div class="upper">
             <div class="row">
-              <div class="col-8"><h2>{{item.title}}</h2></div>
+              <div class="col-8">
+                <h2>
+                  {{item.title}}
+                  <small v-if="canEdit">
+                    <router-link :to="'/edit-task/' + item.id">Edit</router-link>
+                  </small>
+                </h2>
+              </div>
               <div class="col-4 text-right">
                 <div class="deadline">
                   {{item.price}}<span class="ctf">ctf</span>
@@ -46,6 +53,12 @@ export default {
       item: state => state.selectedTask,
       applications: state => state.selectedTaskApplications,
     }),
+    user() {
+      return this.$store.state.user.user;
+    },
+    canEdit() {
+      return this.user && this.user.id === this.item.postedBy && !this.item.published;
+    },
   },
   created() {
     const { id } = this.$route.params;

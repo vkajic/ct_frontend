@@ -2,7 +2,6 @@ import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import VueSocketIO from 'vue-socket.io';
-import VueChatScroll from 'vue-chat-scroll';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -21,9 +20,10 @@ Vue.use(new VueSocketIO({
     mutationPrefix: 'socket_',
   },
 }));
-Vue.use(VueChatScroll);
 
 Vue.config.productionTip = false;
+
+Vue.config.devtools = process.env.NODE_ENV === 'development';
 
 // Set the base URL of the API
 ApiService.init(process.env.VUE_APP_API_URL);

@@ -36,13 +36,13 @@ export default {
 
         await this.$store.dispatch('tasks/applyForTask', this.task.id);
 
-        this.$store.commit('ui/showNotification', {
+        this.$store.dispatch('ui/showNotification', {
           text: 'You successfully applied for this job. Thanks!',
         });
 
         this.applying = false;
       } catch (err) {
-        this.$store.commit('ui/showNotification', {
+        this.$store.dispatch('ui/showNotification', {
           text: err.response.data.message,
           type: 'danger',
         });

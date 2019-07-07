@@ -9,6 +9,8 @@ import EmailConfirmation from './views/EmailConfirmation.vue';
 import Task from './views/Task.vue';
 import Entry from './Entry.vue';
 import Application from './views/Application.vue';
+import EditTask from './views/EditTask.vue';
+import Profile from './views/Profile.vue';
 
 Vue.use(Router);
 
@@ -45,6 +47,11 @@ export default new Router({
               component: CreateTask,
             },
             {
+              path: '/edit-task/:id',
+              name: 'edit-task',
+              component: EditTask,
+            },
+            {
               path: '/search',
               name: 'search',
               component: Search,
@@ -58,6 +65,11 @@ export default new Router({
               path: '/applications/:id',
               name: 'application',
               component: Application,
+            },
+            {
+              path: '/profile',
+              name: 'profile',
+              component: Profile,
             },
           ],
         },

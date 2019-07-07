@@ -21,12 +21,41 @@ const actions = {
    * @param {String} data.description - task description
    * @param {Number} data.price - task price
    * @param {Number} data.worktime - task work time
+   * @param {Boolean} data.published - task published
    * @return {Promise<void>}
    */
   async create({ commit }, data) {
     const res = await TasksService.create(data);
 
     commit('addMyPosted', res.data.data);
+  },
+
+  /**
+   * Update task
+   * @param commit
+   * @param {Number} id - task ID
+   * @param {Object} data - task data
+   * @return {Promise<void>}
+   */
+  async update({ commit }, { id, data }) {
+    const res = await TasksService.update(id, data);
+
+    commit('updateMyPosted', {
+      id,
+      taskData: res.data.data,
+    });
+  },
+
+  /**
+   * Delete my own task
+   * @param commit
+   * @param {Number} id
+   * @return {Promise<void>}
+   */
+  async delete({ commit }, id) {
+    await TasksService.delete(id);
+
+    commit('deleteMyTask', id);
   },
 
   /**
@@ -98,6 +127,33 @@ const mutations = {
    */
   addMyPosted(state, taskData) {
     state.myPosted.push(taskData);
+  },
+
+  /**
+   * Remove task from list of my posted tasks
+   * @param state
+   * @param {Number} id
+   */
+  deleteMyTask(state, id) {
+    const index = state.myPosted.findIndex(t => t.id === id);
+
+    if (index > -1) {
+      state.myPosted.splice(1, index);
+    }
+  },
+
+  /**
+   * Update already posted task
+   * @param state
+   * @param id
+   * @param taskData
+   */
+  updateMyPosted(state, { id, taskData }) {
+    const index = state.myPosted.findIndex(t => t.id === id);
+
+    if (index > -1) {
+      state.myPosted[index] = Object.assign({}, state.myPosted[index], taskData);
+    }
   },
 
   /**

@@ -47,7 +47,7 @@ export default {
       try {
         await this.$store.dispatch('search/runSearch', term);
       } catch (err) {
-        this.$store.commit('ui/showNotification', {
+        this.$store.dispatch('ui/showNotification', {
           text: err.response.data.message,
           type: 'danger',
         });
@@ -57,7 +57,7 @@ export default {
       try {
         await this.$store.dispatch('search/changeSort', option.by);
       } catch (err) {
-        this.$store.commit('ui/showNotification', {
+        this.$store.dispatch('ui/showNotification', {
           text: err.response.data.message,
           type: 'danger',
         });
@@ -67,7 +67,7 @@ export default {
   created() {
     this.$store.dispatch('search/runSearch')
       .catch((err) => {
-        this.$store.commit('ui/showNotification', {
+        this.$store.dispatch('ui/showNotification', {
           text: err.response.data.message,
           type: 'danger',
         });

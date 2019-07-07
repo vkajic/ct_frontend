@@ -31,7 +31,7 @@ export default {
         .then(() => {
           this.error = null;
           this.$router.replace('/auth');
-          this.$store.commit('ui/showNotification', {
+          this.$store.dispatch('ui/showNotification', {
             text: 'Email successfully confirmed. Please login with your credentials.',
             type: 'success',
           });

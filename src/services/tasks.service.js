@@ -9,10 +9,30 @@ class TasksService {
    * @param {String} data.description - task description
    * @param {Number} data.price - task price
    * @param {Number} data.worktime - task work time
+   * @param {Boolean} data.published - is task published
    * @return {*}
    */
   create(data) {
     return apiService.post('/tasks', data);
+  }
+
+  /**
+   * Update task details
+   * @param {Number} taskId
+   * @param {Object} data - task data
+   * @return {*}
+   */
+  update(taskId, data) {
+    return apiService.put(`/tasks/${taskId}`, data);
+  }
+
+  /**
+   * Delete task
+   * @param {Number} taskId
+   * @return {*}
+   */
+  delete(taskId) {
+    return apiService.delete(`/tasks/${taskId}`);
   }
 
   /**
