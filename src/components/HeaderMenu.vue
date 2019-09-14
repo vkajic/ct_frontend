@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="header-menu">
     <div v-if="user">
       <ul class="list-unstyled list-inline mb-0">
         <li class="list-inline-item">
@@ -10,17 +10,17 @@
           Hi, <router-link to="/profile">{{user.name}}</router-link>
         </li>
         <li class="list-inline-item" v-if="unreadMessages">
-          <div class="unread-messages">{{unreadMessages}}</div>
+          <unread-messages-list/>
         </li>
       </ul>
     </div>
     <div v-if="!user">
       <ul class="list-unstyled list-inline mb-0">
         <li class="list-inline-item">
-          <router-link to="/search">Search jobs</router-link>
+          <router-link to="/login">Login</router-link>
         </li>
         <li class="list-inline-item">
-          <router-link to="/auth">Login</router-link>
+          <router-link to="/sign-up">Sign Up</router-link>
         </li>
       </ul>
     </div>
@@ -29,8 +29,11 @@
 
 <script>
 // noinspection JSUnusedGlobalSymbols
+import UnreadMessagesList from './tasks/chat/UnreadMessagesList.vue';
+
 export default {
   name: 'HeaderMenu',
+  components: { UnreadMessagesList },
   computed: {
     user() {
       return this.$store.state.user.user;

@@ -68,7 +68,7 @@ class TasksService {
    * @return {*}
    */
   applyForWork(taskId) {
-    return apiService.post(`/tasks/apply/${taskId}`);
+    return apiService.post(`/tasks/${taskId}/apply`);
   }
 
   /**

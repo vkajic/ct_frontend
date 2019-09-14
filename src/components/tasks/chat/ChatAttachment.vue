@@ -57,6 +57,10 @@ export default {
       type: Object,
       required: true,
     },
+    message: {
+      type: Object,
+      required: true,
+    },
   },
   created() {
     const isImage = imageTypes.indexOf(this.attachment.type) > -1;
@@ -68,7 +72,7 @@ export default {
       /**
        * Fetch attachment thumbnail url if attachment is image
        */
-      ChatService.getAttachmentThumbnail(this.attachment.id)
+      ChatService.getAttachmentThumbnail(this.message.id, this.attachment.id)
         .then((data) => {
           this.thumbnailUrl = data.data.data;
           this.loading = false;
@@ -81,7 +85,7 @@ export default {
      */
     open() {
       this.loading = true;
-      ChatService.getAttachmentUrl(this.attachment.id)
+      ChatService.getAttachmentUrl(this.message.id, this.attachment.id)
         .then((data) => {
           window.open(data.data.data);
           this.loading = false;

@@ -10,7 +10,7 @@
             <li v-for="attachment in message.Attachments"
                 :key="attachment.id"
                 class="list-inline-item">
-              <chat-attachment :attachment="attachment"/>
+              <chat-attachment :attachment="attachment" :message="message"/>
             </li>
           </ul>
         </template>

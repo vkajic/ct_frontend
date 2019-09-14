@@ -1,0 +1,13 @@
+.nav-tabs {
+  border-bottom: 2px solid rgba($black, .1);
+
+  .nav-link {
+    font-weight: bold;
+    margin-bottom: -2px;
+
+    &.active {
+      color: $green;
+      border-bottom: 2px solid $green;
+    }
+  }
+}

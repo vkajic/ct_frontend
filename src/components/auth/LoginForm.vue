@@ -1,36 +1,50 @@
 <template>
-  <b-card title="Login">
-    <b-alert variant="danger" :show="loginError" dismissible class="mb-2">
-      {{loginError}}
-    </b-alert>
+  <div class="auth-form">
+    <h1 class="mb-5">Login.</h1>
     <b-form @submit.prevent="login">
-      <b-form-group label="Email address:">
+      <b-form-group>
         <b-form-input
           v-model="form.email"
           type="email"
-          placeholder="Enter email"
+          placeholder="Email"
+          size="lg"
           :state="$v.form.email.$dirty ? !$v.form.email.$error : null"/>
+        <validation-messages title="Email" :validation="$v.form.email"/>
       </b-form-group>
 
-      <b-form-group label="Password:">
+      <b-form-group>
         <b-form-input
           v-model="form.password"
           type="password"
-          placeholder="Enter password"
+          placeholder="Password"
+          size="lg"
           :state="$v.form.password.$dirty ? !$v.form.password.$error : null"/>
+        <validation-messages title="Password" :validation="$v.form.password"/>
       </b-form-group>
 
-      <b-button type="submit" variant="primary" :disabled="sending">Login</b-button>
+      <b-button type="submit"
+                variant="primary"
+                size="lg"
+                block
+                class="mb-3"
+                :disabled="sending">Login to CryptoTask
+      </b-button>
+
+      <div class="text-center">
+        <router-link to="/forgot-password">Forgot password?</router-link>
+      </div>
     </b-form>
-  </b-card>
+  </div>
 </template>
 
 <script>
 import { required, email } from 'vuelidate/lib/validators';
+import ValidationMessages from '../form/ValidationMessages.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'LoginForm',
+  components: { ValidationMessages },
   data() {
     return {
       form: {

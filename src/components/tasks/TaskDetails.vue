@@ -1,103 +1,76 @@
 <template>
-  <div class="desc-container">
-    <div class="row">
-      <div class="col-md-8">
-        <label>Task description</label>
-        <div class="desc">
-          {{item.description}}
-        </div>
-        <task-apply-for-job :task="item"/>
-        <task-application-link v-if="application.id" :task="item" :application="application"/>
-        <task-applications-list :task="item" :applications="applications" v-if="isOwner"/>
-      </div>
-      <div class="col-md-4 seccol">
-        <!-- div class="secondary">
-          <label>Posted</label>
-          {{calculateDays(item.timestamp)}}
-        </div -->
-        <div class="secondary">
-          <label>Worktime</label>
-          {{item.worktime}} day(s)
-        </div>
-        <div class="secondary">
-          <label>Status</label>
-          <span :class="item">{{status}}</span>
-        </div>
-        <div class="secondary">
-          <label>Worktime left</label>
-          <div class="deadline">
-            <remaining-days :item="item"/>
-          </div>
-        </div>
+  <div class="task-details">
+    <h5 class="mb-4">Project details</h5>
 
-        <task-delete-form :task="item"/>
+    <b-button variant="primary" block class="btn-round mb-4">
+      Apply for job
+    </b-button>
+
+    <div>
+      <div class="detail d-flex align-items-center">
+        <check-square-icon size="20" class="mr-3"/>
+        <div>
+          <div class="small-heading">
+            POSTED
+          </div>
+          <strong>Posted on May 24, 2019</strong>
+        </div>
       </div>
+
+      <div class="detail d-flex align-items-center">
+        <plus-square-icon size="20" class="mr-3"/>
+        <div>
+          <div class="small-heading">
+            STATUS
+          </div>
+          <strong>Accepting applications</strong>
+        </div>
+      </div>
+
+      <div class="detail d-flex align-items-center">
+        <calendar-icon size="20" class="mr-3"/>
+        <div>
+          <div class="small-heading">
+            DURATION
+          </div>
+          <strong>3 - 6 months</strong>
+        </div>
+      </div>
+
+      <div class="detail d-flex align-items-center">
+        <credit-card-icon size="20" class="mr-3"/>
+        <div>
+          <div class="small-heading">
+            PAYMENT
+          </div>
+          <strong>20 ETH (~ $4.000 USD)</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="share">
+      <a href="#" class="d-flex align-items-center text-secondary">
+        <share-2-icon size="20" class="mr-3"/>
+        Share
+      </a>
     </div>
   </div>
 </template>
 
 <script>
-import RemainingDays from './RemainingDays.vue';
-import TaskApplyForJob from './TaskApplyForJob.vue';
-import tasksService from '../../services/tasks.service';
-import TaskApplicationLink from './TaskApplicationLink.vue';
-import TaskApplicationsList from './TaskApplicationsList.vue';
-import TaskDeleteForm from './TaskDeleteForm.vue';
+import {
+  CheckSquareIcon, PlusSquareIcon, CalendarIcon, CreditCardIcon, Share2Icon,
+} from 'vue-feather-icons';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'TaskDetails',
   components: {
-    TaskDeleteForm,
-    TaskApplicationsList,
-    TaskApplicationLink,
-    TaskApplyForJob,
-    RemainingDays,
-  },
-  props: {
-    item: {
-      type: Object,
-      required: true,
-    },
-    applications: {
-      type: Array,
-      default() {
-        return [];
-      },
-    },
-  },
-  computed: {
-    status() {
-      if (this.item) {
-        return tasksService.getTaskStatus(this.item.stage);
-      }
-
-      return null;
-    },
-
-    /**
-     * Get current users application for this task if exists
-     */
-    application() {
-      const freelancerId = this.$store.getters['user/getCurrentUserId'];
-
-      if (this.applications.length) {
-        const application = this.applications.find(a => a.freelancerId === freelancerId);
-
-        return application || {};
-      }
-
-      return {};
-    },
-
-    /**
-     * Check if current user is owner of this task
-     * @return {default.props.item|{type, required}|boolean}
-     */
-    isOwner() {
-      const userId = this.$store.getters['user/getCurrentUserId'];
-      return this.item && userId && this.item.postedBy === userId;
-    },
+    CheckSquareIcon,
+    PlusSquareIcon,
+    CalendarIcon,
+    CreditCardIcon,
+    Share2Icon,
   },
 };
 </script>

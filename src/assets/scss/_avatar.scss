@@ -1,0 +1,13 @@
+.avatar-container {
+  max-width: 15rem;
+  max-height: 15rem;
+
+  .avatar {
+    width: 100%;
+    padding-top: 100%;
+    border-radius: 1.5rem;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}

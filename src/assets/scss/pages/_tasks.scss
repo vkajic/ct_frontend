@@ -1,0 +1,64 @@
+.short-task-item, .short-job-item {
+  .duration, .price, .published-date {
+    font-size: .875rem;
+  }
+}
+
+.task-tags {
+  li {
+    font-size: .75rem;
+    color: $gray-600;
+  }
+}
+
+.task-details {
+  background: $gray-100;
+  padding: 1.5rem 2rem;
+  border-radius: .5rem;
+
+  .detail {
+    border-bottom: 1px dotted $gray-200;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    .feather {
+      stroke: $green;
+    }
+
+    .text-muted {
+      line-height: 1;
+
+      small {
+        font-size: .6875rem;
+      }
+    }
+  }
+}
+
+.task {
+  .skills {
+    padding: 2rem;
+  }
+}
+
+.required-skills {
+  ul {
+    li {
+      margin-left: -1rem;
+
+      span {
+        background: $gray-100;
+        padding: .75rem 1rem;
+        border-radius: 2rem;
+        font-size: .875rem;
+        display: block;
+        float: left;
+        margin-bottom: .2rem;
+      }
+    }
+  }
+}

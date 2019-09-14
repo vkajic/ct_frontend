@@ -1,41 +1,30 @@
 <template>
-  <div class="task">
-    <div class="row">
-      <div class="col-md-2">
-        <back-button/>
-      </div>
-      <div class="col-md-8 center">
-        <h1>Find work</h1>
-      </div>
-      <div class="col-md-2"></div>
+  <div class="row">
+    <div class="col-3">
+      <freelancer-menu/>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="col-title text-center">
-          <h3 class="blue">Project list</h3>
-        </div>
-        <search-query-term @search="search" class="mb-3"/>
-        <search-sort-buttons @sort="sort"/>
-        <search-tasks-list :tasks="tasks"/>
-      </div>
+    <div class="col-6">
+      <search-heading class="mb-5"/>
+
+      <tasks-group/>
     </div>
   </div>
 </template>
 
 <script>
-import SearchSortButtons from '../components/tasks/SearchSortButtons.vue';
-import BackButton from '../components/BackButton.vue';
-import SearchTasksList from '../components/tasks/SearchTasksList.vue';
-import SearchQueryTerm from '../components/tasks/SearchQueryTerm.vue';
+import FreelancerMenu from '../components/FreelancerMenu.vue';
+import SearchHeading from '../components/search/SearchHeading.vue';
+import ShortTaskItem from '../components/tasks/ShortTaskItem.vue';
+import TasksGroup from '../components/search/TasksGroup.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'Search',
   components: {
-    SearchQueryTerm,
-    SearchTasksList,
-    BackButton,
-    SearchSortButtons,
+    TasksGroup,
+    ShortTaskItem,
+    SearchHeading,
+    FreelancerMenu,
   },
   computed: {
     tasks() {
@@ -65,13 +54,13 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('search/runSearch')
+    /* this.$store.dispatch('search/runSearch')
       .catch((err) => {
         this.$store.dispatch('ui/showNotification', {
           text: err.response.data.message,
           type: 'danger',
         });
-      });
+      }); */
   },
 };
 </script>

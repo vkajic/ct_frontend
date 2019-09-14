@@ -1,0 +1,106 @@
+// Colors
+$gray-300: #D0D2D6;
+$gray-500: #9D9FA5;
+$gray-600: #72757D;
+
+$info: #003AF9;
+$dark: #0D0D22;
+$green: #1DCC4B;
+
+$almost-black: #070B17;
+
+$theme-colors: (
+        "almost-black": $almost-black
+);
+
+$primary: $almost-black;
+
+// Spacing
+$spacer: 1rem;
+$spacers: (
+        6: ($spacer * 5),
+        7: ($spacer * 8),
+);
+
+// Body
+$body-color: $dark;
+
+// Grid
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1440px,
+        xxxl: 1920px
+);
+
+// Grid containers
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1400px,
+        xxxl: 1900px
+);
+
+// Links
+$link-color: $dark;
+
+// Typography
+$font-family-sans-serif: 'Roboto', sans-serif;
+$font-family-sans-serif-secondary: 'Roboto Condensed', sans-serif;
+$text-muted: rgba($dark, 0.4);
+$headings-font-weight: 900;
+
+// Buttons + Forms
+$input-btn-padding-y-lg: 1.25rem;
+$input-btn-padding-x-lg: 1.25rem;
+
+// Buttons
+$btn-padding-y: .55rem;
+$btn-padding-x: 1.3rem;
+$btn-font-weight: 700;
+$btn-font-size: 1.125rem;
+
+// Forms
+$input-padding-y: .9rem;
+$input-padding-x: 1rem;
+$input-line-height: 1;
+
+$input-line-height-lg: 1;
+
+$input-border-radius: 0;
+$input-border-radius-lg: 0;
+$input-border-radius-sm: 0;
+
+$input-border-color: $gray-300;
+$input-box-shadow: none;
+
+$input-placeholder-color: rgba($dark, 0.3);
+
+$custom-checkbox-indicator-border-radius: 0;
+
+// Paper
+$paper-shadow: 0 0 6rem 0 rgba($dark, 0.06);
+
+// Dropdowns
+$dropdown-border-radius: 0;
+$dropdown-border-width: 0;
+$dropdown-font-size: 1.125rem;
+$dropdown-box-shadow: $paper-shadow;
+$dropdown-item-padding-y: .4rem;
+
+// Layout
+$header-menu-font-size: 1.125rem;
+$header-menu-item-spacing: 2.5rem;
+
+// Vue Select
+$vs-border-radius: $input-border-radius;
+$vs-component-placeholder-color: $input-placeholder-color;
+
+// Navs
+$nav-tabs-border-width: 0;
+$nav-tabs-link-active-bg: transparent;

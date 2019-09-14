@@ -11,7 +11,7 @@
         </div>
       </div>
     </div>
-    <h2>{{task.title}}</h2>
+    <h2><router-link :to="`/task/${task.id}`">{{task.title}}</router-link></h2>
     <div class="description">{{task.description}}
     </div>
     <div class="submition" v-if="task.status === 'waiting'">Cryptotasker has submitted solution
@@ -21,22 +21,22 @@
 
         <div class="col-6">
           <div v-if="task.stage === 2 || task.stage === 3">
-            <router-link class="btn btn-primary" :to="`taskdecision/${task.id}`">
+            <router-link class="btn btn-primary m-0" :to="`taskdecision/${task.id}`">
               Decide
             </router-link>
           </div>
 
           <div v-if="canFinalize">
-            <a class="btn btn-primary" @click="finalizeTask">Finalize</a>
+            <a class="btn btn-primary m-0" @click="finalizeTask">Finalize</a>
           </div>
 
           <div v-if="task.stage === 0">
-            <a class="btn btn-primary" @click="finalizeTask">Cancel</a>
+            <a class="btn btn-primary m-0" @click="finalizeTask">Cancel</a>
           </div>
         </div>
 
         <div class="col-6">
-          <div class="deadline">
+          <div class="deadline m-0">
             {{task.price}}<span class="ctf">CTF</span>
           </div>
         </div>
@@ -56,7 +56,9 @@ export default {
   props: {
     task: {
       type: Object,
-      required: true,
+      default() {
+        return {};
+      },
     },
   },
   computed: {
@@ -114,6 +116,11 @@ export default {
     canFinalize() {
       return (this.task.stage === 4 && this.votingDone)
         || (this.task.stage === 1 && this.task.solutionOver);
+    },
+  },
+  methods: {
+    finalizeTask() {
+      //
     },
   },
 };

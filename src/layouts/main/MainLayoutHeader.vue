@@ -1,27 +1,19 @@
 <template>
-  <header class="mb-5">
+  <header class="main-header">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-md-3 text-md-left text-lg-left text-xl-left text-center">
+        <div
+          class="col-md-3 d-flex text-md-left text-center align-content-center">
           <div class="logo">
             <router-link to="/">
-              <span class="back"><img src="@/assets/img/logo.svg" alt="Cryptotask"/></span>
+              <span class="back"><img src="@/assets/img/ct-logo.svg" alt="Cryptotask"/></span>
             </router-link>
           </div>
         </div>
-        <div class="col-md-9 d-flex justify-content-end align-content-center">
-          <!--<div class="header-data text-md-right text-lg-right text-xl-right text-center">
-            <p class="m-0">
-              <span>Wallet: {{balance}} CTF</span><span
-              class="normal"> ⎜ </span><span>Allowance: {{allowance}} CTF</span>
-              <router-link to="/funds/allowanceInc">Increase</router-link>
-              /
-              <router-link to="/funds/allowanceDec">Decrease</router-link>
-              <span class="normal"> ⎜ </span><span>Stake: {{myStake}} CTF</span>
-              <router-link to="/funds/stakeAdd">Add</router-link>
-              /
-              <router-link to="/funds/stakeWithdraw">Withdraw</router-link>
-            </p></div>-->
+        <div class="col-md-6 d-flex align-content-center">
+          <top-menu/>
+        </div>
+        <div class="col-md-3 d-flex justify-content-end align-content-center">
           <header-menu/>
         </div>
       </div>
@@ -32,10 +24,11 @@
 <script>
 // noinspection JSUnusedGlobalSymbols
 import HeaderMenu from '../../components/HeaderMenu.vue';
+import TopMenu from '../../components/layout/TopMenu.vue';
 
 export default {
   name: 'MainLayoutHeader',
-  components: { HeaderMenu },
+  components: { TopMenu, HeaderMenu },
   data() {
     return {
       balance: 0,

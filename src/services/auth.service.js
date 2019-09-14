@@ -37,6 +37,25 @@ class AuthService {
   getMe() {
     return apiService.get('users/me');
   }
+
+  /**
+   * Forgot password
+   * @param {String} email
+   * @return {*}
+   */
+  forgotPassword(email) {
+    return apiService.post('/auth/forgot-password', { email });
+  }
+
+  /**
+   * Reset password
+   * @param {String} resetToken
+   * @param {String} password
+   * @return {*}
+   */
+  resetPassword(resetToken, password) {
+    return apiService.post('/auth/reset-password', { resetToken, password });
+  }
 }
 
 export default new AuthService();

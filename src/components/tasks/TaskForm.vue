@@ -84,6 +84,11 @@
         </b-form-checkbox>
       </div>
     </div>
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <task-attachment-uploader @attach="attach" :attachments="form.Attachments"/>
+      </div>
+    </div>
     <div class="row submitrow">
       <div class="col-md-12 text-center">
         <button class="btn btn-primary" type="submit" :disabled="sending">Submit job</button>
@@ -94,10 +99,12 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import TaskAttachmentUploader from './TaskAttachmentUploader.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'TaskForm',
+  components: { TaskAttachmentUploader },
   props: {
     task: {
       type: Object,
@@ -111,6 +118,7 @@ export default {
         price: null,
         worktime: null,
         published: false,
+        Attachments: [],
       },
       sending: false,
     };
@@ -148,6 +156,9 @@ export default {
     },
   },
   methods: {
+    /**
+     * Persist task data
+     */
     async saveTask() {
       this.$v.$touch();
 
@@ -170,6 +181,9 @@ export default {
             type: 'success',
             text: 'Task saved successfully',
           });
+          if (!this.task) {
+            this.$router.push('/');
+          }
         } catch (err) {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
@@ -178,6 +192,14 @@ export default {
           });
         }
       }
+    },
+
+    /**
+     * Attach files to form
+     * @param files
+     */
+    attach(files) {
+      this.form.Attachments = files;
     },
   },
 };

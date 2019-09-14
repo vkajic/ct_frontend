@@ -1,0 +1,33 @@
+header.main-header {
+  height: 8.5rem;
+  display: flex;
+  align-items: center;
+
+  .logo {
+
+  }
+
+  .top-menu {
+    li {
+      margin-right: $header-menu-item-spacing;
+
+      a {
+        font-weight: 900;
+        font-size: $header-menu-font-size;
+      }
+    }
+  }
+
+  .header-menu {
+    ul {
+      li {
+        margin-left: $header-menu-item-spacing;
+        margin-right: 0;
+
+        a {
+          font-size: $header-menu-font-size;
+        }
+      }
+    }
+  }
+}

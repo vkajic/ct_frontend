@@ -1,0 +1,23 @@
+.freelancer-menu {
+  a {
+    display: flex;
+    align-items: center;
+  }
+
+  span {
+    font-weight: 900;
+    font-size: 1.125rem;
+  }
+
+  .feather {
+    stroke: $gray-700;
+  }
+
+  .router-link-active {
+    color: $green;
+
+    .feather {
+      stroke: $green;
+    }
+  }
+}

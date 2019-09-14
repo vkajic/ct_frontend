@@ -48,11 +48,12 @@ class ChatService {
 
   /**
    * Get attachment thumbnail signed url
+   * @param {Number} messageId
    * @param {Number} attachmentId
    * @return {*}
    */
-  getAttachmentThumbnail(attachmentId) {
-    return apiService.get(`/messages/attachment/${attachmentId}`, {
+  getAttachmentThumbnail(messageId, attachmentId) {
+    return apiService.get(`/messages/${messageId}/attachment/${attachmentId}`, {
       params: {
         thumbnail: true,
       },
@@ -61,11 +62,12 @@ class ChatService {
 
   /**
    * Get attachment signed url
+   * @param {Number} messageId
    * @param {Number} attachmentId
    * @return {*}
    */
-  getAttachmentUrl(attachmentId) {
-    return apiService.get(`/messages/attachment/${attachmentId}`);
+  getAttachmentUrl(messageId, attachmentId) {
+    return apiService.get(`/messages/${messageId}/attachment/${attachmentId}`);
   }
 }
 

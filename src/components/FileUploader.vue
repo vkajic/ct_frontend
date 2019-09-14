@@ -20,7 +20,7 @@ import 'vue2-dropzone/dist/vue2Dropzone.min.css';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
-  name: 'ChatAttachmentUploader',
+  name: 'FileUploader',
   components: {
     vueDropzone: vue2Dropzone,
   },
@@ -32,20 +32,20 @@ export default {
   },
   computed: {
     visible() {
-      return this.$store.state.chat.attachmentUploaderVisible;
+      return this.$store.state.ui.fileUploaderVisible;
     },
     token() {
       return this.$store.state.user.token;
     },
+    type() {
+      return this.$store.state.ui.fileUploaderType;
+    },
     dropzoneOptions() {
       return {
-        url: `${process.env.VUE_APP_API_URL}messages/upload/${this.$route.params.id}`,
+        url: `${process.env.VUE_APP_API_URL}files?type=${this.type}`,
         headers: { Authorization: `Bearer ${this.token}` },
         createImageThumbnails: false,
       };
-    },
-    fileIds() {
-      return this.files.map(f => f.id);
     },
     okDisabled() {
       return !this.files.length || this.uploading;
@@ -53,14 +53,14 @@ export default {
   },
   methods: {
     close() {
-      this.$store.commit('chat/closeAttachmentUploader');
+      this.$store.commit('ui/closeFileUploader');
       this.files = [];
     },
     success(file, res) {
       this.files.push(res.data);
     },
     attach() {
-      this.$emit('attach', this.fileIds);
+      this.$emit('attach', this.files);
     },
     uploadStarted() {
       this.uploading = true;

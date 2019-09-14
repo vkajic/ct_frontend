@@ -31,7 +31,7 @@ export default {
       }
     },
     openUploader() {
-      this.$store.commit('chat/openAttachmentUploader');
+      this.$store.commit('ui/openFileUploader', 'chat');
     },
   },
 };

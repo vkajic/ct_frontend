@@ -1,0 +1,66 @@
+.custom-checkbox {
+  label {
+    color: $gray-500;
+    font-size: .875rem;
+  }
+}
+
+.vs__search,
+.vs__search:focus {
+  padding: $input-padding-y $input-padding-x;
+  margin: 0;
+  border: none;
+  line-height: 1;
+}
+
+.vs__dropdown-toggle {
+  padding: 0;
+}
+
+.vs__selected-options {
+  padding: 0;
+}
+
+.input-group {
+  .vdp-datepicker {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    margin-bottom: 0;
+  }
+
+  > .vdp-datepicker + .vdp-datepicker {
+    margin-left: -1px;
+  }
+}
+
+.quick-search {
+  position: relative;
+  text-align: right;
+
+  input {
+    width: 11rem;
+    border: 0;
+    background: $gray-100;
+    border-radius: 1.5rem;
+    font-size: 1.125rem;
+    padding: 1.2rem 2.7rem 1.2rem 1.5rem;
+
+    &:focus {
+      box-shadow: none;
+      background: $gray-200;
+    }
+  }
+
+  button {
+    border: 0;
+    background: none;
+    position: absolute;
+    right: 7px;
+    top: 10px;
+
+    .feather {
+      stroke: $gray-600;
+    }
+  }
+}

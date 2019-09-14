@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { orderBy, ceil } from 'lodash';
+import Vue from 'vue';
+import { orderBy } from 'lodash';
 import ChatService from '../services/chat.service';
 
 const initialState = {
@@ -9,7 +10,6 @@ const initialState = {
   lastId: 0,
   total: 0,
   loading: false,
-  attachmentUploaderVisible: false,
 };
 
 const actions = {
@@ -61,22 +61,29 @@ const actions = {
    * @param commit
    * @param state
    * @param rootState
-   * @param {Object} application
+   * @param {Object} data
+   * @param {Number} data.id - application id
+   * @param {String} data.title - task title
+   * @param {String} data.text - new message text
+   * @param {Date} data.createdAt - new message created at date
    */
-  socket_messageReceived({ commit, state, rootState }, application) {
-    const existingIndex = state.unreadMessages.findIndex(m => m.id === application.id);
+  socket_messageReceived({ commit, state, rootState }, data) {
+    const existingIndex = state.unreadMessages.findIndex(m => m.id === data.id);
     const selectedApplicationId = rootState.tasks.selectedApplication.id;
 
-    if (
-      existingIndex === -1
-      && (!selectedApplicationId || selectedApplicationId !== application.id)
-    ) {
-      commit('addUnreadMessage', application);
+    if (!selectedApplicationId || selectedApplicationId !== data.id) {
+      if (
+        existingIndex === -1
+      ) {
+        commit('addUnreadMessage', data);
+      } else {
+        commit('updateUnreadMessage', data);
+      }
     }
 
     // emit message read if already in that chat
-    if (selectedApplicationId === application.id) {
-      this._vm.$socket.emit('messageRead', application.id);
+    if (selectedApplicationId === data.id) {
+      this._vm.$socket.emit('messageRead', data.id);
     }
   },
 
@@ -192,10 +199,31 @@ const mutations = {
   /**
    * Add new unread message
    * @param state
-   * @param application
+   * @param {Object} data
+   * @param {Number} data.id - application id
+   * @param {String} data.title - task title
+   * @param {String} data.text - new message text
+   * @param {Date} data.createdAt - new message created at date
    */
-  addUnreadMessage(state, application) {
-    state.unreadMessages.push(application);
+  addUnreadMessage(state, data) {
+    state.unreadMessages.push(data);
+  },
+
+  /**
+   * Update unread message with new data
+   * @param state
+   * @param {Object} data
+   * @param {Number} data.id - application id
+   * @param {String} data.title - task title
+   * @param {String} data.text - new message text
+   * @param {Date} data.createdAt - new message created at date
+   */
+  updateUnreadMessage(state, data) {
+    const index = state.unreadMessages.findIndex(m => m.id === data.id);
+
+    if (index > -1) {
+      Vue.set(state.unreadMessages, index, data);
+    }
   },
 
   /**
@@ -209,22 +237,6 @@ const mutations = {
     if (index > -1) {
       state.unreadMessages.splice(index, 1);
     }
-  },
-
-  /**
-   * Open attachment uploader
-   * @param state
-   */
-  openAttachmentUploader(state) {
-    state.attachmentUploaderVisible = true;
-  },
-
-  /**
-   * Close attachment uploader
-   * @param state
-   */
-  closeAttachmentUploader(state) {
-    state.attachmentUploaderVisible = false;
   },
 };
 

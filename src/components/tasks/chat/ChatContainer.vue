@@ -6,20 +6,20 @@
       <chat-message v-for="message in messages" :message="message" :key="message.id"/>
     </div>
     <chat-input @send="createMessage"/>
-    <chat-attachment-uploader @attach="attach"/>
+    <file-uploader @attach="attach"/>
   </div>
 </template>
 
 <script>
 import ChatMessage from './ChatMessage.vue';
 import ChatInput from './ChatInput.vue';
-import ChatAttachmentUploader from './ChatAttachmentUploader.vue';
+import FileUploader from '../../FileUploader.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ChatContainer',
   components: {
-    ChatAttachmentUploader,
+    FileUploader,
     ChatInput,
     ChatMessage,
   },
@@ -78,11 +78,11 @@ export default {
     /**
      * Attach files to message
      */
-    attach(ids) {
+    attach(files) {
       this.$socket.emit('sendMessage', {
         text: '',
         applicationId: this.application.id,
-        attachmentIds: ids,
+        attachmentIds: files.map(f => f.id),
       });
     },
 

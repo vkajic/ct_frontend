@@ -1,0 +1,22 @@
+.auth-form-container {
+  box-shadow: 0 0 6rem 0 rgba($dark, 0.06);
+
+  .auth-form {
+    h1 {
+      font-size: 4.125rem;
+      font-weight: 900;
+    }
+  }
+}
+
+.auth-role-selector {
+  a {
+    font-weight: 900;
+    font-size: 1.125rem;
+  }
+
+  .active {
+    color: $green;
+    text-decoration: underline;
+  }
+}

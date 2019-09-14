@@ -3,6 +3,8 @@ const initialState = {
   mainLoader: true,
   notificationText: null,
   notificationType: null,
+  fileUploaderVisible: false,
+  fileUploaderType: null,
 };
 
 const mutations = {
@@ -18,6 +20,25 @@ const mutations = {
   hideNotification(state) {
     state.notificationText = null;
     state.notificationType = null;
+  },
+
+  /**
+   * Open file uploader
+   * @param state
+   * @param {String} uploaderType
+   */
+  openFileUploader(state, uploaderType) {
+    state.fileUploaderVisible = true;
+    state.fileUploaderType = uploaderType;
+  },
+
+  /**
+   * Close file uploader
+   * @param state
+   */
+  closeFileUploader(state) {
+    state.fileUploaderVisible = false;
+    state.fileUploaderType = null;
   },
 };
 

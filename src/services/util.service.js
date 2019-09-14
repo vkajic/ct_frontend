@@ -17,6 +17,20 @@ class UtilService {
   getLanguages() {
     return apiService.get('/users/languages');
   }
+
+  /**
+   * Delete file
+   * @param {Number} fileId
+   * @param {String} type
+   * @return {*}
+   */
+  deleteFile(fileId, type) {
+    return apiService.delete(`files/${fileId}`, {
+      params: {
+        type,
+      },
+    });
+  }
 }
 
 export default new UtilService();
