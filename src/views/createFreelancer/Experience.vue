@@ -2,7 +2,7 @@
   <funnel-container>
     <div class="row">
       <div class="col-12">
-        <experience-form/>
+        <experience-form :freelancer="freelancer"/>
       </div>
     </div>
   </funnel-container>
@@ -18,6 +18,11 @@ export default {
   components: {
     ExperienceForm,
     FunnelContainer,
+  },
+  computed: {
+    freelancer() {
+      return this.$store.state.user.user ? this.$store.state.user.user.freelancer : null;
+    },
   },
 };
 </script>

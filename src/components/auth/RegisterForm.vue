@@ -14,15 +14,6 @@
 
       <b-form-group>
         <b-form-input
-          v-model="form.name"
-          type="text"
-          size="lg"
-          placeholder="Full Name"
-          :state="$v.form.name.$dirty ? !$v.form.name.$error : null"/>
-      </b-form-group>
-
-      <b-form-group>
-        <b-form-input
           v-model="form.email"
           type="email"
           size="lg"
@@ -49,8 +40,9 @@
           ? !$v.form.passwordConfirmation.$error : null"/>
       </b-form-group>
 
-      <b-button type="submit" size="lg" block variant="primary" class="mb-3">
-        Sign Up for CryptoTask
+      <b-button type="submit" size="lg" block variant="primary" class="mb-3" :disabled="sending">
+        <template v-if="!sending">Sign Up for CryptoTask</template>
+        <template v-if="sending">Saving...</template>
       </b-button>
 
       <p class="text-muted">
@@ -69,19 +61,20 @@ import {
 } from 'vuelidate/lib/validators';
 import AuthRoleSelector from './AuthRoleSelector.vue';
 
+const initialForm = {
+  email: null,
+  password: null,
+  passwordConfirmation: null,
+  role: 'freelancer',
+};
+
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'RegisterForm',
   components: { AuthRoleSelector },
   data() {
     return {
-      form: {
-        email: null,
-        password: null,
-        passwordConfirmation: null,
-        name: null,
-        role: 'freelancer',
-      },
+      form: Object.assign({}, initialForm),
       sending: false,
       registrationError: null,
       registrationSuccess: null,
@@ -104,9 +97,6 @@ export default {
         minLength: minLength(8),
         sameAsPassword: sameAs('password'),
       },
-      name: {
-        required,
-      },
     },
   },
   methods: {
@@ -122,7 +112,7 @@ export default {
 
         try {
           await this.$store.dispatch('user/register', this.form);
-          this.form = {};
+          this.form = initialForm;
           this.$v.$reset();
           this.sending = false;
           this.registrationSuccess = 'You are registered. Please check your email for confirmation';

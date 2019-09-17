@@ -27,7 +27,7 @@ import BackButton from '../components/BackButton.vue';
 import ProfileForm from '../components/profile/ProfileForm.vue';
 import ProfilePictureForm from '../components/profile/ProfilePictureForm.vue';
 import ProfilePasswordForm from '../components/profile/ProfilePasswordForm.vue';
-import UserService from '../services/user.service';
+import ApiService from '../services/api.service';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -89,7 +89,7 @@ export default {
     async changePassword(data) {
       try {
         this.$store.commit('ui/toggleLoader');
-        await UserService.updatePassword(data);
+        await ApiService.put('/users/password', data);
         this.$store.dispatch('ui/showNotification', {
           type: 'success',
           text: 'Password changed successfully',

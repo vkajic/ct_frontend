@@ -5,6 +5,7 @@
               :value="value"
               :multiple="true"
               :placeholder="placeholder"
+              :label="optionsLabel"
               @input="$emit('input', $event)"/>
     <validation-messages v-if="validation" :title="placeholder" :validation="validation"/>
   </div>
@@ -31,6 +32,10 @@ export default {
       default() {
         return [];
       },
+    },
+    optionsLabel: {
+      type: String,
+      default: 'label',
     },
     value: {
       type: Array,

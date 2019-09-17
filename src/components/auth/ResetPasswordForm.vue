@@ -35,7 +35,7 @@
 
 <script>
 import { required, minLength, sameAs } from 'vuelidate/lib/validators';
-import AuthService from '../../services/auth.service';
+import ApiService from '../../services/api.service';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -73,7 +73,10 @@ export default {
         this.error = null;
 
         try {
-          await AuthService.resetPassword(this.$route.params.hash, this.form.newPassword);
+          await ApiService.post('/auth/reset-password', {
+            resetToken: this.$route.params.hash,
+            password: this.form.newPassword,
+          });
           this.form = {};
           this.$v.$reset();
           this.sending = false;

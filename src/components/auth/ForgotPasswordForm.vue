@@ -27,7 +27,7 @@
 
 <script>
 import { required, email } from 'vuelidate/lib/validators';
-import AuthService from '../../services/auth.service';
+import ApiService from '../../services/api.service';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -59,7 +59,7 @@ export default {
         this.success = null;
 
         try {
-          await AuthService.forgotPassword(this.form.email);
+          await ApiService.post('/auth/forgot-password', { email: this.form.email });
           this.form = {};
           this.$v.$reset();
           this.sending = false;

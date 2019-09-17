@@ -26,7 +26,7 @@
         <input type="file"
                :name="fileName"
                ref="file"
-               @change="onFileChange($event.target.name, $event.target.files)"/>
+               @change="onFileChange($event.target.files)"/>
       </div>
     </div>
 
@@ -38,19 +38,28 @@
 
 <script>
 import { ImageIcon } from 'vue-feather-icons';
+import ApiService from '../../services/api.service';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ImageUploader',
   components: { ImageIcon },
   props: {
+    value: {
+      type: Object,
+      default: null,
+    },
     fileName: {
       type: String,
-      default: 'image',
+      default: 'file',
     },
     label: {
       type: String,
       required: true,
+    },
+    type: {
+      type: String,
+      default: 'private',
     },
   },
   data() {
@@ -66,16 +75,16 @@ export default {
       e.preventDefault();
       this.$refs.file.click();
     },
-    onFileChange(fieldName, file) {
+    onFileChange(file) {
       const imageFile = file[0];
-      this.uploadFile(fieldName, imageFile);
+      this.uploadFile(imageFile);
     },
     onDragDrop(e) {
       const imageFile = e.dataTransfer.files[0];
-      this.uploadFile('avatar', imageFile);
+      this.uploadFile(imageFile);
     },
 
-    uploadFile(fieldName, imageFile) {
+    async uploadFile(imageFile) {
       const { maxSize } = this;
 
       this.error = null;
@@ -92,15 +101,21 @@ export default {
           this.error = 'Selected image is too big.';
           this.uploading = false;
         } else {
+          this.imageUrl = URL.createObjectURL(imageFile);
+
           // Append file into FormData and turn file into image URL
           const formData = new FormData();
-          this.imageUrl = URL.createObjectURL(imageFile);
-          formData.append(fieldName, imageFile);
-          // Emit the FormData and image URL to the parent component
-          this.$emit('input', {
-            formData,
-            imageUrl: this.imageUrl,
+          formData.append('type', this.type);
+          formData.append(this.fileName, imageFile);
+
+          // submit file to api
+          const response = await ApiService.post('/files', formData, {
+            headers: { 'content-type': 'multipart/form-data' },
           });
+
+          // Emit response as file entry
+          this.$emit('input', response.data.data);
+
           this.uploading = false;
         }
       }
@@ -109,7 +124,24 @@ export default {
     removeFile(e) {
       e.preventDefault();
       this.imageUrl = null;
+      this.$emit('remove');
     },
+  },
+  watch: {
+    value(n) {
+      if (n && n.fileName && !this.imageUrl) {
+        if (n.permissions === 'public') {
+          this.imageUrl = process.env.VUE_APP_PUBLIC_BUCKET + n.fileName;
+        }
+      }
+    },
+  },
+  mounted() {
+    if (this.value && this.value.fileName && !this.imageUrl) {
+      if (this.value.permissions === 'public') {
+        this.imageUrl = process.env.VUE_APP_PUBLIC_BUCKET + this.value.fileName;
+      }
+    }
   },
 };
 </script>

@@ -9,7 +9,7 @@
       :max-rows="maxRows"
       :state="state"
       @input="$emit('input', $event)"/>
-    <validation-messages v-if="validation" :title="placeholder" :validation="validation"/>
+    <validation-messages v-if="validation" :title="placeholder || label" :validation="validation"/>
   </div>
 </template>
 

@@ -1,10 +1,8 @@
 import axios from 'axios';
 import TokenService from './token.service';
-// eslint-disable-next-line import/no-cycle
-import store from '../store';
 
 class ApiService {
-  init(baseURL) {
+  init(baseURL, store) {
     axios.defaults.baseURL = baseURL;
 
     axios.interceptors.response.use(

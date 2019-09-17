@@ -8,12 +8,11 @@ export default {
   name: 'Entry',
   created() {
     // init users data
-    /* this.$store.dispatch('user/init')
-      .then(() => {
-        // load users tasks
-        this.$store.dispatch('tasks/loadMyTasks');
-        this.$store.dispatch('chat/getUnreadMessages');
-      }); */
+    this.$store.dispatch('user/init');
+
+    // load static data
+    this.$store.dispatch('util/getSkills');
+    this.$store.dispatch('util/getLanguages');
   },
 };
 </script>

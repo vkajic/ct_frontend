@@ -29,7 +29,7 @@
       <div class="col-4 col-xxxl-3" v-for="(img, i) in fileUrls" :key="i">
         <div class="uploader-gallery-image" :style="{'background-image': `url(${img})`}">
           <div class="remove">
-            <a href="#" @click="removeImage($event, img, i)" class="text-white"><u>Remove</u></a>
+            <a href="#" @click="removeImage($event, i)" class="text-white"><u>Remove</u></a>
           </div>
         </div>
       </div>
@@ -39,6 +39,7 @@
 
 <script>
 import { UploadIcon } from 'vue-feather-icons';
+import ApiService from '../../services/api.service';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -47,9 +48,15 @@ export default {
     UploadIcon,
   },
   props: {
+    value: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
     name: {
       type: String,
-      default: 'images',
+      default: 'files',
     },
     label: {
       type: String,
@@ -60,6 +67,10 @@ export default {
       default() {
         return [];
       },
+    },
+    type: {
+      type: String,
+      default: 'private',
     },
   },
   data() {
@@ -77,7 +88,6 @@ export default {
       this.$refs.file.click();
     },
     onFileChange(e) {
-      console.log(e);
       this.uploadFiles(e.target.files);
     },
 
@@ -85,7 +95,7 @@ export default {
       this.uploadFiles(e.dataTransfer.files);
     },
 
-    uploadFiles(files) {
+    async uploadFiles(files) {
       const { maxSize } = this;
 
       this.errors = [];
@@ -93,6 +103,7 @@ export default {
 
       if (files.length) {
         const formData = new FormData();
+        formData.append('type', this.type);
 
         Array.from(files)
           .forEach((f) => {
@@ -109,19 +120,47 @@ export default {
             }
           });
 
-        // Emit the FormData and image URL to the parent component
-        this.$emit('input', {
-          formData,
-          fileUrl: this.fileUrl,
+        // submit file to api
+        const response = await ApiService.post('/files/multiple', formData, {
+          headers: { 'content-type': 'multipart/form-data' },
         });
+
+        // Emit response as file entry
+        this.$emit('input', response.data.data);
 
         this.uploading = false;
       }
     },
-    removeImage(e, img, index) {
+    removeImage(e, index) {
       e.preventDefault();
       this.fileUrls.splice(index, 1);
     },
+  },
+  watch: {
+    value(n) {
+      if (n && n.length && !this.fileUrls.length) {
+        this.fileUrls = n.map((i) => {
+          if (i.permissions === 'public') {
+            return process.env.VUE_APP_PUBLIC_BUCKET + i.fileName;
+          }
+
+          // TODO fetch signed url
+          return i.fileName;
+        });
+      }
+    },
+  },
+  mounted() {
+    if (this.value && this.value.length && !this.fileUrls.length) {
+      this.fileUrls = this.value.map((i) => {
+        if (i.permissions === 'public') {
+          return process.env.VUE_APP_PUBLIC_BUCKET + i.fileName;
+        }
+
+        // TODO fetch signed url
+        return i.fileName;
+      });
+    }
   },
 };
 </script>

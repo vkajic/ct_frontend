@@ -1,9 +1,37 @@
-import UtilService from '../services/util.service';
+import apiService from '../services/api.service';
 
 /* eslint-disable no-param-reassign */
 const initialState = {
   skills: [],
   languages: [],
+};
+
+const actions = {
+  /**
+   * Get skills from service and set them if not already set
+   * @param commit
+   * @param state
+   * @return {Promise<void>}
+   */
+  async getSkills({ commit, state }) {
+    if (!state.skills.length) {
+      const skills = await apiService.get('/utils/categories');
+      commit('setSkills', skills.data.data);
+    }
+  },
+
+  /**
+   * Get languages from service and set them if not already set
+   * @param commit
+   * @param state
+   * @return {Promise<void>}
+   */
+  async getLanguages({ commit, state }) {
+    if (!state.languages.length) {
+      const languages = await apiService.get('/utils/languages');
+      commit('setLanguages', languages.data.data);
+    }
+  },
 };
 
 const mutations = {
@@ -23,34 +51,6 @@ const mutations = {
    */
   setLanguages(state, languages) {
     state.languages = languages;
-  },
-};
-
-const actions = {
-  /**
-   * Get skills from service and set them if not already set
-   * @param commit
-   * @param state
-   * @return {Promise<void>}
-   */
-  async getSkills({ commit, state }) {
-    if (!state.skills.length) {
-      const skills = await UtilService.getSkills();
-      commit('setSkills', skills.data.data);
-    }
-  },
-
-  /**
-   * Get languages from service and set them if not already set
-   * @param commit
-   * @param state
-   * @return {Promise<void>}
-   */
-  async getLanguages({ commit, state }) {
-    if (!state.languages.length) {
-      const languages = await UtilService.getLanguages();
-      commit('setLanguages', languages.data.data);
-    }
   },
 };
 

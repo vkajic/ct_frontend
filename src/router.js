@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from './store';
 import Home from './views/Home.vue';
 import MainLayout from './layouts/main/MainLayout.vue';
 import CreateTask from './views/CreateTask.vue';
@@ -21,10 +22,11 @@ import Experience from './views/createFreelancer/Experience.vue';
 import Projects from './views/createFreelancer/Projects.vue';
 import Preview from './views/createFreelancer/Preview.vue';
 import MyJobs from './views/MyJobs.vue';
+import TokenService from './services/token.service.js';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -55,6 +57,7 @@ export default new Router({
         {
           path: '/',
           component: Entry,
+          meta: { requiresAuth: true },
           children: [
             {
               path: '/',
@@ -76,8 +79,8 @@ export default new Router({
                   component: Skills,
                 },
                 {
-                  path: 'experience',
-                  name: 'experience',
+                  path: 'work-experience',
+                  name: 'workExperience',
                   component: Experience,
                 },
                 {
@@ -93,7 +96,7 @@ export default new Router({
               ],
             },
             {
-              path: '/auth/confirm-email/:hash',
+              path: '/confirm-email/:hash',
               name: 'confirmEmail',
               component: EmailConfirmation,
             },
@@ -138,3 +141,23 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const token = TokenService.getToken();
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    if (!token) {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath },
+      });
+    } else {
+      next();
+    }
+  } else {
+    next(); // make sure to always call next()!
+  }
+});
+
+export default router;

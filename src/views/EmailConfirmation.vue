@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import AuthService from '../services/auth.service';
+import ApiService from '../services/api.service';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -27,10 +27,10 @@ export default {
     const { hash } = this.$route.params;
 
     if (hash) {
-      AuthService.confirmEmail(hash)
+      ApiService.post('auth/email-confirm', { hash })
         .then(() => {
           this.error = null;
-          this.$router.replace('/auth');
+          this.$router.replace('/login');
           this.$store.dispatch('ui/showNotification', {
             text: 'Email successfully confirmed. Please login with your credentials.',
             type: 'success',

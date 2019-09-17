@@ -1,6 +1,6 @@
 <template>
   <funnel-container>
-    <projects-form/>
+    <projects-form :freelancer="freelancer"/>
   </funnel-container>
 </template>
 
@@ -14,6 +14,11 @@ export default {
   components: {
     ProjectsForm,
     FunnelContainer,
+  },
+  computed: {
+    freelancer() {
+      return this.$store.state.user.user ? this.$store.state.user.user.freelancer : null;
+    },
   },
 };
 </script>
