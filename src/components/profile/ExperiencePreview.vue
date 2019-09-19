@@ -6,8 +6,7 @@
       See Resume
     </b-button>
 
-    <experience-preview-item class="mb-5"/>
-    <experience-preview-item/>
+    <experience-preview-item class="mb-5" v-for="(item, index) in items" :key="index" :item="item"/>
   </div>
 </template>
 
@@ -18,6 +17,14 @@ import ExperiencePreviewItem from './ExperiencePreviewItem.vue';
 export default {
   name: 'ExperiencePreview',
   components: { ExperiencePreviewItem },
+  props: {
+    items: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
   methods: {
     downloadResume() {
       console.log('downloading resume');

@@ -10,14 +10,18 @@ export default {
   name: 'AvatarDisplay',
   props: {
     avatar: {
-      type: String,
-      default: null,
+      type: Object,
+      default() {
+        return {};
+      },
     },
   },
   computed: {
     image() {
-      // eslint-disable-next-line global-require
-      return this.avatar ? this.avatar : require('@/assets/img/avatar-placeholder.png');
+      return this.avatar && this.avatar.fileName
+        ? process.env.VUE_APP_PUBLIC_BUCKET + this.avatar.fileName
+        // eslint-disable-next-line global-require
+        : require('@/assets/img/avatar-placeholder.png');
     },
   },
 };

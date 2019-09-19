@@ -1,31 +1,34 @@
 <template>
   <div class="row">
     <div class="col-4">
-      <h5>Lead Designer</h5>
-      <p>Gaming Battleground</p>
-      <p class="text-muted">2019 - Present</p>
+      <h5>{{item.title}}</h5>
+      <p>{{item.company}}</p>
+      <p class="text-muted">
+        {{item.from | date('YYYY')}} -
+        <span v-if="item.to">{{item.to | date('YYYY')}}</span>
+        <span v-if="!item.to">Present</span>
+      </p>
     </div>
     <div class="col-8">
-      <ul>
-        <li>Designed landing pages, apps, and web pages for many Proctor & Gamble brands.</li>
-        <li>Worked as the lead designer on Network90 - The worlds biggest professional
-          athlete network, co-founded by Luis Figo.
-        </li>
-        <li>Worked as lead designer on Juice Motel, an exciting new lifestyle website & app, from
-          renowned French fashion photographer Jean Baptiste Fort.
-        </li>
-        <li>Created detailed UI design tutorials for Digital Arts Online/Magazine.</li>
-        <li>Created detailed UI design tutorials for Digital Arts Online/Magazine.</li>
-        <li>Wrote several articles, on a regular basis, for Designmodo.</li>
-      </ul>
-      Technologies: Adobe Photoshop, Adobe Illustrator, Axure
+      {{item.description}}
     </div>
   </div>
 </template>
 
 <script>
+import { dateFilter } from 'vue-date-fns';
+
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ExperiencePreviewItem',
+  filters: {
+    date: dateFilter,
+  },
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
+  },
 };
 </script>

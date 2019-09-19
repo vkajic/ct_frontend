@@ -1,36 +1,34 @@
 <template>
   <ul class="list-unstyled funnel-menu">
-    <!-- <li v-for="(item, index) in items"
-        :key="index"
-        :class="{'completed': item.completed, 'active': item.active}">
-      <router-link :to="item.link" v-if="item.completed">
-        <check-circle-icon/>
-        {{item.title}}
-      </router-link>
-
-      <div v-if="!item.completed">
-        <check-circle-icon/>
-        {{item.title}}
-      </div>
-    </li> -->
-
-    <li class="completed">
-      <a href="#">
+    <li>
+      <router-link to="/create-freelancer/basic-info">
         <check-circle-icon/>
         Basic info
-      </a>
-    </li>
-    <li class="active">
-      <a href="#">
-        <check-circle-icon/>
-        Skills & services
-      </a>
+      </router-link>
     </li>
     <li>
-      <a href="#">
+      <router-link to="/create-freelancer/skills">
+        <check-circle-icon/>
+        Skills & services
+      </router-link>
+    </li>
+    <li>
+      <router-link to="/create-freelancer/work-experience">
         <check-circle-icon/>
         Work experience
-      </a>
+      </router-link>
+    </li>
+    <li>
+      <router-link to="/create-freelancer/projects">
+        <check-circle-icon/>
+        Add projects
+      </router-link>
+    </li>
+    <li>
+      <router-link to="/create-freelancer/preview">
+        <check-circle-icon/>
+        Publish profile
+      </router-link>
     </li>
   </ul>
 </template>

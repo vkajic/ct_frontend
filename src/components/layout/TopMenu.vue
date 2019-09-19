@@ -1,5 +1,5 @@
 <template>
-  <ul class="top-menu list-unstyled list-inline m-0">
+  <ul class="top-menu list-unstyled list-inline m-0" v-if="!user">
     <li class="list-inline-item"><a href="#">Browse Job Categories</a></li>
     <li class="list-inline-item"><a href="#">Post Job</a></li>
     <li class="list-inline-item"><a href="#">How Cryptotask Works</a></li>
@@ -10,5 +10,10 @@
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'TopMenu',
+  computed: {
+    user() {
+      return this.$store.state.user.user;
+    },
+  },
 };
 </script>

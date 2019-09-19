@@ -1,12 +1,24 @@
 <template>
   <div>
     <label v-if="label">{{label}}</label>
-    <input-field :name="name"
-                 :value="value"
-                 :placeholder="placeholder"
-                 :validation="validation"
-                 @input="$emit('input', $event)"/>
-    <validation-messages v-if="validation" :title="placeholder" :validation="validation"/>
+    <div class="input-group">
+      <div class="input-group-prepend" v-if="hasPrependSlot">
+        <span class="input-group-text">
+          <slot name="prepend"/>
+        </span>
+      </div>
+      <input-field :name="name"
+                   :value="value"
+                   :placeholder="placeholder"
+                   :validation="validation"
+                   @input="$emit('input', $event)"/>
+      <div class="input-group-append" v-if="hasAppendSlot">
+        <span class="input-group-text">
+          <slot name="append"/>
+        </span>
+      </div>
+      <validation-messages v-if="validation" :title="placeholder" :validation="validation"/>
+    </div>
   </div>
 </template>
 
@@ -45,6 +57,15 @@ export default {
     validation: {
       type: Object,
       default: null,
+    },
+  },
+  computed: {
+    hasPrependSlot() {
+      return !!this.$slots.prepend;
+    },
+
+    hasAppendSlot() {
+      return !!this.$slots.append;
     },
   },
 };

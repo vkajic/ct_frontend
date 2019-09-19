@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign,import/no-cycle */
 import { get } from 'lodash';
-import TasksService from '../services/tasks.service';
+import ApiService from '../services/api.service';
 
 const initialState = {
-  myPosted: [],
+  myTasks: [],
   appliedFor: [],
   workingOn: [],
   reviewing: [],
@@ -25,9 +25,9 @@ const actions = {
    * @return {Promise<void>}
    */
   async create({ commit }, data) {
-    const res = await TasksService.create(data);
+    const res = await ApiService.post('/tasks', data);
 
-    commit('addMyPosted', res.data.data);
+    commit('addMyTask', res.data.data);
   },
 
   /**
@@ -38,9 +38,9 @@ const actions = {
    * @return {Promise<void>}
    */
   async update({ commit }, { id, data }) {
-    const res = await TasksService.update(id, data);
+    const res = await ApiService.put(`/tasks/${id}`, data);
 
-    commit('updateMyPosted', {
+    commit('updateMyTask', {
       id,
       taskData: res.data.data,
     });
@@ -53,7 +53,7 @@ const actions = {
    * @return {Promise<void>}
    */
   async delete({ commit }, id) {
-    await TasksService.delete(id);
+    await ApiService.delete(`/tasks/${id}`);
 
     commit('deleteMyTask', id);
   },
@@ -61,12 +61,15 @@ const actions = {
   /**
    * @return {Promise<void>}
    */
-  async loadMyTasks({ commit }) {
-    const tasks = await TasksService.getMyTasks();
+  async loadMyTasks({ commit }, { term, sort }) {
+    const tasks = await ApiService.get('/tasks/my', {
+      params: {
+        term,
+        sort,
+      },
+    });
 
-    commit('setMyPosted', tasks.data.data.created);
-    commit('setWorkingOn', tasks.data.data.workingOn);
-    commit('setAppliedFor', tasks.data.data.appliedFor);
+    commit('setMyTasks', tasks.data.data);
   },
 
   /**
@@ -76,7 +79,7 @@ const actions = {
    * @return {Promise<void>}
    */
   async selectTask({ commit }, taskId) {
-    const task = await TasksService.getTask(taskId);
+    const task = await ApiService.get(`/tasks/${taskId}`);
 
     commit('setSelectedTask', task.data.data);
   },
@@ -85,11 +88,15 @@ const actions = {
    * Apply for task
    * @param commit
    * @param {Number} taskId
+   * @param letter
    * @return {Promise<void>}
    */
-  async applyForTask({ commit }, taskId) {
+  async applyForTask({ commit }, { taskId, letter }) {
     try {
-      const application = await TasksService.applyForWork(taskId);
+      const application = await ApiService.post('/applications', {
+        taskId,
+        letter,
+      });
 
       commit('addTaskApplication', application.data.data);
     } catch (err) {
@@ -104,7 +111,7 @@ const actions = {
    * @return {Promise<void>}
    */
   async getApplication({ commit }, applicationId) {
-    const application = await TasksService.getApplication(applicationId);
+    const application = await ApiService.get(`/applications/${applicationId}`);
 
     commit('setSelectedApplication', application.data.data);
   },
@@ -116,8 +123,8 @@ const mutations = {
    * @param state
    * @param {Array} tasks
    */
-  setMyPosted(state, tasks) {
-    state.myPosted = tasks;
+  setMyTasks(state, tasks) {
+    state.myTasks = tasks;
   },
 
   /**
@@ -125,8 +132,8 @@ const mutations = {
    * @param state
    * @param {Object} taskData
    */
-  addMyPosted(state, taskData) {
-    state.myPosted.push(taskData);
+  addMyTask(state, taskData) {
+    state.myTasks.push(taskData);
   },
 
   /**
@@ -135,10 +142,10 @@ const mutations = {
    * @param {Number} id
    */
   deleteMyTask(state, id) {
-    const index = state.myPosted.findIndex(t => t.id === id);
+    const index = state.myTasks.findIndex(t => t.id === id);
 
     if (index > -1) {
-      state.myPosted.splice(1, index);
+      state.myTasks.splice(1, index);
     }
   },
 
@@ -148,11 +155,11 @@ const mutations = {
    * @param id
    * @param taskData
    */
-  updateMyPosted(state, { id, taskData }) {
-    const index = state.myPosted.findIndex(t => t.id === id);
+  updateMyTask(state, { id, taskData }) {
+    const index = state.myTasks.findIndex(t => t.id === id);
 
     if (index > -1) {
-      state.myPosted[index] = Object.assign({}, state.myPosted[index], taskData);
+      state.myTasks[index] = Object.assign({}, state.myTasks[index], taskData);
     }
   },
 
@@ -169,11 +176,9 @@ const mutations = {
    * Set selected task data
    * @param state
    * @param {Object} task - task data
-   * @param {Array} applications - list of task applications
    */
-  setSelectedTask(state, { task, applications }) {
+  setSelectedTask(state, task) {
     state.selectedTask = task;
-    state.selectedTaskApplications = applications;
   },
 
   /**

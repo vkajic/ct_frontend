@@ -144,7 +144,7 @@ export default {
         this.saving = true;
 
         try {
-          if (this.freelancer.id) {
+          if (this.freelancer && this.freelancer.id) {
             await this.$store.dispatch('user/updateFreelancerBasicInfo', this.form);
           } else {
             await this.$store.dispatch('user/createFreelancerBasicInfo', this.form);

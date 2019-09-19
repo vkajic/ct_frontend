@@ -1,0 +1,61 @@
+.main-menu {
+  li {
+    a {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.125rem;
+      color: $black;
+      padding: 1.5rem .5rem;
+
+      .feather {
+        stroke: $gray-600;
+        margin-right: 1rem;
+      }
+
+      &.router-link-active {
+        color: $green;
+
+        .feather {
+          stroke: $green;
+        }
+      }
+    }
+  }
+}
+
+.funnel-menu {
+  li {
+    a {
+      color: $gray-600;
+      display: flex;
+      align-items: center;
+      padding: 1rem .5rem;
+      font-weight: bold;
+
+      .feather {
+        stroke: $gray-500;
+        margin-right: 1rem;
+      }
+
+      &.router-link-active {
+        color: $green;
+
+        .feather {
+          stroke: $green;
+        }
+      }
+    }
+  }
+}
+
+.user-info-widget {
+  ul {
+    li {
+      a {
+        padding: 0 .5rem;
+        font-size: 1.125rem;
+      }
+    }
+  }
+}

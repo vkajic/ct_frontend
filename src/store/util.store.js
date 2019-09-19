@@ -54,11 +54,28 @@ const mutations = {
   },
 };
 
+const getters = {
+  /**
+   * Get all skills without categories
+   * @param state
+   */
+  getAllSkills(state) {
+    const skills = [];
+
+    state.skills.forEach((c) => {
+      skills.push(...c.skills);
+    });
+
+    return skills;
+  },
+};
+
 const store = {
   namespaced: true,
   state: initialState,
   mutations,
   actions,
+  getters,
 };
 
 export default store;

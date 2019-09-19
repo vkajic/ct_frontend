@@ -3,9 +3,7 @@
     <div class="small-heading mb-4">Skills Required</div>
 
     <ul class="list-unstyled">
-      <li><span>Content Strategy</span></li>
-      <li><span>Information Architecture</span></li>
-      <li><span>Customer Journey</span></li>
+      <li v-for="(skill, index) in skills" :key="index"><span>{{skill.name}}</span></li>
     </ul>
   </div>
 </template>
@@ -14,5 +12,13 @@
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'RequiredSkills',
+  props: {
+    skills: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
 };
 </script>

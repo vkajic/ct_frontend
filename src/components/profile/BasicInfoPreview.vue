@@ -1,31 +1,36 @@
 <template>
   <div class="row">
     <div class="col-4">
-      <avatar-display class="mb-4"/>
-      <a href="#" class="d-block "><u>
-        <small>www.kendal.design</small>
+      <avatar-display class="mb-4" :avatar="freelancer.avatar"/>
+      <a v-if="freelancer.web" :href="freelancer.web" class="d-block"><u>
+        <small>{{freelancer.web}}</small>
       </u></a>
     </div>
     <div class="col-8">
-      <h1>Kendal Noboa</h1>
+      <h1>{{freelancer.firstName}} {{freelancer.lastName}}</h1>
       <h6 class="mb-4 font-weight-normal">
-        JavaScript Developer in São Paulo, Brasil — Contract, Part time
+        <span v-if="freelancer.occupation">{{freelancer.occupation}}</span>
+        <span v-if="freelancer.location">in {{freelancer.location}}</span>
       </h6>
 
-      <p class="mb-4 lead">Kendal is a senior front-end web developer with over 15
-        years of experience at companies like Starbucks, Rosetta Stone,
-        and Livemocha. She specializes in building front-ends for JavaScript
-        web applications and has a deep expertise in the nuances of
-        cross-platform development.</p>
+      <p class="mb-4 lead">{{bio}}</p>
 
-      <tags-display :tags="tags" class="mb-5"/>
+      <tags-display :tags="freelancer.skills" class="mb-5"/>
 
-      <b-button variant="info" class="btn-round">Publish profile</b-button>
+      <b-button variant="info"
+                class="btn-round"
+                @click="publish"
+                :disabled="publishing"
+                v-if="!freelancer.published">
+        <template v-if="!publishing">Publish profile</template>
+        <template v-if="publishing">Publishing profile...</template>
+      </b-button>
     </div>
   </div>
 </template>
 
 <script>
+import { truncate } from 'lodash';
 import TagsDisplay from '../ui/TagsDisplay.vue';
 import AvatarDisplay from '../ui/AvatarDisplay.vue';
 
@@ -38,13 +43,36 @@ export default {
   },
   data() {
     return {
-      tags: [
-        { name: 'Vue.js' },
-        { name: 'Node.js' },
-        { name: 'PHP' },
-        { name: 'Laravel' },
-      ],
+      publishing: false,
     };
+  },
+  props: {
+    freelancer: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+  },
+  computed: {
+    bio() {
+      return truncate(this.freelancer.bio, {
+        length: 200,
+        separator: ' ',
+      });
+    },
+  },
+  methods: {
+    async publish() {
+      this.publishing = true;
+      await this.$store.dispatch('user/publishFreelancerProfile');
+      this.publishing = false;
+      this.$store.dispatch('ui/showNotification', {
+        type: 'success',
+        text: 'Profile successfully published',
+      });
+      this.$router.replace('/');
+    },
   },
 };
 </script>

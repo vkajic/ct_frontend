@@ -62,3 +62,39 @@
     }
   }
 }
+
+.applied-freelancer {
+  header {
+    background: $gray-100;
+    border-radius: .5rem;
+
+    .avatar-container {
+      width: 4rem;
+      margin-right: 1rem;
+
+      .avatar {
+        border-radius: .5rem;
+      }
+    }
+
+    .freelancer-name {
+      text-decoration: underline;
+      font-weight: bold;
+      font-size: 1.3125rem;
+    }
+
+    .freelancer-occupation {
+      font-size: .875rem;
+    }
+
+    .freelancer-meta {
+      font-size: .75rem;
+      color: $gray-600;
+    }
+  }
+
+  p {
+    color: $gray-800;
+    padding-left: 6rem;
+  }
+}

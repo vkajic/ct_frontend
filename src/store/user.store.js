@@ -8,6 +8,7 @@ const initialState = {
   user: null,
   loginError: null,
   registrationError: null,
+  activeRole: null,
 };
 
 const actions = {
@@ -39,6 +40,9 @@ const actions = {
 
         // check if profile exists and if does not redirect to profile wizard
         const firstRole = userData.roles[0].name;
+
+        commit('setActiveRole', firstRole);
+
         if (!userData[firstRole]) {
           router.replace(`/create-${firstRole}/basic-info`);
         }
@@ -66,7 +70,20 @@ const actions = {
     apiService.setHeader();
 
     const user = await apiService.get('/users/me');
-    commit('setUser', user.data.data);
+    const userData = user.data.data;
+
+    commit('setUser', userData);
+
+    // check if profile exists and if does not redirect to profile wizard
+    const firstRole = userData.roles[0].name;
+
+    commit('setActiveRole', firstRole);
+
+    if (!userData[firstRole]) {
+      router.replace(`/create-${firstRole}/basic-info`);
+    } else {
+      router.replace('/');
+    }
 
     this._vm.$socket.disconnect();
     this._vm.$socket.connect();
@@ -180,6 +197,41 @@ const actions = {
 
     commit('setFreelancerProjects', data);
   },
+
+  /**
+   * Create client basic data
+   * @param commit
+   * @param {Object} data
+   * @return {Promise<void>}
+   */
+  async createClientBasicInfo({ commit }, data) {
+    const clientData = await apiService.post('/clients', data);
+
+    commit('setClientBasicData', clientData.data.data);
+  },
+
+  /**
+   * Update client basic data
+   * @param commit
+   * @param {Object} data
+   * @return {Promise<void>}
+   */
+  async updateClientBasicInfo({ commit }, data) {
+    const clientData = await apiService.put('/clients', data);
+
+    commit('setClientBasicData', clientData.data.data);
+  },
+
+  /**
+   * Publish freelancer profile
+   * @param commit
+   * @return {Promise<void>}
+   */
+  async publishFreelancerProfile({ commit }) {
+    await apiService.put('/freelancers/publish');
+
+    commit('setFreelancerPublished');
+  },
 };
 
 const mutations = {
@@ -199,6 +251,20 @@ const mutations = {
    */
   setUser(state, user) {
     state.user = user;
+  },
+
+  /**
+   * Set active role for user
+   * @param state
+   * @param role
+   */
+  setActiveRole(state, role) {
+    const userRoles = state.user.roles.map(r => r.name);
+
+    // check if user has selected role attached
+    if (userRoles.indexOf(role) > -1) {
+      state.activeRole = role;
+    }
   },
 
   /**
@@ -252,6 +318,23 @@ const mutations = {
   setFreelancerProjects(state, data) {
     state.user.freelancer.projects = data;
   },
+
+  /**
+   * Set freelancer as published
+   * @param state
+   */
+  setFreelancerPublished(state) {
+    state.user.freelancer.published = true;
+  },
+
+  /**
+   * Set client basic data
+   * @param state
+   * @param data
+   */
+  setClientBasicData(state, data) {
+    state.user.client = Object.assign({}, data);
+  },
 };
 
 const getters = {
@@ -266,6 +349,34 @@ const getters = {
     }
 
     return null;
+  },
+
+  /**
+   * Get user name depending on active role
+   * @param state
+   * @return {*}
+   */
+  getUserName(state) {
+    const { activeRole } = state;
+
+    if (activeRole === 'freelancer' && state.user.freelancer) {
+      return `${state.user.freelancer.firstName} ${state.user.freelancer.lastName}`;
+    }
+
+    if (activeRole === 'client' && state.user.client) {
+      return state.user.client.name;
+    }
+
+    return null;
+  },
+
+  /**
+   * Get freelancer profile from user
+   * @param state
+   * @return {null}
+   */
+  getFreelancer(state) {
+    return state.user && state.user.freelancer ? state.user.freelancer : null;
   },
 };
 

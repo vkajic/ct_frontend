@@ -1,125 +1,106 @@
 <template>
-  <b-form @submit.prevent="saveTask">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <label>PROJECT TITLE</label>
-          <b-form-input type="text"
-                        class="form-control"
-                        v-model="form.title"
-                        :state="$v.form.title.$dirty ? !$v.form.title.$error : null"/>
-        </div>
-        <div class="form-group">
-          <label>PROJECT DESCRIPTION</label>
-          <b-form-textarea
-            class="form-control"
-            v-model="form.description"
-            :state="$v.form.description.$dirty ? !$v.form.description.$error : null"/>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="secondary">
-          <label>
-            Worktime left
-            <span class="gray transformnone">
-                | <span class="italic">
-                time in number of days which you think the freelancer can finish your job)</span>
-              </span>
-          </label>
-          <div class="row">
-            <div class="col-md-4">
-              <b-form-input type="text"
-                            class="form-control rounded-control gray"
-                            v-model="form.worktime"
-                            :state="$v.form.worktime.$dirty ? !$v.form.worktime.$error : null"/>
-            </div>
+  <div class="row">
+    <div class="col-12">
+      <h1 class="mb-5">{{ title }}</h1>
+
+      <b-form @submit.prevent="saveTask">
+        <input-group name="title"
+                     class="mb-3"
+                     v-model="form.title"
+                     placeholder="Job title"
+                     label="Title"
+                     :validation="$v.form.title"/>
+
+        <div class="row">
+          <div class="col-6">
+            <input-group name="duration"
+                         class="mb-3"
+                         v-model="form.duration"
+                         placeholder="Job duration"
+                         label="Duration"
+                         :validation="$v.form.duration">
+              <template slot="append">days</template>
+            </input-group>
+          </div>
+          <div class="col-6">
+            <input-group name="price"
+                         class="mb-3"
+                         v-model="form.price"
+                         placeholder="Job value"
+                         label="Value"
+                         :validation="$v.form.price">
+              <template slot="prepend">$</template>
+            </input-group>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-5">
-        <div class="secondary">
-          <label>Task value</label>
-          <b-form-input type="text"
-                        class="form-control rounded-control dark"
-                        v-model="form.price"
-                        :state="$v.form.price.$dirty ? !$v.form.price.$error : null"/>
+
+        <input-tags label="Required skills"
+                    class="mb-3"
+                    v-model="form.skills"
+                    placeholder="Select skills"
+                    :options="skills"
+                    options-label="name"/>
+
+        <textarea-group name="description"
+                        class="mb-4"
+                        v-model="form.description"
+                        label="Description"
+                        :rows="12"
+                        :validation="$v.form.description"/>
+
+        <div class="pt-5 d-flex justify-content-end align-items-center">
+          <b-button type="submit" variant="info" class="btn-round" :disabled="sending">
+            <template v-if="!sending">Post job</template>
+            <template v-if="sending">Saving...</template>
+          </b-button>
         </div>
-      </div>
-      <div class="col-2 text-center">
-        <div class="plus">+</div>
-      </div>
-      <div class="col-5">
-        <div class="secondary">
-          <label>
-            10% dispute escrow *
-            <span class="gray transformnone">
-                | <span class="italic">generated automatically</span>
-              </span>
-          </label>
-          <div class="deadline small">
-            {{disputedPrice}}<span class="ctf">ctf</span>
-          </div>
-        </div>
-      </div>
+      </b-form>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-          <span class="disclaimer">
-            * 10% dispute escrow will be returned unless there was a dispute and you lost.
-            It is NOT fee for our services.
-          </span>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-md-12">
-        <b-form-checkbox v-model="form.published"
-                         name="published"
-                         :value="true"
-                         :unchecked-value="false">
-          Published
-        </b-form-checkbox>
-      </div>
-    </div>
-    <div class="row mt-3">
-      <div class="col-md-12">
-        <task-attachment-uploader @attach="attach" :attachments="form.Attachments"/>
-      </div>
-    </div>
-    <div class="row submitrow">
-      <div class="col-md-12 text-center">
-        <button class="btn btn-primary" type="submit" :disabled="sending">Submit job</button>
-      </div>
-    </div>
-  </b-form>
+  </div>
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators';
-import TaskAttachmentUploader from './TaskAttachmentUploader.vue';
+import {
+  required, integer, minValue, decimal,
+} from 'vuelidate/lib/validators';
+import InputGroup from '../form/InputGroup.vue';
+import InputTags from '../form/InputTags.vue';
+import TextareaGroup from '../form/TextareaGroup.vue';
+
+// TODO add attachments uploader
+
+const initialForm = {
+  title: null,
+  description: null,
+  price: null,
+  duration: null,
+  published: false,
+  attachments: [],
+};
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'TaskForm',
-  components: { TaskAttachmentUploader },
+  components: {
+    TextareaGroup,
+    InputTags,
+    InputGroup,
+  },
   props: {
+    title: {
+      type: String,
+      default: 'Post new job',
+    },
     task: {
       type: Object,
+      default() {
+        return {};
+      },
     },
   },
   data() {
     return {
-      form: {
-        title: null,
-        description: null,
-        price: null,
-        worktime: null,
-        published: false,
-        Attachments: [],
-      },
+      form: Object.assign({}, initialForm),
       sending: false,
     };
   },
@@ -129,6 +110,11 @@ export default {
         this.form = Object.assign({}, this.form, this.task);
       }
     },
+  },
+  mounted() {
+    if (this.task) {
+      this.form = Object.assign({}, this.form, this.task);
+    }
   },
   validations: {
     form: {
@@ -140,9 +126,13 @@ export default {
       },
       price: {
         required,
+        decimal,
+        minValue: minValue(1),
       },
-      worktime: {
+      duration: {
         required,
+        integer,
+        minValue: minValue(1),
       },
     },
   },
@@ -153,6 +143,13 @@ export default {
       }
 
       return '';
+    },
+
+    /**
+     * Get all skills for dropdown
+     */
+    skills() {
+      return this.$store.getters['util/getAllSkills'];
     },
   },
   methods: {
@@ -166,9 +163,9 @@ export default {
         this.sending = true;
 
         try {
-          if (!this.task) {
+          if (!this.task || !this.task.id) {
             await this.$store.dispatch('tasks/create', this.form);
-            this.form = {};
+            this.form = Object.assign({}, initialForm);
           } else {
             await this.$store.dispatch('tasks/update', {
               id: this.task.id,
@@ -199,7 +196,7 @@ export default {
      * @param files
      */
     attach(files) {
-      this.form.Attachments = files;
+      this.form.attachments = files;
     },
   },
 };

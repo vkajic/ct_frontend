@@ -4,7 +4,7 @@
       <categories-dropdown @select="selectCategory" class="mr-5"/>
       <sort-dropdown @select="selectSort"/>
     </div>
-    <quick-search/>
+    <quick-search @search="search"/>
   </div>
 </template>
 
@@ -23,10 +23,13 @@ export default {
   },
   methods: {
     selectCategory(c) {
-      console.log(c);
+      this.$emit('category', c);
     },
     selectSort(c) {
-      console.log(c);
+      this.$emit('sort', c);
+    },
+    search(e) {
+      this.$emit('search', e);
     },
   },
 };

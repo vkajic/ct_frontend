@@ -78,7 +78,6 @@ export default {
           this.form = {};
           this.$v.$reset();
           this.sending = false;
-          this.$router.replace('/');
         } catch (err) {
           this.sending = false;
           this.loginError = err.response.data.message;

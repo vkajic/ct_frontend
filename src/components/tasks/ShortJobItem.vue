@@ -32,5 +32,13 @@ export default {
     SmallEmployer,
     TaskTags,
   },
+  props: {
+    task: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+  },
 };
 </script>

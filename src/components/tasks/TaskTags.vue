@@ -1,11 +1,6 @@
 <template>
   <ul class="task-tags list-unstyled list-inline mb-4">
-    <li class="list-inline-item">HTML</li>
-    <li class="list-inline-item">CSS</li>
-    <li class="list-inline-item">jQuery</li>
-    <li class="list-inline-item">HTML</li>
-    <li class="list-inline-item">HTML</li>
-    <li class="list-inline-item">HTML</li>
+    <li class="list-inline-item" v-for="(tag, index) in tags" :key="index">{{tag[nameLabel]}}</li>
   </ul>
 </template>
 
@@ -13,5 +8,17 @@
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'TaskTags',
+  props: {
+    tags: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+    nameLabel: {
+      type: String,
+      default: 'name',
+    },
+  },
 };
 </script>

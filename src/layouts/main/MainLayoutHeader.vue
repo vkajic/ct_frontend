@@ -14,7 +14,7 @@
           <top-menu/>
         </div>
         <div class="col-md-3 d-flex justify-content-end align-content-center">
-          <header-menu/>
+          <user-info/>
         </div>
       </div>
     </div>
@@ -22,13 +22,13 @@
 </template>
 
 <script>
-// noinspection JSUnusedGlobalSymbols
-import HeaderMenu from '../../components/HeaderMenu.vue';
 import TopMenu from '../../components/layout/TopMenu.vue';
+import UserInfo from '../../components/ui/UserInfo.vue';
 
+// noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MainLayoutHeader',
-  components: { TopMenu, HeaderMenu },
+  components: { UserInfo, TopMenu },
   data() {
     return {
       balance: 0,

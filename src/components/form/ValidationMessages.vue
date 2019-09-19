@@ -3,6 +3,18 @@
     <template v-if="errorVisible('required')">
       {{title}} is required
     </template>
+    <template v-if="errorVisible('integer')">
+      {{title}} must be number
+    </template>
+    <template v-if="errorVisible('numeric')">
+      {{title}} must be number
+    </template>
+    <template v-if="errorVisible('decimal')">
+      {{title}} must be number
+    </template>
+    <template v-if="errorVisible('minValue')">
+      {{title}} must be bigger then {{validation.params.minValue.min}}
+    </template>
   </b-form-invalid-feedback>
 </template>
 
