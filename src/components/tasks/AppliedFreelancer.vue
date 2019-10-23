@@ -2,7 +2,7 @@
   <div class="applied-freelancer">
     <header class="d-flex align-items-center justify-content-between p-3">
       <div class="d-flex align-items-top">
-        <avatar-display :avatar="freelancer.avatar"/>
+        <avatar-picture :file="freelancer.avatar"/>
         <div>
           <router-link :to="`freelancers/${freelancer.id}`" class="freelancer-name">
             {{fullName}}
@@ -17,18 +17,22 @@
         <small>{{application.createdAt | date('MMM Do')}}</small>
       </div>
     </header>
-    <p class="py-3 pr-3">{{freelancer.bio}}</p>
+    <p class="pt-3 pr-3">{{application.letter}}</p>
+
+    <div class="reply">
+      <b-button variant="light" class="btn-round" @click="reply">Reply</b-button>
+    </div>
   </div>
 </template>
 
 <script>
 import { dateFilter } from 'vue-date-fns';
-import AvatarDisplay from '../ui/AvatarDisplay.vue';
+import AvatarPicture from '../profile/AvatarPicture.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'AppliedFreelancer',
-  components: { AvatarDisplay },
+  components: { AvatarPicture },
   props: {
     application: {
       type: Object,
@@ -47,6 +51,12 @@ export default {
     },
     fullName() {
       return `${this.freelancer.firstName} ${this.freelancer.lastName}`;
+    },
+  },
+  methods: {
+    reply() {
+      this.$store.commit('tasks/setSelectedApplication', this.application);
+      this.$emit('select', this.application);
     },
   },
 };

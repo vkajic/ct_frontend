@@ -2,12 +2,6 @@
   <div class="auth-form">
     <h1 class="mb-5">Sign Up.</h1>
 
-    <b-alert variant="danger" :show="registrationError" dismissible class="mb-2">
-      {{registrationError}}
-    </b-alert>
-    <b-alert variant="success" :show="registrationSuccess" dismissible class="mb-2">
-      {{registrationSuccess}}
-    </b-alert>
     <b-form @submit.prevent="register">
 
       <auth-role-selector :selected="form.role" @select="selectRole" class="mb-4"/>
@@ -76,8 +70,6 @@ export default {
     return {
       form: Object.assign({}, initialForm),
       sending: false,
-      registrationError: null,
-      registrationSuccess: null,
       passwordDescription: `Make sure it's at least 15 characters OR at least
       8 characters including a number and a lowercase letter.`,
     };
@@ -108,17 +100,22 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         this.sending = true;
-        this.registrationError = null;
 
         try {
           await this.$store.dispatch('user/register', this.form);
           this.form = initialForm;
           this.$v.$reset();
           this.sending = false;
-          this.registrationSuccess = 'You are registered. Please check your email for confirmation';
+          this.$store.dispatch('ui/showNotification', {
+            type: 'success',
+            text: 'You are registered. Please check your email for confirmation',
+          });
         } catch (err) {
           this.sending = false;
-          this.registrationError = err.response.data.message;
+          this.$store.dispatch('ui/showNotification', {
+            type: 'danger',
+            text: `Something went wrong. ${err.response.data.message}`,
+          });
         }
       }
     },

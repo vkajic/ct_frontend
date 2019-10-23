@@ -5,7 +5,14 @@
         <bell-icon size="1.5x"/>
       </a>
 
-      <div class="ml-3">{{userName}}</div>
+      <div class="ml-3">
+        <b-dropdown :text="userName || ''" variant="link" no-caret right>
+          <b-dropdown-item-button @click="logout">Logout</b-dropdown-item-button>
+          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-item-button>Edit Profile</b-dropdown-item-button>
+          <b-dropdown-item-button>Change password</b-dropdown-item-button>
+        </b-dropdown>
+      </div>
     </div>
     <div class="user-info-widget d-flex align-items-center pr-4" v-if="!loggedIn">
       <ul class="list-unstyled list-inline">
@@ -35,13 +42,16 @@ export default {
     showNotifications(e) {
       e.preventDefault();
     },
+    logout() {
+      this.$store.dispatch('user/logout');
+    },
   },
   computed: {
     loggedIn() {
       return !!this.$store.state.user.token;
     },
     userName() {
-      return this.$store.getters['user/getUserName'];
+      return this.$store.getters['user/getUserName'] || 'User';
     },
   },
 };

@@ -1,25 +1,26 @@
 <template>
-  <div class="chat-container container pt-3 d-flex flex-column">
-    <div class="messages flex-grow-1" @scroll="onScroll" ref="messagesContainer">
+  <div class="chat-container d-flex flex-column">
+    <div class="messages flex-grow-1 mb-3" @scroll="onScroll" ref="messagesContainer">
       <div class="loading text-center p-2" v-if="loading">Loading...</div>
-      <p v-if="!messages.length">Send your first message!</p>
+      <!--<p v-if="!messages.length">Send your first message!</p>-->
       <chat-message v-for="message in messages" :message="message" :key="message.id"/>
     </div>
-    <chat-input @send="createMessage"/>
-    <file-uploader @attach="attach"/>
+    <chat-input :application="application" @send="createMessage" @attach="attach"/>
+    <chat-typing-info :application="application"/>
   </div>
 </template>
 
 <script>
 import ChatMessage from './ChatMessage.vue';
 import ChatInput from './ChatInput.vue';
-import FileUploader from '../../FileUploader.vue';
+import ChatTypingInfo from './ChatTypingInfo.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ChatContainer',
   components: {
-    FileUploader,
+    ChatTypingInfo,
+    // FileUploader,
     ChatInput,
     ChatMessage,
   },
@@ -63,6 +64,13 @@ export default {
     messagesLeftToLoad() {
       return this.$store.getters['chat/getMessagesLeft'];
     },
+
+    /**
+     * Current user active role
+     */
+    userRole() {
+      return this.$store.state.user.activeRole;
+    },
   },
   methods: {
     /**
@@ -72,6 +80,7 @@ export default {
       this.$socket.emit('sendMessage', {
         text: message,
         applicationId: this.application.id,
+        role: this.userRole,
       });
     },
 
@@ -83,6 +92,7 @@ export default {
         text: '',
         applicationId: this.application.id,
         attachmentIds: files.map(f => f.id),
+        role: this.userRole,
       });
     },
 
@@ -118,7 +128,10 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch('chat/getMessages', this.$route.params.id)
+    // subscribe to chat
+    this.$socket.emit('subscribe', this.application.id);
+
+    this.$store.dispatch('chat/getMessages', this.application.id)
       .then(() => {
         this.scrollToBottom(true);
       });
@@ -126,8 +139,15 @@ export default {
   destroyed() {
     // reset messages in store on exit
     this.$store.commit('chat/resetMessages');
+    this.$socket.emit('unsubscribe', this.application.id);
   },
   watch: {
+    application(n) {
+      if (n) {
+        this.$socket.emit('subscribe', n.id);
+      }
+    },
+
     /**
      * On messages length change scroll to bottom if needed
      */

@@ -27,6 +27,8 @@ import Applications from './views/freelancer/Applications.vue';
 import InProgress from './views/freelancer/InProgress.vue';
 import ApplicationWorking from './views/freelancer/ApplicationWorking.vue';
 import MyTask from './views/client/MyTask.vue';
+import Freelancers from './views/client/Freelancers.vue';
+import Freelancer from './views/client/Freelancer.vue';
 
 Vue.use(Router);
 
@@ -164,6 +166,16 @@ const router = new Router({
               path: '/in-progress/:id',
               name: 'inProgressItem',
               component: ApplicationWorking,
+            },
+            {
+              path: '/freelancers',
+              name: 'freelancers',
+              component: Freelancers,
+            },
+            {
+              path: '/freelancers/:id',
+              name: 'freelancerPublicProfile',
+              component: Freelancer,
             },
           ],
         },

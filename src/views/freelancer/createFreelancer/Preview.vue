@@ -1,7 +1,18 @@
 <template>
   <div>
     <funnel-container class="mb-5">
-      <basic-info-preview :freelancer="freelancer"/>
+      <basic-info-preview :freelancer="freelancer">
+        <template slot="buttons">
+          <b-button variant="info"
+                    class="btn-round"
+                    @click="publish"
+                    :disabled="publishing"
+                    v-if="!freelancer.published">
+            <template v-if="!publishing">Publish profile</template>
+            <template v-else>Publishing profile...</template>
+          </b-button>
+        </template>
+      </basic-info-preview>
     </funnel-container>
 
     <div class="row">
@@ -33,11 +44,28 @@ export default {
     BasicInfoPreview,
     FunnelContainer,
   },
+  data() {
+    return {
+      publishing: false,
+    };
+  },
   computed: {
     freelancer() {
       return this.$store.state.user.user && this.$store.state.user.user.freelancer
         ? this.$store.state.user.user.freelancer
         : {};
+    },
+  },
+  methods: {
+    async publish() {
+      this.publishing = true;
+      await this.$store.dispatch('user/publishFreelancerProfile');
+      this.publishing = false;
+      this.$store.dispatch('ui/showNotification', {
+        type: 'success',
+        text: 'Profile successfully published',
+      });
+      this.$router.replace('/');
     },
   },
 };

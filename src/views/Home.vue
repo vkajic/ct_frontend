@@ -1,26 +1,19 @@
 <template>
-  <div class="row">
-    <div class="col-3 pt-5">
-      <left-menu/>
-    </div>
-    <div class="col-6">
-      <div v-if="activeRole === 'freelancer'">
-        <tasks-search/>
-      </div>
-      <div v-if="activeRole === 'client'"></div>
-    </div>
+  <div>
+    <tasks-search v-if="activeRole === 'freelancer'"/>
+    <freelancers-search v-if="activeRole === 'client'"/>
   </div>
 </template>
 
 <script>
-import LeftMenu from '../components/layout/LeftMenu.vue';
 import TasksSearch from '../components/search/TasksSearch.vue';
+import FreelancersSearch from '../components/client/FreelancersSearch.vue';
 
 export default {
   name: 'home',
   components: {
+    FreelancersSearch,
     TasksSearch,
-    LeftMenu,
   },
   computed: {
     activeRole() {

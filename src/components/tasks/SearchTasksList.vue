@@ -1,6 +1,6 @@
 <template>
   <div>
-    <search-task-item v-for="task in tasks" :key="task.id" :item="task"/>
+    <search-task-item v-for="task in tasks" :key="task.id" :task="task"/>
     <search-load-more-button/>
   </div>
 </template>

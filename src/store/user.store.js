@@ -79,10 +79,12 @@ const actions = {
 
     commit('setActiveRole', firstRole);
 
-    if (!userData[firstRole]) {
+    if (!userData.name) {
       router.replace(`/create-${firstRole}/basic-info`);
-    } else {
-      router.replace('/');
+    } else if (firstRole === 'freelancer') {
+      router.replace('/tasks');
+    } else if (firstRole === 'client') {
+      router.replace('/freelancers');
     }
 
     this._vm.$socket.disconnect();
@@ -105,13 +107,14 @@ const actions = {
    * @param commit
    */
   logout({ commit }) {
+    router.replace('/login');
+
     commit('setToken', null);
-    commit('setUser', null);
 
     tokenService.removeToken();
     apiService.removeHeader();
 
-    router.replace('/login');
+    commit('setUser', null);
   },
 
   /**
@@ -357,14 +360,12 @@ const getters = {
    * @return {*}
    */
   getUserName(state) {
-    const { activeRole } = state;
+    if (state.user) {
+      const { activeRole } = state;
 
-    if (activeRole === 'freelancer' && state.user.freelancer) {
-      return `${state.user.freelancer.firstName} ${state.user.freelancer.lastName}`;
-    }
-
-    if (activeRole === 'client' && state.user.client) {
-      return state.user.client.name;
+      if (state.user[activeRole]) {
+        return state.user[activeRole].name;
+      }
     }
 
     return null;

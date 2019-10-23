@@ -21,3 +21,33 @@
     }
   }
 }
+
+.freelancer-search-item {
+  .avatar {
+    margin-right: 2rem;
+    cursor: pointer;
+
+    img {
+      width: 86px;
+      height: 86px;
+      object-fit: cover;
+      border-radius: .5rem;
+    }
+  }
+}
+
+.project-preview {
+  img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+  }
+
+  h6 {
+    font-size: .875rem;
+  }
+
+  .tags {
+
+  }
+}

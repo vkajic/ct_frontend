@@ -1,13 +1,5 @@
 .search-heading {
   .dropdown-toggle-no-caret {
     font-size: 1.125rem;
-
-    &:after {
-      display: none;
-    }
-  }
-
-  .dropdown-menu {
-    box-shadow: $paper-shadow;
   }
 }

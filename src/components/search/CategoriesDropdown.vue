@@ -4,8 +4,10 @@
       <strong>Category</strong>
       <chevron-down-icon size="10" class="ml-2"/>
     </template>
-    <b-dropdown-item-button v-for="(c, i) in categories" :key="i"
-                     @click="selectCategory(c)">
+    <b-dropdown-item-button v-for="(c, i) in categories"
+                            :active="c === category"
+                            :key="i"
+                            @click="selectCategory(c)">
       {{c}}
     </b-dropdown-item-button>
   </b-dropdown>
@@ -20,9 +22,15 @@ export default {
   components: {
     ChevronDownIcon,
   },
+  props: {
+    category: {
+      type: String,
+      default: null,
+    },
+  },
   computed: {
     categories() {
-      return ['Programming', 'Design', 'Copywriting'];
+      return this.$store.state.util.skills.map(c => c.name);
     },
   },
   methods: {

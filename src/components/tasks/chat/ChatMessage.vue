@@ -1,19 +1,26 @@
 <template>
-  <div class="row mb-3">
-    <div class="col-sm-9" :class="{'offset-sm-3': type === 'sent'}">
-      <div class="chat-message p-2" :class="[type]">
-        <div class="name">{{message.Sender.name}} <span>{{createdAt}}</span></div>
-        <div class="message" v-if="!hasAttachments">{{message.text}}</div>
+  <div class="mb-3" v-if="message.text || hasAttachments">
+    <div class="chat-message d-flex align-items-start">
+      <chat-avatar :message="message"/>
+      <div class="flex-grow-1">
+        <div class="d-flex align-items-center">
+          <div class="name">{{senderName}}</div>
+          <div class="date">{{createdAt}}</div>
+        </div>
+        <div class="message">
+          <span v-if="!hasAttachments">{{message.text}}</span>
 
-        <template v-if="hasAttachments">
-          <ul class="list-unstyled list-inline m-0">
-            <li v-for="attachment in message.Attachments"
-                :key="attachment.id"
-                class="list-inline-item">
-              <chat-attachment :attachment="attachment" :message="message"/>
-            </li>
-          </ul>
-        </template>
+          <template v-if="hasAttachments">
+            <ul class="list-unstyled m-0">
+              <li v-for="attachment in message.attachments"
+                  :key="attachment.id"
+                  class="list-inline-item">
+                <chat-attachment :attachment="attachment" :message="message"
+                                 @delete="attachmentDeleted"/>
+              </li>
+            </ul>
+          </template>
+        </div>
       </div>
     </div>
   </div>
@@ -21,12 +28,14 @@
 
 <script>
 import moment from 'moment';
+import { get } from 'lodash';
 import ChatAttachment from './ChatAttachment.vue';
+import ChatAvatar from './ChatAvatar.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ChatMessage',
-  components: { ChatAttachment },
+  components: { ChatAvatar, ChatAttachment },
   props: {
     message: {
       type: Object,
@@ -34,17 +43,27 @@ export default {
     },
   },
   computed: {
-    type() {
-      const userId = this.$store.state.user.user.id;
+    senderName() {
+      const { sender, role } = this.message;
+      const profile = get(sender, role);
 
-      return userId === this.message.senderId ? 'sent' : 'received';
+      if (profile) {
+        return profile.name;
+      }
+
+      return '';
     },
     createdAt() {
-      return this.message ? moment(this.message.createdAt)
-        .format('D.M.YYYY. HH:mm:ss') : '';
+      return moment(this.message.createdAt)
+        .format('D.M.YYYY. HH:mm:ss');
     },
     hasAttachments() {
-      return this.message && this.message.Attachments.length;
+      return this.message.attachments && this.message.attachments.length;
+    },
+  },
+  methods: {
+    attachmentDeleted() {
+      //
     },
   },
 };

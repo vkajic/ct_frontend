@@ -2,7 +2,7 @@
   position: fixed;
   top: 2.7rem;
   width: 100%;
-  z-index: $zindex-fixed;
+  z-index: 100000;
 
   .alert {
     color: $white;

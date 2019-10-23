@@ -9,7 +9,7 @@ const initialState = {
   reviewing: [],
   selectedTask: {},
   selectedTaskApplications: [],
-  selectedApplication: {},
+  selectedApplication: null,
 };
 
 const actions = {
@@ -61,12 +61,11 @@ const actions = {
   /**
    * @return {Promise<void>}
    */
-  async loadMyTasks({ commit }, { term, sort }) {
+  async loadMyTasks({ commit }, options) {
+    const params = { ...options };
+
     const tasks = await ApiService.get('/tasks/my', {
-      params: {
-        term,
-        sort,
-      },
+      params,
     });
 
     commit('setMyTasks', tasks.data.data);

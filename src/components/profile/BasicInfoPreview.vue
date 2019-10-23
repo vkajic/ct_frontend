@@ -10,21 +10,14 @@
       <h1>{{freelancer.firstName}} {{freelancer.lastName}}</h1>
       <h6 class="mb-4 font-weight-normal">
         <span v-if="freelancer.occupation">{{freelancer.occupation}}</span>
-        <span v-if="freelancer.location">in {{freelancer.location}}</span>
+        <span v-if="freelancer.location"> in {{freelancer.location}}</span>
       </h6>
 
       <p class="mb-4 lead">{{bio}}</p>
 
       <tags-display :tags="freelancer.skills" class="mb-5"/>
 
-      <b-button variant="info"
-                class="btn-round"
-                @click="publish"
-                :disabled="publishing"
-                v-if="!freelancer.published">
-        <template v-if="!publishing">Publish profile</template>
-        <template v-if="publishing">Publishing profile...</template>
-      </b-button>
+      <slot name="buttons"/>
     </div>
   </div>
 </template>
@@ -41,11 +34,6 @@ export default {
     AvatarDisplay,
     TagsDisplay,
   },
-  data() {
-    return {
-      publishing: false,
-    };
-  },
   props: {
     freelancer: {
       type: Object,
@@ -60,18 +48,6 @@ export default {
         length: 200,
         separator: ' ',
       });
-    },
-  },
-  methods: {
-    async publish() {
-      this.publishing = true;
-      await this.$store.dispatch('user/publishFreelancerProfile');
-      this.publishing = false;
-      this.$store.dispatch('ui/showNotification', {
-        type: 'success',
-        text: 'Profile successfully published',
-      });
-      this.$router.replace('/');
     },
   },
 };

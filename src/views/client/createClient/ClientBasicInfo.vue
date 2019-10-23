@@ -1,25 +1,20 @@
 <template>
-  <div class="row">
-    <div class="col-2 pt-5">
-      <left-menu/>
+  <page-wrapper :show-menu="false" :menu-width="2">
+    <div class="paper px-7 py-6">
+      <client-basic-info-form :client="client" :redirect-after-save="true"/>
     </div>
-    <div class="col-8">
-      <div class="paper px-7 py-6">
-        <client-basic-info-form :client="client"/>
-      </div>
-    </div>
-  </div>
+  </page-wrapper>
 </template>
 
 <script>
 import ClientBasicInfoForm from '../../../components/client/ClientBasicInfoForm.vue';
-import LeftMenu from '../../../components/layout/LeftMenu.vue';
+import PageWrapper from '../../../components/ui/PageWrapper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ClientBasicInfo',
   components: {
-    LeftMenu,
+    PageWrapper,
     ClientBasicInfoForm,
   },
   computed: {

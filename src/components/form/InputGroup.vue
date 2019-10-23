@@ -7,11 +7,19 @@
           <slot name="prepend"/>
         </span>
       </div>
-      <input-field :name="name"
+      <input-field v-if="!options.length"
+                   :name="name"
                    :value="value"
                    :placeholder="placeholder"
                    :validation="validation"
                    @input="$emit('input', $event)"/>
+      <input-select v-if="options.length"
+                    :name="name"
+                    :value="value"
+                    :placeholder="placeholder"
+                    :validation="validation"
+                    :options="options"
+                    @input="$emit('input', $event)"/>
       <div class="input-group-append" v-if="hasAppendSlot">
         <span class="input-group-text">
           <slot name="append"/>
@@ -25,11 +33,13 @@
 <script>
 import InputField from './InputField.vue';
 import ValidationMessages from './ValidationMessages.vue';
+import InputSelect from './InputSelect.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'InputGroup',
   components: {
+    InputSelect,
     ValidationMessages,
     InputField,
   },
@@ -57,6 +67,12 @@ export default {
     validation: {
       type: Object,
       default: null,
+    },
+    options: {
+      type: Array,
+      default() {
+        return [];
+      },
     },
   },
   computed: {

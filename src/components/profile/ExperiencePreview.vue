@@ -2,9 +2,12 @@
   <div class="experience-preview">
     <h2 class="mb-3">Experience</h2>
 
-    <b-button variant="outline-primary" class="btn-round mb-5" @click="downloadResume">
+    <a class="btn btn-round btn-outline-primary mb-5"
+       :href="resumeUrl"
+       target="_blank"
+       v-if="resumeExists">
       See Resume
-    </b-button>
+    </a>
 
     <experience-preview-item class="mb-5" v-for="(item, index) in items" :key="index" :item="item"/>
   </div>
@@ -24,10 +27,21 @@ export default {
         return [];
       },
     },
+    resume: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
   },
-  methods: {
-    downloadResume() {
-      console.log('downloading resume');
+  computed: {
+    resumeUrl() {
+      return this.resume && this.resume.fileName
+        ? `${process.env.VUE_APP_PUBLIC_BUCKET}${this.resume.fileName}`
+        : null;
+    },
+    resumeExists() {
+      return this.resume && Object.keys(this.resume).length;
     },
   },
 };

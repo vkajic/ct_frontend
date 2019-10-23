@@ -1,18 +1,20 @@
 <template>
-  <div>
+  <page-wrapper>
     <search-heading class="mb-5" @search="search" @sort="sort" @category="selectCategory"/>
     <tasks-group :tasks="tasks"/>
-  </div>
+  </page-wrapper>
 </template>
 
 <script>
 import SearchHeading from './SearchHeading.vue';
 import TasksGroup from './TasksGroup.vue';
+import PageWrapper from '../ui/PageWrapper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'TasksSearch',
   components: {
+    PageWrapper,
     TasksGroup,
     SearchHeading,
   },

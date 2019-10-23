@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 import Vue from 'vue';
-import { orderBy } from 'lodash';
+import { orderBy, set } from 'lodash';
 import ChatService from '../services/chat.service';
+import apiService from '../services/api.service.js';
 
 const initialState = {
   oldMessages: [],
@@ -21,15 +22,27 @@ const actions = {
    * @return {Promise<void>}
    */
   async getMessages({ commit, state }, applicationId) {
-    commit('setLoading', true);
+    try {
+      commit('setLoading', true);
 
-    const messages = await ChatService.getMessages(applicationId, state.lastId);
+      const options = {};
 
-    commit('setMessages', messages.data.data);
-    if (messages.data.data.messages.length) {
-      commit('setLastId', messages.data.data.messages[messages.data.data.messages.length - 1].id);
+      if (state.lastId) {
+        set(options, 'params.lastId', state.lastId);
+      }
+
+      const messages = await apiService.get(`/messages/${applicationId}`, options);
+
+      commit('setMessages', messages.data.data);
+      if (messages.data.data.messages.length) {
+        commit('setLastId', messages.data.data.messages[messages.data.data.messages.length - 1].id);
+      }
+      commit('setLoading', false);
+    } catch (err) {
+      console.error('greška', err);
+      commit('setLoading', false);
+      throw err;
     }
-    commit('setLoading', false);
   },
 
   /**

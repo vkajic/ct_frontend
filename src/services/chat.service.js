@@ -4,22 +4,6 @@ import apiService from './api.service';
 
 class ChatService {
   /**
-   * Get chat messages for task application
-   * @param {Number} applicationId
-   * @param {Number} [lastId] - last id already loaded (optional)
-   * @return {*}
-   */
-  getMessages(applicationId, lastId) {
-    const options = {};
-
-    if (lastId) {
-      set(options, 'params.lastId', lastId);
-    }
-
-    return apiService.get(`/messages/${applicationId}`, options);
-  }
-
-  /**
    * Send new message to API
    * @param {Number} applicationId
    * @param {String} text

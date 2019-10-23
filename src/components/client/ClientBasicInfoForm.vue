@@ -63,6 +63,10 @@ export default {
         return {};
       },
     },
+    redirectAfterSave: {
+      type: Boolean,
+      default: false,
+    },
   },
   validations: {
     form: {
@@ -97,8 +101,11 @@ export default {
           this.saving = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'success',
-            text: 'Your data is saved',
+            text: 'Your profile is saved',
           });
+          if (this.redirectAfterSave) {
+            this.$router.replace('/freelancers');
+          }
         } catch (err) {
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',

@@ -19,6 +19,8 @@
 @import "tabs";
 @import "alerts";
 @import "menus";
+@import "dropdown";
+@import "loaders";
 
 // Layout styles
 @import "layout/paper";
@@ -30,3 +32,5 @@
 @import "pages/freelancer";
 @import "pages/search";
 @import "pages/tasks";
+@import "pages/chat";
+@import "pages/landing";

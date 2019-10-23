@@ -1,6 +1,6 @@
 <template>
   <b-form @submit.prevent="search" class="quick-search">
-    <b-form-input v-model="term" placeholder="Search"/>
+    <b-form-input v-model="searchTerm" placeholder="Search"/>
     <button type="submit">
       <search-icon size="24"/>
     </button>
@@ -18,13 +18,22 @@ export default {
   },
   data() {
     return {
-      term: null,
+      searchTerm: null,
     };
+  },
+  props: {
+    term: {
+      type: String,
+      default: null,
+    },
   },
   methods: {
     search() {
-      this.$emit('search', this.term);
+      this.$emit('search', this.searchTerm);
     },
+  },
+  created() {
+    this.searchTerm = this.term;
   },
 };
 </script>

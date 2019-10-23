@@ -1,5 +1,5 @@
 <template>
-  <div class="task row">
+  <div class="task row" v-if="application">
     <div class="col-3 pt-5">
       <left-menu/>
     </div>
@@ -11,7 +11,9 @@
         <b-tab title="Project details" class="py-4">
           {{task.description}}
         </b-tab>
-        <b-tab title="Messages"></b-tab>
+        <b-tab title="Messages">
+          <chat-container :task="task" :application="application"/>
+        </b-tab>
       </b-tabs>
     </div>
     <div class="col-2">
@@ -27,11 +29,13 @@ import LeftMenu from '../layout/LeftMenu.vue';
 import SmallEmployer from './SmallEmployer.vue';
 import TaskDetails from './TaskDetails.vue';
 import RequiredSkills from './RequiredSkills.vue';
+import ChatContainer from './chat/ChatContainer.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ApplicationFreelancer',
   components: {
+    ChatContainer,
     RequiredSkills,
     TaskDetails,
     SmallEmployer,
@@ -42,7 +46,7 @@ export default {
       application: state => state.selectedApplication,
     }),
     task() {
-      return this.application.task || {};
+      return this.application ? this.application.task : {};
     },
   },
   created() {
@@ -52,19 +56,11 @@ export default {
     this.$store.dispatch('tasks/getApplication', id);
 
     // set messages as read for this application
-    this.$store.dispatch('chat/readMessages', id)
-      .then(() => {
-        // subscribe to chat
-        this.$socket.emit('subscribe', id);
-      });
+    this.$store.dispatch('chat/readMessages', id);
   },
   destroyed() {
-    const { id } = this.$route.params;
-
     // deselect application
     this.$store.commit('tasks/setSelectedApplication', {});
-
-    this.$socket.emit('unsubscribe', id);
   },
 };
 </script>

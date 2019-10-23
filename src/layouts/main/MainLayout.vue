@@ -12,7 +12,7 @@
 <script>
 import MainLayoutHeader from './MainLayoutHeader.vue';
 import MainLayoutFooter from './MainLayoutFooter.vue';
-import GlobalNotification from '../../components/GlobalNotification.vue';
+import GlobalNotification from '../../components/ui/GlobalNotification.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {

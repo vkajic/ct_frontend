@@ -52,7 +52,6 @@ export default {
         password: null,
       },
       sending: false,
-      loginError: null,
     };
   },
   validations: {
@@ -71,7 +70,6 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         this.sending = true;
-        this.loginError = null;
 
         try {
           await this.$store.dispatch('user/login', this.form);
@@ -80,7 +78,10 @@ export default {
           this.sending = false;
         } catch (err) {
           this.sending = false;
-          this.loginError = err.response.data.message;
+          this.$store.dispatch('ui/showNotification', {
+            type: 'danger',
+            text: `Something went wrong. ${err.response.data.message}`,
+          });
         }
       }
     },

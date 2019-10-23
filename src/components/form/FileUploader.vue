@@ -52,7 +52,7 @@ export default {
     },
     type: {
       type: String,
-      default: 'private',
+      default: 'public',
     },
     value: {
       type: Object,

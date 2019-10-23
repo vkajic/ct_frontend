@@ -1,0 +1,136 @@
+.chat-container {
+  padding: .5rem 0;
+
+  .messages {
+    min-height: 200px;
+    max-height: 800px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .chat-message {
+      padding: .5rem 0;
+
+      .avatar {
+        width: 2.5rem;
+        margin-right: .8rem;
+        padding-top: 2px;
+
+        img {
+          border-radius: .375rem;
+          overflow: hidden;
+          width: 2.5rem;
+          height: auto;
+          display: block;
+        }
+      }
+
+      .name {
+        font-weight: bold;
+        font-size: 0.875rem;
+      }
+
+      .date {
+        font-size: .75rem;
+        color: $gray-500;
+        margin-left: 8px;
+      }
+
+      .message {
+        color: $gray-700;
+
+        .attachment {
+          margin: .5rem 0;
+
+          .image-info {
+            font-size: .75rem;
+            color: $gray-500;
+            margin-bottom: .1rem;
+
+            .feather {
+              stroke: $gray-600;
+            }
+
+            button {
+              padding: 0;
+            }
+          }
+
+          .thumbnail {
+            border: 1px solid $gray-300;
+            border-radius: 4px;
+          }
+
+          a.file-attachment {
+            background: $gray-200;
+            border-radius: 1.25rem;
+            color: $gray-700;
+            text-decoration: underline;
+            font-size: .875rem;
+            font-weight: bold;
+            padding: .5rem 1rem;
+
+            .feather {
+              margin-right: .5rem;
+              stroke: $gray-600;
+            }
+
+            &:hover {
+              background: darken($gray-200, 5%);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .chat-input {
+    border: 2px solid $gray-200;
+    border-radius: 0.25rem;
+
+    .attachments {
+      .feather {
+        color: $gray-700;
+      }
+
+      &:focus {
+        outline: 0;
+      }
+
+      &:hover {
+        .feather {
+          color: $gray-800;
+        }
+      }
+    }
+
+    button {
+      border: 0;
+
+      &.submit {
+        background: $gray-200;
+        margin: 5px;
+        color: $gray-700;
+
+        &:hover {
+          background: $gray-300;
+        }
+      }
+    }
+
+    input {
+      border: 0;
+      line-height: 1.1875rem;
+
+      &:hover, &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+
+  .typing-user {
+    color: $gray-300;
+    font-size: .75rem;
+    padding: .5rem 0 0 1rem;
+  }
+}

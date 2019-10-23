@@ -1,0 +1,9 @@
+.dropdown-toggle-no-caret {
+  &::after {
+    display: none;
+  }
+}
+
+.dropdown-menu {
+  box-shadow: $paper-shadow;
+}

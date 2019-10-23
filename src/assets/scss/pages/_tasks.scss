@@ -68,11 +68,13 @@
     background: $gray-100;
     border-radius: .5rem;
 
-    .avatar-container {
+    .avatar {
       width: 4rem;
       margin-right: 1rem;
 
-      .avatar {
+      img {
+        width: 100%;
+        height: auto;
         border-radius: .5rem;
       }
     }
@@ -96,5 +98,14 @@
   p {
     color: $gray-800;
     padding-left: 6rem;
+  }
+
+  .reply {
+    padding-left: 6rem;
+
+    button {
+      font-size: 1rem;
+      color: $gray-600;
+    }
   }
 }

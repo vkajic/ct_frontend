@@ -1,4 +1,5 @@
 // Colors
+$gray-100: #F3F3F3;
 $gray-300: #D0D2D6;
 $gray-500: #9D9FA5;
 $gray-600: #72757D;
@@ -83,6 +84,8 @@ $input-placeholder-color: rgba($dark, 0.3);
 
 $custom-checkbox-indicator-border-radius: 0;
 
+$custom-select-border-radius: 0;
+
 // Paper
 $paper-shadow: 0 0 6rem 0 rgba($dark, 0.06);
 
@@ -112,3 +115,9 @@ $alert-color-level: 10;
 $alert-bg-level: 0;
 $alert-padding-x: 2.3rem;
 $alert-padding-y: 1rem;
+
+// Modal
+$modal-content-border-radius: 0;
+$modal-backdrop-bg: rgba(#F9F9F9, .8);
+$modal-content-border-width: 0;
+$modal-content-box-shadow-sm-up: 0 0 96px rgba(13, 13, 34, .1);

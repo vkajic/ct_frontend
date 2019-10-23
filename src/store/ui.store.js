@@ -1,6 +1,5 @@
-/* eslint-disable no-param-reassign */
 const initialState = {
-  mainLoader: true,
+  mainLoader: false,
   notificationText: null,
   notificationType: null,
   fileUploaderVisible: false,
@@ -8,8 +7,20 @@ const initialState = {
 };
 
 const mutations = {
-  toggleLoader(state) {
-    state.mainLoader = !state.mainLoader;
+  /**
+   * Show main loader
+   * @param state
+   */
+  showLoader(state) {
+    state.mainLoader = true;
+  },
+
+  /**
+   * Hide main loader
+   * @param state
+   */
+  hideLoader(state) {
+    state.mainLoader = false;
   },
 
   showNotification(state, { text, type }) {
