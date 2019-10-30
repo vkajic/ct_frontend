@@ -30,7 +30,6 @@
     <invite-to-job-modal v-if="freelancer"
                          :freelancer="freelancer"
                          :active="inviteActive"
-                         @invite="invite"
                          @close="closeInviteModal"/>
   </page-wrapper>
 </template>
@@ -78,9 +77,6 @@ export default {
     },
     closeInviteModal() {
       this.inviteActive = false;
-    },
-    invite(e) {
-      console.log(e);
     },
   },
 };

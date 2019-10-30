@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 import Vue from 'vue';
-import { orderBy, set } from 'lodash';
+import { orderBy, set, get } from 'lodash';
 import ChatService from '../services/chat.service';
-import apiService from '../services/api.service.js';
+import apiService from '../services/api.service';
 
 const initialState = {
   oldMessages: [],
@@ -39,7 +39,6 @@ const actions = {
       }
       commit('setLoading', false);
     } catch (err) {
-      console.error('greška', err);
       commit('setLoading', false);
       throw err;
     }
@@ -82,7 +81,7 @@ const actions = {
    */
   socket_messageReceived({ commit, state, rootState }, data) {
     const existingIndex = state.unreadMessages.findIndex(m => m.id === data.id);
-    const selectedApplicationId = rootState.tasks.selectedApplication.id;
+    const selectedApplicationId = get(rootState, 'tasks.selectedApplication.id');
 
     if (!selectedApplicationId || selectedApplicationId !== data.id) {
       if (

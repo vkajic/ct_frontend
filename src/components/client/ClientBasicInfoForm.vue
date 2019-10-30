@@ -93,11 +93,13 @@ export default {
         this.saving = true;
 
         try {
-          if (this.client && this.client.id) {
-            await this.$store.dispatch('user/updateClientBasicInfo', this.form);
-          } else {
-            await this.$store.dispatch('user/createClientBasicInfo', this.form);
-          }
+          await this.$store.dispatch('user/updateClientBasicInfo', this.form);
+
+          this.$store.commit('user/setProfileAvatar', {
+            avatar: this.form.avatar,
+            role: 'client',
+          });
+
           this.saving = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'success',

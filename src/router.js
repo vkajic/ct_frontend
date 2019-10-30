@@ -123,11 +123,6 @@ const router = new Router({
               component: CreateTask,
             },
             {
-              path: '/edit-task/:id',
-              name: 'edit-task',
-              component: EditTask,
-            },
-            {
               path: '/tasks',
               name: 'tasks',
               component: Search,
@@ -141,6 +136,11 @@ const router = new Router({
               path: '/my-tasks',
               name: 'myTasks',
               component: MyTasks,
+            },
+            {
+              path: '/my-tasks/:id/edit',
+              name: 'edit-task',
+              component: EditTask,
             },
             {
               path: '/my-tasks/:id',

@@ -66,10 +66,17 @@
         Share
       </a>
     </div>
+
+    <b-link :to="`/my-tasks/${task.id}/edit`"
+            class="btn btn-primary btn-block btn-round mt-4"
+            v-if="editAllowed">
+      Edit
+    </b-link>
   </div>
 </template>
 
 <script>
+import { get } from 'lodash';
 import { dateFilter } from 'vue-date-fns';
 import {
   CheckSquareIcon, PlusSquareIcon, CalendarIcon, CreditCardIcon, Share2Icon,
@@ -124,6 +131,16 @@ export default {
     alreadyApplied() {
       return this.applied
         || (!!this.task.applications && !!this.task.applications.length);
+    },
+
+    /**
+     * Is edit allowed on task
+     * Edit is allowed only if status is CREATED or HIRED and current user has created that task
+     * @return {boolean}
+     */
+    editAllowed() {
+      const client = get(this, '$store.state.user.user.client');
+      return this.task.status === 0 && client && client.id === this.task.postedBy;
     },
   },
   methods: {

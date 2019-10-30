@@ -1,14 +1,16 @@
 <template>
   <div>
     <h1 class="mb-5">Work experience</h1>
-
-    <file-uploader @input="resumeUploaded"
-                   @remove="resumeRemoved"
-                   class="mb-5"
-                   label="Upload resume"
-                   :value="resume"/>
-
     <b-form @submit.prevent="save">
+      <textarea-group name="resume"
+                      class="mb-5"
+                      :rows="10"
+                      :max-rows="20"
+                      v-model="resume"
+                      label="Resume"/>
+
+      <hr class="mb-5 d-block">
+
       <div class="m-0" v-for="(item, index) in $v.items.$each.$iter" :key="index">
         <input-group name="company"
                      class="mb-3"
@@ -72,7 +74,6 @@
 <script>
 import { required } from 'vuelidate/src/validators';
 import Datepicker from 'vuejs-datepicker/src/components/Datepicker.vue';
-import FileUploader from '../form/FileUploader.vue';
 import InputGroup from '../form/InputGroup.vue';
 import ValidationMessages from '../form/ValidationMessages.vue';
 import TextareaGroup from '../form/TextareaGroup.vue';
@@ -93,7 +94,6 @@ export default {
     ValidationMessages,
     Datepicker,
     InputGroup,
-    FileUploader,
   },
   props: {
     freelancer: {
@@ -122,8 +122,8 @@ export default {
   },
   data() {
     return {
-      items: [],
       resume: null,
+      items: [],
       saving: false,
     };
   },
@@ -132,12 +132,6 @@ export default {
       e.preventDefault();
       this.items.push(Object.assign({}, initialForm));
     },
-    resumeUploaded(e) {
-      this.$store.dispatch('user/updateFreelancerResume', e);
-    },
-    resumeRemoved() {
-      this.$store.dispatch('user/removeFreelancerResume');
-    },
     async save() {
       this.$v.$touch();
 
@@ -145,7 +139,10 @@ export default {
         this.saving = true;
 
         try {
-          await this.$store.dispatch('user/updateFreelancerExperience', this.items);
+          await this.$store.dispatch('user/updateFreelancerExperience', {
+            resume: this.resume,
+            items: this.items,
+          });
           this.saving = false;
           this.$router.push('/create-freelancer/projects');
         } catch (err) {
@@ -161,18 +158,15 @@ export default {
   watch: {
     freelancer(n) {
       if (n && n.id) {
-        this.resume = Object.assign({}, n.resume);
         this.items = [...n.workExperiences];
+        this.resume = n.resume;
       }
     },
   },
   mounted() {
-    if (this.freelancer && this.freelancer.resume) {
-      this.resume = Object.assign({}, this.freelancer.resume);
-    }
-
     if (this.freelancer && this.freelancer.workExperiences) {
       this.items = [...this.freelancer.workExperiences];
+      this.resume = this.freelancer.resume;
     }
   },
 };

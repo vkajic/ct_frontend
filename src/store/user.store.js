@@ -79,7 +79,7 @@ const actions = {
 
     commit('setActiveRole', firstRole);
 
-    if (!userData.name) {
+    if (!userData[firstRole].name) {
       router.replace(`/create-${firstRole}/basic-info`);
     } else if (firstRole === 'freelancer') {
       router.replace('/tasks');
@@ -280,6 +280,17 @@ const mutations = {
   },
 
   /**
+   * Set avatar data
+   * @param state
+   * @param {Object} data
+   * @param {String} data.role
+   * @param {Object} data.avatar
+   */
+  setProfileAvatar(state, data) {
+    state.user[data.role].avatar = data.avatar;
+  },
+
+  /**
    * Set freelancer skills and categories
    * @param state
    * @param data
@@ -363,9 +374,11 @@ const getters = {
     if (state.user) {
       const { activeRole } = state;
 
-      if (state.user[activeRole]) {
+      if (state.user[activeRole] && state.user[activeRole].name) {
         return state.user[activeRole].name;
       }
+
+      return state.user.email;
     }
 
     return null;

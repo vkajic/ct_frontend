@@ -1,26 +1,22 @@
 <template>
-  <div class="row">
-    <div class="col-2 pt-5">
-      <left-menu/>
+  <page-wrapper :menu-width="2">
+    <div class="paper px-7 py-6">
+      <task-form :task="task" title="Edit job"/>
     </div>
-    <div class="col-8">
-      <div class="paper px-7 py-6">
-        <task-form :task="task" title="Edit job"/>
-      </div>
-    </div>
-  </div>
+  </page-wrapper>
 </template>
 
 <script>
 import { mapState } from 'vuex';
+import { get } from 'lodash';
 import TaskForm from '../../components/tasks/TaskForm.vue';
-import LeftMenu from '../../components/layout/LeftMenu.vue';
+import PageWrapper from '../../components/ui/PageWrapper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'EditTask',
   components: {
-    LeftMenu,
+    PageWrapper,
     TaskForm,
   },
   computed: {
@@ -30,8 +26,9 @@ export default {
     user() {
       return this.$store.state.user.user;
     },
-    canEdit() {
-      return this.user && this.user.id === this.task.postedBy && !this.task.published;
+    editAllowed() {
+      const client = get(this, '$store.state.user.user.client');
+      return this.task.status <= 1 && client && client.id === this.task.postedBy;
     },
   },
   created() {

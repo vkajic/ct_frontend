@@ -1,5 +1,5 @@
 <template>
-  <avatar-picture :file="avatar"/>
+  <avatar-picture :file="avatar" :thumbnail="true"/>
 </template>
 
 <script>

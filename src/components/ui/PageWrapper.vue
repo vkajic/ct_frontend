@@ -7,6 +7,9 @@
       <slot/>
       <loading-overlay :visible="loading"/>
     </div>
+    <div :class="sidebarClass">
+      <slot name="sidebar"/>
+    </div>
   </div>
 </template>
 
@@ -30,6 +33,10 @@ export default {
       type: Number,
       default: 3,
     },
+    sidebarWidth: {
+      type: Number,
+      default: 3,
+    },
     showMenu: {
       type: Boolean,
       default: true,
@@ -41,6 +48,9 @@ export default {
     },
     containerClass() {
       return `col-${12 - (this.menuWidth * 2)}`;
+    },
+    sidebarClass() {
+      return `col-${this.sidebarWidth}`;
     },
     loading() {
       return this.$store.state.ui.mainLoader || this.manualLoading;

@@ -114,6 +114,18 @@ const actions = {
 
     commit('setSelectedApplication', application.data.data);
   },
+
+  /**
+   * Accept freelancers application
+   * @param commit
+   * @param {Object} application
+   * @return {Promise<void>}
+   */
+  async hire({ commit }, application) {
+    await ApiService.put(`/applications/${application.id}/hire`);
+
+    commit('setApplicationHired', application);
+  },
 };
 
 const mutations = {
@@ -214,6 +226,19 @@ const mutations = {
    */
   setSelectedApplication(state, application) {
     state.selectedApplication = application;
+  },
+
+  /**
+   * Accept freelancers application, set status to accepted (1)
+   * @param state
+   * @param {Object} application
+   */
+  setApplicationHired(state, application) {
+    const index = state.selectedTaskApplications.findIndex(a => a.id === application.id);
+
+    if (index > -1) {
+      state.selectedTaskApplications[index].status = 1;
+    }
   },
 };
 

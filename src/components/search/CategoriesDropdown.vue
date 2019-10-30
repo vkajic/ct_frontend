@@ -1,8 +1,9 @@
 <template>
   <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none pl-0" no-caret>
     <template slot="button-content">
-      <strong>Category</strong>
+      <strong>{{category ? category : 'Category'}}</strong>
       <chevron-down-icon size="10" class="ml-2"/>
+      <a @click.prevent="removeCategory" v-if="category"><x-icon size="1x"/></a>
     </template>
     <b-dropdown-item-button v-for="(c, i) in categories"
                             :active="c === category"
@@ -14,13 +15,14 @@
 </template>
 
 <script>
-import { ChevronDownIcon } from 'vue-feather-icons';
+import { ChevronDownIcon, XIcon } from 'vue-feather-icons';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'CategoriesDropdown',
   components: {
     ChevronDownIcon,
+    XIcon,
   },
   props: {
     category: {
@@ -36,6 +38,10 @@ export default {
   methods: {
     selectCategory(c) {
       this.$emit('select', c);
+    },
+
+    removeCategory() {
+      this.$emit('select', null);
     },
   },
 };

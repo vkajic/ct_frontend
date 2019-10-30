@@ -126,25 +126,27 @@ export default {
         container.scrollTop = container.scrollHeight - container.clientHeight;
       }
     },
-  },
-  created() {
-    // subscribe to chat
-    this.$socket.emit('subscribe', this.application.id);
 
-    this.$store.dispatch('chat/getMessages', this.application.id)
-      .then(() => {
-        this.scrollToBottom(true);
-      });
+    /**
+     * Get application messages
+     */
+    async getMessages() {
+      await this.$store.dispatch('chat/getMessages', this.application.id);
+      this.scrollToBottom(true);
+    },
   },
   destroyed() {
+    console.log('destroyed');
     // reset messages in store on exit
     this.$store.commit('chat/resetMessages');
     this.$socket.emit('unsubscribe', this.application.id);
   },
   watch: {
-    application(n) {
-      if (n) {
+    application(n, o) {
+      if (n && (!o || n.id !== o.id)) {
+        this.$store.commit('chat/resetMessages');
         this.$socket.emit('subscribe', n.id);
+        this.getMessages();
       }
     },
 

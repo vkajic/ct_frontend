@@ -34,6 +34,27 @@
           </div>
         </div>
 
+        <div class="row">
+          <div class="col-6">
+            <input-group name="type"
+                         class="mb-3"
+                         v-model="form.type"
+                         placeholder="Job type"
+                         label="Type"
+                         :options="types"
+                         :validation="$v.form.type"/>
+          </div>
+          <div class="col-6">
+            <input-group name="location"
+                         class="mb-3"
+                         v-model="form.location"
+                         placeholder="Job location"
+                         label="Location"
+                         :options="locations"
+                         :validation="$v.form.location"/>
+          </div>
+        </div>
+
         <input-tags label="Required skills"
                     class="mb-3"
                     v-model="form.skills"
@@ -102,6 +123,26 @@ export default {
     return {
       form: Object.assign({}, initialForm),
       sending: false,
+      types: [
+        {
+          value: 'fulltime',
+          text: 'Full Time',
+        },
+        {
+          value: 'parttime',
+          text: 'Part Time',
+        },
+      ],
+      locations: [
+        {
+          value: 'onsite',
+          text: 'On Site',
+        },
+        {
+          value: 'remote',
+          text: 'Remote',
+        },
+      ],
     };
   },
   watch: {

@@ -144,11 +144,12 @@ export default {
         this.saving = true;
 
         try {
-          if (this.freelancer && this.freelancer.id) {
-            await this.$store.dispatch('user/updateFreelancerBasicInfo', this.form);
-          } else {
-            await this.$store.dispatch('user/createFreelancerBasicInfo', this.form);
-          }
+          await this.$store.dispatch('user/updateFreelancerBasicInfo', this.form);
+
+          this.$store.commit('user/setProfileAvatar', {
+            avatar: this.form.avatar,
+            role: 'freelancer',
+          });
           this.saving = false;
           this.$router.push('/create-freelancer/skills');
         } catch (err) {

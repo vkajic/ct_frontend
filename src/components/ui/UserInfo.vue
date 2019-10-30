@@ -51,7 +51,7 @@ export default {
       return !!this.$store.state.user.token;
     },
     userName() {
-      return this.$store.getters['user/getUserName'] || 'User';
+      return this.$store.getters['user/getUserName'];
     },
   },
 };
