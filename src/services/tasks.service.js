@@ -3,39 +3,6 @@ import apiService from './api.service';
 
 class TasksService {
   /**
-   * Create new task
-   * @param {Object} data - task data
-   * @param {String} data.title - task title
-   * @param {String} data.description - task description
-   * @param {Number} data.price - task price
-   * @param {Number} data.worktime - task work time
-   * @param {Boolean} data.published - is task published
-   * @return {*}
-   */
-  create(data) {
-    return apiService.post('/tasks', data);
-  }
-
-  /**
-   * Update task details
-   * @param {Number} taskId
-   * @param {Object} data - task data
-   * @return {*}
-   */
-  update(taskId, data) {
-    return apiService.put(`/tasks/${taskId}`, data);
-  }
-
-  /**
-   * Delete task
-   * @param {Number} taskId
-   * @return {*}
-   */
-  delete(taskId) {
-    return apiService.delete(`/tasks/${taskId}`);
-  }
-
-  /**
    * Search tasks
    * @param {String} q - query term
    * @param {Object} sort
@@ -51,32 +18,6 @@ class TasksService {
         sortDir: sort.dir,
       },
     });
-  }
-
-  /**
-   * Get single task details
-   * @param taskId
-   * @return {*}
-   */
-  getTask(taskId) {
-    return apiService.get(`/tasks/${taskId}`);
-  }
-
-  /**
-   * Apply for work on task
-   * @param {Number} taskId
-   * @return {*}
-   */
-  applyForWork(taskId) {
-    return apiService.post(`/tasks/${taskId}/apply`);
-  }
-
-  /**
-   * Get current users tasks (created by, working on etc...)
-   * @return {*}
-   */
-  getMyTasks() {
-    return apiService.get('/tasks/my');
   }
 
   /**
@@ -126,15 +67,6 @@ class TasksService {
     }
 
     return status;
-  }
-
-  /**
-   * Get task application
-   * @param applicationId
-   * @return {*}
-   */
-  getApplication(applicationId) {
-    return apiService.get(`/applications/${applicationId}`);
   }
 }
 

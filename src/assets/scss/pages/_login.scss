@@ -9,14 +9,10 @@
   }
 }
 
-.auth-role-selector {
-  a {
-    font-weight: 900;
-    font-size: 1.125rem;
-  }
-
-  .active {
-    color: $green;
-    text-decoration: underline;
+.roles-chooser {
+  span {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-weight: 700;
   }
 }

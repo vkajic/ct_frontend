@@ -3,9 +3,6 @@
     <h1 class="mb-5">Sign Up.</h1>
 
     <b-form @submit.prevent="register">
-
-      <auth-role-selector :selected="form.role" @select="selectRole" class="mb-4"/>
-
       <b-form-group>
         <b-form-input
           v-model="form.email"
@@ -53,19 +50,17 @@
 import {
   required, minLength, email, sameAs,
 } from 'vuelidate/lib/validators';
-import AuthRoleSelector from './AuthRoleSelector.vue';
 
 const initialForm = {
   email: null,
   password: null,
   passwordConfirmation: null,
-  role: 'freelancer',
+  role: null,
 };
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'RegisterForm',
-  components: { AuthRoleSelector },
   data() {
     return {
       form: Object.assign({}, initialForm),
@@ -102,6 +97,8 @@ export default {
         this.sending = true;
 
         try {
+          this.form.role = this.registrationRole;
+
           await this.$store.dispatch('user/register', this.form);
           this.form = initialForm;
           this.$v.$reset();
@@ -119,13 +116,10 @@ export default {
         }
       }
     },
-
-    /**
-     * Select primary role
-     * @param {String} role
-     */
-    selectRole(role) {
-      this.form.role = role;
+  },
+  computed: {
+    registrationRole() {
+      return this.$store.state.user.registrationRole;
     },
   },
 };

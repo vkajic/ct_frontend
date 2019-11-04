@@ -1,61 +1,93 @@
 <template>
   <page-wrapper>
-    <search-heading class="mb-5" @search="search" @sort="sort" @category="selectCategory"/>
-    <tasks-group :tasks="tasks"/>
+    <search-heading class="mb-5"
+                    @search="search"
+                    @sort="setSort"
+                    @category="selectCategory"
+                    :term="queryTerm"
+                    :sort="sort"
+                    :category="category"/>
+    <tasks-group :tasks="tasks"
+                 v-infinite-scroll="loadMore"
+                 :infinite-scroll-disabled="lazyLoading"
+                 :infinite-scroll-distance="10"/>
+
+    <lazy-loader :visible="lazyLoading"/>
+
+    <div class="h1 mb-4" v-if="!tasks.length && !loading">
+      No tasks available...
+    </div>
   </page-wrapper>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import infiniteScroll from 'vue-infinite-scroll';
 import SearchHeading from './SearchHeading.vue';
 import TasksGroup from './TasksGroup.vue';
 import PageWrapper from '../ui/PageWrapper.vue';
+import LazyLoader from '../ui/LazyLoader.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'TasksSearch',
   components: {
+    LazyLoader,
     PageWrapper,
     TasksGroup,
     SearchHeading,
   },
+  directives: { infiniteScroll },
+  data() {
+    return {
+      lazyLoading: false,
+    };
+  },
   computed: {
-    tasks() {
-      return this.$store.state.search.tasks;
+    ...mapState('search', {
+      tasks: 'tasks',
+      category: 'category',
+      sort: 'sort',
+      queryTerm: 'queryTerm',
+    }),
+    loading() {
+      return this.$store.state.ui.mainLoader;
     },
   },
   methods: {
-    async search(term) {
+    search(term) {
+      this.$store.commit('search/setQueryTerm', term);
+      this.runSearch();
+    },
+    setSort(option) {
+      this.$store.commit('search/setSort', option);
+      this.runSearch();
+    },
+    selectCategory(c) {
+      this.$store.commit('search/setCategory', c);
+      this.runSearch();
+    },
+    async runSearch() {
+      this.$store.commit('ui/showLoader');
       try {
-        await this.$store.dispatch('search/runSearch', term);
+        await this.$store.dispatch('search/runSearch');
+        this.$store.commit('ui/hideLoader');
       } catch (err) {
+        this.$store.commit('ui/hideLoader');
         this.$store.dispatch('ui/showNotification', {
           text: err.response.data.message,
           type: 'danger',
         });
       }
     },
-    async sort(option) {
-      try {
-        await this.$store.dispatch('search/changeSort', option.by);
-      } catch (err) {
-        this.$store.dispatch('ui/showNotification', {
-          text: err.response.data.message,
-          type: 'danger',
-        });
-      }
-    },
-    async selectCategory() {
-      //
+    async loadMore() {
+      this.lazyLoading = true;
+      await this.$store.dispatch('search/nextTasks');
+      this.lazyLoading = false;
     },
   },
   created() {
-    this.$store.dispatch('search/runSearch')
-      .catch((err) => {
-        this.$store.dispatch('ui/showNotification', {
-          text: err.response.data.message,
-          type: 'danger',
-        });
-      });
+    this.runSearch();
   },
 };
 </script>

@@ -1,10 +1,10 @@
 <template>
   <div class="search-heading d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center">
-      <categories-dropdown @select="selectCategory" class="mr-5"/>
-      <sort-dropdown @select="selectSort"/>
+      <categories-dropdown @select="selectCategory" class="mr-5" :category="category"/>
+      <sort-dropdown @select="selectSort" :sort="sort"/>
     </div>
-    <quick-search @search="search"/>
+    <quick-search @search="search" :term="term"/>
   </div>
 </template>
 
@@ -20,6 +20,22 @@ export default {
     QuickSearch,
     SortDropdown,
     CategoriesDropdown,
+  },
+  props: {
+    term: {
+      type: String,
+      default: null,
+    },
+    category: {
+      type: String,
+      default: null,
+    },
+    sort: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
   },
   methods: {
     selectCategory(c) {

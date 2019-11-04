@@ -1,0 +1,29 @@
+<template>
+  <div class="roles-chooser d-flex align-items-stretch h-100">
+    <a href="#"
+       class="role h-100 w-50 d-flex align-items-center border-right py-5 justify-content-center"
+       @click.prevent="$emit('select', 'freelancer')">
+      <coffee-icon size="3x" class="mr-3"/>
+      <span>I'm a<br/>Freelancer</span>
+    </a>
+    <a href="#"
+       class="role h-100 d-flex align-items-center flex-grow-1 py-5 justify-content-center"
+       @click.prevent="$emit('select', 'client')">
+      <briefcase-icon size="3x" class="mr-3"/>
+      <span>I'm a<br/>Client</span>
+    </a>
+  </div>
+</template>
+
+<script>
+import { CoffeeIcon, BriefcaseIcon } from 'vue-feather-icons';
+
+// noinspection JSUnusedGlobalSymbols
+export default {
+  name: 'SignUpRoles',
+  components: {
+    CoffeeIcon,
+    BriefcaseIcon,
+  },
+};
+</script>

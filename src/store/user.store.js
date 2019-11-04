@@ -8,6 +8,7 @@ const initialState = {
   user: null,
   loginError: null,
   registrationError: null,
+  registrationRole: null,
   activeRole: null,
 };
 
@@ -238,6 +239,10 @@ const actions = {
 };
 
 const mutations = {
+  selectRole(state, role) {
+    state.registrationRole = role;
+  },
+
   /**
    * Set token
    * @param state

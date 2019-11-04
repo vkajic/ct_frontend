@@ -59,17 +59,17 @@ export default {
     },
   },
   methods: {
-    async search(term) {
-      this.$store.commit('ui/showLoader');
-      this.$store.commit('freelancers/resetPage');
+    search(term) {
       this.$store.commit('freelancers/setSearchTerm', term);
-      await this.$store.dispatch('freelancers/getFreelancers');
-      this.$store.commit('ui/hideLoader');
+      this.runSearch();
     },
-    async selectCategory(category) {
+    selectCategory(category) {
+      this.$store.commit('freelancers/setCategory', category);
+      this.runSearch();
+    },
+    async runSearch() {
       this.$store.commit('ui/showLoader');
       this.$store.commit('freelancers/resetPage');
-      this.$store.commit('freelancers/setCategory', category);
       await this.$store.dispatch('freelancers/getFreelancers');
       this.$store.commit('ui/hideLoader');
     },

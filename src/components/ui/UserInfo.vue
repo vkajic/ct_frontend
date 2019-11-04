@@ -10,7 +10,7 @@
           <b-dropdown-item-button @click="logout">Logout</b-dropdown-item-button>
           <b-dropdown-divider></b-dropdown-divider>
           <b-dropdown-item-button>Edit Profile</b-dropdown-item-button>
-          <b-dropdown-item-button>Change password</b-dropdown-item-button>
+          <b-dropdown-item to="/change-password">Change password</b-dropdown-item>
         </b-dropdown>
       </div>
     </div>
