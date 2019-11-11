@@ -1,4 +1,4 @@
-# cryptotask
+# Cryptotask
 
 ## Project setup
 ```
@@ -36,4 +36,6 @@ yarn run test:unit
 ```
 
 ### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+Copy example.env file to .env or .env.local and set configuration.
+After each configuration change compilation must be restarted.

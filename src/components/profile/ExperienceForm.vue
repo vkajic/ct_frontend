@@ -61,9 +61,11 @@
       </div>
 
       <div class="pt-5 d-flex justify-content-end align-items-center">
-        <router-link to="/create-freelancer/projects" class="mr-3">Skip for now</router-link>
+        <router-link to="/create-freelancer/projects" class="mr-3" v-if="skipEnabled">
+          Skip for now
+        </router-link>
         <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
-          <template v-if="!saving">Next: Add Projects</template>
+          <template v-if="!saving">{{saveButtonText}}</template>
           <template v-if="saving">Saving...</template>
         </b-button>
       </div>
@@ -101,6 +103,18 @@ export default {
       default() {
         return {};
       },
+    },
+    skipEnabled: {
+      type: Boolean,
+      default: true,
+    },
+    saveButtonText: {
+      type: String,
+      default: 'Next: Add Projects',
+    },
+    redirectionEnabled: {
+      type: Boolean,
+      default: true,
     },
   },
   validations: {
@@ -144,7 +158,14 @@ export default {
             items: this.items,
           });
           this.saving = false;
-          this.$router.push('/create-freelancer/projects');
+          if (this.redirectionEnabled) {
+            this.$router.push('/create-freelancer/projects');
+          } else {
+            this.$store.dispatch('ui/showNotification', {
+              type: 'success',
+              text: 'Previous experience saved',
+            });
+          }
         } catch (err) {
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',

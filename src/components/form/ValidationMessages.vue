@@ -15,6 +15,9 @@
     <template v-if="errorVisible('minValue')">
       {{title}} must be bigger then {{validation.params.minValue.min}}
     </template>
+    <template v-if="errorVisible('minLength')">
+      {{title}} must have at least {{validation.params.minLength.min}} value
+    </template>
   </b-form-invalid-feedback>
 </template>
 

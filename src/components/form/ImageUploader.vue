@@ -129,18 +129,14 @@ export default {
   },
   watch: {
     value(n) {
-      if (n && n.fileName && !this.imageUrl) {
-        if (n.permissions === 'public') {
-          this.imageUrl = process.env.VUE_APP_PUBLIC_BUCKET + n.fileName;
-        }
+      if (n) {
+        this.imageUrl = process.env.VUE_APP_PUBLIC_BUCKET + n.fileName;
       }
     },
   },
   mounted() {
-    if (this.value && this.value.fileName && !this.imageUrl) {
-      if (this.value.permissions === 'public') {
-        this.imageUrl = process.env.VUE_APP_PUBLIC_BUCKET + this.value.fileName;
-      }
+    if (this.value && this.value.fileName) {
+      this.imageUrl = process.env.VUE_APP_PUBLIC_BUCKET + this.value.fileName;
     }
   },
 };

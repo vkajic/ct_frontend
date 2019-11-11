@@ -30,6 +30,7 @@ import MyTask from './views/client/MyTask.vue';
 import Freelancers from './views/client/Freelancers.vue';
 import Freelancer from './views/client/Freelancer.vue';
 import ChangePassword from './views/auth/ChangePassword.vue';
+import UpdateProfile from './views/common/UpdateProfile.vue';
 
 Vue.use(Router);
 
@@ -80,6 +81,11 @@ const router = new Router({
               path: '/change-password',
               name: 'changePassword',
               component: ChangePassword,
+            },
+            {
+              path: '/profile',
+              name: 'updateProfile',
+              component: UpdateProfile,
             },
             {
               path: 'create-freelancer',

@@ -21,6 +21,18 @@
   padding: 0;
 }
 
+.v-select {
+  &.is-invalid {
+    .vs__dropdown-toggle {
+      border-color: $danger;
+    }
+
+    ~ .invalid-feedback {
+      display: block;
+    }
+  }
+}
+
 .input-group {
   .vdp-datepicker {
     position: relative;

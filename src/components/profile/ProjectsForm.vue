@@ -55,9 +55,11 @@
       <a href="#" @click="addProject"><u>Add project</u></a>
 
       <div class="pt-5 d-flex justify-content-end align-items-center">
-        <router-link to="/create-freelancer/preview" class="mr-3">Skip for now</router-link>
+        <router-link to="/create-freelancer/preview" class="mr-3" v-if="skipEnabled">
+          Skip for now
+        </router-link>
         <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
-          <template v-if="!saving">Preview profile</template>
+          <template v-if="!saving">{{saveButtonText}}</template>
           <template v-if="saving">Saving...</template>
         </b-button>
       </div>
@@ -94,6 +96,18 @@ export default {
       default() {
         return {};
       },
+    },
+    skipEnabled: {
+      type: Boolean,
+      default: true,
+    },
+    saveButtonText: {
+      type: String,
+      default: 'Preview profile',
+    },
+    redirectionEnabled: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -151,7 +165,14 @@ export default {
         try {
           await this.$store.dispatch('user/updateFreelancerProjects', this.items);
           this.saving = false;
-          this.$router.push('/create-freelancer/preview');
+          if (this.redirectionEnabled) {
+            this.$router.push('/create-freelancer/preview');
+          } else {
+            this.$store.dispatch('ui/showNotification', {
+              type: 'success',
+              text: 'Projects saved',
+            });
+          }
         } catch (err) {
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',

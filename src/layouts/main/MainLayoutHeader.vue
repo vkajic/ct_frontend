@@ -6,7 +6,9 @@
           class="col-md-3 d-flex text-md-left text-center align-content-center">
           <div class="logo">
             <router-link to="/">
-              <span class="back"><img src="@/assets/img/ct-logo.svg" alt="Cryptotask"/></span>
+              <span class="back">
+                <img src="@/assets/img/cryptotask-logo.svg" alt="Cryptotask"/>
+              </span>
             </router-link>
           </div>
         </div>

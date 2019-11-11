@@ -9,7 +9,7 @@
         <b-dropdown :text="userName || ''" variant="link" no-caret right>
           <b-dropdown-item-button @click="logout">Logout</b-dropdown-item-button>
           <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-item-button>Edit Profile</b-dropdown-item-button>
+          <b-dropdown-item to="/profile">Edit Profile</b-dropdown-item>
           <b-dropdown-item to="/change-password">Change password</b-dropdown-item>
         </b-dropdown>
       </div>
@@ -29,8 +29,6 @@
 
 <script>
 import { BellIcon } from 'vue-feather-icons';
-
-// TODO add dropdown with logout
 
 // noinspection JSUnusedGlobalSymbols
 export default {

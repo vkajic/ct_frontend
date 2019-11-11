@@ -135,6 +135,11 @@ export default {
       this.scrollToBottom(true);
     },
   },
+  created() {
+    this.$store.commit('chat/resetMessages');
+    this.$socket.emit('subscribe', this.application.id);
+    this.getMessages();
+  },
   destroyed() {
     console.log('destroyed');
     // reset messages in store on exit

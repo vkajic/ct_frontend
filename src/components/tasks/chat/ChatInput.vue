@@ -101,7 +101,6 @@ export default {
 
       if (files.length) {
         const formData = new FormData();
-        formData.append('type', 'private');
 
         Array.from(files)
           .forEach((f) => {
