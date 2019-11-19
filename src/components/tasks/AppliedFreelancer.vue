@@ -1,5 +1,5 @@
 <template>
-  <div class="applied-freelancer">
+  <div class="applied-freelancer" v-if="freelancer">
     <header class="d-flex align-items-center justify-content-between p-3">
       <div class="d-flex align-items-top">
         <avatar-picture :file="freelancer.avatar" :thumbnail="true"/>
@@ -10,7 +10,10 @@
           <div class="freelancer-occupation">
             {{freelancer.occupation}} in {{freelancer.location}}
           </div>
-          <div class="freelancer-meta">4 years of experience 6/10 skills required</div>
+          <div class="freelancer-meta">
+            {{matchingSkills.length}}/{{this.task.skills.length}}
+            skills required
+          </div>
         </div>
       </div>
       <div class="text-muted">
@@ -33,6 +36,7 @@
 </template>
 
 <script>
+import { intersection } from 'lodash';
 import { dateFilter } from 'vue-date-fns';
 import AvatarPicture from '../profile/AvatarPicture.vue';
 
@@ -51,14 +55,15 @@ export default {
       type: Object,
       required: true,
     },
+    task: {
+      type: Object,
+      required: true,
+    },
   },
   filters: {
     date: dateFilter,
   },
   computed: {
-    avatar() {
-      return null;
-    },
     freelancer() {
       return this.application.freelancer;
     },
@@ -68,12 +73,29 @@ export default {
     alreadyHired() {
       return this.application.status === 1 || this.hired;
     },
+
+    /**
+     * Returns array of matching skills between task and freelancer
+     */
+    matchingSkills() {
+      const taskSkills = this.task.skills.map(t => t.id);
+      const freelancerSkills = this.freelancer.skills.map(f => f.id);
+
+      return intersection(taskSkills, freelancerSkills);
+    },
   },
   methods: {
+    /**
+     * Clicked on reply button
+     */
     reply() {
       this.$store.commit('tasks/setSelectedApplication', this.application);
       this.$emit('select', this.application);
     },
+    /**
+     * Clicked on hire button
+     * @return {Promise<void>}
+     */
     async hire() {
       this.hiring = true;
       try {

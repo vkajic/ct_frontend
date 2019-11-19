@@ -2,8 +2,10 @@
   <page-wrapper>
     <freelancers-search-heading @search="search"
                                 @category="selectCategory"
+                                @skill="selectSkill"
                                 :term="term"
                                 :category="category"
+                                :skill="skill"
                                 class="mb-5"/>
     <freelancers-search-list :freelancers="freelancers"
                              v-infinite-scroll="loadMore"
@@ -53,6 +55,7 @@ export default {
       freelancers: 'freelancers',
       term: 'term',
       category: 'category',
+      skill: 'skill',
     }),
     loading() {
       return this.$store.state.ui.mainLoader;
@@ -64,7 +67,19 @@ export default {
       this.runSearch();
     },
     selectCategory(category) {
+      // save old selection for comparison later on
+      const oldCategory = this.category;
       this.$store.commit('freelancers/setCategory', category);
+
+      // if category changed then reset selected skill
+      if (category !== oldCategory) {
+        this.$store.commit('freelancers/setSkill', null);
+      }
+
+      this.runSearch();
+    },
+    selectSkill(skill) {
+      this.$store.commit('freelancers/setSkill', skill);
       this.runSearch();
     },
     async runSearch() {

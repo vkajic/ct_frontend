@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 import Vue from 'vue';
 import { orderBy, set, get } from 'lodash';
-import ChatService from '../services/chat.service';
 import apiService from '../services/api.service';
 
 const initialState = {
@@ -106,7 +105,7 @@ const actions = {
    * @param {Number} applicationId
    */
   async sendMessage({ commit }, { text, applicationId }) {
-    const message = await ChatService.sendMessage(applicationId, text);
+    const message = apiService.post(`/messages/${applicationId}`, { text });
 
     commit('addMessage', message.data.data);
   },
@@ -117,7 +116,7 @@ const actions = {
    * @return {Promise<void>}
    */
   async getUnreadMessages({ commit }) {
-    const data = await ChatService.getUnreadMessages();
+    const data = await apiService.get('/messages/unread');
 
     commit('setUnreadMessages', data.data.data);
   },
@@ -129,7 +128,7 @@ const actions = {
    * @return {Promise<void>}
    */
   async readMessages({ commit }, applicationId) {
-    await ChatService.readMessages(applicationId);
+    await apiService.put(`/messages/read/${applicationId}`, {});
 
     commit('setReadMessages', applicationId);
   },

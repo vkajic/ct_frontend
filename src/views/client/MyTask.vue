@@ -10,6 +10,7 @@
       <b-tab title="Freelancers applied" class="pt-3">
         <div v-if="task.applications">
           <applied-freelancer :application="a"
+                              :task="task"
                               class="mb-5"
                               :key="i"
                               v-for="(a, i) in task.applications"
@@ -19,7 +20,7 @@
           <div class="h1 mb-4">
             You have no applications for this task atm...
           </div>
-          <a href="#"><u>Browse freelancers</u></a>
+          <router-link to="/freelancers"><u>Browse freelancers</u></router-link>
         </div>
       </b-tab>
       <b-tab title="Messages">

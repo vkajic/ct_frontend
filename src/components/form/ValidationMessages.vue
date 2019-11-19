@@ -44,11 +44,7 @@ export default {
   },
   computed: {
     visible() {
-      if (this.validation) {
-        return this.validation.$dirty ? !this.validation.$error : false;
-      }
-
-      return false;
+      return this.validation && this.validation.$dirty && this.validation.$error;
     },
 
     messages() {

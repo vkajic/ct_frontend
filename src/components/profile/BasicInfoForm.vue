@@ -1,17 +1,17 @@
 <template>
-  <div class="row">
-    <div class="col-4">
-      <image-uploader label="Add profile image"
-                      @input="avatarAdded"
-                      :value="form.avatar"
-                      type="public"
-                      @remove="avatarRemoved"/>
-    </div>
-    <div class="col-8">
-
-      <h1 class="mb-5">Basic Info</h1>
-
-      <b-form @submit.prevent="save">
+  <b-form @submit.prevent="save">
+    <div class="row">
+      <div class="col-4">
+        <image-uploader label="Add profile image"
+                        title="Profile image"
+                        @input="avatarAdded"
+                        :value="form.avatar"
+                        :validation="$v.form.avatar"
+                        type="public"
+                        @remove="avatarRemoved"/>
+      </div>
+      <div class="col-8">
+        <h1 class="mb-5">Basic Info</h1>
         <div class="mb-3">
           <label>Name</label>
           <b-input-group>
@@ -81,9 +81,9 @@
             <template v-if="saving">Saving...</template>
           </b-button>
         </div>
-      </b-form>
+      </div>
     </div>
-  </div>
+  </b-form>
 </template>
 
 <script>
@@ -112,6 +112,9 @@ export default {
   },
   validations: {
     form: {
+      avatar: {
+        required,
+      },
       firstName: {
         required,
       },

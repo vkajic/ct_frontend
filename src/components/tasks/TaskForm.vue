@@ -219,9 +219,7 @@ export default {
             type: 'success',
             text: 'Task saved successfully',
           });
-          if (!this.task) {
-            this.$router.push('/');
-          }
+          this.$router.push('/my-tasks');
         } catch (err) {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
