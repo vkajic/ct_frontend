@@ -58,6 +58,26 @@
           <strong>${{task.price}}</strong>
         </div>
       </div>
+
+      <div v-if="task.location" class="detail d-flex align-items-center">
+        <map-pin-icon size="20" class="mr-3"/>
+        <div>
+          <div class="small-heading">
+            LOCATION
+          </div>
+          <strong>{{task.location === "onsite" ? "On Site" : "Remote"}}</strong>
+        </div>
+      </div>
+
+      <div v-if="task.type" class="detail d-flex align-items-center">
+        <tag-icon size="20" class="mr-3"/>
+        <div>
+          <div class="small-heading">
+            TYPE
+          </div>
+          <strong>{{task.type === "parttime" ? "Part Time" : "Full Time"}}</strong>
+        </div>
+      </div>
     </div>
 
     <div class="share" style="display:none;">
@@ -79,7 +99,13 @@
 import { get } from 'lodash';
 import { dateFilter } from 'vue-date-fns';
 import {
-  CheckSquareIcon, PlusSquareIcon, CalendarIcon, CreditCardIcon, Share2Icon,
+  CheckSquareIcon,
+  PlusSquareIcon,
+  CalendarIcon,
+  CreditCardIcon,
+  Share2Icon,
+  MapPinIcon,
+  TagIcon,
 } from 'vue-feather-icons';
 import TextareaGroup from '../form/TextareaGroup.vue';
 
@@ -95,6 +121,8 @@ export default {
     CalendarIcon,
     CreditCardIcon,
     Share2Icon,
+    MapPinIcon,
+    TagIcon,
   },
   filters: {
     date: dateFilter,
