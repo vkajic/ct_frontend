@@ -1,5 +1,5 @@
 <template>
-  <page-wrapper :sidebar-width="2">
+  <page-wrapper :sidebar-width="3">
     <h1>{{task.title}}</h1>
     <small-employer :employer="task.client" class="mb-5"/>
 
@@ -30,8 +30,9 @@
     </b-tabs>
 
     <template slot="sidebar">
-      <task-details class="mt-7" :task="task" :applicable="false"/>
-      <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
+      <chat-history class="mt-6 pt-2"/>
+      <!-- <task-details class="mt-7" :task="task" :applicable="false"/>
+      <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/> -->
     </template>
   </page-wrapper>
 </template>
@@ -39,11 +40,12 @@
 <script>
 import { mapState } from 'vuex';
 import SmallEmployer from '../../components/tasks/SmallEmployer.vue';
-import TaskDetails from '../../components/tasks/TaskDetails.vue';
-import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
+/* import TaskDetails from '../../components/tasks/TaskDetails.vue';
+import RequiredSkills from '../../components/tasks/RequiredSkills.vue'; */
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
 import ChatContainer from '../../components/tasks/chat/ChatContainer.vue';
 import PageWrapper from '../../components/ui/PageWrapper.vue';
+import ChatHistory from '../../components/tasks/chat/ChatHistory.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -52,8 +54,9 @@ export default {
     PageWrapper,
     ChatContainer,
     AppliedFreelancer,
-    RequiredSkills,
-    TaskDetails,
+    /* RequiredSkills,
+    TaskDetails, */
+    ChatHistory,
     SmallEmployer,
   },
   data() {

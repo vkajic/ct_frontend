@@ -134,3 +134,39 @@
     padding: .5rem 0 0 1rem;
   }
 }
+
+.chat-history-item{
+  header {
+    border-radius: .5rem;
+    cursor: pointer;
+
+    &:hover {
+      background: $gray-100;
+    }
+
+    .avatar {
+      width: 2.5rem;
+      margin-right: 1rem;
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: .5rem;
+      }
+    }
+
+    .user-name {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .user-msg {
+      font-size: .75rem;
+      color: $gray-600;
+      width: 12rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
