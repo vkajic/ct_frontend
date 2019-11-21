@@ -1,13 +1,13 @@
 <template>
   <div class="row">
-    <div class="pt-5" :class="menuClass">
+    <div class="d-none d-lg-block pt-5" :class="menuClass">
       <left-menu v-if="showMenu"/>
     </div>
-    <div :class="containerClass">
+    <div class="col-12" :class="containerClass">
       <slot/>
       <loading-overlay :visible="loading"/>
     </div>
-    <div :class="sidebarClass">
+    <div class="d-none d-lg-block" :class="sidebarClass">
       <slot name="sidebar"/>
     </div>
   </div>
@@ -44,13 +44,13 @@ export default {
   },
   computed: {
     menuClass() {
-      return `col-${this.menuWidth}`;
+      return `col-lg-${this.menuWidth}`;
     },
     containerClass() {
-      return `col-${12 - (this.menuWidth * 2)}`;
+      return `col-lg-${12 - (this.menuWidth * 2)}`;
     },
     sidebarClass() {
-      return `col-${this.sidebarWidth}`;
+      return `col-lg-${this.sidebarWidth}`;
     },
     loading() {
       return this.$store.state.ui.mainLoader || this.manualLoading;

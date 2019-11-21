@@ -1,7 +1,7 @@
 <template>
   <div class="search-heading d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center">
-      <categories-dropdown @select="selectCategory" class="mr-5" :category="category"/>
+      <categories-dropdown @select="selectCategory" class="mr-lg-5" :category="category"/>
       <sort-dropdown @select="selectSort" :sort="sort"/>
     </div>
     <quick-search @search="search" :term="term"/>

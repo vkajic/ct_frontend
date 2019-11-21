@@ -1,10 +1,10 @@
 <template>
-  <header class="main-header">
+  <header class="main-header d-flex align-items-center mb-3 mb-lg-0">
     <div class="container">
       <div class="row align-items-center">
         <div
-          class="col-md-3 d-flex text-md-left text-center align-content-center">
-          <div class="logo">
+          class="col-6 col-lg-3 d-flex text-md-left text-center align-content-center">
+          <div class="py-2">
             <router-link to="/">
               <span class="back">
                 <img src="@/assets/img/cryptotask-logo.svg" alt="Cryptotask"/>
@@ -12,10 +12,10 @@
             </router-link>
           </div>
         </div>
-        <div class="col-md-6 d-flex align-content-center">
+        <div class="col-lg-6 d-none d-lg-flex align-content-center">
           <top-menu/>
         </div>
-        <div class="col-md-3 d-flex justify-content-end align-content-center">
+        <div class="col-6 col-lg-3 d-flex justify-content-end align-content-center">
           <user-info/>
         </div>
       </div>

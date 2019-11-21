@@ -80,13 +80,15 @@ const actions = {
 
     commit('setActiveRole', firstRole);
 
-    if (!userData[firstRole].name) {
+    /* if (!userData[firstRole].name) {
       router.replace(`/create-${firstRole}/basic-info`);
     } else if (firstRole === 'freelancer') {
       router.replace('/tasks');
     } else if (firstRole === 'client') {
       router.replace('/freelancers');
-    }
+    } */
+
+    router.replace('/');
 
     this._vm.$socket.disconnect();
     this._vm.$socket.connect();

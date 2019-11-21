@@ -8,7 +8,7 @@
 <script>
 import RegisterForm from '../../components/auth/RegisterForm.vue';
 import AuthContainer from '../../components/auth/AuthContainer.vue';
-import SignUpRoles from './SignUpRoles.vue';
+import SignUpRoles from '../../components/auth/SignUpRoles.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {

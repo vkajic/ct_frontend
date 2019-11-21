@@ -1,5 +1,5 @@
 <template>
-  <main-menu>
+  <ul class="list-unstyled m-0">
     <li>
       <router-link to="/tasks">
         <inbox-icon size="1.5x"/>
@@ -18,18 +18,16 @@
         Applications sent
       </router-link>
     </li>
-  </main-menu>
+  </ul>
 </template>
 
 <script>
 import { CheckSquareIcon, CoffeeIcon, InboxIcon } from 'vue-feather-icons';
-import MainMenu from '../ui/MainMenu.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'FreelancerMenu',
   components: {
-    MainMenu,
     CheckSquareIcon,
     CoffeeIcon,
     InboxIcon,

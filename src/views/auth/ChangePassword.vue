@@ -1,7 +1,7 @@
 <template>
   <page-wrapper :menu-width="3">
-    <div class="paper px-7 py-6">
-      <h1 class="mb-5">Change Password.</h1>
+    <paper>
+      <h1 class="mb-5 text-center text-lg-left">Change Password.</h1>
 
       <b-form @submit.prevent="changePassword">
         <b-form-group>
@@ -44,7 +44,7 @@
           Updating password...
         </b-button>
       </b-form>
-    </div>
+    </paper>
   </page-wrapper>
 </template>
 
@@ -53,11 +53,16 @@ import { required, minLength, sameAs } from 'vuelidate/lib/validators';
 import PageWrapper from '../../components/ui/PageWrapper.vue';
 import ApiService from '../../services/api.service';
 import ValidationMessages from '../../components/form/ValidationMessages.vue';
+import Paper from '../../components/ui/Paper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ChangePassword',
-  components: { ValidationMessages, PageWrapper },
+  components: {
+    Paper,
+    ValidationMessages,
+    PageWrapper
+  },
   data() {
     return {
       form: {

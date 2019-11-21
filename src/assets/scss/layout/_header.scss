@@ -1,10 +1,9 @@
 header.main-header {
-  height: 8.5rem;
-  display: flex;
-  align-items: center;
+  box-shadow: 0 2px 4px 0 rgba(13, 13, 34, 0.08);
 
-  .logo {
-
+  @include media-breakpoint-up(lg) {
+    height: 8.5rem;
+    box-shadow: none;
   }
 
   .top-menu {

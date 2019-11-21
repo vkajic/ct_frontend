@@ -21,6 +21,10 @@
           <notification-item :notification="n" @open="open"/>
         </b-list-group-item>
       </b-list-group>
+
+      <p class="p-3 m-0 text-muted" v-if="!notifications.length">
+        <em>There are currently no unread notifications.</em>
+      </p>
     </b-popover>
   </div>
 </template>
