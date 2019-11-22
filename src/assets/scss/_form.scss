@@ -76,3 +76,43 @@
     }
   }
 }
+
+.quick-chat-search {
+  position: relative;
+  text-align: right;
+
+  input {
+    width: 11rem;
+    border: 0;
+    background: $gray-100;
+    border-radius: 1.5rem;
+    font-size: 1.125rem;
+    padding: 1.2rem 2.7rem 1.2rem 1.5rem;
+
+    &:focus {
+      box-shadow: none;
+      background: $gray-200;
+    }
+  }
+
+  .fake-input {
+    height: calc(1em + 1.8rem + 2px);
+    border: 0;
+    background: $gray-100;
+    border-radius: 1.5rem;
+    font-size: 1.125rem;
+    padding: 1.2rem 2.7rem 1.2rem 1.5rem;
+  }
+
+  button {
+    border: 0;
+    background: none;
+    position: absolute;
+    right: 7px;
+    top: 10px;
+
+    .feather {
+      stroke: $gray-600;
+    }
+  }
+}

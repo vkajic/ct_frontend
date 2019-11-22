@@ -1,17 +1,17 @@
 <template>
-  <div class="search-heading d-flex align-items-end justify-content-between">
-    <strong class="dropdown-toggle-no-caret">Chat History</strong>
-    <quick-search @search="search" :term="term"/>
+  <div class="search-heading d-flex align-items-center justify-content-between">
+    <strong class="dropdown-toggle-no-caret">Messages</strong>
+    <quick-chat-search @search="search" :term="term"/>
   </div>
 </template>
 
 <script>
-import QuickSearch from '../../ui/QuickSearch.vue';
+import QuickChatSearch from '../../ui/QuickChatSearch.vue';
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ChatHistoryHeader',
   components: {
-    QuickSearch,
+    QuickChatSearch,
   },
   props: {
     term: {

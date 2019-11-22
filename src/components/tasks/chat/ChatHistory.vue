@@ -1,11 +1,16 @@
 <template>
-  <div>
+  <div class="chat-history">
     <chat-history-header :term="term" @search="search" />
-    <hr class="mt-2">
-    <chat-history-item v-for="(user,i) in Users"
-                      :key="i + 'chat history item'"
-                      :user="user"
-                      @click.native="openMessages(user)"/>
+    <hr>
+    <chat-history-item v-for="(app,i) in Applications"
+                      :key="app.id"
+                      :application="app"
+                      :class="{'chat-item-active': active === i}"
+                      @click.native="open(app,i)"/>
+
+    <div v-if="Applications.length === 0" class="text-muted">
+      No messages!
+    </div>
   </div>
 </template>
 
@@ -23,34 +28,19 @@ export default {
   data() {
     return {
       term: null,
-      users: [
-        {
-          avatar: null,
-          fullName: 'ivan horvat',
-          lastMsg: {
-            from: 'ivan',
-            time: Date.now(),
-            text: 'bla bkasj hjsd jshjhjhjhjhs sj hjshdj s',
-          },
-        },
-        {
-          avatar: null,
-          fullName: 'martina zgela',
-          lastMsg: {
-            from: 'you',
-            time: Date.now(),
-            text: 'bla bkasj',
-          },
-        },
-      ],
+      apps: [],
+      active: null,
     };
   },
   props: {
-
+    applications: {
+      type: Array,
+      required: true,
+    },
   },
   computed: {
-    Users() {
-      return !this.term ? this.users : this.filterUsers();
+    Applications() {
+      return !this.term ? this.apps : this.filterUsers();
     },
   },
   methods: {
@@ -58,14 +48,19 @@ export default {
       this.term = term;
     },
     filterUsers() {
-      console.log('filtering by full name');
-      return this.users.filter(user => user.fullName.includes(this.term));
+      console.log('filtering by full name', this.term);
+      return this.apps.filter((app) => {
+        const user = app.freelancer || app.client;
+        return user.name.includes(this.term);
+      });
     },
-    openMessages(user) {
-      console.log('open chat with ', user.fullName);
+    open(app, i) {
+      this.$emit('select', app);
+      this.active = i;
     },
   },
   created() {
+    this.apps = this.applications;
   },
 };
 </script>

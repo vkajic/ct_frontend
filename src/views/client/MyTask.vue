@@ -1,5 +1,9 @@
 <template>
-  <page-wrapper :sidebar-width="3">
+  <page-wrapper :sidebar-width="2">
+    <template v-if="task.applications" slot="chat">
+      <chat-history :applications="task.applications" @select="goToMessages" class="mt-4"/>
+    </template>
+
     <h1>{{task.title}}</h1>
     <small-employer :employer="task.client" class="mb-5"/>
 
@@ -30,9 +34,8 @@
     </b-tabs>
 
     <template slot="sidebar">
-      <chat-history class="mt-6 pt-2"/>
-      <!-- <task-details class="mt-7" :task="task" :applicable="false"/>
-      <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/> -->
+      <task-details class="mt-7" :task="task" :applicable="false"/>
+      <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
     </template>
   </page-wrapper>
 </template>
@@ -40,8 +43,8 @@
 <script>
 import { mapState } from 'vuex';
 import SmallEmployer from '../../components/tasks/SmallEmployer.vue';
-/* import TaskDetails from '../../components/tasks/TaskDetails.vue';
-import RequiredSkills from '../../components/tasks/RequiredSkills.vue'; */
+import TaskDetails from '../../components/tasks/TaskDetails.vue';
+import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
 import ChatContainer from '../../components/tasks/chat/ChatContainer.vue';
 import PageWrapper from '../../components/ui/PageWrapper.vue';
@@ -54,8 +57,8 @@ export default {
     PageWrapper,
     ChatContainer,
     AppliedFreelancer,
-    /* RequiredSkills,
-    TaskDetails, */
+    RequiredSkills,
+    TaskDetails,
     ChatHistory,
     SmallEmployer,
   },

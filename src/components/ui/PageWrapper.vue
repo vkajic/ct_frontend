@@ -2,6 +2,7 @@
   <div class="row">
     <div class="pt-5" :class="menuClass">
       <left-menu v-if="showMenu"/>
+      <slot name="chat"/>
     </div>
     <div :class="containerClass">
       <slot/>
