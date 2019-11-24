@@ -80,15 +80,11 @@ const actions = {
 
     commit('setActiveRole', firstRole);
 
-    /* if (!userData[firstRole].name) {
+    if (!userData[firstRole].name) {
       router.replace(`/create-${firstRole}/basic-info`);
-    } else if (firstRole === 'freelancer') {
-      router.replace('/tasks');
-    } else if (firstRole === 'client') {
-      router.replace('/freelancers');
-    } */
-
-    router.replace('/');
+    } else {
+      router.replace('/');
+    }
 
     this._vm.$socket.disconnect();
     this._vm.$socket.connect();
@@ -118,6 +114,7 @@ const actions = {
     apiService.removeHeader();
 
     commit('setUser', null);
+    commit('removeActiveRole');
   },
 
   /**
@@ -275,6 +272,14 @@ const mutations = {
     if (userRoles.indexOf(role) > -1) {
       state.activeRole = role;
     }
+  },
+
+  /**
+   * Reset active role to null
+   * @param state
+   */
+  removeActiveRole(state) {
+    state.activeRole = null;
   },
 
   /**

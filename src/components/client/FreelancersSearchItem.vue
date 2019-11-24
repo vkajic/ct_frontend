@@ -1,7 +1,7 @@
 <template>
   <div class="freelancer-search-item d-flex align-items-start">
     <router-link :to="`/freelancers/${id}`">
-      <avatar-picture :file="freelancer.avatar" :thumbnail="true"/>
+      <avatar-picture :file="freelancer.avatar" :thumbnail="true" class="mr-3 mr-lg-4"/>
     </router-link>
     <div>
       <h2 class="mb-1">

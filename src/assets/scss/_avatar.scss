@@ -1,6 +1,11 @@
 .avatar-container {
-  max-width: 15rem;
-  max-height: 15rem;
+  width: 12rem;
+  height: 12rem;
+
+  @include media-breakpoint-up(lg) {
+    width: 15rem;
+    height: 15rem;
+  }
 
   .avatar {
     width: 100%;

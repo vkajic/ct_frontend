@@ -1,5 +1,6 @@
 header.main-header {
   box-shadow: 0 2px 4px 0 rgba(13, 13, 34, 0.08);
+  height: 3.5rem;
 
   @include media-breakpoint-up(lg) {
     height: 8.5rem;
@@ -26,6 +27,17 @@ header.main-header {
         a {
           font-size: $header-menu-font-size;
         }
+      }
+    }
+  }
+
+  .logo {
+    img {
+      height: 2.25rem;
+      width: auto;
+
+      @include media-breakpoint-up(lg) {
+        height: auto;
       }
     }
   }

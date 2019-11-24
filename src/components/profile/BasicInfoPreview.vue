@@ -1,23 +1,27 @@
 <template>
   <div class="row">
-    <div class="col-4">
+    <div class="col-12 col-lg-4 d-flex flex-column align-items-center">
       <avatar-display class="mb-4" :avatar="freelancer.avatar"/>
       <a v-if="freelancer.web" :href="freelancer.web" class="d-block"><u>
         <small>{{freelancer.web}}</small>
       </u></a>
     </div>
-    <div class="col-8">
-      <h1>{{freelancer.firstName}} {{freelancer.lastName}}</h1>
-      <h6 class="mb-4 font-weight-normal">
+    <div class="col-12 col-lg-8">
+      <h1 class="text-center text-lg-left">
+        {{freelancer.firstName}} {{freelancer.lastName}}
+      </h1>
+      <h6 class="mb-4 font-weight-normal text-center text-lg-left">
         <span v-if="freelancer.occupation">{{freelancer.occupation}}</span>
         <span v-if="freelancer.location"> in {{freelancer.location}}</span>
       </h6>
 
       <p class="mb-4 lead">{{bio}}</p>
 
-      <tags-display :tags="freelancer.skills" class="mb-5"/>
+      <tags-display :tags="freelancer.skills" class="mb-lg-5"/>
 
-      <slot name="buttons"/>
+      <div class="freelancer-buttons">
+        <slot name="buttons"/>
+      </div>
     </div>
   </div>
 </template>

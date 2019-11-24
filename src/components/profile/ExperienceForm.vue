@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-5">Work experience</h1>
+    <h1 class="mb-5 d-none d-lg-block">Work experience</h1>
     <b-form @submit.prevent="save">
       <textarea-group name="resume"
                       class="mb-5"
@@ -60,15 +60,9 @@
         </small>
       </div>
 
-      <div class="pt-5 d-flex justify-content-end align-items-center">
-        <router-link to="/create-freelancer/projects" class="mr-3" v-if="skipEnabled">
-          Skip for now
-        </router-link>
-        <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
-          <template v-if="!saving">{{saveButtonText}}</template>
-          <template v-if="saving">Saving...</template>
-        </b-button>
-      </div>
+      <funnel-buttons skip-url="/create-freelancer/projects"
+                      :submit-text="saveButtonText"
+                      :saving="saving"/>
     </b-form>
   </div>
 </template>
@@ -79,6 +73,7 @@ import Datepicker from 'vuejs-datepicker/src/components/Datepicker.vue';
 import InputGroup from '../form/InputGroup.vue';
 import ValidationMessages from '../form/ValidationMessages.vue';
 import TextareaGroup from '../form/TextareaGroup.vue';
+import FunnelButtons from './FunnelButtons.vue';
 
 const initialForm = {
   company: null,
@@ -92,6 +87,7 @@ const initialForm = {
 export default {
   name: 'ExperienceForm',
   components: {
+    FunnelButtons,
     TextareaGroup,
     ValidationMessages,
     Datepicker,

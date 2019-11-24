@@ -1,5 +1,5 @@
 <template>
-  <footer class="py-lg-5">
+  <footer class="pb-6 py-lg-5">
     <mobile-menu/>
   </footer>
 </template>

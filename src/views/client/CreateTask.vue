@@ -1,19 +1,21 @@
 <template>
   <page-wrapper :menu-width="2">
-    <div class="paper px-7 py-6">
+    <paper>
       <task-form/>
-    </div>
+    </paper>
   </page-wrapper>
 </template>
 
 <script>
 import TaskForm from '../../components/tasks/TaskForm.vue';
 import PageWrapper from '../../components/ui/PageWrapper.vue';
+import Paper from '../../components/ui/Paper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'CreateTask',
   components: {
+    Paper,
     PageWrapper,
     TaskForm,
   },

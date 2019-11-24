@@ -1,5 +1,5 @@
 <template>
-  <div class="mobile-menu position-fixed fixed-bottom w-100 d-lg-none">
+  <div class="mobile-menu position-fixed fixed-bottom w-100 d-lg-none" v-if="activeRole">
     <freelancer-menu v-if="activeRole === 'freelancer'"/>
     <client-menu v-if="activeRole === 'client'"/>
   </div>

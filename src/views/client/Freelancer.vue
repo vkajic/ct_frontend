@@ -1,7 +1,7 @@
 <template>
   <page-wrapper :menu-width="2">
     <template v-if="freelancer">
-      <div class="paper px-7 py-6 mb-5">
+      <paper class="mb-5">
         <basic-info-preview :freelancer="freelancer">
           <template slot="buttons">
             <b-button variant="info"
@@ -11,10 +11,10 @@
             </b-button>
           </template>
         </basic-info-preview>
-      </div>
+      </paper>
 
       <div class="row">
-        <div class="col-10 offset-1">
+        <div class="col-12 col-lg-10 offset-lg-1">
           <b-tabs content-class="py-4">
             <b-tab title="Projects" active>
               <projects-preview :projects="freelancer.projects"/>
@@ -41,11 +41,13 @@ import BasicInfoPreview from '../../components/profile/BasicInfoPreview.vue';
 import ExperiencePreview from '../../components/profile/ExperiencePreview.vue';
 import ProjectsPreview from '../../components/freelancer/ProjectsPreview.vue';
 import InviteToJobModal from '../../components/client/InviteToJobModal.vue';
+import Paper from '../../components/ui/Paper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'Freelancer',
   components: {
+    Paper,
     InviteToJobModal,
     ProjectsPreview,
     ExperiencePreview,

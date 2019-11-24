@@ -24,14 +24,26 @@
 
 .freelancer-search-item {
   .avatar {
-    margin-right: 2rem;
     cursor: pointer;
 
     img {
-      width: 86px;
-      height: 86px;
+      width: 2.5rem;
+      height: 2.5rem;
       object-fit: cover;
       border-radius: .5rem;
+
+      @include media-breakpoint-up(lg) {
+        width: 5.375rem;
+        height: 5.375rem;
+      }
+    }
+  }
+
+  h2 {
+    font-size: 1.1875rem;
+
+    @include media-breakpoint-up(lg) {
+      font-size: $h2-font-size;
     }
   }
 }
@@ -49,5 +61,20 @@
 
   .tags {
 
+  }
+}
+
+.freelancer-buttons {
+  position: fixed;
+  bottom: 4.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: $zindex-fixed;
+
+  @include media-breakpoint-up(lg) {
+    position: static;
+    bottom: initial;
+    left: initial;
+    transform: initial;
   }
 }
