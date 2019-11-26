@@ -11,9 +11,27 @@ const initialState = {
   lastId: 0,
   total: 0,
   loading: false,
+  activeItem: 0,
+  applications: [],
 };
 
 const actions = {
+  /**
+   * Get all applications and set them if not already set
+   * @param commit
+   * @param state
+   * @return {Promise<void>}
+   */
+  async getApplications({ commit, state }) {
+    if (!state.applications.length) {
+      const resApplied = apiService.get('applications');
+      const resHired = apiService.get('/applications', { params: { status: 1 } });
+      const applied = (await resApplied).data.data;
+      const hired = (await resHired).data.data;
+      commit('setApplications', [...hired, ...applied]);
+    }
+  },
+
   /**
    * Get messages from API
    * @param commit
@@ -143,6 +161,24 @@ const mutations = {
    */
   setLoading(state, b) {
     state.loading = b;
+  },
+
+  /**
+   * Set clicked item in chat history
+   * @param state
+   * @param id
+   */
+  setActiveItem(state, id) {
+    state.activeItem = id;
+  },
+
+  /**
+   * Set list of applications
+   * @param state
+   * @param {Array} items
+   */
+  setApplications(state, items) {
+    state.applications = items;
   },
 
   /**

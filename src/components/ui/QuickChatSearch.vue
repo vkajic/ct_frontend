@@ -43,7 +43,6 @@ export default {
   },
   created() {
     this.searchTerm = this.term;
-    console.log('mounted');
   },
 };
 </script>

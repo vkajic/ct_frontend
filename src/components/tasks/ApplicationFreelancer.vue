@@ -7,7 +7,7 @@
       <h1>{{task.title}}</h1>
       <small-employer :employer="application.client" class="mb-5"/>
 
-      <b-tabs>
+      <b-tabs v-model="active">
         <b-tab title="Project details" class="py-4">
           {{task.description}}
         </b-tab>
@@ -41,22 +41,50 @@ export default {
     SmallEmployer,
     LeftMenu,
   },
+  data() {
+    return {
+      active: 0,
+    };
+  },
   computed: {
     ...mapState('tasks', {
       application: state => state.selectedApplication,
     }),
     task() {
-      return this.application ? this.application.task : {};
+      return this.application && this.application.task ? this.application.task : {};
+    },
+  },
+  methods: {
+    getData(val) {
+      const id = parseInt(val, 10);
+
+      // get application data
+      this.$store.dispatch('tasks/getApplication', id);
+
+      // set messages as read for this application
+      this.$store.dispatch('chat/readMessages', id);
+
+      // if there is openMsg prop open messages tab
+      if (this.$route.params.openMsgs) {
+        this.active = 1;
+      }
+    },
+  },
+  /**
+   * Watch for $route.params.id change
+   */
+  watch: {
+    '$route.params.id': function (n) {
+      // deselect application
+      this.$store.commit('tasks/setSelectedApplication', {});
+
+      // get data for new id
+      this.getData(n);
     },
   },
   created() {
-    const id = parseInt(this.$route.params.id, 10);
-
-    // get application data
-    this.$store.dispatch('tasks/getApplication', id);
-
-    // set messages as read for this application
-    this.$store.dispatch('chat/readMessages', id);
+    this.$store.commit('tasks/setSelectedApplication', {});
+    this.getData(this.$route.params.id);
   },
   destroyed() {
     // deselect application
