@@ -51,7 +51,7 @@ export default {
       application: state => state.selectedApplication,
     }),
     task() {
-      return this.application && this.application.task ? this.application.task : {};
+      return this.application ? this.application.task : {};
     },
   },
   methods: {

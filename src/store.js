@@ -9,6 +9,7 @@ import user from './store/user.store';
 import chat from './store/chat.store';
 import util from './store/util.store';
 import freelancers from './store/freelancers.store';
+import messages from './store/messages.store';
 
 Vue.use(Vuex);
 
@@ -21,5 +22,6 @@ export default new Vuex.Store({
     chat,
     util,
     freelancers,
+    messages,
   },
 });

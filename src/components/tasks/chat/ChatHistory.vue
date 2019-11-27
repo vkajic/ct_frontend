@@ -8,7 +8,10 @@
                       :class="{'chat-item-active': active === app.id}"
                       @click.native="open(app)"/>
 
-    <div v-if="Applications.length === 0" class="text-muted">
+    <div v-if="loading" class="text-muted">
+      Loading!
+    </div>
+    <div v-else-if="Applications.length === 0" class="text-muted">
       No messages!
     </div>
   </div>
@@ -29,6 +32,7 @@ export default {
   data() {
     return {
       term: null,
+      clean: false,
     };
   },
   props: {
@@ -47,9 +51,10 @@ export default {
       }
       return this.apps;
     },
-    ...mapState('chat', {
+    ...mapState('messages', {
       apps: state => state.applications || [],
       active: state => state.activeItem,
+      loading: state => state.loading,
     }),
   },
   methods: {
@@ -57,16 +62,24 @@ export default {
       this.term = term;
     },
     open(app) {
-      this.$store.commit('chat/setActiveItem', app.id);
+      this.$store.commit('messages/setActiveItem', app.id);
       this.$emit('select', app);
     },
   },
-  mounted() {
+  created() {
     if (this.applications) {
-      this.$store.commit('chat/setApplications', this.applications);
+      // map aplication ids and get all client aplications info
+      const ids = this.applications.map(app => app.id);
+      this.$store.dispatch('messages/getApplicationsClient', ids);
+      this.clean = true;
     } else {
-      // if prop is undefined get applications for user
-      this.$store.dispatch('chat/getApplications');
+      // if prop is undefined get applications info for user
+      this.$store.dispatch('messages/getApplicationsFreelancer');
+    }
+  },
+  beforeDestroy() {
+    if (this.clean) {
+      this.$store.commit('messages/setApplications', []);
     }
   },
 };
