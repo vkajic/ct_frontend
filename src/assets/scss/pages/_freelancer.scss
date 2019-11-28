@@ -78,3 +78,17 @@
     transform: initial;
   }
 }
+
+.freelancer-basic {
+  .avatar {
+    img {
+      width: 12rem;
+      height: 12rem;
+
+      @include media-breakpoint-up(lg) {
+        width: 15rem;
+        height: 15rem;
+      }
+    }
+  }
+}

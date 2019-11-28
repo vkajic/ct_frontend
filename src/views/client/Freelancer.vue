@@ -2,7 +2,9 @@
   <page-wrapper :menu-width="2">
     <template v-if="freelancer">
       <paper class="mb-5">
-        <basic-info-preview :freelancer="freelancer">
+        <basic-info-preview :freelancer="freelancer"
+                            :skills-clickable="true"
+                            @skill-click="skillClicked">
           <template slot="buttons">
             <b-button variant="info"
                       class="btn-round"
@@ -74,11 +76,28 @@ export default {
     },
   },
   methods: {
+    /**
+     * Open invite modal
+     */
     openInviteModal() {
       this.inviteActive = true;
     },
+
+    /**
+     * Close invite modal
+     */
     closeInviteModal() {
       this.inviteActive = false;
+    },
+
+    /**
+     * Skill tag is clicked
+     * Set skill and category and move to freelancers page
+     * @param $event
+     */
+    async skillClicked($event) {
+      await this.$store.dispatch('freelancers/setSkillCategory', $event);
+      this.$router.push('/freelancers');
     },
   },
 };

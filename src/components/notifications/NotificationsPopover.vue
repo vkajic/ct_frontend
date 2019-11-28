@@ -13,6 +13,7 @@
                target="popover-button-sync"
                custom-class="notifications-popover"
                placement="bottomleft"
+               triggers="click blur"
                @hide="hideNotifications">
       <b-list-group flush>
         <b-list-group-item class="flex-column align-items-start"

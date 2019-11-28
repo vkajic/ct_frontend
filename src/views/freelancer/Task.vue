@@ -1,12 +1,16 @@
 <template>
-  <page-wrapper :sidebar-width="2">
-    <h1>{{task.title}}</h1>
-    <small-employer :employer="task.owner" class="mb-5"/>
+  <page-wrapper :sidebar-width="3" :reverse="true">
+    <template slot="title">
+      <div>
+        <h1>{{task.title}}</h1>
+        <small-employer :employer="task.owner" class="mb-3 mb-lg-5"/>
+      </div>
+    </template>
 
-    <p>{{task.description}}</p>
+    <p class="pt-3 pt-lg-0">{{task.description}}</p>
 
     <template slot="sidebar">
-      <task-details class="mt-7" :task="task"/>
+      <task-details :task="task"/>
       <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
     </template>
   </page-wrapper>

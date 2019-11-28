@@ -1,5 +1,5 @@
 <template>
-  <page-wrapper>
+  <page-wrapper v-if="application">
     <h1>{{task.title}}</h1>
     <small-employer :employer="application.client" class="mb-5"/>
 

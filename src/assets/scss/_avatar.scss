@@ -1,18 +1,8 @@
 .avatar-container {
-  width: 12rem;
-  height: 12rem;
-
-  @include media-breakpoint-up(lg) {
-    width: 15rem;
-    height: 15rem;
-  }
-
   .avatar {
-    width: 100%;
-    padding-top: 100%;
-    border-radius: 1.5rem;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    img {
+      display: block;
+      border-radius: 1.5rem;
+    }
   }
 }

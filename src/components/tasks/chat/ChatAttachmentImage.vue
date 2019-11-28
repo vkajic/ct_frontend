@@ -11,11 +11,16 @@
       </b-dropdown>
     </div>
     <a href="#" @click.prevent="open" class="image-attachment">
-      <img :src="thumbnailUrl" class="thumbnail img-fluid" :alt="alt"/>
+      <image-display :options="thumbnailOptions"
+                     :file="attachment"
+                     class="thumbnail img-fluid"
+                     :alt="alt"/>
     </a>
     <b-modal v-model="modalShow" :hide-footer="true" :title="attachment.fileName">
       <div class="d-flex justify-content-center">
-        <img :src="imageUrl" :alt="alt" class="img-fluid"/>
+        <image-display :file="attachment"
+                       class="img-fluid"
+                       :alt="alt"/>
       </div>
     </b-modal>
   </div>
@@ -23,16 +28,23 @@
 
 <script>
 import { MoreHorizontalIcon } from 'vue-feather-icons';
+import ImageDisplay from '../../ui/ImageDisplay.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ChatAttachmentImage',
   components: {
+    ImageDisplay,
     MoreHorizontalIcon,
   },
   data() {
     return {
       modalShow: false,
+      thumbnailOptions: {
+        resize: {
+          width: 400,
+        },
+      },
     };
   },
   props: {
@@ -46,20 +58,6 @@ export default {
     },
   },
   computed: {
-    /**
-     * Build image URL
-     */
-    thumbnailUrl() {
-      return `${process.env.VUE_APP_PUBLIC_BUCKET}thumbnails/${this.attachment.fileName}`;
-    },
-
-    /**
-     * Full image url
-     */
-    imageUrl() {
-      return `${process.env.VUE_APP_PUBLIC_BUCKET}${this.attachment.fileName}`;
-    },
-
     /**
      * Create alt text for image
      */

@@ -60,6 +60,19 @@ const actions = {
       }
     }
   },
+
+  /**
+   * Find category from skill name and set both
+   * @param state
+   * @param rootState
+   * @param {Object} skill
+   */
+  setSkillCategory({ commit, rootState }, skill) {
+    const category = rootState.util.skills.find(c => c.id === skill.categoryId);
+
+    commit('setSkill', skill.name);
+    commit('setCategory', category.name);
+  },
 };
 
 const mutations = {
@@ -102,7 +115,7 @@ const mutations = {
   /**
    * Set category for filtering freelancers
    * @param state
-   * @param category
+   * @param {String} category
    */
   setCategory(state, category) {
     state.category = category;
@@ -111,7 +124,7 @@ const mutations = {
   /**
    * Set skill for filtering freelancers
    * @param state
-   * @param skill
+   * @param {String} skill
    */
   setSkill(state, skill) {
     state.skill = skill;

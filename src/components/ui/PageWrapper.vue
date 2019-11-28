@@ -3,12 +3,21 @@
     <div class="d-none d-lg-block pt-5" :class="menuClass">
       <left-menu v-if="showMenu"/>
     </div>
-    <div class="col-12" :class="containerClass">
-      <slot/>
-      <loading-overlay :visible="loading"/>
-    </div>
-    <div class="d-none d-lg-block" :class="sidebarClass">
-      <slot name="sidebar"/>
+    <div class="col-12" :class="bodyClass">
+      <div class="row" v-if="hasTitleSlot">
+        <div class="col-12">
+          <slot name="title"/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12" :class="containerClass">
+          <slot/>
+          <loading-overlay :visible="loading"/>
+        </div>
+        <div class="col-12 px-0 px-lg-3" :class="sidebarClass">
+          <slot name="sidebar"/>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -41,19 +50,77 @@ export default {
       type: Boolean,
       default: true,
     },
+    reverse: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
+    /**
+     * Build menu classes
+     * @return {string}
+     */
     menuClass() {
       return `col-lg-${this.menuWidth}`;
     },
+
+    /**
+     * Body part class
+     */
+    bodyClass() {
+      return `col-lg-${12 - this.menuWidth}`;
+    },
+
+    /**
+     * Title column classes
+     * @return {string[]}
+     */
+    titleClass() {
+      return [`col-lg-${12 - this.menuWidth}`, `offset-lg-${this.menuWidth}`];
+    },
+
+    /**
+     * Build middle container classes
+     * @return {string[]}
+     */
     containerClass() {
-      return `col-lg-${12 - (this.menuWidth * 2)}`;
+      const classes = [`col-lg-${12 - this.sidebarWidth}`];
+
+      if (this.reverse) {
+        classes.push('order-2', 'order-lg-1');
+      }
+
+      return classes;
     },
+
+    /**
+     * Build sidebar classes
+     * @return {string[]}
+     */
     sidebarClass() {
-      return `col-lg-${this.sidebarWidth}`;
+      const classes = [`col-lg-${this.sidebarWidth}`];
+
+      if (this.reverse) {
+        classes.push('order-1', 'order-lg-2');
+      }
+
+      return classes;
     },
+
+    /**
+     * Is loading activated
+     * @return {boolean|default.props.manualLoading|{default, type}}
+     */
     loading() {
       return this.$store.state.ui.mainLoader || this.manualLoading;
+    },
+
+    /**
+     * Checks if title slot is added
+     * @return {boolean}
+     */
+    hasTitleSlot() {
+      return !!this.$slots.title;
     },
   },
 };
