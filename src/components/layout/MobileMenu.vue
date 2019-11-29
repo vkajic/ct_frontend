@@ -1,5 +1,5 @@
 <template>
-  <div class="main-menu">
+  <div class="mobile-menu position-fixed fixed-bottom w-100 d-lg-none" v-if="activeRole">
     <freelancer-menu v-if="activeRole === 'freelancer'"/>
     <client-menu v-if="activeRole === 'client'"/>
   </div>
@@ -11,7 +11,7 @@ import ClientMenu from './ClientMenu.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
-  name: 'LeftMenu',
+  name: 'MobileMenu',
   components: {
     ClientMenu,
     FreelancerMenu,

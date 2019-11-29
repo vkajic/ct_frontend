@@ -2,7 +2,7 @@
   <div class="applied-freelancer" v-if="freelancer">
     <header class="d-flex align-items-center justify-content-between p-3">
       <div class="d-flex align-items-top">
-        <avatar-picture :file="freelancer.avatar" :thumbnail="true"/>
+        <avatar-display :avatar="freelancer.avatar" :user-name="fullName" :options="avatarOptions"/>
         <div>
           <router-link :to="`/freelancers/${freelancer.id}`" class="freelancer-name">
             {{fullName}}
@@ -38,16 +38,22 @@
 <script>
 import { intersection } from 'lodash';
 import { dateFilter } from 'vue-date-fns';
-import AvatarPicture from '../profile/AvatarPicture.vue';
+import AvatarDisplay from '../ui/AvatarDisplay.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'AppliedFreelancer',
-  components: { AvatarPicture },
+  components: { AvatarDisplay },
   data() {
     return {
       hiring: false,
       hired: false,
+      avatarOptions: {
+        resize: {
+          width: 90,
+          height: 90,
+        },
+      },
     };
   },
   props: {

@@ -41,9 +41,9 @@ $grid-breakpoints: (
 
 // Grid containers
 $container-max-widths: (
-        sm: 540px,
-        md: 720px,
-        lg: 960px,
+        // sm: 540px,
+        // md: 720px,
+        // lg: 960px,
         xl: 1140px,
         xxl: 1400px,
         xxxl: 1900px
@@ -57,6 +57,7 @@ $font-family-sans-serif: 'Roboto', sans-serif;
 $font-family-sans-serif-secondary: 'Roboto Condensed', sans-serif;
 $text-muted: rgba($dark, 0.4);
 $headings-font-weight: 900;
+$enable-responsive-font-sizes: true;
 
 // Buttons + Forms
 $input-btn-padding-y-lg: 1.25rem;

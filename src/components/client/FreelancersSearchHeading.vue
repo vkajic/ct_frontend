@@ -1,8 +1,8 @@
 <template>
   <div class="search-heading d-flex align-items-center justify-content-between">
     <div class="d-flex align-items-center">
-      <categories-dropdown @select="selectCategory" :category="category" class="mr-5"/>
-      <skills-dropdown @select="selectSkill" :category="category" :skill="skill" class="mr-5"/>
+      <categories-dropdown @select="selectCategory" :category="category" class="mr-lg-5"/>
+      <skills-dropdown @select="selectSkill" :category="category" :skill="skill" class="mr-lg-5"/>
     </div>
     <quick-search @search="search" :term="term"/>
   </div>

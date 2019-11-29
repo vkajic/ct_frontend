@@ -1,19 +1,14 @@
 <template>
   <div>
-    <div class="user-info-widget d-flex align-items-center pr-4" v-if="loggedIn">
+    <div class="user-info-widget d-flex align-items-center pr-lg-4" v-if="loggedIn">
       <notifications-popover/>
 
-      <div class="ml-3">
-        <b-dropdown :text="userName || ''" variant="link" no-caret right>
-          <b-dropdown-item-button @click="logout">Logout</b-dropdown-item-button>
-          <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-item to="/profile">Edit Profile</b-dropdown-item>
-          <b-dropdown-item to="/change-password">Change password</b-dropdown-item>
-        </b-dropdown>
+      <div class="ml-3 ml-lg-4">
+        <user-menu/>
       </div>
     </div>
-    <div class="user-info-widget d-flex align-items-center pr-4" v-if="!loggedIn">
-      <ul class="list-unstyled list-inline">
+    <div class="user-info-widget d-flex align-items-center pr-lg-4" v-if="!loggedIn">
+      <ul class="list-unstyled list-inline m-0">
         <li class="list-inline-item">
           <router-link to="/login">Login</router-link>
         </li>
@@ -27,18 +22,14 @@
 
 <script>
 import NotificationsPopover from '../notifications/NotificationsPopover.vue';
+import UserMenu from './UserMenu.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'UserInfo',
-  components: { NotificationsPopover },
-  methods: {
-    /**
-     * Logout
-     */
-    logout() {
-      this.$store.dispatch('user/logout');
-    },
+  components: {
+    UserMenu,
+    NotificationsPopover,
   },
   computed: {
     /**
@@ -47,14 +38,6 @@ export default {
      */
     loggedIn() {
       return !!this.$store.state.user.token;
-    },
-
-    /**
-     * Get users name
-     * @return {*}
-     */
-    userName() {
-      return this.$store.getters['user/getUserName'];
     },
   },
 };

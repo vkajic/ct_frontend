@@ -1,6 +1,6 @@
 <template>
   <div class="auth-form">
-    <h1 class="mb-5">Login.</h1>
+    <h1 class="mb-5 text-center text-lg-left">Login.</h1>
     <b-form @submit.prevent="login">
       <b-form-group>
         <b-form-input

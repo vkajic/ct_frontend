@@ -14,7 +14,10 @@
 .task-details {
   background: $gray-100;
   padding: 1.5rem 1rem;
-  border-radius: .5rem;
+
+  @include media-breakpoint-up(lg) {
+    border-radius: .5rem;
+  }
 
   .detail {
     border-bottom: 1px dotted $gray-200;
@@ -101,6 +104,16 @@
 
     button {
       font-size: 1rem;
+    }
+  }
+}
+
+.employer {
+  .avatar-container {
+    .avatar {
+      img {
+        border-radius: .4rem;
+      }
     }
   }
 }

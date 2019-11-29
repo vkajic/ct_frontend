@@ -1,11 +1,7 @@
 <template>
-  <div class="task row" v-if="application">
-    <div class="col-3 pt-5">
-      <left-menu/>
-    </div>
-    <div class="col-6">
-      <h1>{{task.title}}</h1>
-      <small-employer :employer="application.client" class="mb-5"/>
+  <page-wrapper v-if="application">
+    <h1>{{task.title}}</h1>
+    <small-employer :employer="application.client" class="mb-5"/>
 
       <b-tabs v-model="active">
         <b-tab title="Project details" class="py-4">
@@ -16,30 +12,30 @@
         </b-tab>
       </b-tabs>
     </div>
-    <div class="col-2">
+    <template slot="sidebar">
       <task-details class="mt-7" :task="task" :applicable="false"/>
       <required-skills class="skills" :skills="task.skills" v-if="task.skills"/>
-    </div>
-  </div>
+    </template>
+  </page-wrapper>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import LeftMenu from '../layout/LeftMenu.vue';
 import SmallEmployer from './SmallEmployer.vue';
 import TaskDetails from './TaskDetails.vue';
 import RequiredSkills from './RequiredSkills.vue';
 import ChatContainer from './chat/ChatContainer.vue';
+import PageWrapper from '../ui/PageWrapper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ApplicationFreelancer',
   components: {
+    PageWrapper,
     ChatContainer,
     RequiredSkills,
     TaskDetails,
     SmallEmployer,
-    LeftMenu,
   },
   data() {
     return {

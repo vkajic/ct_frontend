@@ -1,6 +1,6 @@
 <template>
   <div class="auth-form">
-    <h1 class="mb-5">Forgot Password.</h1>
+    <h1 class="mb-5 text-center text-lg-left">Forgot Password.</h1>
 
     <b-alert variant="danger" :show="error" dismissible class="mb-2">
       {{error}}

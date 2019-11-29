@@ -17,16 +17,21 @@ export default {
       type: String,
       default: null,
     },
-    thumbnail: {
-      type: Boolean,
-      default: true,
+    options: {
+      type: Object,
+      default() {
+        return {};
+      },
     },
   },
   computed: {
     src() {
-      return this.file && this.file.fileName
-        ? `${process.env.VUE_APP_PUBLIC_BUCKET}${this.thumbnail ? 'thumbnails/' : null}${this.file.fileName}`
-        : null;
+      const imageRequest = JSON.stringify({
+        bucket: process.env.VUE_APP_PUBLIC_BUCKET,
+        key: this.file.fileName,
+        edits: this.options,
+      });
+      return `${process.env.VUE_APP_IMAGE_BASE_URL}/${btoa(imageRequest)}`;
     },
   },
 };

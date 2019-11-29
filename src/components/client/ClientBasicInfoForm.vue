@@ -7,7 +7,8 @@
                         @input="avatarAdded"
                         :value="form.avatar"
                         type="public"
-                        @remove="avatarRemoved"/>
+                        @remove="avatarRemoved"
+                        :options="avatarOptions"/>
       </div>
       <div class="col-8">
         <h1 class="mb-5">Basic Info</h1>
@@ -86,6 +87,12 @@ export default {
         avatar: null,
       },
       saving: false,
+      avatarOptions: {
+        resize: {
+          width: 240,
+          height: 240,
+        },
+      },
     };
   },
   methods: {

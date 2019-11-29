@@ -1,8 +1,10 @@
 <template>
   <page-wrapper :menu-width="2">
     <template v-if="freelancer">
-      <div class="paper px-7 py-6 mb-5">
-        <basic-info-preview :freelancer="freelancer">
+      <paper class="mb-5">
+        <basic-info-preview :freelancer="freelancer"
+                            :skills-clickable="true"
+                            @skill-click="skillClicked">
           <template slot="buttons">
             <b-button variant="info"
                       class="btn-round"
@@ -11,10 +13,10 @@
             </b-button>
           </template>
         </basic-info-preview>
-      </div>
+      </paper>
 
       <div class="row">
-        <div class="col-10 offset-1">
+        <div class="col-12 col-lg-10 offset-lg-1">
           <b-tabs content-class="py-4">
             <b-tab title="Projects" active>
               <projects-preview :projects="freelancer.projects"/>
@@ -41,11 +43,13 @@ import BasicInfoPreview from '../../components/profile/BasicInfoPreview.vue';
 import ExperiencePreview from '../../components/profile/ExperiencePreview.vue';
 import ProjectsPreview from '../../components/freelancer/ProjectsPreview.vue';
 import InviteToJobModal from '../../components/client/InviteToJobModal.vue';
+import Paper from '../../components/ui/Paper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'Freelancer',
   components: {
+    Paper,
     InviteToJobModal,
     ProjectsPreview,
     ExperiencePreview,
@@ -72,11 +76,28 @@ export default {
     },
   },
   methods: {
+    /**
+     * Open invite modal
+     */
     openInviteModal() {
       this.inviteActive = true;
     },
+
+    /**
+     * Close invite modal
+     */
     closeInviteModal() {
       this.inviteActive = false;
+    },
+
+    /**
+     * Skill tag is clicked
+     * Set skill and category and move to freelancers page
+     * @param $event
+     */
+    async skillClicked($event) {
+      await this.$store.dispatch('freelancers/setSkillCategory', $event);
+      this.$router.push('/freelancers');
     },
   },
 };

@@ -1,12 +1,12 @@
 <template>
-  <ul class="list-unstyled main-menu">
+  <div class="paper p-4 py-lg-5 px-lg-6 py-xxxl-6 px-xxxl-7">
     <slot/>
-  </ul>
+  </div>
 </template>
 
 <script>
 // noinspection JSUnusedGlobalSymbols
 export default {
-  name: 'MainMenu',
+  name: 'Paper',
 };
 </script>

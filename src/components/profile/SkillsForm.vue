@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="mb-5">My skills & services</h1>
+    <h1 class="mb-5 d-none d-lg-block">My skills & services</h1>
 
     <b-form @submit.prevent="save">
       <input-tags label="Roles I'm interested in"
@@ -19,13 +19,9 @@
                   options-label="name"
                   :validation="$v.form.skills"/>
 
-      <div class="pt-5 d-flex justify-content-end align-items-center">
-        <router-link to="/create-freelancer/work-experience" class="mr-3">Skip for now</router-link>
-        <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
-          <template v-if="!saving">Next: Work experience</template>
-          <template v-if="saving">Saving...</template>
-        </b-button>
-      </div>
+      <funnel-buttons :saving="saving"
+                      submit-text="Next: Work experience"
+                      skip-url="/create-freelancer/work-experience"/>
     </b-form>
   </div>
 </template>
@@ -33,11 +29,12 @@
 <script>
 import { required } from 'vuelidate/src/validators';
 import InputTags from '../form/InputTags.vue';
+import FunnelButtons from './FunnelButtons.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'SkillsForm',
-  components: { InputTags },
+  components: { FunnelButtons, InputTags },
   props: {
     freelancer: {
       type: Object,

@@ -1,17 +1,19 @@
 <template>
   <b-form @submit.prevent="save">
     <div class="row">
-      <div class="col-4">
+      <div class="col-12 col-lg-4">
         <image-uploader label="Add profile image"
+                        class="mb-5"
                         title="Profile image"
                         @input="avatarAdded"
                         :value="form.avatar"
                         :validation="$v.form.avatar"
                         type="public"
-                        @remove="avatarRemoved"/>
+                        @remove="avatarRemoved"
+                        :options="avatarOptions"/>
       </div>
-      <div class="col-8">
-        <h1 class="mb-5">Basic Info</h1>
+      <div class="col-12 col-lg-8">
+        <h1 class="d-none d-lg-block mb-5">Basic Info</h1>
         <div class="mb-3">
           <label>Name</label>
           <b-input-group>
@@ -74,13 +76,9 @@
           </div>
         </div>
 
-        <div class="pt-5 d-flex justify-content-end align-items-center">
-          <router-link to="/create-freelancer/skills" class="mr-3">Skip for now</router-link>
-          <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
-            <template v-if="!saving">Next: Set skills & services</template>
-            <template v-if="saving">Saving...</template>
-          </b-button>
-        </div>
+        <funnel-buttons skip-url="/create-freelancer/skills"
+                        submit-text="Next: Set skills & services"
+                        :saving="saving"/>
       </div>
     </div>
   </b-form>
@@ -93,6 +91,7 @@ import ValidationMessages from '../form/ValidationMessages.vue';
 import InputGroup from '../form/InputGroup.vue';
 import TextareaGroup from '../form/TextareaGroup.vue';
 import ImageUploader from '../form/ImageUploader.vue';
+import FunnelButtons from './FunnelButtons.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -104,6 +103,7 @@ export default {
     },
   },
   components: {
+    FunnelButtons,
     ImageUploader,
     TextareaGroup,
     InputGroup,
@@ -138,6 +138,12 @@ export default {
         avatar: null,
       },
       saving: false,
+      avatarOptions: {
+        resize: {
+          width: 240,
+          height: 240,
+        },
+      },
     };
   },
   methods: {

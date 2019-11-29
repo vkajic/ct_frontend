@@ -1,6 +1,6 @@
 <template>
   <div class="auth-form">
-    <h1 class="mb-5">Sign Up.</h1>
+    <h1 class="mb-5 text-center text-lg-left">Sign Up.</h1>
 
     <b-form @submit.prevent="register">
       <b-form-group>

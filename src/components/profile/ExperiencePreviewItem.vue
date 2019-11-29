@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col-4">
+    <div class="col-12 col-lg-4">
       <h5>{{item.title}}</h5>
       <p>{{item.company}}</p>
       <p class="text-muted">
@@ -9,7 +9,7 @@
         <span v-if="!item.to">Present</span>
       </p>
     </div>
-    <div class="col-8">
+    <div class="col-12 col-lg-8">
       {{item.description}}
     </div>
   </div>

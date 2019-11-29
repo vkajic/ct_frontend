@@ -5,11 +5,11 @@
       <x-icon size="1.5x"/>
     </template>
     <template slot="modal-title">
-      <div class="text-uppercase pl-7">
+      <div class="text-uppercase pl-lg-7">
         Invite to Job
       </div>
     </template>
-    <div class="px-7 pb-5">
+    <div class="px-lg-7 pb-5">
       <freelancers-search-item :freelancer="freelancer"
                                :id="freelancer.id"
                                :skills="skills"

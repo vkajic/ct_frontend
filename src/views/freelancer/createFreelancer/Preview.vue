@@ -16,7 +16,7 @@
     </funnel-container>
 
     <div class="row">
-      <div class="col-6 offset-3">
+      <div class="col-12 col-lg-6 offset-lg-3">
         <b-tabs content-class="py-4">
           <b-tab title="My profile" active>
             {{freelancer.bio}}

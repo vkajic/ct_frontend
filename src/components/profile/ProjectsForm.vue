@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1 class="mb-5">Projects</h1>
+    <h1 class="mb-5 d-none d-lg-block">Projects</h1>
 
     <b-form @submit.prevent="save" class="m-0">
       <div v-for="(item, index) in $v.items.$each.$iter" :key="index">
         <div class="row">
           <div class="col-4">
             <image-uploader label="Add cover image"
+                            title="Cover"
                             @input="coverAdded($event, index)"
                             :value="item.cover.$model"
                             type="public"
@@ -54,15 +55,9 @@
 
       <a href="#" @click="addProject"><u>Add project</u></a>
 
-      <div class="pt-5 d-flex justify-content-end align-items-center">
-        <router-link to="/create-freelancer/preview" class="mr-3" v-if="skipEnabled">
-          Skip for now
-        </router-link>
-        <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
-          <template v-if="!saving">{{saveButtonText}}</template>
-          <template v-if="saving">Saving...</template>
-        </b-button>
-      </div>
+      <funnel-buttons skip-url="/create-freelancer/preview"
+                      :saving="saving"
+                      :submit-text="saveButtonText"/>
     </b-form>
   </div>
 </template>
@@ -73,6 +68,7 @@ import ImageUploader from '../form/ImageUploader.vue';
 import InputGroup from '../form/InputGroup.vue';
 import TextareaGroup from '../form/TextareaGroup.vue';
 import GalleryUploader from '../form/GalleryUploader.vue';
+import FunnelButtons from './FunnelButtons.vue';
 
 const initialForm = {
   title: null,
@@ -85,6 +81,7 @@ const initialForm = {
 export default {
   name: 'ProjectsForm',
   components: {
+    FunnelButtons,
     GalleryUploader,
     TextareaGroup,
     InputGroup,

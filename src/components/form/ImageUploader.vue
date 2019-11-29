@@ -74,6 +74,12 @@ export default {
       type: Object,
       default: null,
     },
+    options: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
   },
   data() {
     return {
@@ -143,13 +149,23 @@ export default {
   watch: {
     value(n) {
       if (n) {
-        this.imageUrl = process.env.VUE_APP_PUBLIC_BUCKET + n.fileName;
+        const imageRequest = JSON.stringify({
+          bucket: process.env.VUE_APP_PUBLIC_BUCKET,
+          key: n.fileName,
+          edits: this.options,
+        });
+        this.imageUrl = `${process.env.VUE_APP_IMAGE_BASE_URL}/${btoa(imageRequest)}`;
       }
     },
   },
   mounted() {
     if (this.value && this.value.fileName) {
-      this.imageUrl = process.env.VUE_APP_PUBLIC_BUCKET + this.value.fileName;
+      const imageRequest = JSON.stringify({
+        bucket: process.env.VUE_APP_PUBLIC_BUCKET,
+        key: this.value.fileName,
+        edits: this.options,
+      });
+      this.imageUrl = `${process.env.VUE_APP_IMAGE_BASE_URL}/${btoa(imageRequest)}`;
     }
   },
 };

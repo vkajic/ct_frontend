@@ -1,6 +1,6 @@
 <template>
   <div class="auth-form">
-    <h1 class="mb-5">Reset Password.</h1>
+    <h1 class="mb-5 text-center text-lg-left">Reset Password.</h1>
     <b-alert variant="danger" :show="error" dismissible class="mb-2">
       {{error}}
     </b-alert>
