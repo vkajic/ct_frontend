@@ -10,6 +10,7 @@ import chat from './store/chat.store';
 import util from './store/util.store';
 import freelancers from './store/freelancers.store';
 import messages from './store/messages.store';
+import notifications from './store/notifications.store';
 
 Vue.use(Vuex);
 
@@ -23,5 +24,6 @@ export default new Vuex.Store({
     util,
     freelancers,
     messages,
+    notifications,
   },
 });

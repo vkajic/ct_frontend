@@ -1,0 +1,39 @@
+.notifications-indicator {
+  position: relative;
+
+  .notifications-indicator-number {
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    background: $green;
+    color: $white;
+    width: $notifications-indicator-size;
+    height: $notifications-indicator-size;
+    border-radius: 50%;
+    font-size: $notifications-indicator-size - 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+}
+
+.notifications-popover {
+  .popover-body {
+    padding: 0;
+
+    .list-group-item {
+      &:hover {
+        background: $gray-100;
+      }
+    }
+  }
+}
+
+.notification-item {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

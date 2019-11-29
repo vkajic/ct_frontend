@@ -1,9 +1,7 @@
 <template>
   <div>
     <div class="user-info-widget d-flex align-items-center pr-4" v-if="loggedIn">
-      <a href="#" @click="showNotifications">
-        <bell-icon size="1.5x"/>
-      </a>
+      <notifications-popover/>
 
       <div class="ml-3">
         <b-dropdown :text="userName || ''" variant="link" no-caret right>
@@ -28,26 +26,33 @@
 </template>
 
 <script>
-import { BellIcon } from 'vue-feather-icons';
+import NotificationsPopover from '../notifications/NotificationsPopover.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'UserInfo',
-  components: {
-    BellIcon,
-  },
+  components: { NotificationsPopover },
   methods: {
-    showNotifications(e) {
-      e.preventDefault();
-    },
+    /**
+     * Logout
+     */
     logout() {
       this.$store.dispatch('user/logout');
     },
   },
   computed: {
+    /**
+     * Is user logged in currently
+     * @return {boolean}
+     */
     loggedIn() {
       return !!this.$store.state.user.token;
     },
+
+    /**
+     * Get users name
+     * @return {*}
+     */
     userName() {
       return this.$store.getters['user/getUserName'];
     },

@@ -7,6 +7,7 @@ const initialState = {
   page: 1,
   total: 0,
   category: null,
+  skill: null,
   term: null,
 };
 
@@ -105,6 +106,15 @@ const mutations = {
    */
   setCategory(state, category) {
     state.category = category;
+  },
+
+  /**
+   * Set skill for filtering freelancers
+   * @param state
+   * @param skill
+   */
+  setSkill(state, skill) {
+    state.skill = skill;
   },
 
   /**

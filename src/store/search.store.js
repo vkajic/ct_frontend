@@ -16,10 +16,12 @@ const initialState = {
     {
       key: 'timePosted',
       label: 'Date Added',
-    }, {
+    },
+    /* {
       key: 'location',
       label: 'Location',
-    }, {
+    }, */
+    {
       key: 'price',
       label: 'Price',
     },

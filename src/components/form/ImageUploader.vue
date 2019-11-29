@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="uploader-container image-uploader" @drop.prevent="onDragDrop" @dragover.prevent>
+    <div class="uploader-container image-uploader mb-2"
+         @drop.prevent="onDragDrop"
+         @dragover.prevent>
       <div class="uploader">
         <div v-if="!imageUrl"
              class="text d-flex flex-column justify-content-center align-items-center">
@@ -33,17 +35,20 @@
     <b-form-invalid-feedback :force-show="!!error">
       {{error}}
     </b-form-invalid-feedback>
+
+    <validation-messages v-if="validation" :title="title" :validation="validation"/>
   </div>
 </template>
 
 <script>
 import { ImageIcon } from 'vue-feather-icons';
 import ApiService from '../../services/api.service';
+import ValidationMessages from './ValidationMessages.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ImageUploader',
-  components: { ImageIcon },
+  components: { ValidationMessages, ImageIcon },
   props: {
     value: {
       type: Object,
@@ -57,9 +62,17 @@ export default {
       type: String,
       required: true,
     },
+    title: {
+      type: String,
+      required: true,
+    },
     type: {
       type: String,
       default: 'public',
+    },
+    validation: {
+      type: Object,
+      default: null,
     },
   },
   data() {
