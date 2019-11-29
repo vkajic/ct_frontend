@@ -130,15 +130,15 @@ export default {
     /**
      * Get application messages
      */
-    async getMessages() {
-      await this.$store.dispatch('chat/getMessages', this.application.id);
+    async getMessages(id) {
+      await this.$store.dispatch('chat/getMessages', id);
       this.scrollToBottom(true);
     },
   },
   created() {
     this.$store.commit('chat/resetMessages');
     this.$socket.emit('subscribe', this.application.id);
-    this.getMessages();
+    this.getMessages(this.application.id);
   },
   destroyed() {
     console.log('destroyed');
@@ -150,8 +150,12 @@ export default {
     application(n, o) {
       if (n && (!o || n.id !== o.id)) {
         this.$store.commit('chat/resetMessages');
+
+        // unsubscribe because messages show up in wrong chat if opened
+        this.$socket.emit('unsubscribe', o.id);
+
         this.$socket.emit('subscribe', n.id);
-        this.getMessages();
+        this.getMessages(n.id);
       }
     },
 

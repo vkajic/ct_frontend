@@ -1,5 +1,9 @@
 <template>
   <page-wrapper :sidebar-width="2">
+    <template v-if="task.applications" slot="chat">
+      <chat-history :applications="task.applications" @select="goToMessages" class="mt-4"/>
+    </template>
+
     <h1>{{task.title}}</h1>
     <small-employer :employer="task.client" class="mb-5"/>
 
@@ -45,6 +49,7 @@ import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
 import ChatContainer from '../../components/tasks/chat/ChatContainer.vue';
 import PageWrapper from '../../components/ui/PageWrapper.vue';
+import ChatHistory from '../../components/tasks/chat/ChatHistory.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -55,6 +60,7 @@ export default {
     AppliedFreelancer,
     RequiredSkills,
     TaskDetails,
+    ChatHistory,
     SmallEmployer,
   },
   data() {
