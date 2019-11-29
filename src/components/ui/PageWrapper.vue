@@ -2,7 +2,7 @@
   <div class="row">
     <div class="d-none d-lg-block pt-5" :class="menuClass">
       <left-menu v-if="showMenu"/>
-      <slot name="chat"/>
+      <chat-history class="mt-5" @select="openMessages"/>
     </div>
     <div class="col-12" :class="bodyClass">
       <div class="row" v-if="hasTitleSlot">
@@ -26,11 +26,13 @@
 <script>
 import LeftMenu from '../layout/LeftMenu.vue';
 import LoadingOverlay from './LoadingOverlay.vue';
+import ChatHistory from '../tasks/chat/ChatHistory.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'PageWrapper',
   components: {
+    ChatHistory,
     LoadingOverlay,
     LeftMenu,
   },
@@ -122,6 +124,27 @@ export default {
      */
     hasTitleSlot() {
       return !!this.$slots.title;
+    },
+  },
+  methods: {
+    openMessages(application) {
+      if (application.status === 1) {
+        this.$router.push({
+          name: 'inProgressItem',
+          params: {
+            id: application.id,
+            openMsgs: true,
+          },
+        });
+      } else {
+        this.$router.push({
+          name: 'application',
+          params: {
+            id: application.id,
+            openMsgs: true,
+          },
+        });
+      }
     },
   },
 };

@@ -1,16 +1,20 @@
 <template>
-  <div class="paper px-7 py-6">
+  <paper>
     <client-basic-info-form :client="client" :redirect-after-save="false"/>
-  </div>
+  </paper>
 </template>
 
 <script>
 import ClientBasicInfoForm from './ClientBasicInfoForm.vue';
+import Paper from '../ui/Paper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'UpdateClient',
-  components: { ClientBasicInfoForm },
+  components: {
+    Paper,
+    ClientBasicInfoForm,
+  },
   computed: {
     client() {
       return this.$store.state.user.user ? this.$store.state.user.user.client : null;

@@ -1,18 +1,28 @@
 <template>
   <div style="position:relative;">
-    <avatar-picture :file="avatar" :thumbnail="true"/>
+    <avatar-display :avatar="avatar" :options="avatarOptions"/>
     <div :class="{'online-status': true, 'is-online': online}"></div>
   </div>
 </template>
 
 <script>
-import AvatarPicture from '../../profile/AvatarPicture.vue';
+import AvatarDisplay from '../../ui/AvatarDisplay.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ChatHistoryAvatar',
   components: {
-    AvatarPicture,
+    AvatarDisplay,
+  },
+  data() {
+    return {
+      avatarOptions: {
+        resize: {
+          width: 40,
+          height: 40,
+        },
+      },
+    };
   },
   props: {
     avatar: {

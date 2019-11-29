@@ -60,7 +60,7 @@
         </small>
       </div>
 
-      <funnel-buttons skip-url="/create-freelancer/projects"
+      <funnel-buttons :skip-url="skipUrl"
                       :submit-text="saveButtonText"
                       :saving="saving"/>
     </b-form>
@@ -185,6 +185,11 @@ export default {
       this.items = [...this.freelancer.workExperiences];
       this.resume = this.freelancer.resume;
     }
+  },
+  computed: {
+    skipUrl() {
+      return this.skipEnabled ? '/create-freelancer/projects' : null;
+    },
   },
 };
 </script>

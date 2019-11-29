@@ -2,17 +2,18 @@
   <b-form @submit.prevent="save">
     <div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-12 col-lg-4 d-flex justify-content-center">
           <image-uploader label="Add profile image"
+                          class="mb-5"
                           title="Profile image"
                           @input="avatarAdded"
                           :value="form.avatar"
                           type="public"
                           @remove="avatarRemoved"/>
         </div>
-        <div class="col-8">
+        <div class="col-12 col-lg-8">
 
-          <h1 class="mb-5">Basic Info</h1>
+          <h1 class="mb-5 d-none d-lg-block">Basic Info</h1>
 
           <div class="mb-3">
             <label>Name</label>
@@ -95,7 +96,9 @@
                       :validation="$v.form.skills"/>
 
 
-          <div class="pt-5 d-flex justify-content-end align-items-center">
+          <div class="pt-5 d-flex flex-column flex-lg-row
+        justify-content-center justify-content-lg-end
+        align-items-center">
             <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
               <template v-if="!saving">Save profile</template>
               <template v-if="saving">Saving...</template>

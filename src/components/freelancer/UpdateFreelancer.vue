@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="paper px-7 py-6 mb-5">
+    <paper class="mb-5">
       <basic-info-preview :freelancer="freelancer"/>
-    </div>
+    </paper>
 
     <div class="row">
-      <div class="col-10 offset-1">
+      <div class="col-12 col-lg-10 offset-lg-1">
         <b-tabs content-class="py-4">
           <b-tab title="Basic Info" active>
             <update-basic-info :freelancer="freelancer"/>
@@ -33,11 +33,13 @@ import BasicInfoPreview from '../profile/BasicInfoPreview.vue';
 import UpdateBasicInfo from './UpdateBasicInfo.vue';
 import ProjectsForm from '../profile/ProjectsForm.vue';
 import ExperienceForm from '../profile/ExperienceForm.vue';
+import Paper from '../ui/Paper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'UpdateFreelancer',
   components: {
+    Paper,
     ExperienceForm,
     ProjectsForm,
     UpdateBasicInfo,

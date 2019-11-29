@@ -3,18 +3,17 @@
     <h1>{{task.title}}</h1>
     <small-employer :employer="application.client" class="mb-5"/>
 
-      <b-tabs v-model="active">
-        <b-tab title="Project details" class="py-4">
-          {{task.description}}
-        </b-tab>
-        <b-tab title="Messages">
-          <chat-container :task="task" :application="application"/>
-        </b-tab>
-      </b-tabs>
-    </div>
+    <b-tabs v-model="active">
+      <b-tab title="Project details" class="py-4">
+        {{task.description}}
+      </b-tab>
+      <b-tab title="Messages">
+        <chat-container :task="task" :application="application"/>
+      </b-tab>
+    </b-tabs>
     <template slot="sidebar">
       <task-details class="mt-7" :task="task" :applicable="false"/>
-      <required-skills class="skills" :skills="task.skills" v-if="task.skills"/>
+      <required-skills class="skills p-4 m-2" :skills="task.skills" v-if="task.skills"/>
     </template>
   </page-wrapper>
 </template>

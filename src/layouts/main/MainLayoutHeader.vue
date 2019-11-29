@@ -3,13 +3,13 @@
     <div class="container">
       <div class="row align-items-center">
         <div
-          class="col-8 col-lg-3 d-flex text-md-left text-center align-content-center">
+          class="col-5 col-lg-3 col-xxl-2 d-flex text-md-left text-center align-content-center">
           <logo-back/>
         </div>
-        <div class="col-lg-6 d-none d-lg-flex align-content-center">
+        <div class="d-none col-lg-7 col-xxl-8 d-lg-flex align-content-center">
           <top-menu/>
         </div>
-        <div class="col-4 col-lg-3 d-flex justify-content-end align-content-center">
+        <div class="col-7 col-lg-2 d-flex justify-content-end align-content-center">
           <user-info/>
         </div>
       </div>

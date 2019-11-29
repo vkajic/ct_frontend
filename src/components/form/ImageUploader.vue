@@ -3,7 +3,7 @@
     <div class="uploader-container image-uploader mb-2"
          @drop.prevent="onDragDrop"
          @dragover.prevent>
-      <div class="uploader">
+      <div class="uploader h-100">
         <div v-if="!imageUrl"
              class="text d-flex flex-column justify-content-center align-items-center">
           <image-icon v-if="!uploading" size="4x"/>
