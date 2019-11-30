@@ -1,16 +1,16 @@
 <template>
   <div class="chat-history-item">
     <header class="d-flex align-items-start p-3">
-      <div class="d-flex flex-fill">
+      <div class="d-flex flex-fill align-items-center">
         <chat-history-avatar :avatar="user.avatar" :online="application.online"/>
         <div class="flex-fill">
           <div class="user-name">
-            {{user.name}} <small>{{application.taskTitle}}</small>
+            {{user.name}} <small>- {{application.taskTitle}}</small>
           </div>
           <div class="user-msg">{{application.lastMsg.from}}: {{application.lastMsg.text}}</div>
         </div>
       </div>
-      <div class="text-muted">
+      <div class="text-muted ml-1">
         <small>{{application.lastMsg.date | date('HH:mm')}}</small>
       </div>
     </header>

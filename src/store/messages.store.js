@@ -33,7 +33,7 @@ const actions = {
   async getApplicationsClient({ commit, state }) {
     if (!state.applications.length) {
       commit('setLoading', true);
-      const apps = (await apiService.post('applications/client-messages')).data.data;
+      const apps = (await apiService.get('applications/client-messages')).data.data;
       commit('setApplications', apps);
       commit('setLoading', false);
     }
