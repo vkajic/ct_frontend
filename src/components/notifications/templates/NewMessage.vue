@@ -35,6 +35,8 @@ export default {
           id: this.userRole === 'freelancer'
             ? this.notification.payload.application.id
             : this.notification.payload.application.task.id,
+          openMsgs: true,
+          applicationId: this.notification.payload.application.id,
         },
       });
     },

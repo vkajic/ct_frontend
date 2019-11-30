@@ -103,18 +103,22 @@ export default {
    */
   watch: {
     '$route.params.id': function (n) {
-      // deselect application and task
-      this.$store.commit('tasks/setSelectedTask', null);
-      this.$store.commit('tasks/setSelectedApplication', null);
+      if (n) {
+        // deselect application and task
+        this.$store.commit('tasks/setSelectedTask', null);
+        this.$store.commit('tasks/setSelectedApplication', null);
 
-      // get data for new id
-      this.getData(n);
+        // get data for new id
+        this.getData(n);
+      }
     },
     '$store.state.messages.activeItem': function (n, o) {
-      // subscribe to chat
-      this.$socket.emit('unsubscribe', o);
+      if (n) {
+        // unsubscribe to chat
+        this.$socket.emit('unsubscribe', o);
 
-      this.goToMessages({ id: n });
+        this.goToMessages({ id: n });
+      }
     },
   },
   created() {

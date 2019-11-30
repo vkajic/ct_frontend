@@ -22,6 +22,8 @@ const actions = {
    */
   async getMessages({ commit, state }, applicationId) {
     try {
+      if (!applicationId) return;
+
       commit('setLoading', true);
 
       const options = {};

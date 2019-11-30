@@ -1,6 +1,6 @@
 <template>
   <div class="row freelancer-basic">
-    <div class="col-12 col-lg-4 d-flex flex-column align-items-center">
+    <div class="col-12 col-lg-auto d-flex flex-column align-items-center mr-3">
       <avatar-display class="mb-4"
                       :avatar="freelancer.avatar"
                       :user-name="fullName"
@@ -9,7 +9,7 @@
         <small>{{freelancer.web}}</small>
       </u></a>
     </div>
-    <div class="col-12 col-lg-8">
+    <div class="col-12 col-lg-auto">
       <h1 class="text-center text-lg-left">
         {{fullName}}
       </h1>

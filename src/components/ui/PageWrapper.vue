@@ -140,6 +140,7 @@ export default {
         params: {
           id: application.taskId,
           openMsgs: true,
+          applicationId: application.id,
         },
       });
     },
