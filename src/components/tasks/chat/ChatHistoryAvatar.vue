@@ -1,6 +1,6 @@
 <template>
-  <div style="position:relative;">
-    <avatar-display :avatar="avatar" :options="avatarOptions"/>
+  <div class="position-relative">
+    <avatar-display class="mr-3" :avatar="avatar" :options="avatarOptions"/>
     <div :class="{'online-status': true, 'is-online': online}"></div>
   </div>
 </template>

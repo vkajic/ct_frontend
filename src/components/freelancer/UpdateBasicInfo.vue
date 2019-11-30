@@ -10,6 +10,7 @@
                           :value="form.avatar"
                           type="public"
                           @remove="avatarRemoved"/>
+          <validation-messages title="Profile image" :validation="$v.form.avatar"/>
         </div>
         <div class="col-12 col-lg-8">
 

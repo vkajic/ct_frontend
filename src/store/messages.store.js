@@ -18,7 +18,7 @@ const actions = {
   async getApplicationsFreelancer({ commit, state }) {
     if (!state.applications.length) {
       commit('setLoading', true);
-      const apps = (await apiService.get('applications/freelancer_messages')).data.data;
+      const apps = (await apiService.get('applications/freelancer-messages')).data.data;
       commit('setApplications', apps);
       commit('setLoading', false);
     }
@@ -30,11 +30,13 @@ const actions = {
    * @param {Array} ids
    * @return {Promise<void>}
    */
-  async getApplicationsClient({ commit }, ids) {
-    commit('setLoading', true);
-    const apps = (await apiService.post('applications/client_messages', { ids })).data.data;
-    commit('setApplications', apps);
-    commit('setLoading', false);
+  async getApplicationsClient({ commit, state }) {
+    if (!state.applications.length) {
+      commit('setLoading', true);
+      const apps = (await apiService.post('applications/client-messages')).data.data;
+      commit('setApplications', apps);
+      commit('setLoading', false);
+    }
   },
 };
 

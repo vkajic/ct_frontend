@@ -5,7 +5,7 @@
         <chat-history-avatar :avatar="user.avatar" :online="application.online"/>
         <div class="flex-fill">
           <div class="user-name">
-            {{user.name}}
+            {{user.name}} <small>{{application.taskTitle}}</small>
           </div>
           <div class="user-msg">{{application.lastMsg.from}}: {{application.lastMsg.text}}</div>
         </div>

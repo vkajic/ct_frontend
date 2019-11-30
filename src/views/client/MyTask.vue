@@ -1,9 +1,5 @@
 <template>
   <page-wrapper :sidebar-width="2">
-    <template v-if="task.applications" slot="chat">
-      <chat-history :applications="task.applications" @select="goToMessages" class="mt-4"/>
-    </template>
-
     <h1>{{task.title}}</h1>
     <small-employer :employer="task.client" class="mb-5"/>
 
@@ -49,7 +45,6 @@ import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
 import ChatContainer from '../../components/tasks/chat/ChatContainer.vue';
 import PageWrapper from '../../components/ui/PageWrapper.vue';
-import ChatHistory from '../../components/tasks/chat/ChatHistory.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -60,7 +55,6 @@ export default {
     AppliedFreelancer,
     RequiredSkills,
     TaskDetails,
-    ChatHistory,
     SmallEmployer,
   },
   data() {
@@ -92,12 +86,39 @@ export default {
       // subscribe to chat
       this.$socket.emit('subscribe', application.id);
     },
+    getData(val) {
+      const id = parseInt(val, 10);
+
+      // get task data
+      this.$store.dispatch('tasks/selectTask', id);
+
+      // if there is openMsg prop open messages tab
+      if (this.$route.params.openMsgs) {
+        this.goToMessages({ id: this.$route.params.applicationId });
+      }
+    },
+  },
+  /**
+   * Watch for $route.params.id and activeItem change
+   */
+  watch: {
+    '$route.params.id': function (n) {
+      // deselect application and task
+      this.$store.commit('tasks/setSelectedTask', null);
+      this.$store.commit('tasks/setSelectedApplication', null);
+
+      // get data for new id
+      this.getData(n);
+    },
+    '$store.state.messages.activeItem': function (n, o) {
+      // subscribe to chat
+      this.$socket.emit('unsubscribe', o);
+
+      this.goToMessages({ id: n });
+    },
   },
   created() {
-    const id = parseInt(this.$route.params.id, 10);
-
-    // get task data
-    this.$store.dispatch('tasks/selectTask', id);
+    this.getData(this.$route.params.id);
   },
   destroyed() {
     // deselect application and task

@@ -128,6 +128,22 @@ export default {
   },
   methods: {
     openMessages(application) {
+      if (this.$store.state.user.activeRole === 'client') {
+        this.openForClient(application);
+      } else {
+        this.openForFreelancer(application);
+      }
+    },
+    openForClient(application) {
+      this.$router.push({
+        name: 'myTask',
+        params: {
+          id: application.taskId,
+          openMsgs: true,
+        },
+      });
+    },
+    openForFreelancer(application) {
       if (application.status === 1) {
         this.$router.push({
           name: 'inProgressItem',

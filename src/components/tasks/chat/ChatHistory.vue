@@ -3,10 +3,10 @@
     <chat-history-header :term="term" @search="search" />
     <hr>
     <chat-history-item v-for="(app) in Applications"
-                      :key="app.id + 'chat-item'"
-                      :application="app"
-                      :class="{'chat-item-active': active === app.id}"
-                      @click.native="open(app)"/>
+                    :key="app.id + 'chat-item'"
+                    :application="app"
+                    :class="{'chat-item-active': active === app.id}"
+                    @click.native="open(app)"/>
 
     <div v-if="loading" class="text-muted">
       Loading!
@@ -32,21 +32,16 @@ export default {
   data() {
     return {
       term: null,
-      clean: false,
     };
-  },
-  props: {
-    applications: {
-      type: Array,
-    },
   },
   computed: {
     Applications() {
       if (this.term) {
-        // filtering by full name
+        // filtering by full name or job name
         return this.apps.filter((app) => {
           const user = app.freelancer || app.client;
-          return user.name.toLowerCase().includes(this.term.toLowerCase());
+          return user.name.toLowerCase().includes(this.term.toLowerCase())
+                || app.taskTitle.toLowerCase().includes(this.term.toLowerCase());
         });
       }
       return this.apps;
@@ -66,20 +61,20 @@ export default {
       this.$emit('select', app);
     },
   },
-  created() {
-    if (this.applications) {
-      // map aplication ids and get all client aplications info
-      const ids = this.applications.map(app => app.id);
-      this.$store.dispatch('messages/getApplicationsClient', ids);
-      this.clean = true;
-    } else {
-      // if prop is undefined get applications info for user
-      this.$store.dispatch('messages/getApplicationsFreelancer');
-    }
+  watch: {
+    '$store.state.user.activeRole': function (n) {
+      if (n === 'client') {
+        this.$store.dispatch('messages/getApplicationsClient');
+      } else if (n === 'freelancer') {
+        this.$store.dispatch('messages/getApplicationsFreelancer');
+      }
+    },
   },
-  beforeDestroy() {
-    if (this.clean) {
-      this.$store.commit('messages/setApplications', []);
+  created() {
+    if (this.$store.state.user.activeRole === 'client') {
+      this.$store.dispatch('messages/getApplicationsClient');
+    } else if (this.$store.state.user.activeRole === 'freelancer') {
+      this.$store.dispatch('messages/getApplicationsFreelancer');
     }
   },
 };

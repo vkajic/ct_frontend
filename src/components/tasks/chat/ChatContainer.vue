@@ -3,7 +3,9 @@
     <div class="messages flex-grow-1 mb-3" @scroll="onScroll" ref="messagesContainer">
       <div class="loading text-center p-2" v-if="loading">Loading...</div>
       <!--<p v-if="!messages.length">Send your first message!</p>-->
-      <chat-message v-for="message in messages" :message="message" :key="message.id"/>
+      <chat-message v-for="message in messages"
+                    :message="message"
+                    :key="message.id + 'chat-message'"/>
     </div>
     <chat-input :application="application" @send="createMessage" @attach="attach"/>
     <chat-typing-info :application="application"/>
