@@ -70,26 +70,29 @@ const router = new Router({
         {
           path: '/',
           component: Entry,
-          meta: { requiresAuth: true },
           children: [
             {
               path: '/',
               name: 'home',
               component: Home,
+              meta: { requiresAuth: true },
             },
             {
               path: '/change-password',
               name: 'changePassword',
               component: ChangePassword,
+              meta: { requiresAuth: true },
             },
             {
               path: '/profile',
               name: 'updateProfile',
               component: UpdateProfile,
+              meta: { requiresAuth: true },
             },
             {
               path: 'create-freelancer',
               component: CreateFreelancer,
+              meta: { requiresAuth: true },
               children: [
                 {
                   path: 'basic-info',
@@ -121,6 +124,7 @@ const router = new Router({
             {
               path: 'create-client',
               component: CreateClient,
+              meta: { requiresAuth: true },
               children: [
                 {
                   path: 'basic-info',
@@ -133,6 +137,7 @@ const router = new Router({
               path: '/create-task',
               name: 'create',
               component: CreateTask,
+              meta: { requiresAuth: true },
             },
             {
               path: '/tasks',
@@ -148,36 +153,43 @@ const router = new Router({
               path: '/my-tasks',
               name: 'myTasks',
               component: MyTasks,
+              meta: { requiresAuth: true },
             },
             {
               path: '/my-tasks/:id/edit',
               name: 'edit-task',
               component: EditTask,
+              meta: { requiresAuth: true },
             },
             {
               path: '/my-tasks/:id',
               name: 'myTask',
               component: MyTask,
+              meta: { requiresAuth: true },
             },
             {
               path: '/applications',
               name: 'applications',
               component: Applications,
+              meta: { requiresAuth: true },
             },
             {
               path: '/applications/:id',
               name: 'application',
               component: ApplicationApplied,
+              meta: { requiresAuth: true },
             },
             {
               path: '/in-progress',
               name: 'inProgress',
               component: InProgress,
+              meta: { requiresAuth: true },
             },
             {
               path: '/in-progress/:id',
               name: 'inProgressItem',
               component: ApplicationWorking,
+              meta: { requiresAuth: true },
             },
             {
               path: '/freelancers',

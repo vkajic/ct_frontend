@@ -32,7 +32,7 @@ const actions = {
     }
 
     // check if there is stored user already
-    if (!state.user) {
+    if (!state.user && state.token) {
       try {
         const user = await apiService.get('/users/me');
         const userData = user.data.data;
@@ -45,7 +45,7 @@ const actions = {
         commit('setActiveRole', firstRole);
 
         if (!userData[firstRole]) {
-          router.replace(`/create-${firstRole}/basic-info`);
+          await router.replace(`/create-${firstRole}/basic-info`);
         }
       } catch (err) {
         tokenService.removeToken();
@@ -81,11 +81,12 @@ const actions = {
     commit('setActiveRole', firstRole);
 
     if (!userData[firstRole].name) {
-      router.replace(`/create-${firstRole}/basic-info`);
+      await router.replace(`/create-${firstRole}/basic-info`);
     } else {
-      router.replace('/');
+      await router.replace('/');
     }
 
+    // reset socket connection
     this._vm.$socket.disconnect();
     this._vm.$socket.connect();
   },

@@ -1,20 +1,27 @@
 <template>
   <page-wrapper v-if="application">
-    <h1>{{task.title}}</h1>
-    <small-employer :employer="application.client" class="mb-5"/>
-
-    <b-tabs v-model="active">
-      <b-tab title="Project details" class="py-4">
-        {{task.description}}
-      </b-tab>
-      <b-tab title="Messages">
-        <chat-container :task="task" :application="application"/>
-      </b-tab>
-    </b-tabs>
-    <template slot="sidebar">
-      <task-details class="mt-7" :task="task" :applicable="false"/>
-      <required-skills class="skills p-4 m-2" :skills="task.skills" v-if="task.skills"/>
-    </template>
+    <div class="row">
+      <div class="col-12">
+        <h1>{{task.title}}</h1>
+        <small-employer :employer="application.client" class="mb-3 mb-lg-5"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-3 offset-lg-1 order-lg-2 pb-4">
+        <task-details :task="task" :applicable="false"/>
+        <required-skills class="skills p-4 m-2" :skills="task.skills" v-if="task.skills"/>
+      </div>
+      <div class="col-12 col-lg-7 order-lg-1">
+        <b-tabs v-model="active">
+          <b-tab title="Project details" class="py-4">
+            {{task.description}}
+          </b-tab>
+          <b-tab title="Messages">
+            <chat-container :task="task" :application="application"/>
+          </b-tab>
+        </b-tabs>
+      </div>
+    </div>
   </page-wrapper>
 </template>
 

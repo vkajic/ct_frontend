@@ -1,7 +1,11 @@
 <template>
   <page-wrapper :menu-width="2">
-    <update-client v-if="activeRole === 'client'"/>
-    <update-freelancer v-if="activeRole === 'freelancer'"/>
+    <div class="row">
+      <div class="col-12 col-lg-9">
+        <update-client v-if="activeRole === 'client'"/>
+        <update-freelancer v-if="activeRole === 'freelancer'"/>
+      </div>
+    </div>
   </page-wrapper>
 </template>
 
@@ -13,7 +17,11 @@ import UpdateFreelancer from '../../components/freelancer/UpdateFreelancer.vue';
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'UpdateProfile',
-  components: { UpdateFreelancer, UpdateClient, PageWrapper },
+  components: {
+    UpdateFreelancer,
+    UpdateClient,
+    PageWrapper,
+  },
   computed: {
     activeRole() {
       return this.$store.state.user.activeRole;

@@ -1,12 +1,16 @@
 <template>
   <page-wrapper>
-    <short-application-item v-for="(a, i) in applications" :key="i" :application="a"/>
+    <div class="row">
+      <div class="col-12 col-lg-7">
+        <short-application-item v-for="(a, i) in applications" :key="i" :application="a"/>
 
-    <div v-if="!applications.length && !loading">
-      <div class="h1 mb-4">
-        You have no applications atm...
+        <div v-if="!applications.length && !loading">
+          <div class="h1 mb-4">
+            You have no applications atm...
+          </div>
+          <router-link to="/tasks"><u>Browse</u></router-link>
+        </div>
       </div>
-      <router-link to="/tasks"><u>Browse</u></router-link>
     </div>
   </page-wrapper>
 </template>

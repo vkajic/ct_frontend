@@ -1,8 +1,12 @@
 <template>
   <page-wrapper :menu-width="2">
-    <paper>
-      <task-form/>
-    </paper>
+    <div class="row">
+      <div class="col-12 col-lg-9">
+        <paper>
+          <task-form/>
+        </paper>
+      </div>
+    </div>
   </page-wrapper>
 </template>
 

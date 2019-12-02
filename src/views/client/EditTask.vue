@@ -1,7 +1,11 @@
 <template>
   <page-wrapper :menu-width="2">
-    <div class="paper px-7 py-6">
-      <task-form :task="task" title="Edit job"/>
+    <div class="row">
+      <div class="col-12 col-lg-9">
+        <paper>
+          <task-form :task="task" title="Edit job"/>
+        </paper>
+      </div>
     </div>
   </page-wrapper>
 </template>
@@ -11,11 +15,13 @@ import { mapState } from 'vuex';
 import { get } from 'lodash';
 import TaskForm from '../../components/tasks/TaskForm.vue';
 import PageWrapper from '../../components/ui/PageWrapper.vue';
+import Paper from '../../components/ui/Paper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'EditTask',
   components: {
+    Paper,
     PageWrapper,
     TaskForm,
   },

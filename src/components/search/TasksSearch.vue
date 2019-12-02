@@ -1,21 +1,25 @@
 <template>
   <page-wrapper>
-    <search-heading class="mb-5"
-                    @search="search"
-                    @sort="setSort"
-                    @category="selectCategory"
-                    :term="queryTerm"
-                    :sort="sort"
-                    :category="category"/>
-    <tasks-group :tasks="tasks"
-                 v-infinite-scroll="loadMore"
-                 :infinite-scroll-disabled="lazyLoading"
-                 :infinite-scroll-distance="10"/>
+    <div class="row">
+      <div class="col-12 col-lg-7">
+        <search-heading class="mb-5"
+                        @search="search"
+                        @sort="setSort"
+                        @category="selectCategory"
+                        :term="queryTerm"
+                        :sort="sort"
+                        :category="category"/>
+        <tasks-group :tasks="tasks"
+                     v-infinite-scroll="loadMore"
+                     :infinite-scroll-disabled="lazyLoading"
+                     :infinite-scroll-distance="10"/>
 
-    <lazy-loader :visible="lazyLoading"/>
+        <lazy-loader :visible="lazyLoading"/>
 
-    <div class="h1 mb-4" v-if="!tasks.length && !loading">
-      No tasks available...
+        <div class="h1 mb-4" v-if="!tasks.length && !loading">
+          No tasks available...
+        </div>
+      </div>
     </div>
   </page-wrapper>
 </template>

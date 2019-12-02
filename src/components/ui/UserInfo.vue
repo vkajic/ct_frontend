@@ -9,7 +9,7 @@
     </div>
     <div class="user-info-widget d-flex align-items-center pr-lg-4" v-if="!loggedIn">
       <ul class="list-unstyled list-inline m-0">
-        <li class="list-inline-item">
+        <li class="list-inline-item pr-3">
           <router-link to="/login">Login</router-link>
         </li>
         <li class="list-inline-item">

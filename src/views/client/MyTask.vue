@@ -1,39 +1,45 @@
 <template>
   <page-wrapper :sidebar-width="2">
-    <h1>{{task.title}}</h1>
-    <small-employer :employer="task.client" class="mb-5"/>
-
-    <b-tabs v-model="selectedTab">
-      <b-tab title="Project details" class="py-4">
-        {{task.description}}
-      </b-tab>
-      <b-tab title="Freelancers applied" class="pt-3">
-        <div v-if="task.applications">
-          <applied-freelancer :application="a"
-                              :task="task"
-                              class="mb-5"
-                              :key="i"
-                              v-for="(a, i) in task.applications"
-                              @select="goToMessages"/>
-        </div>
-        <div v-if="!task.applications || !task.applications.length">
-          <div class="h1 mb-4">
-            You have no applications for this task atm...
-          </div>
-          <router-link to="/freelancers"><u>Browse freelancers</u></router-link>
-        </div>
-      </b-tab>
-      <b-tab title="Messages">
-        <chat-container v-if="selectedApplication"
-                        :task="task"
-                        :application="selectedApplication"/>
-      </b-tab>
-    </b-tabs>
-
-    <template slot="sidebar">
-      <task-details class="mt-7" :task="task" :applicable="false"/>
-      <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
-    </template>
+    <div class="row">
+      <div class="col-12">
+        <h1>{{task.title}}</h1>
+        <small-employer :employer="task.client" class="mb-5"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-3 offset-lg-1 order-lg-2">
+        <task-details :task="task" :applicable="false"/>
+        <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
+      </div>
+      <div class="col-12 col-lg-7 order-lg-1">
+        <b-tabs v-model="selectedTab">
+          <b-tab title="Project details" class="py-4">
+            {{task.description}}
+          </b-tab>
+          <b-tab title="Freelancers applied" class="pt-3">
+            <div v-if="task.applications">
+              <applied-freelancer :application="a"
+                                  :task="task"
+                                  class="mb-5"
+                                  :key="i"
+                                  v-for="(a, i) in task.applications"
+                                  @select="goToMessages"/>
+            </div>
+            <div v-if="!task.applications || !task.applications.length">
+              <div class="h1 mb-4">
+                You have no applications for this task atm...
+              </div>
+              <router-link to="/freelancers"><u>Browse freelancers</u></router-link>
+            </div>
+          </b-tab>
+          <b-tab title="Messages">
+            <chat-container v-if="selectedApplication"
+                            :task="task"
+                            :application="selectedApplication"/>
+          </b-tab>
+        </b-tabs>
+      </div>
+    </div>
   </page-wrapper>
 </template>
 

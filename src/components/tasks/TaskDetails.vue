@@ -80,7 +80,7 @@
       </div>
     </div>
 
-    <div class="share" style="display:none;">
+    <div class="share d-none">
       <a href="#" class="d-flex align-items-center text-secondary">
         <share-2-icon size="20" class="mr-3"/>
         Share

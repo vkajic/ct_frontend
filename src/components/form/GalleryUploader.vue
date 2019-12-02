@@ -77,7 +77,7 @@ export default {
     return {
       fileUrls: [],
       fileName: null,
-      maxSize: 1024, // 10MB
+      maxSize: process.env.VUE_APP_FILESIZE_LIMIT, // 10MB
       errors: [],
       uploading: false,
     };

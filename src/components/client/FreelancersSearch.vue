@@ -1,21 +1,25 @@
 <template>
   <page-wrapper>
-    <freelancers-search-heading @search="search"
-                                @category="selectCategory"
-                                @skill="selectSkill"
-                                :term="term"
-                                :category="category"
-                                :skill="skill"
-                                class="mb-5"/>
-    <freelancers-search-list :freelancers="freelancers"
-                             v-infinite-scroll="loadMore"
-                             :infinite-scroll-disabled="lazyLoading"
-                             :infinite-scroll-distance="10"/>
+    <div class="row">
+      <div class="col-12 col-lg-7">
+        <freelancers-search-heading @search="search"
+                                    @category="selectCategory"
+                                    @skill="selectSkill"
+                                    :term="term"
+                                    :category="category"
+                                    :skill="skill"
+                                    class="mb-5"/>
+        <freelancers-search-list :freelancers="freelancers"
+                                 v-infinite-scroll="loadMore"
+                                 :infinite-scroll-disabled="lazyLoading"
+                                 :infinite-scroll-distance="10"/>
 
-    <lazy-loader :visible="lazyLoading"/>
+        <lazy-loader :visible="lazyLoading"/>
 
-    <div class="h1 mb-4" v-if="!freelancers.length && !loading">
-      No freelancers available...
+        <div class="h1 mb-4" v-if="!freelancers.length && !loading">
+          No freelancers available...
+        </div>
+      </div>
     </div>
   </page-wrapper>
 </template>

@@ -84,7 +84,7 @@ export default {
   data() {
     return {
       imageUrl: null,
-      maxSize: 1024,
+      maxSize: process.env.VUE_APP_FILESIZE_LIMIT,
       error: null,
       uploading: false,
     };

@@ -1,7 +1,6 @@
 <template>
   <div>
     <a href="#"
-       @click.prevent="showNotifications"
        id="popover-button-sync"
        class="notifications-indicator">
       <bell-icon size="1.5x"/>
@@ -9,19 +8,21 @@
         {{count}}
       </div>
     </a>
-    <b-popover :show="popoverVisible"
-               target="popover-button-sync"
+    <b-popover target="popover-button-sync"
                custom-class="notifications-popover"
                placement="bottomleft"
                triggers="click blur"
+               boundary="window"
                @hide="hideNotifications">
-      <b-list-group flush>
-        <b-list-group-item class="flex-column align-items-start"
-                           v-for="n in notifications"
-                           :key="n.id">
-          <notification-item :notification="n" @open="open"/>
-        </b-list-group-item>
-      </b-list-group>
+      <div class="p-0">
+        <b-list-group flush>
+          <b-list-group-item class="flex-column align-items-start"
+                             v-for="n in notifications"
+                             :key="n.id">
+            <notification-item :notification="n" @open="open"/>
+          </b-list-group-item>
+        </b-list-group>
+      </div>
 
       <p class="p-3 m-0 text-muted" v-if="!notifications.length">
         <em>There are currently no unread notifications.</em>

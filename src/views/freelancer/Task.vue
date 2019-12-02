@@ -1,18 +1,22 @@
 <template>
-  <page-wrapper :sidebar-width="3" :reverse="true">
-    <template slot="title">
-      <div>
-        <h1>{{task.title}}</h1>
-        <small-employer :employer="task.owner" class="mb-3 mb-lg-5"/>
+  <page-wrapper>
+    <div class="row">
+      <div class="col-12">
+        <div>
+          <h1>{{task.title}}</h1>
+          <small-employer :employer="task.owner" class="mb-3 mb-lg-5"/>
+        </div>
       </div>
-    </template>
-
-    <p class="pt-3 pt-lg-0">{{task.description}}</p>
-
-    <template slot="sidebar">
-      <task-details :task="task"/>
-      <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
-    </template>
+    </div>
+    <div class="row">
+      <div class="col-12 col-lg-3 offset-lg-2 order-lg-2">
+        <task-details :task="task"/>
+        <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
+      </div>
+      <div class="col-12 col-lg-6 order-lg-1">
+        <p class="pt-3 pt-lg-0">{{task.description}}</p>
+      </div>
+    </div>
   </page-wrapper>
 </template>
 
