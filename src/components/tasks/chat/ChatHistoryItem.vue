@@ -2,10 +2,10 @@
   <div class="chat-history-item">
     <header class="d-flex align-items-start p-3">
       <div class="d-flex flex-fill align-items-center">
-        <chat-history-avatar :avatar="user.avatar" :online="application.online"/>
+        <chat-history-avatar :avatar="application.role.avatar" :online="application.online"/>
         <div class="flex-fill">
           <div class="user-name">
-            {{user.name}} <small>- {{application.taskTitle}}</small>
+            {{application.role.name}} <small>- {{application.taskTitle}}</small>
           </div>
           <div class="user-msg">{{application.lastMsg.from}}: {{application.lastMsg.text}}</div>
         </div>
@@ -34,16 +34,8 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      user: null,
-    };
-  },
   filters: {
     date: dateFilter,
-  },
-  created() {
-    this.user = this.application.freelancer || this.application.client;
   },
 };
 </script>

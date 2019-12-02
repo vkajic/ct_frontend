@@ -61,21 +61,8 @@ export default {
       this.$emit('select', app);
     },
   },
-  watch: {
-    '$store.state.user.activeRole': function (n) {
-      if (n === 'client') {
-        this.$store.dispatch('messages/getApplicationsClient');
-      } else if (n === 'freelancer') {
-        this.$store.dispatch('messages/getApplicationsFreelancer');
-      }
-    },
-  },
   created() {
-    if (this.$store.state.user.activeRole === 'client') {
-      this.$store.dispatch('messages/getApplicationsClient');
-    } else if (this.$store.state.user.activeRole === 'freelancer') {
-      this.$store.dispatch('messages/getApplicationsFreelancer');
-    }
+    this.$store.dispatch('messages/getApplications');
   },
 };
 </script>

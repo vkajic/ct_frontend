@@ -10,30 +10,15 @@ const initialState = {
 
 const actions = {
   /**
-   * Get all applications info for freelancer and set them if not already set
+   * Get all applications info for user and set them if not already set teest
    * @param commit
    * @param state
    * @return {Promise<void>}
    */
-  async getApplicationsFreelancer({ commit, state }) {
+  async getApplications({ commit, state }) {
     if (!state.applications.length) {
       commit('setLoading', true);
-      const apps = (await apiService.get('applications/freelancer-messages')).data.data;
-      commit('setApplications', apps);
-      commit('setLoading', false);
-    }
-  },
-
-  /**
-   * Get all applications info for client and set them
-   * @param commit
-   * @param {Array} ids
-   * @return {Promise<void>}
-   */
-  async getApplicationsClient({ commit, state }) {
-    if (!state.applications.length) {
-      commit('setLoading', true);
-      const apps = (await apiService.get('applications/client-messages')).data.data;
+      const apps = (await apiService.get('applications/messages-info')).data.data;
       commit('setApplications', apps);
       commit('setLoading', false);
     }
