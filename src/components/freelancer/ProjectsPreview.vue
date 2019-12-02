@@ -1,6 +1,6 @@
 <template>
   <div class="row no-gutters">
-    <div class="col-4" v-for="p in projects" :key="p.id">
+    <div class="col-12 col-lg-4" v-for="p in projects" :key="p.id">
       <projects-preview-item :project="p"/>
     </div>
   </div>
