@@ -38,11 +38,8 @@ export default {
     Applications() {
       if (this.term) {
         // filtering by full name or job name
-        return this.apps.filter((app) => {
-          const user = app.freelancer || app.client;
-          return user.name.toLowerCase().includes(this.term.toLowerCase())
-                || app.taskTitle.toLowerCase().includes(this.term.toLowerCase());
-        });
+        return this.apps.filter(app => app.role.name.toLowerCase().includes(this.term.toLowerCase())
+                || app.taskTitle.toLowerCase().includes(this.term.toLowerCase()));
       }
       return this.apps;
     },
