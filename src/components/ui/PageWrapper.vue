@@ -127,6 +127,9 @@ export default {
     },
   },
   methods: {
+    /**
+     * Call correct function based on role
+     */
     openMessages(application) {
       if (this.$store.state.user.activeRole === 'client') {
         this.openForClient(application);
@@ -134,6 +137,9 @@ export default {
         this.openForFreelancer(application);
       }
     },
+    /**
+     * Open myTask view with application params
+     */
     openForClient(application) {
       this.$router.push({
         name: 'myTask',
@@ -144,8 +150,12 @@ export default {
         },
       });
     },
+    /**
+     * Open correct view with application params
+     */
     openForFreelancer(application) {
       if (application.status === 1) {
+        // if freelancer is hired
         this.$router.push({
           name: 'inProgressItem',
           params: {
@@ -154,6 +164,7 @@ export default {
           },
         });
       } else {
+        // if freelancer applied
         this.$router.push({
           name: 'application',
           params: {

@@ -14,7 +14,6 @@
         <small>{{application.lastMsg.date | date('HH:mm')}}</small>
       </div>
     </header>
-    <!-- <div class="loading text-center text-muted p-2" v-else>Loading...</div> -->
   </div>
 </template>
 

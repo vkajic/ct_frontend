@@ -35,6 +35,9 @@ export default {
     search() {
       this.$emit('search', this.searchTerm);
     },
+    /**
+     * Focus input element on display
+     */
     afterEnter(el) {
       if (el.tagName === 'INPUT') {
         el.focus();

@@ -50,9 +50,15 @@ export default {
     }),
   },
   methods: {
+    /**
+     * Set search term
+     */
     search(term) {
       this.term = term;
     },
+    /**
+     * Set activeItem in store and emit select event
+     */
     open(app) {
       this.$store.commit('messages/setActiveItem', app.id);
       this.$emit('select', app);
