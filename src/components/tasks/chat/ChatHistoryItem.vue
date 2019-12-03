@@ -5,7 +5,8 @@
         <chat-history-avatar :avatar="application.role.avatar" :online="application.online"/>
         <div class="flex-fill">
           <div class="user-name">
-            {{application.role.name}} <small>- {{application.taskTitle}}</small>
+            {{application.role.name}}
+            <small v-if="application.taskTitle">- {{application.taskTitle}}</small>
           </div>
           <div class="user-msg">{{application.lastMsg.from}}: {{application.lastMsg.text}}</div>
         </div>
