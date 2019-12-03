@@ -57,6 +57,9 @@ export default {
     },
   },
   methods: {
+    /**
+     * Get application data for id
+     */
     getData(val) {
       const id = parseInt(val, 10);
 
@@ -73,7 +76,7 @@ export default {
     },
   },
   /**
-   * Watch for $route.params.id change
+   * Watch for $route.params.id change and get data for new id
    */
   watch: {
     '$route.params.id': function (n) {

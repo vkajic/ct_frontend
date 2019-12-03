@@ -92,6 +92,9 @@ export default {
       // subscribe to chat
       this.$socket.emit('subscribe', application.id);
     },
+    /**
+     * Get application data for id
+     */
     getData(val) {
       const id = parseInt(val, 10);
 

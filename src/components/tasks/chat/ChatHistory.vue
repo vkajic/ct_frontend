@@ -2,32 +2,27 @@
   <div class="chat-history">
     <chat-history-header :term="term" @search="search" />
     <hr>
-    <chat-history-item v-for="(app) in Applications"
-                    :key="app.id + 'chat-item'"
-                    :application="app"
-                    :class="{'chat-item-active': active === app.id}"
-                    @click.native="open(app)"/>
-
-    <div v-if="loading" class="text-muted">
-      Loading!
-    </div>
-    <div v-else-if="Applications.length === 0" class="text-muted">
-      No messages!
-    </div>
+    <chat-history-client-list v-if="role === 'client'"
+                              :term="term"
+                              @open="open" />
+    <chat-history-freelancer-list v-if="role === 'freelancer'"
+                                  :term="term"
+                                  @open="open" />
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import ChatHistoryHeader from './ChatHistoryHeader.vue';
-import ChatHistoryItem from './ChatHistoryItem.vue';
+import ChatHistoryClientList from './ChatHistoryClientList.vue';
+import ChatHistoryFreelancerList from './ChatHistoryFreelancerList.vue';
 // noinspection JSUnusedGlobalSymbols
 
 export default {
   name: 'ChatHistory',
   components: {
     ChatHistoryHeader,
-    ChatHistoryItem,
+    ChatHistoryClientList,
+    ChatHistoryFreelancerList,
   },
   data() {
     return {
@@ -35,24 +30,23 @@ export default {
     };
   },
   computed: {
-    Applications() {
-      if (this.term) {
-        // filtering by full name or job name
-        return this.apps.filter(app => app.role.name.toLowerCase().includes(this.term.toLowerCase())
-                || app.taskTitle.toLowerCase().includes(this.term.toLowerCase()));
-      }
-      return this.apps;
+    /**
+     * Current user active role
+     */
+    role() {
+      return this.$store.state.user.activeRole;
     },
-    ...mapState('messages', {
-      apps: state => state.applications || [],
-      active: state => state.activeItem,
-      loading: state => state.loading,
-    }),
   },
   methods: {
+    /**
+     * Set search term
+     */
     search(term) {
       this.term = term;
     },
+    /**
+     * Set activeItem in store and emit select event
+     */
     open(app) {
       this.$store.commit('messages/setActiveItem', app.id);
       this.$emit('select', app);

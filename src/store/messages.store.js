@@ -10,7 +10,7 @@ const initialState = {
 
 const actions = {
   /**
-   * Get all applications info for user and set them if not already set teest
+   * Get all applications info for user and set them if not already set
    * @param commit
    * @param state
    * @return {Promise<void>}
@@ -18,8 +18,12 @@ const actions = {
   async getApplications({ commit, state }) {
     if (!state.applications.length) {
       commit('setLoading', true);
-      const apps = (await apiService.get('applications/messages-info')).data.data;
-      commit('setApplications', apps);
+      const { data } = (await apiService.get('applications/messages-info')).data;
+      if (data.role === 'client') {
+        commit('setApplicationsClient', data.data);
+      } else {
+        commit('setApplicationsFreelancer', data.data);
+      }
       commit('setLoading', false);
     }
   },
@@ -45,12 +49,48 @@ const mutations = {
   },
 
   /**
-   * Set list of applications
+   * Set list of applications for freelancer
    * @param state
    * @param {Array} items
    */
-  setApplications(state, items) {
+  setApplicationsFreelancer(state, items) {
     state.applications = items;
+  },
+
+  /**
+   * Set list of applications for client
+   * @param state
+   * @param {Array} items
+   */
+  setApplicationsClient(state, items) {
+    const data = [];
+    items.forEach((app) => {
+      const index = data.findIndex(val => app.taskId === val.taskId);
+      if (index === -1) {
+        // if there is no item with taskId in data, add new object
+        data.push({
+          taskId: app.taskId,
+          taskTitle: app.taskTitle,
+          applications: [{
+            id: app.id,
+            role: app.role,
+            online: app.online,
+            status: app.status,
+            lastMsg: app.lastMsg,
+          }],
+        });
+      } else {
+        // if there is item with taskId in data, push to applications
+        data[index].applications.push({
+          id: app.id,
+          role: app.role,
+          online: app.online,
+          status: app.status,
+          lastMsg: app.lastMsg,
+        });
+      }
+    });
+    state.applications = data;
   },
 
   /**
