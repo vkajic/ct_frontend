@@ -3,6 +3,7 @@ import { get } from 'lodash';
 import ApiService from '../services/api.service';
 
 const initialState = {
+  token: null,
   myTasks: [],
   appliedFor: [],
   workingOn: [],
@@ -24,7 +25,9 @@ const actions = {
    * @param {Boolean} data.published - task published
    * @return {Promise<void>}
    */
-  async create({ commit }, data) {
+  async create({ commit, rootState }, data) {
+    console.log(rootState);
+
     const res = await ApiService.post('/tasks', data);
 
     commit('addMyTask', res.data.data);
