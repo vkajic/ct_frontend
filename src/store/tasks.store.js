@@ -3,7 +3,6 @@ import { get } from 'lodash';
 import ApiService from '../services/api.service';
 
 const initialState = {
-  token: null,
   myTasks: [],
   appliedFor: [],
   workingOn: [],
