@@ -3,6 +3,14 @@ import tokenService from '../services/token.service';
 import apiService from '../services/api.service';
 import router from '../router';
 
+
+const {
+  Universal: Ae, MemoryAccount, Node, Crypto,
+} = require('@aeternity/aepp-sdk');
+const nacl = require('tweetnacl');
+const bip39 = require('bip39');
+
+
 const initialState = {
   token: null,
   user: null,
@@ -10,6 +18,7 @@ const initialState = {
   registrationError: null,
   registrationRole: null,
   activeRole: null,
+  bcData: null,
 };
 
 const actions = {
@@ -64,6 +73,39 @@ const actions = {
    * @return {Promise<*>}
    */
   async login({ commit }, credentials) {
+    // use email+pwd as seed to generate private key
+    const seed = bip39.mnemonicToSeedSync(credentials.email + credentials.password);
+    const keypair = nacl.sign.keyPair.fromSeed(seed.slice(0, 32));
+    const secretKey = Buffer.from(keypair.secretKey).toString('hex');
+    const publicKey = `ak_${Crypto.encodeBase58Check(keypair.publicKey)}`;
+
+    const keypairFormatted = { secretKey, publicKey };
+
+    const node1 = await Node({ url: 'https://sdk-testnet.aepps.com', internalUrl: 'https://sdk-testnet.aepps.com' });
+    const acc1 = MemoryAccount({ keypair: keypairFormatted });
+    const client = await Ae({
+      // This two params deprecated and will be remove in next major release
+      url: 'https://sdk-testnet.aepps.com',
+      internalUrl: 'https://sdk-testnet.aepps.com',
+      // instead use
+      nodes: [
+        { name: 'node1', instance: node1 },
+        // mode2
+      ],
+      compilerUrl: 'https://compiler.aepps.com',
+      accounts: [
+        acc1,
+      ],
+    });
+    // const height = await client.height()
+    // console.log('Current Block', height)
+
+    const bcData = { client, keypair, keypairFormatted };
+
+    commit('setBcData', bcData);
+    // tokenService.saveBcData(bcData);
+
+
     const login = await apiService.post('/auth/login', credentials);
     commit('setToken', login.data.data.token);
 
@@ -361,6 +403,16 @@ const mutations = {
    */
   setClientBasicData(state, data) {
     state.user.client = Object.assign({}, data);
+  },
+
+  /**
+   * Set user keypairs
+   * @param state
+   * @param data
+   */
+  setBcData(state, data) {
+    // deep copy
+    state.bcData = JSON.parse(JSON.stringify(data));
   },
 };
 
