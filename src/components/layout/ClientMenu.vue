@@ -18,11 +18,19 @@
         Post job
       </router-link>
     </li>
+    <li class="d-lg-none">
+      <router-link to="/messages">
+        <mail-icon size="1.5x"/>
+        Messages
+      </router-link>
+    </li>
   </ul>
 </template>
 
 <script>
-import { UsersIcon, CoffeeIcon, BriefcaseIcon } from 'vue-feather-icons';
+import {
+  UsersIcon, CoffeeIcon, BriefcaseIcon, MailIcon,
+} from 'vue-feather-icons';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -31,6 +39,7 @@ export default {
     UsersIcon,
     CoffeeIcon,
     BriefcaseIcon,
+    MailIcon,
   },
 };
 </script>

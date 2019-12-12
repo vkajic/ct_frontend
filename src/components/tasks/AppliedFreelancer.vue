@@ -95,32 +95,13 @@ export default {
      * Clicked on reply button
      */
     reply() {
-      this.$store.commit('tasks/setSelectedApplication', this.application);
       this.$emit('select', this.application);
     },
     /**
      * Clicked on hire button
-     * @return {Promise<void>}
      */
-    async hire() {
-      this.hiring = true;
-      try {
-        await this.$store.dispatch('tasks/hire', this.application);
-        this.hiring = false;
-        this.hired = true;
-
-        this.$store.dispatch('ui/showNotification', {
-          type: 'success',
-          text: 'Freelancer successfully hired',
-        });
-      } catch (err) {
-        this.hiring = false;
-
-        this.$store.dispatch('ui/showNotification', {
-          type: 'danger',
-          text: 'Something went wrong',
-        });
-      }
+    hire() {
+      this.$emit('hire', this.application);
     },
   },
 };

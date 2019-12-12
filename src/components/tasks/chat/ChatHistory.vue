@@ -1,28 +1,24 @@
 <template>
   <div class="chat-history">
-    <chat-history-header :term="term" @search="search" />
+    <chat-history-header :term="term" @search="search"/>
     <hr>
-    <chat-history-client-list v-if="role === 'client'"
-                              :term="term"
-                              @open="open" />
-    <chat-history-freelancer-list v-if="role === 'freelancer'"
-                                  :term="term"
-                                  @open="open" />
+    <client-threads v-if="role === 'client'"/>
+    <freelancer-threads v-if="role === 'freelancer'"/>
   </div>
 </template>
 
 <script>
 import ChatHistoryHeader from './ChatHistoryHeader.vue';
-import ChatHistoryClientList from './ChatHistoryClientList.vue';
-import ChatHistoryFreelancerList from './ChatHistoryFreelancerList.vue';
-// noinspection JSUnusedGlobalSymbols
+import ClientThreads from './ClientThreads.vue';
+import FreelancerThreads from './FreelancerThreads.vue';
 
+// noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ChatHistory',
   components: {
+    FreelancerThreads,
+    ClientThreads,
     ChatHistoryHeader,
-    ChatHistoryClientList,
-    ChatHistoryFreelancerList,
   },
   data() {
     return {
@@ -44,16 +40,6 @@ export default {
     search(term) {
       this.term = term;
     },
-    /**
-     * Set activeItem in store and emit select event
-     */
-    open(app) {
-      this.$store.commit('messages/setActiveItem', app.id);
-      this.$emit('select', app);
-    },
-  },
-  created() {
-    this.$store.dispatch('messages/getApplications');
   },
 };
 </script>

@@ -2,6 +2,7 @@ const initialState = {
   mainLoader: false,
   notificationText: null,
   notificationType: null,
+  taskSelectedTab: 0,
 };
 
 const mutations = {
@@ -39,6 +40,15 @@ const mutations = {
   hideNotification(state) {
     state.notificationText = null;
     state.notificationType = null;
+  },
+
+  /**
+   * On client task select tab
+   * @param state
+   * @param {Number} tab
+   */
+  setTaskSelectedTab(state, tab) {
+    state.taskSelectedTab = tab;
   },
 };
 

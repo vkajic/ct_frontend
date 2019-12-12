@@ -216,8 +216,8 @@
   background: $gray-400;
   border-radius: 50%;
   padding: .3rem;
-  position: relative;
-  bottom: .5rem;
+  position: absolute;
+  bottom: -.5rem;
   left: 2rem;
 }
 
@@ -231,3 +231,20 @@
   font-size: 1rem;
 }
 
+.thread {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  .avatar {
+    width: 2.5rem;
+
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: .5rem;
+    }
+  }
+}

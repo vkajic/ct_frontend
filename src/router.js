@@ -31,6 +31,7 @@ import Freelancers from './views/client/Freelancers.vue';
 import Freelancer from './views/client/Freelancer.vue';
 import ChangePassword from './views/auth/ChangePassword.vue';
 import UpdateProfile from './views/common/UpdateProfile.vue';
+import Chats from './views/common/Chats.vue';
 
 Vue.use(Router);
 
@@ -177,6 +178,12 @@ const router = new Router({
               path: '/applications/:id',
               name: 'application',
               component: ApplicationApplied,
+              meta: { requiresAuth: true },
+            },
+            {
+              path: '/messages',
+              name: 'chats',
+              component: Chats,
               meta: { requiresAuth: true },
             },
             {

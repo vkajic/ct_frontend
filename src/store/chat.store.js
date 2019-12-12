@@ -1,6 +1,8 @@
 /* eslint-disable no-param-reassign */
 import Vue from 'vue';
-import { orderBy, set, get } from 'lodash';
+import {
+  orderBy, set, get, groupBy,
+} from 'lodash';
 import apiService from '../services/api.service';
 
 const initialState = {
@@ -10,6 +12,7 @@ const initialState = {
   lastId: 0,
   total: 0,
   loading: false,
+  threads: [],
 };
 
 const actions = {
@@ -46,6 +49,16 @@ const actions = {
   },
 
   /**
+   * Get list of all threads
+   * @param commit
+   * @return {Promise<void>}
+   */
+  async getThreads({ commit }) {
+    const threads = await apiService.get('/messages/threads');
+    commit('setThreads', threads.data.data);
+  },
+
+  /**
    * Socket hook
    * Triggered when "connect" event is emitted
    * @param rootState
@@ -60,12 +73,31 @@ const actions = {
   },
 
   /**
+   * Some user came online
+   * @param commit
+   * @param {Object} user
+   */
+  socket_userOnline({ commit }, user) {
+    commit('updateThreadsUser', user);
+  },
+
+  /**
+   * Some user went offline
+   * @param commit
+   * @param {Object} user
+   */
+  socket_userOffline({ commit }, user) {
+    commit('updateThreadsUser', user);
+  },
+
+  /**
    * Add new message to store
    * @param commit
    * @param message
    */
   socket_messageSent({ commit }, message) {
     commit('addMessage', message);
+    commit('updateThreadLastMessage', message);
   },
 
   /**
@@ -98,18 +130,8 @@ const actions = {
     if (selectedApplicationId === data.id) {
       this._vm.$socket.emit('messageRead', data.id);
     }
-  },
 
-  /**
-   * Send new message and push it to messages array in state
-   * @param commit
-   * @param {String} text
-   * @param {Number} applicationId
-   */
-  async sendMessage({ commit }, { text, applicationId }) {
-    const message = apiService.post(`/messages/${applicationId}`, { text });
-
-    commit('addMessage', message.data.data);
+    commit('updateThreadLastMessage', data);
   },
 
   /**
@@ -160,6 +182,55 @@ const mutations = {
     } else {
       state.oldMessages.push(...data.messages);
     }
+  },
+
+  /**
+   * Set threads
+   * @param state
+   * @param threads
+   */
+  setThreads(state, threads) {
+    state.threads = threads;
+  },
+
+  /**
+   * Update user data in threads
+   * Used for updating online/offline status
+   * @param {Object} state
+   * @param {Object} user
+   */
+  updateThreadsUser(state, user) {
+    state.threads = state.threads.map((t) => {
+      const { freelancer, client } = t;
+
+      if (freelancer.user.id === user.id) {
+        freelancer.user = user;
+      }
+
+      if (client.user.id === user.id) {
+        client.user = user;
+      }
+
+      t.freelancer = freelancer;
+      t.client = client;
+
+      return t;
+    });
+  },
+
+  /**
+   * Update last message on thread
+   * @param {Object} state
+   * @param {Object} message
+   */
+  updateThreadLastMessage(state, message) {
+    state.threads = state.threads.map((t) => {
+      if (t.id === message.applicationId) {
+        t.lastMessage = message;
+      }
+
+      return t;
+    });
   },
 
   /**
@@ -289,6 +360,27 @@ const getters = {
    */
   getMessagesLeft(state) {
     return state.total - state.oldMessages.length;
+  },
+
+  /**
+   * Get threads grouped by task ID
+   * @param state
+   */
+  getGroupedThreads(state) {
+    const { threads } = state;
+
+    return groupBy(threads, 'taskId');
+  },
+
+  /**
+   * Get all grouped threads for task
+   * @param state
+   * @return {Object}
+   */
+  getTaskGroupedThreads: state => (taskId) => {
+    const { threads } = state;
+
+    return groupBy(threads.filter(t => t.taskId === taskId), 'taskId');
   },
 };
 

@@ -7,13 +7,14 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-lg-3 offset-lg-1 order-lg-2 pb-4">
+      <div class="d-none d-lg-block col-lg-3 offset-lg-1 order-lg-2 pb-4">
         <task-details :task="task" :applicable="false"/>
         <required-skills class="skills p-4 m-2" :skills="task.skills" v-if="task.skills"/>
       </div>
       <div class="col-12 col-lg-7 order-lg-1">
-        <b-tabs v-model="active">
+        <b-tabs :value="selectedTab" @input="selectTab">
           <b-tab title="Project details" class="py-4">
+            <task-details :task="task" :applicable="false" class="d-lg-none mb-4"/>
             {{task.description}}
           </b-tab>
           <b-tab title="Messages">
@@ -43,17 +44,15 @@ export default {
     TaskDetails,
     SmallEmployer,
   },
-  data() {
-    return {
-      active: 0,
-    };
-  },
   computed: {
     ...mapState('tasks', {
       application: state => state.selectedApplication,
     }),
     task() {
       return this.application && this.application.task ? this.application.task : {};
+    },
+    selectedTab() {
+      return this.$store.state.ui.taskSelectedTab;
     },
   },
   methods: {
@@ -68,11 +67,14 @@ export default {
 
       // set messages as read for this application
       this.$store.dispatch('chat/readMessages', id);
+    },
 
-      // if there is openMsg prop open messages tab
-      if (this.$route.params.openMsgs) {
-        this.active = 1;
-      }
+    /**
+     * Fired when tab is changed
+     * @param tabId
+     */
+    selectTab(tabId) {
+      this.$store.commit('ui/setTaskSelectedTab', tabId);
     },
   },
   /**
@@ -80,20 +82,17 @@ export default {
    */
   watch: {
     '$route.params.id': function (n) {
-      // deselect application
-      this.$store.commit('tasks/setSelectedApplication', {});
-
       // get data for new id
       this.getData(n);
     },
   },
   created() {
-    this.$store.commit('tasks/setSelectedApplication', {});
     this.getData(this.$route.params.id);
   },
   destroyed() {
     // deselect application
-    this.$store.commit('tasks/setSelectedApplication', {});
+    this.$store.commit('tasks/setSelectedApplication', null);
+    this.$store.commit('ui/setTaskSelectedTab', 0);
   },
 };
 </script>

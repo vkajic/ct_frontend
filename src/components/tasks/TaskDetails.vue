@@ -1,6 +1,6 @@
 <template>
   <div class="task-details">
-    <h5 class="mb-4">Project details</h5>
+    <h5 class="d-none d-lg-block mb-4">Project details</h5>
 
     <b-button variant="primary"
               block

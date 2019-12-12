@@ -13,6 +13,9 @@ export default {
 
     // init users data
     this.$store.dispatch('user/init');
+
+    // get chat threads
+    this.$store.dispatch('chat/getThreads');
   },
 };
 </script>

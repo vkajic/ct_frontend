@@ -18,11 +18,19 @@
         Applications sent
       </router-link>
     </li>
+    <li class="d-lg-none">
+      <router-link to="/messages">
+        <mail-icon size="1.5x"/>
+        Messages
+      </router-link>
+    </li>
   </ul>
 </template>
 
 <script>
-import { CheckSquareIcon, CoffeeIcon, InboxIcon } from 'vue-feather-icons';
+import {
+  CheckSquareIcon, CoffeeIcon, InboxIcon, MailIcon,
+} from 'vue-feather-icons';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -31,6 +39,7 @@ export default {
     CheckSquareIcon,
     CoffeeIcon,
     InboxIcon,
+    MailIcon,
   },
   data() {
     return {
