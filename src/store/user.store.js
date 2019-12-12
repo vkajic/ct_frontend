@@ -1,14 +1,19 @@
 /* eslint-disable import/no-cycle */
-import tokenService from '../services/token.service';
-import apiService from '../services/api.service';
+
+import * as Nacl from 'tweetnacl';
+import * as Bip39 from 'bip39';
+import Ae from '@aeternity/aepp-sdk/es/ae/universal';
+import { MemoryAccount, Node, Crypto } from '@aeternity/aepp-sdk/es';
 import router from '../router';
+import apiService from '../services/api.service';
+import tokenService from '../services/token.service';
 
 
-const {
+/* const {
   Universal: Ae, MemoryAccount, Node, Crypto,
 } = require('@aeternity/aepp-sdk');
 const nacl = require('tweetnacl');
-const bip39 = require('bip39');
+const bip39 = require('bip39'); */
 
 
 const initialState = {
@@ -74,8 +79,8 @@ const actions = {
    */
   async login({ commit }, credentials) {
     // use email+pwd as seed to generate private key
-    const seed = bip39.mnemonicToSeedSync(credentials.email + credentials.password);
-    const keypair = nacl.sign.keyPair.fromSeed(seed.slice(0, 32));
+    const seed = Bip39.mnemonicToSeedSync(credentials.email + credentials.password);
+    const keypair = Nacl.sign.keyPair.fromSeed(seed.slice(0, 32));
     const secretKey = Buffer.from(keypair.secretKey).toString('hex');
     const publicKey = `ak_${Crypto.encodeBase58Check(keypair.publicKey)}`;
 
@@ -103,6 +108,7 @@ const actions = {
     const bcData = { client, keypair, keypairFormatted };
 
     commit('setBcData', bcData);
+    console.log(bcData);
     // tokenService.saveBcData(bcData);
 
 
@@ -406,7 +412,7 @@ const mutations = {
   },
 
   /**
-   * Set user keypairs
+   * Set user blockchain data
    * @param state
    * @param data
    */
