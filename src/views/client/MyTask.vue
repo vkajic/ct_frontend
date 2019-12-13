@@ -1,5 +1,5 @@
 <template>
-  <page-wrapper :sidebar-width="2">
+  <div>
     <div class="row">
       <div class="col-12">
         <h1>{{task.title}}</h1>
@@ -44,7 +44,7 @@
         </b-tabs>
       </div>
     </div>
-  </page-wrapper>
+  </div>
 </template>
 
 <script>
@@ -55,7 +55,6 @@ import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
 import ChatContainer from '../../components/tasks/chat/ChatContainer.vue';
-import PageWrapper from '../../components/ui/PageWrapper.vue';
 import ClientThreads from '../../components/tasks/chat/ClientThreads.vue';
 
 // noinspection JSUnusedGlobalSymbols
@@ -63,7 +62,6 @@ export default {
   name: 'MyTask',
   components: {
     ClientThreads,
-    PageWrapper,
     ChatContainer,
     AppliedFreelancer,
     RequiredSkills,

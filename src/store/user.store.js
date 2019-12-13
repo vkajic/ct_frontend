@@ -17,6 +17,7 @@ const actions = {
    * Init auth data (token and user) from local storage and API
    * @param commit
    * @param state
+   * @param dispatch
    */
   async init({ commit, state, dispatch }) {
     // check if there is token already in store
@@ -28,6 +29,8 @@ const actions = {
         apiService.setHeader();
 
         commit('setToken', token);
+      } else {
+        throw new Error('Token not found');
       }
     }
 
@@ -54,8 +57,12 @@ const actions = {
         apiService.removeHeader();
         commit('setToken', null);
         commit('setUser', null);
+
+        throw new Error('User not authenticated');
       }
     }
+
+    return true;
   },
 
   /**

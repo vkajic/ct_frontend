@@ -1,27 +1,25 @@
 <template>
-  <page-wrapper>
-    <div class="row">
-      <div class="col-12 col-lg-7">
-        <search-heading class="mb-5"
-                        @search="search"
-                        @sort="setSort"
-                        @category="selectCategory"
-                        :term="queryTerm"
-                        :sort="sort"
-                        :category="category"/>
-        <tasks-group :tasks="tasks"
-                     v-infinite-scroll="loadMore"
-                     :infinite-scroll-disabled="lazyLoading"
-                     :infinite-scroll-distance="10"/>
+  <div class="row">
+    <div class="col-12 col-lg-7">
+      <search-heading class="mb-5"
+                      @search="search"
+                      @sort="setSort"
+                      @category="selectCategory"
+                      :term="queryTerm"
+                      :sort="sort"
+                      :category="category"/>
+      <tasks-group :tasks="tasks"
+                   v-infinite-scroll="loadMore"
+                   :infinite-scroll-disabled="lazyLoading"
+                   :infinite-scroll-distance="10"/>
 
-        <lazy-loader :visible="lazyLoading"/>
+      <lazy-loader :visible="lazyLoading"/>
 
-        <div class="h1 mb-4" v-if="!tasks.length && !loading">
-          No tasks available...
-        </div>
+      <div class="h1 mb-4" v-if="!tasks.length && !loading">
+        No tasks available...
       </div>
     </div>
-  </page-wrapper>
+  </div>
 </template>
 
 <script>
@@ -29,7 +27,6 @@ import { mapState } from 'vuex';
 import infiniteScroll from 'vue-infinite-scroll';
 import SearchHeading from './SearchHeading.vue';
 import TasksGroup from './TasksGroup.vue';
-import PageWrapper from '../ui/PageWrapper.vue';
 import LazyLoader from '../ui/LazyLoader.vue';
 
 // noinspection JSUnusedGlobalSymbols
@@ -37,7 +34,6 @@ export default {
   name: 'TasksSearch',
   components: {
     LazyLoader,
-    PageWrapper,
     TasksGroup,
     SearchHeading,
   },

@@ -1,5 +1,5 @@
 <template>
-  <page-wrapper>
+  <div>
     <div class="row">
       <div class="col-12">
         <div>
@@ -17,20 +17,18 @@
         <p class="pt-3 pt-lg-0">{{task.description}}</p>
       </div>
     </div>
-  </page-wrapper>
+  </div>
 </template>
 
 <script>
 import SmallEmployer from '../../components/tasks/SmallEmployer.vue';
 import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
-import PageWrapper from '../../components/ui/PageWrapper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'Task',
   components: {
-    PageWrapper,
     RequiredSkills,
     TaskDetails,
     SmallEmployer,

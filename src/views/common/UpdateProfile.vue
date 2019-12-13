@@ -1,16 +1,13 @@
 <template>
-  <page-wrapper :menu-width="2">
-    <div class="row">
-      <div class="col-12 col-lg-9">
-        <update-client v-if="activeRole === 'client'"/>
-        <update-freelancer v-if="activeRole === 'freelancer'"/>
-      </div>
+  <div class="row">
+    <div class="col-12 col-lg-9">
+      <update-client v-if="activeRole === 'client'"/>
+      <update-freelancer v-if="activeRole === 'freelancer'"/>
     </div>
-  </page-wrapper>
+  </div>
 </template>
 
 <script>
-import PageWrapper from '../../components/ui/PageWrapper.vue';
 import UpdateClient from '../../components/client/UpdateClient.vue';
 import UpdateFreelancer from '../../components/freelancer/UpdateFreelancer.vue';
 
@@ -20,7 +17,6 @@ export default {
   components: {
     UpdateFreelancer,
     UpdateClient,
-    PageWrapper,
   },
   computed: {
     activeRole() {

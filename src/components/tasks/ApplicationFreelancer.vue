@@ -1,5 +1,5 @@
 <template>
-  <page-wrapper v-if="application">
+  <div v-if="application">
     <div class="row">
       <div class="col-12">
         <h1>{{task.title}}</h1>
@@ -23,7 +23,7 @@
         </b-tabs>
       </div>
     </div>
-  </page-wrapper>
+  </div>
 </template>
 
 <script>
@@ -32,13 +32,11 @@ import SmallEmployer from './SmallEmployer.vue';
 import TaskDetails from './TaskDetails.vue';
 import RequiredSkills from './RequiredSkills.vue';
 import ChatContainer from './chat/ChatContainer.vue';
-import PageWrapper from '../ui/PageWrapper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ApplicationFreelancer',
   components: {
-    PageWrapper,
     ChatContainer,
     RequiredSkills,
     TaskDetails,

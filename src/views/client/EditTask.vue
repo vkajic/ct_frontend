@@ -1,20 +1,17 @@
 <template>
-  <page-wrapper :menu-width="2">
-    <div class="row">
-      <div class="col-12 col-lg-9">
-        <paper>
-          <task-form :task="task" title="Edit job"/>
-        </paper>
-      </div>
+  <div class="row">
+    <div class="col-12 col-lg-9">
+      <paper>
+        <task-form :task="task" title="Edit job"/>
+      </paper>
     </div>
-  </page-wrapper>
+  </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import { get } from 'lodash';
 import TaskForm from '../../components/tasks/TaskForm.vue';
-import PageWrapper from '../../components/ui/PageWrapper.vue';
 import Paper from '../../components/ui/Paper.vue';
 
 // noinspection JSUnusedGlobalSymbols
@@ -22,7 +19,6 @@ export default {
   name: 'EditTask',
   components: {
     Paper,
-    PageWrapper,
     TaskForm,
   },
   computed: {

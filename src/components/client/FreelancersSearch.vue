@@ -1,27 +1,25 @@
 <template>
-  <page-wrapper>
-    <div class="row">
-      <div class="col-12 col-lg-7">
-        <freelancers-search-heading @search="search"
-                                    @category="selectCategory"
-                                    @skill="selectSkill"
-                                    :term="term"
-                                    :category="category"
-                                    :skill="skill"
-                                    class="mb-5"/>
-        <freelancers-search-list :freelancers="freelancers"
-                                 v-infinite-scroll="loadMore"
-                                 :infinite-scroll-disabled="lazyLoading"
-                                 :infinite-scroll-distance="10"/>
+  <div class="row">
+    <div class="col-12 col-lg-7">
+      <freelancers-search-heading @search="search"
+                                  @category="selectCategory"
+                                  @skill="selectSkill"
+                                  :term="term"
+                                  :category="category"
+                                  :skill="skill"
+                                  class="mb-5"/>
+      <freelancers-search-list :freelancers="freelancers"
+                               v-infinite-scroll="loadMore"
+                               :infinite-scroll-disabled="lazyLoading"
+                               :infinite-scroll-distance="10"/>
 
-        <lazy-loader :visible="lazyLoading"/>
+      <lazy-loader :visible="lazyLoading"/>
 
-        <div class="h1 mb-4" v-if="!freelancers.length && !loading">
-          No freelancers available...
-        </div>
+      <div class="h1 mb-4" v-if="!freelancers.length && !loading">
+        No freelancers available...
       </div>
     </div>
-  </page-wrapper>
+  </div>
 </template>
 
 <script>
@@ -30,13 +28,11 @@ import infiniteScroll from 'vue-infinite-scroll';
 import FreelancersSearchList from './FreelancersSearchList.vue';
 import FreelancersSearchHeading from './FreelancersSearchHeading.vue';
 import LazyLoader from '../ui/LazyLoader.vue';
-import PageWrapper from '../ui/PageWrapper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'FreelancersSearch',
   components: {
-    PageWrapper,
     LazyLoader,
     FreelancersSearchHeading,
     FreelancersSearchList,

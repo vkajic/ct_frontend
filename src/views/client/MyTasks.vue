@@ -1,31 +1,27 @@
 <template>
-  <page-wrapper>
-    <div class="row">
-      <div class="col-12 col-lg-7">
-        <my-tasks-heading class="mb-5" @sort="sortData" @search="searchData"/>
-        <my-tasks-list v-if="tasks.length" :tasks="tasks"/>
+  <div class="row">
+    <div class="col-12 col-lg-7">
+      <my-tasks-heading class="mb-5" @sort="sortData" @search="searchData"/>
+      <my-tasks-list v-if="tasks.length" :tasks="tasks"/>
 
-        <div v-if="!tasks.length && !loading">
-          <div class="h1 mb-4">
-            You have no tasks atm...
-          </div>
-          <router-link to="/create-task"><u>Create</u></router-link>
+      <div v-if="!tasks.length && !loading">
+        <div class="h1 mb-4">
+          You have no tasks atm...
         </div>
+        <router-link to="/create-task"><u>Create</u></router-link>
       </div>
     </div>
-  </page-wrapper>
+  </div>
 </template>
 
 <script>
 import MyTasksList from '../../components/tasks/MyTasksList.vue';
 import MyTasksHeading from '../../components/tasks/MyTasksHeading.vue';
-import PageWrapper from '../../components/ui/PageWrapper.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MyTasks',
   components: {
-    PageWrapper,
     MyTasksHeading,
     MyTasksList,
   },

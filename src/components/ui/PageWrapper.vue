@@ -2,7 +2,7 @@
   <div class="row">
     <div class="d-none d-lg-block pt-5" :class="menuClass">
       <left-menu v-if="showMenu"/>
-      <chat-history class="mt-5" @select="openMessages" v-if="loggedIn && showChat"/>
+      <chat-history class="mt-5" v-if="loggedIn && showChat"/>
     </div>
     <div class="col-12" :class="bodyClass">
       <slot/>
@@ -72,55 +72,6 @@ export default {
      */
     loggedIn() {
       return !!this.$store.state.user.user;
-    },
-  },
-  methods: {
-    /**
-     * Call correct function based on role
-     */
-    openMessages(application) {
-      if (this.$store.state.user.activeRole === 'client') {
-        this.openForClient(application);
-      } else {
-        this.openForFreelancer(application);
-      }
-    },
-    /**
-     * Open myTask view with application params
-     */
-    openForClient(application) {
-      this.$router.push({
-        name: 'myTask',
-        params: {
-          id: application.taskId,
-          openMsgs: true,
-          applicationId: application.id,
-        },
-      });
-    },
-    /**
-     * Open correct view with application params
-     */
-    openForFreelancer(application) {
-      if (application.status === 1) {
-        // if freelancer is hired
-        this.$router.push({
-          name: 'inProgressItem',
-          params: {
-            id: application.id,
-            openMsgs: true,
-          },
-        });
-      } else {
-        // if freelancer applied
-        this.$router.push({
-          name: 'application',
-          params: {
-            id: application.id,
-            openMsgs: true,
-          },
-        });
-      }
     },
   },
 };

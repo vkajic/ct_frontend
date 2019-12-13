@@ -1,12 +1,12 @@
 <template>
-  <a href="#" @click.prevent="selectThread" class="thread d-flex align-items-center mb-2">
+  <a href="#" @click.prevent="selectThread" class="thread d-flex align-items-center mb-3">
     <chat-history-avatar :avatar="otherUser.avatar" :online="otherUser.user.online"/>
     <div class="flex-grow-1">
       <div class="d-flex justify-content-between align-items-center">
-        <h6 class="m-0">{{otherUser.name}}</h6>
+        <h6 class="m-0">{{headerString}}</h6>
         <div class="text-muted"><small>{{timeString}}</small></div>
       </div>
-      {{fromString}}: {{truncatedText}}
+      {{fromString}}{{truncatedText}}
     </div>
   </a>
 </template>
@@ -40,6 +40,15 @@ export default {
     },
 
     /**
+     * Build header string depending on user role
+     */
+    headerString() {
+      return this.role === 'freelancer'
+        ? `${this.thread.task.title} - ${this.otherUser.name}`
+        : this.otherUser.name;
+    },
+
+    /**
      * Get message sender name
      */
     fromString() {
@@ -47,10 +56,11 @@ export default {
         const currentUserId = get(this.$store.state.user, 'user.id');
 
         if (currentUserId === this.thread.lastMessage.senderId) {
-          return 'You';
+          return 'You: ';
         }
       }
-      return this.otherUser.firstName ? this.otherUser.firstName : this.otherUser.name;
+      // return this.otherUser.firstName ? this.otherUser.firstName : this.otherUser.name;
+      return '';
     },
 
     /**

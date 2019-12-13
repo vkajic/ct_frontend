@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import store from './store';
 import Home from './views/Home.vue';
 import MainLayout from './layouts/main/MainLayout.vue';
 import CreateTask from './views/client/CreateTask.vue';
@@ -88,12 +89,18 @@ const router = new Router({
               path: '/profile',
               name: 'updateProfile',
               component: UpdateProfile,
-              meta: { requiresAuth: true },
+              meta: {
+                requiresAuth: true,
+                menuWidth: 2,
+              },
             },
             {
               path: 'create-freelancer',
               component: CreateFreelancer,
-              meta: { requiresAuth: true },
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'client',
+              },
               children: [
                 {
                   path: 'basic-info',
@@ -125,12 +132,20 @@ const router = new Router({
             {
               path: 'create-client',
               component: CreateClient,
-              meta: { requiresAuth: true },
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'freelancer',
+              },
               children: [
                 {
                   path: 'basic-info',
                   name: 'clientBasicInfo',
                   component: ClientBasicInfo,
+                  meta: {
+                    menuWidth: 2,
+                    showMenu: false,
+                    showChat: false,
+                  },
                 },
               ],
             },
@@ -138,7 +153,11 @@ const router = new Router({
               path: '/create-task',
               name: 'create',
               component: CreateTask,
-              meta: { requiresAuth: true },
+              meta: {
+                requiresAuth: true,
+                menuWidth: 2,
+                forbidAccess: 'freelancer',
+              },
             },
             {
               path: '/tasks',
@@ -154,31 +173,48 @@ const router = new Router({
               path: '/my-tasks',
               name: 'myTasks',
               component: MyTasks,
-              meta: { requiresAuth: true },
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'freelancer',
+              },
             },
             {
               path: '/my-tasks/:id/edit',
               name: 'edit-task',
               component: EditTask,
-              meta: { requiresAuth: true },
+              meta: {
+                requiresAuth: true,
+                menuWidth: 2,
+                forbidAccess: 'freelancer',
+              },
             },
             {
               path: '/my-tasks/:id',
               name: 'myTask',
               component: MyTask,
-              meta: { requiresAuth: true },
+              meta: {
+                requiresAuth: true,
+                menuWidth: 2,
+                forbidAccess: 'freelancer',
+              },
             },
             {
               path: '/applications',
               name: 'applications',
               component: Applications,
-              meta: { requiresAuth: true },
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'client',
+              },
             },
             {
               path: '/applications/:id',
               name: 'application',
               component: ApplicationApplied,
-              meta: { requiresAuth: true },
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'client',
+              },
             },
             {
               path: '/messages',
@@ -190,13 +226,19 @@ const router = new Router({
               path: '/in-progress',
               name: 'inProgress',
               component: InProgress,
-              meta: { requiresAuth: true },
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'client',
+              },
             },
             {
               path: '/in-progress/:id',
               name: 'inProgressItem',
               component: ApplicationWorking,
-              meta: { requiresAuth: true },
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'client',
+              },
             },
             {
               path: '/freelancers',
@@ -207,6 +249,9 @@ const router = new Router({
               path: '/freelancers/:id',
               name: 'freelancerPublicProfile',
               component: Freelancer,
+              meta: {
+                menuWidth: 2,
+              },
             },
           ],
         },
@@ -216,21 +261,33 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    const token = TokenService.getToken();
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
-    if (!token) {
-      next({
-        path: '/login',
-        query: { redirect: to.fullPath },
-      });
-    } else {
-      next();
-    }
-  } else {
-    next(); // make sure to always call next()!
-  }
+  // init users data
+  store.dispatch('user/init')
+    .then(() => {
+      if (to.matched.some(record => record.meta.forbidAccess)) {
+        const role = store.state.user.activeRole;
+        console.log('forbidding access', role, to);
+        if (role === to.meta.forbidAccess) {
+          next({
+            path: '/',
+          });
+        } else {
+          next();
+        }
+      } else {
+        next();
+      }
+    })
+    .catch(() => {
+      if (to.meta.requiresAuth) {
+        next({
+          path: '/login',
+          query: { redirect: to.fullPath },
+        });
+      } else {
+        next();
+      }
+    });
 });
 
 export default router;
