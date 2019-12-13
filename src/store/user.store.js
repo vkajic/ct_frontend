@@ -18,7 +18,7 @@ const actions = {
    * @param commit
    * @param state
    */
-  async init({ commit, state }) {
+  async init({ commit, state, dispatch }) {
     // check if there is token already in store
     if (!state.token) {
       const token = tokenService.getToken();
@@ -44,6 +44,8 @@ const actions = {
 
         commit('setActiveRole', firstRole);
 
+        dispatch('chat/getThreads', null, { root: true });
+
         if (!userData[firstRole]) {
           await router.replace(`/create-${firstRole}/basic-info`);
         }
@@ -63,7 +65,7 @@ const actions = {
    * @param {Object} credentials
    * @return {Promise<*>}
    */
-  async login({ commit }, credentials) {
+  async login({ commit, dispatch }, credentials) {
     const login = await apiService.post('/auth/login', credentials);
     commit('setToken', login.data.data.token);
 
@@ -79,6 +81,8 @@ const actions = {
     const firstRole = userData.roles[0].name;
 
     commit('setActiveRole', firstRole);
+
+    dispatch('chat/getThreads', null, { root: true });
 
     if (!userData[firstRole].name) {
       await router.replace(`/create-${firstRole}/basic-info`);

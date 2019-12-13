@@ -2,6 +2,7 @@ import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import VueSocketIO from 'vue-socket.io';
+import VueGtag from 'vue-gtag';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -20,6 +21,12 @@ Vue.use(new VueSocketIO({
     mutationPrefix: 'socket_',
   },
 }));
+
+if (process.env.NODE_ENV !== 'development') {
+  Vue.use(VueGtag, {
+    config: { id: 'UA-109515146-2' },
+  });
+}
 
 Vue.config.productionTip = false;
 
