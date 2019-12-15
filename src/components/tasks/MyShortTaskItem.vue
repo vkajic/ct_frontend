@@ -4,7 +4,7 @@
       <div class="active-since">Published {{task.createdAt | date('MMM Do')}}</div>
     </div>
     <h2>
-      <router-link :to="`/my-tasks/${task.id}`">{{task.title}}</router-link>
+      <router-link class="font-18-sm" :to="`/my-tasks/${task.id}`">{{task.title}}</router-link>
     </h2>
     <div class="d-flex align-items-center mb-3">
       <div class="pr-3">{{task.duration}} days</div>

@@ -1,6 +1,6 @@
 <template>
   <div class="auth-form">
-    <h1 class="mb-5 text-center text-lg-left">Sign Up.</h1>
+    <h1 class="h1-sm mb-5 text-center text-lg-left">Sign Up.</h1>
 
     <b-form @submit.prevent="register">
       <b-form-group>
@@ -12,7 +12,11 @@
           :state="$v.form.email.$dirty ? !$v.form.email.$error : null"/>
       </b-form-group>
 
-      <b-form-group :description="passwordDescription">
+      <b-form-group >
+        <template slot="description">
+          <div class="font-12-sm">{{passwordDescription}}</div>
+        </template>
+
         <b-form-input
           v-model="form.password"
           type="password"
@@ -37,7 +41,7 @@
       </b-button>
 
       <p class="text-muted">
-        <small>
+        <small class="font-12-sm">
           By clicking “Sign up for CryptoTask”, you agree to our Terms of Service
           and Privacy Statement. We’ll occasionally send you account related emails.
         </small>

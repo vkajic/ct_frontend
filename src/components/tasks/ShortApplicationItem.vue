@@ -8,7 +8,7 @@
       </div>
     </div>
     <h4>
-      <router-link :to="url">
+      <router-link class="font-18-sm" :to="url">
         {{application.task.title}}
       </router-link>
     </h4>
