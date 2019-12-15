@@ -3,6 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import VueSocketIO from 'vue-socket.io';
 import App from './App.vue';
+import AsyncComputed from 'vue-async-computed'
 import router from './router';
 import store from './store';
 import ApiService from './services/api.service';
@@ -20,6 +21,7 @@ Vue.use(new VueSocketIO({
     mutationPrefix: 'socket_',
   },
 }));
+Vue.use(AsyncComputed);
 
 Vue.config.productionTip = false;
 

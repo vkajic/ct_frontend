@@ -68,6 +68,7 @@ class TasksService {
 
     return status;
   }
+
 }
 
 export default new TasksService();

@@ -300,6 +300,13 @@ const getters = {
       && selectedTask.postedBy !== currentUser.id
       && selectedTaskApplications.length;
   },
+
+  isOnBlockchain(state, otherGetters, rootState) {
+    return bcID => {
+      return rootState.user.bcData.contract.methods.getTask(bcID);
+    };
+  }
+
 };
 
 const store = {
