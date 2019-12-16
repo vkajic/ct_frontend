@@ -7,12 +7,12 @@
                       class="mr-3 mr-lg-4"/>
     </router-link>
     <div>
-      <h2 class="mb-1">
+      <h2 class="mb-1 font-16-sm">
         <router-link :to="`/freelancers/${id}`">
           {{fullName}}
         </router-link>
       </h2>
-      <div>
+      <div class="font-14-sm">
         {{freelancer.occupation}} <span v-if="freelancer.location">in</span> {{freelancer.location}}
       </div>
       <ul class="list-unstyled list-inline m-0">

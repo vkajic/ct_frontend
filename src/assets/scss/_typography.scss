@@ -6,3 +6,21 @@
   font-family: $font-family-sans-serif-secondary;
   font-weight: 700;
 }
+
+@include media-breakpoint-down(sm) {
+  .font-12-sm {
+    font-size: 0.75rem;
+  }
+
+  .font-14-sm {
+    font-size: 0.875rem;
+  }
+
+  .font-16-sm {
+    font-size: 1rem;
+  }
+
+  .font-18-sm {
+    font-size: 1.125rem;
+  }
+}

@@ -2,4 +2,13 @@
   .display-1 {
     font-weight: 900;
   }
+
+  @include media-breakpoint-down(sm) {
+    .display-1 {
+      font-size: 3.25rem;
+    }
+    .lead {
+      font-size: 1rem;
+    }
+  }
  }

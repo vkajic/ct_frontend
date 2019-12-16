@@ -1,11 +1,13 @@
 <template>
   <div class="short-task-item">
     <div class="d-flex align-items-center justify-content-between mb-2">
-      <div class="client-name">{{task._source.postedBy}}</div>
+      <div class="client-name font-14-sm">{{task._source.postedBy}}</div>
       <div class="published-date">{{task._source.timePosted | date('MMM Do')}}</div>
     </div>
     <h4>
-      <router-link :to="`/tasks/${task._id}`">{{task._source.title}}</router-link>
+      <router-link class="font-18-sm" :to="`/tasks/${task._id}`">
+        {{task._source.title}}
+      </router-link>
     </h4>
     <div class="d-flex align-items-center mb-3">
       <div class="duration pr-3">{{task._source.duration}} days</div>
