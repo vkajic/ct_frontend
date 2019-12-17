@@ -1,21 +1,7 @@
 /* eslint-disable import/no-cycle */
-
-import cloneDeep from 'lodash/cloneDeep';
-import * as Nacl from 'tweetnacl';
-import * as Bip39 from 'bip39';
-import Ae from '@aeternity/aepp-sdk/es/ae/universal';
-import { MemoryAccount, Node, Crypto } from '@aeternity/aepp-sdk/es';
 import router from '../router';
 import apiService from '../services/api.service';
 import tokenService from '../services/token.service';
-
-
-/* const {
-  Universal: Ae, MemoryAccount, Node, Crypto,
-} = require('@aeternity/aepp-sdk');
-const nacl = require('tweetnacl');
-const bip39 = require('bip39'); */
-
 
 const initialState = {
   token: null,
@@ -24,7 +10,6 @@ const initialState = {
   registrationError: null,
   registrationRole: null,
   activeRole: null,
-  bcData: null,
 };
 
 const actions = {
@@ -33,7 +18,7 @@ const actions = {
    * @param commit
    * @param state
    */
-  async init({ commit, dispatch, state }) {
+  async init({ commit, state }) {
     // check if there is token already in store
     if (!state.token) {
       const token = tokenService.getToken();
@@ -46,15 +31,8 @@ const actions = {
       }
     }
 
-    if (!state.keypairs) {
-      const keypairs = tokenService.getKeypairs();
-      console.log(keypairs);
-
-      if (keypairs) {
-        commit('setKeypairs', keypairs);
-        await dispatch('createBcData');
-      }
-    }
+    this._vm.$smartContract.getKeypairs();
+    await this._vm.$smartContract.createBcData();
 
     // check if there is stored user already
     if (!state.user && state.token) {
@@ -76,8 +54,6 @@ const actions = {
         tokenService.removeToken();
         apiService.removeHeader();
         commit('setToken', null);
-        commit('setKeypairs', null);
-        commit('setBcData', null);
         commit('setUser', null);
       }
     }
@@ -86,25 +62,12 @@ const actions = {
   /**
    * Login user
    * @param commit
-   * @param dispatch
    * @param {Object} credentials
    * @return {Promise<*>}
    */
-  async login({ commit, dispatch }, credentials) {
-    // use email+pwd as seed to generate private key
-    const seed = Bip39.mnemonicToSeedSync(credentials.email + credentials.password);
-    const keypair = Nacl.sign.keyPair.fromSeed(seed.slice(0, 32));
-    const secretKey = Buffer.from(keypair.secretKey).toString('hex');
-    const publicKey = `ak_${Crypto.encodeBase58Check(keypair.publicKey)}`;
-    const keypairFormatted = { secretKey, publicKey };
-    const keypairs = {
-      keypair, keypairFormatted,
-    };
-
-    commit('setKeypairs', keypairs);
-    tokenService.saveKeypairs(keypairs);
-    await dispatch('createBcData');
-
+  async login({ commit }, credentials) {
+    this._vm.$smartContract.createKeypairs(credentials);
+    await this._vm.$smartContract.createBcData();
 
     const login = await apiService.post('/auth/login', credentials);
     commit('setToken', login.data.data.token);
@@ -154,7 +117,7 @@ const actions = {
     commit('setToken', null);
 
     tokenService.removeToken();
-    tokenService.removeKeypairs();
+    this._vm.$smartContract.removeKeypairs();
     apiService.removeHeader();
 
     commit('setUser', null);
@@ -279,39 +242,6 @@ const actions = {
 
     commit('setFreelancerPublished');
   },
-
-  async createBcData({ state, commit }) {
-    const node1 = await Node({ url: 'https://sdk-testnet.aepps.com', internalUrl: 'https://sdk-testnet.aepps.com' });
-    const acc1 = MemoryAccount({ keypair: state.keypairs.keypairFormatted });
-    const client = await Ae({
-      // This two params deprecated and will be remove in next major release
-      url: 'https://sdk-testnet.aepps.com',
-      internalUrl: 'https://sdk-testnet.aepps.com',
-      // instead use
-      nodes: [
-        { name: 'node1', instance: node1 },
-        // mode2
-      ],
-      compilerUrl: 'https://compiler.aepps.com',
-      accounts: [
-        acc1,
-      ],
-    });
-    // const height = await client.height()
-    // console.log('Current Block', height)
-
-    // const contractSource = fs.readFileSync('/home/slash/Desktop/vs3.aes', 'utf-8');
-    const contractSource = 'contract CryptoTask =\n\n    record state = {\n        tasks : map(int, task),\n        lastTaskIndex : int,\n        nonces : map(address, int)\n        }\n\n    record task = {\n        client : address,\n        flancers : list(int),\n        title : string,\n        descriptionHash : string,\n        taskValue : int,\n        workTime : int,\n        stage : int\n        }\n\n    public stateful entrypoint init() = { \n            tasks = {},\n            lastTaskIndex = 0,\n            nonces = {}\n        }\n        \n        \n    public stateful entrypoint postTask(pubkey: address, sig: signature, nonce : int, functionName : string, title : string, descriptionHash : string, taskValue : int, workTime : int) =      \n        require(functionName == \"postTask\" && Crypto.verify_sig(String.blake2b( String.concat(Int.to_str(nonce), String.concat(functionName, String.concat(title, String.concat(descriptionHash, String.concat(Int.to_str(taskValue), Int.to_str(workTime)))))) ), pubkey, sig) && nonce == state.nonces[pubkey=0], \"Wrong function name, nonce or failed signature check\" )\n\n        let new_task : task = {\n            client = pubkey,\n            flancers = [],\n            title = title,\n            descriptionHash = descriptionHash,\n            taskValue = taskValue,\n            workTime = workTime,\n            stage = 0}\n\n        put(state{tasks[state.lastTaskIndex] = new_task})  \n        put(state{lastTaskIndex = state.lastTaskIndex + 1}) \n        put(state{nonces[pubkey] = state.nonces[pubkey=0] + 1}) \n\n\tstate.lastTaskIndex - 1\n\n\n    public entrypoint getTask(index: int) =\n        state.tasks[index]\n        \n    public entrypoint getNonce(pubkey: address) =\n        state.nonces[pubkey=0]    \n\n';
-    const contract = await client.getContractInstance(contractSource, { contractAddress: 'ct_2YhSJQakfc2euw5mzd7KPYdyzWXx6onYw45G2iJUVTg9xbLXA6' });
-
-    const keypair = state.keypairs.keypair;
-    const keypairFormatted = state.keypairs.keypairFormatted;
-    const bcData = {
-      client, contract, keypair, keypairFormatted,
-    };
-
-    commit('setBcData', bcData);
-  }
 };
 
 const mutations = {
@@ -437,26 +367,6 @@ const mutations = {
    */
   setClientBasicData(state, data) {
     state.user.client = Object.assign({}, data);
-  },
-
-  /**
-   * Set user keypairs
-   * @param state
-   * @param data
-   */
-  setKeypairs(state, data) {
-    // deep copy
-    state.keypairs = _.cloneDeep(data);
-  },
-
-  /**
-   * Set user blockchain data
-   * @param state
-   * @param data
-   */
-  setBcData(state, data) {
-    // deep copy
-    state.bcData = _.cloneDeep(data);
   },
 };
 

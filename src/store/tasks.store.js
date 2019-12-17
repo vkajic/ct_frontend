@@ -1,11 +1,6 @@
 /* eslint-disable no-param-reassign,import/no-cycle */
 import { get } from 'lodash';
-import * as Nacl from 'tweetnacl';
-import * as Bip39 from 'bip39';
-import Ae from '@aeternity/aepp-sdk/es/ae/universal';
-import { MemoryAccount, Node, Crypto } from '@aeternity/aepp-sdk/es';
 import ApiService from '../services/api.service';
-
 
 const initialState = {
   myTasks: [],
@@ -29,27 +24,9 @@ const actions = {
    * @param {Boolean} data.published - task published
    * @return {Promise<void>}
    */
-  async create({ commit, rootState }, data) {
-    console.log(rootState);
-
-    const descriptionHash = Buffer.from(Crypto.hash(data.description)).toString('hex');
-    const resNonce = await rootState.user.bcData.contract.methods.getNonce(rootState.user.bcData.keypairFormatted.publicKey);
-    const nonce = resNonce.decodedResult;
-    console.log(nonce);
-
-    const args = `${nonce.toString()}postTask${data.title}${descriptionHash}${data.price.toString()}${data.duration.toString()}`;
-    console.log(args);
-    const sig = Buffer.from(Crypto.sign(Crypto.hash(args), rootState.user.bcData.keypair.secretKey)).toString('hex');
-    console.log(sig);
-    /* const resBc = await rootState.user.bcData.contract.methods.postTask(rootState.user.bcData.keypairFormatted.publicKey, sig, nonce, 'postTask', data.title, descriptionHash, data.price, data.duration);
-    console.log(resBc); */
-    data.publicKey = rootState.user.bcData.keypairFormatted.publicKey;
-    data.sig = sig;
-    data.nonce = nonce;
-    data.descriptionHash = descriptionHash;
-
-
-    const res = await ApiService.post('/tasks', data);
+  async create({ commit }, data) {
+    const newData = await this._vm.$smartContract.setTaskProperties(data);
+    const res = await ApiService.post('/tasks', newData);
 
     commit('addMyTask', res.data.data);
   },
@@ -300,13 +277,6 @@ const getters = {
       && selectedTask.postedBy !== currentUser.id
       && selectedTaskApplications.length;
   },
-
-  isOnBlockchain(state, otherGetters, rootState) {
-    return bcID => {
-      return rootState.user.bcData.contract.methods.getTask(bcID);
-    };
-  }
-
 };
 
 const store = {

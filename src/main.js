@@ -3,10 +3,10 @@ import BootstrapVue from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import VueSocketIO from 'vue-socket.io';
 import App from './App.vue';
-import AsyncComputed from 'vue-async-computed'
 import router from './router';
 import store from './store';
 import ApiService from './services/api.service';
+import SmartContract from './services/smartContract.service';
 
 import './assets/scss/style.scss';
 
@@ -21,7 +21,6 @@ Vue.use(new VueSocketIO({
     mutationPrefix: 'socket_',
   },
 }));
-Vue.use(AsyncComputed);
 
 Vue.config.productionTip = false;
 
@@ -29,6 +28,9 @@ Vue.config.devtools = process.env.NODE_ENV === 'development';
 
 // Set the base URL of the API
 ApiService.init(process.env.VUE_APP_API_URL, store);
+
+// load smart contract utility service
+Vue.prototype.$smartContract = SmartContract;
 
 new Vue({
   router,
