@@ -6,24 +6,30 @@
     </a>
 
     <b-form-input v-model="message"
+                  :disabled="uploading"
                   class="flex-grow-1"
-                  placeholder="Enter message"
+                  :placeholder="inputPlaceholder"
                   @keyup.native="userTyping"/>
 
     <input type="file"
            class="d-none"
            name="files[]"
+           :disabled="uploading"
            multiple
            ref="attachments"
            @change="uploadFiles($event.target.files)"/>
 
-    <button type="submit" class="btn btn-round submit">Send</button>
+    <button type="submit" class="btn btn-round submit" :disabled="uploading">
+      Send
+    </button>
   </b-form>
 </template>
 
 <script>
 import { PaperclipIcon } from 'vue-feather-icons';
 import apiService from '../../../services/api.service';
+
+const DEFAULT_PLACEHOLDER = 'Enter message';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -45,6 +51,7 @@ export default {
       fileUrls: [],
       maxSize: 1024,
       timeout: null,
+      uploadPercentage: 0,
     };
   },
   methods: {
@@ -117,12 +124,17 @@ export default {
         // submit file to api
         const response = await apiService.post('/files/multiple', formData, {
           headers: { 'content-type': 'multipart/form-data' },
+          onUploadProgress: (progressEvent) => {
+            const percentage = (progressEvent.loaded / progressEvent.total) * 100;
+            this.uploadPercentage = Math.round(percentage);
+          },
         });
 
         // Emit response as file entry
         this.$emit('attach', response.data.data);
 
         this.uploading = false;
+        this.uploadPercentage = 0;
       }
 
       if (this.errors.length) {
@@ -131,6 +143,14 @@ export default {
           text: this.errors.join(' '),
         });
       }
+    },
+  },
+  computed: {
+    inputPlaceholder() {
+      if (this.uploading) {
+        return `${this.uploadPercentage}% uploading...`;
+      }
+      return DEFAULT_PLACEHOLDER;
     },
   },
 };

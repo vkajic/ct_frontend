@@ -9,7 +9,10 @@
             <p v-if="!uploading" class="text-center m-0">
               <a href="#" @click="selectFile"><u>{{label}}</u></a> or drag and drop files
             </p>
-            <p v-if="uploading" class="text-center m-0 text-dark">Uploading...</p>
+            <p v-if="uploading" class="text-center m-0 text-dark">
+              <strong>{{uploadPercentage}}%</strong>
+              Uploading...
+            </p>
           </div>
         </div>
 
@@ -80,6 +83,13 @@ export default {
       maxSize: process.env.VUE_APP_FILESIZE_LIMIT, // 10MB
       errors: [],
       uploading: false,
+      uploadPercentage: 0,
+      imageOptions: {
+        resize: {
+          width: 240,
+          height: 160,
+        },
+      },
     };
   },
   methods: {
@@ -123,12 +133,17 @@ export default {
         // submit file to api
         const response = await ApiService.post('/files/multiple', formData, {
           headers: { 'content-type': 'multipart/form-data' },
+          onUploadProgress: (progressEvent) => {
+            const percentage = (progressEvent.loaded / progressEvent.total) * 100;
+            this.uploadPercentage = Math.round(percentage);
+          },
         });
 
         // Emit response as file entry
         this.$emit('input', response.data.data);
 
         this.uploading = false;
+        this.uploadPercentage = 0;
       }
     },
     removeImage(e, index) {
@@ -138,14 +153,14 @@ export default {
   },
   watch: {
     value(n) {
-      if (n && n.length && !this.fileUrls.length) {
+      if (n && n.length) {
         this.fileUrls = n.map((i) => {
-          if (i.permissions === 'public') {
-            return process.env.VUE_APP_PUBLIC_BUCKET + i.fileName;
-          }
-
-          // TODO fetch signed url
-          return i.fileName;
+          const imageRequest = JSON.stringify({
+            bucket: process.env.VUE_APP_PUBLIC_BUCKET,
+            key: i.fileName,
+            edits: this.imageOptions,
+          });
+          return `${process.env.VUE_APP_IMAGE_BASE_URL}/${btoa(imageRequest)}`;
         });
       }
     },
@@ -153,12 +168,12 @@ export default {
   mounted() {
     if (this.value && this.value.length && !this.fileUrls.length) {
       this.fileUrls = this.value.map((i) => {
-        if (i.permissions === 'public') {
-          return process.env.VUE_APP_PUBLIC_BUCKET + i.fileName;
-        }
-
-        // TODO fetch signed url
-        return i.fileName;
+        const imageRequest = JSON.stringify({
+          bucket: process.env.VUE_APP_PUBLIC_BUCKET,
+          key: i.fileName,
+          edits: this.imageOptions,
+        });
+        return `${process.env.VUE_APP_IMAGE_BASE_URL}/${btoa(imageRequest)}`;
       });
     }
   },
