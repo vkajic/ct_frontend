@@ -108,12 +108,21 @@
   }
 }
 
-.employer {
-  .avatar-container {
-    .avatar {
-      img {
-        border-radius: .4rem;
+.task-title {
+  .on-bc {
+    img {
+      height: 3rem;
+      width: auto;
+    }
+  }
+  .employer {
+    .avatar-container {
+      .avatar {
+        img {
+          border-radius: .4rem;
+        }
       }
     }
   }
 }
+

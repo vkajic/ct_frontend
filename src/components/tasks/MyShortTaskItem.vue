@@ -5,7 +5,6 @@
     </div>
     <h2>
       <router-link :to="`/my-tasks/${task.id}`">
-        <bc-check-status :task="task"/>
         {{task.title}}
       </router-link>
     </h2>
@@ -23,7 +22,6 @@
 <script>
 import { dateFilter } from 'vue-date-fns';
 import TaskTags from './TaskTags.vue';
-import BcCheckStatus from './BcCheckStatus.vue';
 
 // TODO add number of views and applications like in design and edit link if applicable
 
@@ -31,7 +29,6 @@ import BcCheckStatus from './BcCheckStatus.vue';
 export default {
   name: 'MyShortTaskItem',
   components: {
-    BcCheckStatus,
     TaskTags,
   },
   filters: {

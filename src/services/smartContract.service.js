@@ -33,7 +33,15 @@ class SmartContract {
    */
   getKeypairs() {
     if (!this._keypairs) {
-      this._keypairs = JSON.parse(localStorage.getItem(KEYPAIRS_KEY));
+      const _keypairs = JSON.parse(localStorage.getItem(KEYPAIRS_KEY));
+      if (_keypairs) {
+        this._keypairs = Object.assign({}, _keypairs, {
+          keypair: {
+            secretKey: Object.values(_keypairs.keypair.secretKey),
+            publicKey: Object.values(_keypairs.keypair.publicKey),
+          },
+        });
+      }
     }
 
     return this._keypairs;
@@ -131,15 +139,20 @@ class SmartContract {
    */
   async setTaskProperties(taskData) {
     const bcData = this.getBcData();
+    console.log('bcdata', bcData);
     const descriptionHash = Buffer.from(Crypto.hash(taskData.description))
       .toString('hex');
     const resNonce = await bcData.contract.methods.getNonce(bcData.keypairFormatted.publicKey);
     const nonce = resNonce.decodedResult;
-    console.log(nonce);
+    console.log('nonce', nonce);
 
     const args = `${nonce.toString()}postTask${taskData.title}${descriptionHash}${taskData.price.toString()}${taskData.duration.toString()}`;
     console.log(args);
-    const sig = Buffer.from(Crypto.sign(Crypto.hash(args), bcData.keypair.secretKey))
+    const hash = Crypto.hash(args);
+    console.log('hash', hash);
+    const signedHash = Crypto.sign(hash, bcData.keypair.secretKey);
+    console.log(signedHash);
+    const sig = Buffer.from(signedHash)
       .toString('hex');
     console.log(sig);
 

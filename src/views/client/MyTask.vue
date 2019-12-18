@@ -2,8 +2,7 @@
   <page-wrapper :sidebar-width="2">
     <div class="row">
       <div class="col-12">
-        <h1>{{task.title}}</h1>
-        <small-employer :employer="task.client" class="mb-5"/>
+        <single-task-title :task="task"/>
       </div>
     </div>
     <div class="row">
@@ -51,11 +50,13 @@ import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
 import ChatContainer from '../../components/tasks/chat/ChatContainer.vue';
 import PageWrapper from '../../components/ui/PageWrapper.vue';
+import SingleTaskTitle from '../../components/tasks/SingleTaskTitle.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MyTask',
   components: {
+    SingleTaskTitle,
     PageWrapper,
     ChatContainer,
     AppliedFreelancer,

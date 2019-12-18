@@ -10,6 +10,7 @@ const initialState = {
   registrationError: null,
   registrationRole: null,
   activeRole: null,
+  bcDataSet: false,
 };
 
 const actions = {
@@ -32,7 +33,10 @@ const actions = {
     }
 
     this._vm.$smartContract.getKeypairs();
-    await this._vm.$smartContract.createBcData();
+    this._vm.$smartContract.createBcData()
+      .then(() => {
+        commit('activateBcData');
+      });
 
     // check if there is stored user already
     if (!state.user && state.token) {
@@ -66,9 +70,6 @@ const actions = {
    * @return {Promise<*>}
    */
   async login({ commit }, credentials) {
-    this._vm.$smartContract.createKeypairs(credentials);
-    await this._vm.$smartContract.createBcData();
-
     const login = await apiService.post('/auth/login', credentials);
     commit('setToken', login.data.data.token);
 
@@ -84,6 +85,12 @@ const actions = {
     const firstRole = userData.roles[0].name;
 
     commit('setActiveRole', firstRole);
+
+    this._vm.$smartContract.createKeypairs(credentials);
+    this._vm.$smartContract.createBcData()
+      .then(() => {
+        commit('activateBcData');
+      });
 
     if (!userData[firstRole].name) {
       await router.replace(`/create-${firstRole}/basic-info`);
@@ -367,6 +374,14 @@ const mutations = {
    */
   setClientBasicData(state, data) {
     state.user.client = Object.assign({}, data);
+  },
+
+  /**
+   * When bcData is set then set this flag to true for other components to know
+   * @param state
+   */
+  activateBcData(state) {
+    state.bcDataSet = true;
   },
 };
 

@@ -1,20 +1,13 @@
 <template>
-  <div>
-    <check-circle-icon size="1x" v-if="isOnBc"/>
-    <x-circle-icon size="1x" v-else/>
+  <div class="on-bc" v-if="isOnBc">
+    <img src="@/assets/img/aeternity.png" alt="Aeternity"/>
   </div>
 </template>
 
 <script>
-import { CheckCircleIcon, XCircleIcon } from 'vue-feather-icons';
-
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'BcCheckStatus',
-  components: {
-    CheckCircleIcon,
-    XCircleIcon,
-  },
   props: {
     task: {
       type: Object,
@@ -35,16 +28,25 @@ export default {
     task() {
       this.checkBc();
     },
+    isBcDataSet() {
+      this.checkBc();
+    },
   },
   methods: {
     async checkBc() {
-      if (this.task.bcId) {
-        const bcData = this.$smartContract.getBcData();
+      const bcData = this.$smartContract.getBcData();
+      if (this.task.bcId && this.isBcDataSet && bcData) {
         const bcTask = await bcData.contract.methods.getTask(this.task.bcId);
+        console.log(bcTask);
         this.isOnBc = bcTask.decodedResult.title === this.task.title
-          && bcTask.decodedResult.taskValue === this.task.price
+          && bcTask.decodedResult.taskValue === parseInt(this.task.price, 10)
           && bcTask.decodedResult.workTime === this.task.duration;
       }
+    },
+  },
+  computed: {
+    isBcDataSet() {
+      return this.$store.state.user.bcDataSet;
     },
   },
 };
