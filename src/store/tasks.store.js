@@ -20,12 +20,13 @@ const actions = {
    * @param {String} data.title - task title
    * @param {String} data.description - task description
    * @param {Number} data.price - task price
-   * @param {Number} data.worktime - task work time
+   * @param {Number} data.duration - task work time
    * @param {Boolean} data.published - task published
    * @return {Promise<void>}
    */
   async create({ commit }, data) {
-    const res = await ApiService.post('/tasks', data);
+    const newData = await this._vm.$smartContract.setTaskProperties(data);
+    const res = await ApiService.post('/tasks', newData);
 
     commit('addMyTask', res.data.data);
   },

@@ -221,6 +221,7 @@ export default {
           });
           this.$router.push('/my-tasks');
         } catch (err) {
+          console.error(err);
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',

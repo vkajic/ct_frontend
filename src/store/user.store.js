@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
-import tokenService from '../services/token.service';
-import apiService from '../services/api.service';
 import router from '../router';
+import apiService from '../services/api.service';
+import tokenService from '../services/token.service';
 
 const initialState = {
   token: null,
@@ -10,6 +10,7 @@ const initialState = {
   registrationError: null,
   registrationRole: null,
   activeRole: null,
+  bcDataSet: false,
 };
 
 const actions = {
@@ -33,6 +34,12 @@ const actions = {
         throw new Error('Token not found');
       }
     }
+
+    this._vm.$smartContract.getKeypairs();
+    this._vm.$smartContract.createBcData()
+      .then(() => {
+        commit('activateBcData');
+      });
 
     // check if there is stored user already
     if (!state.user && state.token) {
@@ -68,7 +75,6 @@ const actions = {
   /**
    * Login user
    * @param commit
-   * @param dispatch
    * @param {Object} credentials
    * @return {Promise<*>}
    */
@@ -90,6 +96,12 @@ const actions = {
     commit('setActiveRole', firstRole);
 
     dispatch('chat/getThreads', null, { root: true });
+
+    this._vm.$smartContract.createKeypairs(credentials);
+    this._vm.$smartContract.createBcData()
+      .then(() => {
+        commit('activateBcData');
+      });
 
     if (!userData[firstRole].name) {
       await router.replace(`/create-${firstRole}/basic-info`);
@@ -123,6 +135,7 @@ const actions = {
     commit('setToken', null);
 
     tokenService.removeToken();
+    this._vm.$smartContract.removeKeypairs();
     apiService.removeHeader();
 
     commit('setUser', null);
@@ -372,6 +385,14 @@ const mutations = {
    */
   setClientBasicData(state, data) {
     state.user.client = Object.assign({}, data);
+  },
+
+  /**
+   * When bcData is set then set this flag to true for other components to know
+   * @param state
+   */
+  activateBcData(state) {
+    state.bcDataSet = true;
   },
 };
 

@@ -97,7 +97,7 @@
       .freelancer-name {
         font-size: 0.875rem;
       }
-    
+
       .freelancer-occupation {
         font-size: 0.75rem;
       }
@@ -126,15 +126,24 @@
   }
 }
 
-.employer {
-  .avatar-container {
-    .avatar {
-      img {
-        border-radius: .4rem;
+.task-title {
+  .on-bc {
+    img {
+      height: 3rem;
+      width: auto;
+    }
+  }
+  .employer {
+    .avatar-container {
+      .avatar {
+        img {
+          border-radius: .4rem;
+        }
       }
     }
   }
 }
+
 
 .my-task-tabs {
   &.nav-tabs {

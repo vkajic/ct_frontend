@@ -28,9 +28,6 @@ export default {
      */
     logout() {
       this.$store.dispatch('user/logout');
-
-      // reset chat-history applications info
-      this.$store.commit('messages/setApplications', []);
     },
   },
   computed: {
