@@ -23,6 +23,7 @@ const actions = {
       page: state.page,
       perPage: state.perPage,
       category: state.category,
+      skill: state.skill,
       q: state.term,
     };
     try {

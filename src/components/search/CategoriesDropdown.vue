@@ -1,17 +1,21 @@
 <template>
-  <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none pl-0" no-caret>
-    <template slot="button-content">
-      <strong>{{category ? category : 'Category'}}</strong>
-      <chevron-down-icon size="10" class="ml-2"/>
-      <a @click.prevent="removeCategory" v-if="category"><x-icon size="1x"/></a>
-    </template>
-    <b-dropdown-item-button v-for="(c, i) in categories"
-                            :active="c === category"
-                            :key="i"
-                            @click="selectCategory(c)">
-      {{c}}
-    </b-dropdown-item-button>
-  </b-dropdown>
+  <div>
+    <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none px-0" no-caret>
+      <template slot="button-content">
+        <strong>{{category ? category : 'Category'}}</strong>
+        <chevron-down-icon size="10" class="ml-2"/>
+      </template>
+      <b-dropdown-item-button v-for="(c, i) in categories"
+                              :active="c === category"
+                              :key="i"
+                              @click="selectCategory(c)">
+        {{c}}
+      </b-dropdown-item-button>
+    </b-dropdown>
+    <a @click.prevent="removeCategory" v-if="category">
+      <x-icon size="1x"/>
+    </a>
+  </div>
 </template>
 
 <script>

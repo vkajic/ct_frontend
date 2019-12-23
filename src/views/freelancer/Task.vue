@@ -2,10 +2,7 @@
   <div>
     <div class="row">
       <div class="col-12">
-        <div>
-          <h1>{{task.title}}</h1>
-          <small-employer :employer="task.owner" class="mb-3 mb-lg-5"/>
-        </div>
+        <single-task-title :task="task"/>
       </div>
     </div>
     <div class="row">
@@ -24,11 +21,13 @@
 import SmallEmployer from '../../components/tasks/SmallEmployer.vue';
 import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
+import SingleTaskTitle from '../../components/tasks/SingleTaskTitle.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'Task',
   components: {
+    SingleTaskTitle,
     RequiredSkills,
     TaskDetails,
     SmallEmployer,
