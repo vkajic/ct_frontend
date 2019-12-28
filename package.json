@@ -8,7 +8,8 @@
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit",
-    "deploy": "yarn build && aws s3 sync ./dist/ s3://cryptotask-frontend"
+    "deploy": "NODE_ENV=dev yarn build && aws s3 sync ./dist/ s3://cryptotask-frontend",
+    "deploy:production": "NODE_ENV=production yarn build && aws s3 sync ./dist/ s3://cryptotask-production-frontend"
   },
   "dependencies": {
     "@aeternity/aepp-sdk": "^6.1.3",
