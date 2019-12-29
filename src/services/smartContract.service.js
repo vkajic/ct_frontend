@@ -93,14 +93,14 @@ class SmartContract {
   async createBcData() {
     const keypairs = this.getKeypairs();
     const node1 = await Node({
-      url: 'https://sdk-testnet.aepps.com',
-      internalUrl: 'https://sdk-testnet.aepps.com',
+      url: process.env.VUE_APP_BC_URL,
+      internalUrl: process.env.VUE_APP_BC_URL,
     });
     const acc1 = MemoryAccount({ keypair: keypairs.keypairFormatted });
     const client = await Ae({
       // This two params deprecated and will be remove in next major release
-      url: 'https://sdk-testnet.aepps.com',
-      internalUrl: 'https://sdk-testnet.aepps.com',
+      url: process.env.VUE_APP_BC_URL,
+      internalUrl: process.env.VUE_APP_BC_URL,
       // instead use
       nodes: [
         {
@@ -119,7 +119,7 @@ class SmartContract {
     // eslint-disable-next-line no-useless-escape
     const contractSource = 'contract CryptoTask =\n\n    record state = {\n        tasks : map(int, task),\n        lastTaskIndex : int,\n        nonces : map(address, int)\n        }\n\n    record task = {\n        client : address,\n        flancers : list(int),\n        title : string,\n        descriptionHash : string,\n        taskValue : int,\n        workTime : int,\n        stage : int\n        }\n\n    public stateful entrypoint init() = { \n            tasks = {},\n            lastTaskIndex = 0,\n            nonces = {}\n        }\n        \n        \n    public stateful entrypoint postTask(pubkey: address, sig: signature, nonce : int, functionName : string, title : string, descriptionHash : string, taskValue : int, workTime : int) =      \n        require(functionName == \"postTask\" && Crypto.verify_sig(String.blake2b( String.concat(Int.to_str(nonce), String.concat(functionName, String.concat(title, String.concat(descriptionHash, String.concat(Int.to_str(taskValue), Int.to_str(workTime)))))) ), pubkey, sig) && nonce == state.nonces[pubkey=0], \"Wrong function name, nonce or failed signature check\" )\n\n        let new_task : task = {\n            client = pubkey,\n            flancers = [],\n            title = title,\n            descriptionHash = descriptionHash,\n            taskValue = taskValue,\n            workTime = workTime,\n            stage = 0}\n\n        put(state{tasks[state.lastTaskIndex] = new_task})  \n        put(state{lastTaskIndex = state.lastTaskIndex + 1}) \n        put(state{nonces[pubkey] = state.nonces[pubkey=0] + 1}) \n\n\tstate.lastTaskIndex - 1\n\n\n    public entrypoint getTask(index: int) =\n        state.tasks[index]\n        \n    public entrypoint getNonce(pubkey: address) =\n        state.nonces[pubkey=0]    \n\n';
     const contract = await client.getContractInstance(contractSource, {
-      contractAddress: 'ct_2YhSJQakfc2euw5mzd7KPYdyzWXx6onYw45G2iJUVTg9xbLXA6',
+      contractAddress: process.env.VUE_APP_BC_ADDRESS,
     });
 
     const { keypair } = keypairs;

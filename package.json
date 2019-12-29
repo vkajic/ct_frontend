@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build:staging": "vue-cli-service build --mode staging",
+    "build:production": "vue-cli-service build --mode production",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit",
-    "deploy": "NODE_ENV=dev yarn build && aws s3 sync ./dist/ s3://cryptotask-frontend",
-    "deploy:production": "NODE_ENV=production yarn build && aws s3 sync ./dist/ s3://cryptotask-production-frontend"
+    "deploy:staging": "yarn build:staging && aws s3 sync ./dist/ s3://cryptotask-frontend",
+    "deploy:production": "yarn build:production && aws s3 sync ./dist/ s3://cryptotask-production-frontend"
   },
   "dependencies": {
     "@aeternity/aepp-sdk": "^6.1.3",

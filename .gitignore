@@ -6,10 +6,7 @@ node_modules
 /tests/e2e/screenshots/
 
 # local env files
-.env.local
-.env.*.local
-.env.production
-.env.dev
+.env.*
 
 # Log files
 npm-debug.log*
