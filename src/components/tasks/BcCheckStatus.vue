@@ -35,7 +35,7 @@ export default {
   methods: {
     async checkBc() {
       const bcData = this.$smartContract.getBcData();
-      if (this.task.bcId && this.isBcDataSet && bcData) {
+      if (this.task.bcId !== null && this.task.bcId !== undefined && this.isBcDataSet && bcData) {
         const bcTask = await bcData.contract.methods.getTask(this.task.bcId);
         console.log(bcTask);
         this.isOnBc = bcTask.decodedResult.title === this.task.title

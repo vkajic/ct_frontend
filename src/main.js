@@ -14,7 +14,7 @@ import './assets/scss/style.scss';
 Vue.use(BootstrapVue);
 Vue.use(Vuelidate);
 Vue.use(new VueSocketIO({
-  debug: true,
+  debug: process.env.NODE_ENV === 'development',
   connection: process.env.VUE_APP_API_URL,
   vuex: {
     store,

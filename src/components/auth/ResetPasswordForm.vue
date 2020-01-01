@@ -1,11 +1,8 @@
 <template>
   <div class="auth-form">
     <h1 class="mb-5 text-center text-lg-left">Reset Password.</h1>
-    <b-alert variant="danger" :show="error" dismissible class="mb-2">
-      {{error}}
-    </b-alert>
-    <b-form @submit.prevent="resetPassword">
 
+    <b-form @submit.prevent="resetPassword">
       <b-form-group :description="passwordDescription">
         <b-form-input
           v-model="form.newPassword"
@@ -47,7 +44,6 @@ export default {
         newPasswordConfirmation: null,
       },
       sending: false,
-      error: null,
       passwordDescription: `Make sure it's at least 15 characters OR at least
       8 characters including a number and a lowercase letter.`,
     };
@@ -70,7 +66,6 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         this.sending = true;
-        this.error = null;
 
         try {
           await ApiService.post('/auth/reset-password', {
@@ -84,10 +79,13 @@ export default {
             type: 'success',
             text: 'New password is set. You can now log in.',
           });
-          this.$router.replace('/auth');
+          this.$router.replace('/login');
         } catch (err) {
           this.sending = false;
-          this.error = err.response.data.message;
+          this.$store.dispatch('ui/showNotification', {
+            type: 'danger',
+            text: err.response.data.message,
+          });
         }
       }
     },

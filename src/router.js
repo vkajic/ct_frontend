@@ -21,7 +21,6 @@ import Experience from './views/freelancer/createFreelancer/Experience.vue';
 import Projects from './views/freelancer/createFreelancer/Projects.vue';
 import Preview from './views/freelancer/createFreelancer/Preview.vue';
 import MyTasks from './views/client/MyTasks.vue';
-import TokenService from './services/token.service';
 import CreateClient from './views/client/CreateClient.vue';
 import ClientBasicInfo from './views/client/createClient/ClientBasicInfo.vue';
 import Applications from './views/freelancer/Applications.vue';

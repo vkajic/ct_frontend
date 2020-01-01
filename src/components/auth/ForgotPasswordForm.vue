@@ -2,12 +2,6 @@
   <div class="auth-form">
     <h1 class="mb-5 text-center text-lg-left">Forgot Password.</h1>
 
-    <b-alert variant="danger" :show="error" dismissible class="mb-2">
-      {{error}}
-    </b-alert>
-    <b-alert variant="success" :show="success" dismissible class="mb-2">
-      {{success}}
-    </b-alert>
     <b-form @submit.prevent="sendToken">
       <b-form-group>
         <b-form-input
@@ -38,8 +32,6 @@ export default {
         email: null,
       },
       sending: false,
-      error: null,
-      success: null,
     };
   },
   validations: {
@@ -55,19 +47,22 @@ export default {
       this.$v.$touch();
       if (!this.$v.$invalid) {
         this.sending = true;
-        this.error = null;
-        this.success = null;
 
         try {
           await ApiService.post('/auth/forgot-password', { email: this.form.email });
           this.form = {};
           this.$v.$reset();
           this.sending = false;
-          this.success = 'Password reset token is sent to your email address. Please follow instructions from email.';
+          this.$store.dispatch('ui/showNotification', {
+            type: 'success',
+            text: 'Password reset token is sent to your email address. Please follow instructions from email.',
+          });
         } catch (err) {
           this.sending = false;
-          this.error = err.response.data.message;
-          this.success = null;
+          this.$store.dispatch('ui/showNotification', {
+            type: 'danger',
+            text: err.response.data.message,
+          });
         }
       }
     },
