@@ -7,7 +7,11 @@
     </div>
     <div class="row">
       <div class="col-12 col-lg-3 offset-lg-2 order-lg-2">
-        <task-details :task="task"/>
+        <task-details :task="task">
+          <template slot="buttons">
+            <freelancer-task-buttons/>
+          </template>
+        </task-details>
         <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
       </div>
       <div class="col-12 col-lg-6 order-lg-1">
@@ -18,19 +22,19 @@
 </template>
 
 <script>
-import SmallEmployer from '../../components/tasks/SmallEmployer.vue';
 import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import SingleTaskTitle from '../../components/tasks/SingleTaskTitle.vue';
+import FreelancerTaskButtons from '../../components/tasks/FreelancerTaskButtons.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'Task',
   components: {
+    FreelancerTaskButtons,
     SingleTaskTitle,
     RequiredSkills,
     TaskDetails,
-    SmallEmployer,
   },
   mounted() {
     const { id } = this.$route.params;

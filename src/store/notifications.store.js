@@ -23,7 +23,7 @@ const actions = {
    * @param {Object} notification
    */
   socket_receivedNotification({ commit }, notification) {
-    commit('addNotification', notification);
+    commit('setNotification', notification);
   },
 
   /**
@@ -49,12 +49,18 @@ const mutations = {
   },
 
   /**
-   * Add new notification
+   * Add new notification or update old one with new payload
    * @param state
    * @param {Object} notification
    */
-  addNotification(state, notification) {
-    state.notifications.push(notification);
+  setNotification(state, notification) {
+    const index = state.notifications.findIndex(n => n.id === notification.id);
+
+    if (index > -1) {
+      Object.assign(state.notifications[index], { ...notification });
+    } else {
+      state.notifications.push(notification);
+    }
   },
 
   /**

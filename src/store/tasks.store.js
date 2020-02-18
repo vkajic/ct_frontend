@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign,import/no-cycle */
-import { get } from 'lodash';
+import Vue from 'vue';
+import { get, set } from 'lodash';
 import ApiService from '../services/api.service';
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
   selectedTask: {},
   selectedTaskApplications: [],
   selectedApplication: null,
+  feedbackModalDisplayed: false,
 };
 
 const actions = {
@@ -99,6 +101,8 @@ const actions = {
       });
 
       commit('addTaskApplication', application.data.data);
+
+      return application.data.data;
     } catch (err) {
       throw err;
     }
@@ -235,11 +239,63 @@ const mutations = {
    * @param {Object} application
    */
   setApplicationHired(state, application) {
-    const index = state.selectedTaskApplications.findIndex(a => a.id === application.id);
+    if (state.selectedTask) {
+      const index = state.selectedTask.applications.findIndex(a => a.id === application.id);
 
-    if (index > -1) {
-      state.selectedTaskApplications[index].status = 1;
+      if (index > -1) {
+        set(state, ['selectedTask', 'applications', index, 'status'], 1);
+      }
     }
+  },
+
+  setClientApplicationStatus(state, { applicationId, status }) {
+    if (state.selectedTask) {
+      const index = state.selectedTask.applications
+        .findIndex(a => a.id === applicationId);
+
+      if (index > -1) {
+        set(state, ['selectedTask', 'applications', index, 'status'], status);
+      }
+    }
+  },
+
+  setClientApplicationFeedback(state, { applicationId, feedback }) {
+    if (state.selectedTask) {
+      const index = state.selectedTask.applications
+        .findIndex(a => a.id === applicationId);
+
+      if (index > -1) {
+        set(state, ['selectedTask', 'applications', index, 'feedback'], feedback);
+      }
+    }
+  },
+
+  setFreelancerApplicationStatus(state, status) {
+    if (state.selectedApplication) {
+      set(state, ['selectedApplication', 'status'], status);
+    }
+  },
+
+  setFreelancerApplicationFeedback(state, feedback) {
+    if (state.selectedApplication) {
+      set(state, ['selectedApplication', 'feedback'], feedback);
+    }
+  },
+
+  /**
+   * Close feedback modal window
+   * @param state
+   */
+  closeFeedbackModal(state) {
+    state.feedbackModalDisplayed = false;
+  },
+
+  /**
+   * Open feedback modal
+   * @param state
+   */
+  openFeedbackModal(state) {
+    state.feedbackModalDisplayed = true;
   },
 };
 

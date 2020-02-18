@@ -24,7 +24,8 @@
                                   :key="i"
                                   v-for="(a, i) in task.applications"
                                   @select="goToMessages"
-                                  @hire="hire"/>
+                                  @hire="hire"
+                                  @feedback="openFeedbackModal"/>
             </div>
             <div v-if="!task.applications || !task.applications.length">
               <div class="h1 mb-4">
@@ -43,33 +44,39 @@
         </b-tabs>
       </div>
     </div>
+
+    <feedback-modal @save="saveFeedback"/>
   </div>
 </template>
 
 <script>
 import { get } from 'lodash';
 import { mapState } from 'vuex';
-import SmallEmployer from '../../components/tasks/SmallEmployer.vue';
 import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
 import ChatContainer from '../../components/tasks/chat/ChatContainer.vue';
-import PageWrapper from '../../components/ui/PageWrapper.vue';
 import SingleTaskTitle from '../../components/tasks/SingleTaskTitle.vue';
 import ClientThreads from '../../components/tasks/chat/ClientThreads.vue';
+import FeedbackModal from '../../components/feedback/FeedbackModal.vue';
+import ApiService from '../../services/api.service';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MyTask',
   components: {
+    FeedbackModal,
     ClientThreads,
     SingleTaskTitle,
-    PageWrapper,
     ChatContainer,
     AppliedFreelancer,
     RequiredSkills,
     TaskDetails,
-    SmallEmployer,
+  },
+  data() {
+    return {
+      application: null,
+    };
   },
   computed: {
     ...mapState('tasks', {
@@ -104,7 +111,7 @@ export default {
       // set messages as read for this application
       await this.$store.dispatch('chat/readMessages', application.id);
 
-      this.$store.commit('ui/setClientTaskSelectedTab', 3);
+      this.$store.commit('ui/setTaskSelectedTab', 3);
     },
 
     /**
@@ -122,6 +129,45 @@ export default {
         this.$store.dispatch('ui/showNotification', {
           type: 'danger',
           text: 'Something went wrong',
+        });
+      }
+    },
+
+    /**
+     * Open feedback modal
+     */
+    openFeedbackModal(application) {
+      this.application = application;
+      this.$store.commit('tasks/openFeedbackModal');
+    },
+
+    /**
+     * Save feedback data
+     * @param {Object} formData
+     */
+    async saveFeedback(formData) {
+      const status = 2;
+
+      try {
+        const data = Object.assign({}, formData, {
+          applicationId: this.application.id,
+          status,
+        });
+        const res = await ApiService.post('/feedbacks', data);
+        this.$store.commit('tasks/setClientApplicationFeedback', res.data.data);
+        this.$store.commit('tasks/setClientApplicationStatus', status);
+
+        this.$store.dispatch('ui/showNotification', {
+          type: 'success',
+          text: 'Application completed and feedback saved successfully',
+        });
+
+        this.$store.commit('tasks/closeFeedbackModal');
+      } catch (err) {
+        console.error(err);
+        this.$store.dispatch('ui/showNotification', {
+          type: 'danger',
+          text: `${err.response.data.message}`,
         });
       }
     },
@@ -145,15 +191,16 @@ export default {
     },
   },
   created() {
-    this.getData(this.$route.params.id).then(() => {
-      if (this.selectedTab === 3) {
-        // scroll to chat tab
-        const content = document.querySelector('.nav-tabs');
-        if (content) {
-          content.scrollLeft += 200;
+    this.getData(this.$route.params.id)
+      .then(() => {
+        if (this.selectedTab === 3) {
+          // scroll to chat tab
+          const content = document.querySelector('.nav-tabs');
+          if (content) {
+            content.scrollLeft += 200;
+          }
         }
-      }
-    });
+      });
   },
   watch: {
     // eslint-disable-next-line func-names
@@ -173,7 +220,7 @@ export default {
     // deselect application and task
     this.$store.commit('tasks/setSelectedTask', null);
     this.$store.commit('tasks/setSelectedApplication', null);
-    this.$store.commit('ui/setClientTaskSelectedTab', 0);
+    this.$store.commit('ui/setTaskSelectedTab', 0);
   },
 };
 </script>

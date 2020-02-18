@@ -1,46 +1,15 @@
 <template>
-  <div class="row">
-    <div class="col-12 col-lg-7">
-      <short-application-item v-for="(a, i) in applications" :key="i" :application="a"/>
-
-      <div v-if="!applications.length && !loading">
-        <div class="h1 mb-4">
-          You have no active jobs atm...
-        </div>
-        <router-link to="/tasks"><u>Browse</u></router-link>
-      </div>
-    </div>
-  </div>
+  <freelancer-applications-list :status="1"/>
 </template>
 
 <script>
-import ApiService from '../../services/api.service';
-import ShortApplicationItem from '../../components/tasks/ShortApplicationItem.vue';
+import FreelancerApplicationsList from '../../components/tasks/FreelancerApplicationsList.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'InProgress',
   components: {
-    ShortApplicationItem,
-  },
-  data() {
-    return {
-      applications: [],
-      loading: false,
-    };
-  },
-  mounted() {
-    this.loading = true;
-    ApiService
-      .get('/applications', {
-        params: {
-          status: 1,
-        },
-      })
-      .then((res) => {
-        this.applications = res.data.data;
-        this.loading = false;
-      });
+    FreelancerApplicationsList,
   },
 };
 </script>

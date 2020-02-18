@@ -175,7 +175,9 @@ export default {
   watch: {
     freelancer(n) {
       if (n && n.id) {
-        this.items = [...n.workExperiences];
+        if (n.workExperiences) {
+          this.items = [...n.workExperiences];
+        }
         this.resume = n.resume;
       }
     },

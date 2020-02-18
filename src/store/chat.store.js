@@ -135,6 +135,15 @@ const actions = {
   },
 
   /**
+   * New application is created for clients task
+   * @param commit
+   * @param {Object} application
+   */
+  socket_newApplication({ commit }, application) {
+    commit('addThread', application);
+  },
+
+  /**
    * Get list of application ids which have unread messages
    * @param commit
    * @return {Promise<void>}
@@ -191,6 +200,15 @@ const mutations = {
    */
   setThreads(state, threads) {
     state.threads = threads;
+  },
+
+  /**
+   * Add new thread on new application
+   * @param state
+   * @param thread
+   */
+  addThread(state, thread) {
+    state.threads.push(thread);
   },
 
   /**

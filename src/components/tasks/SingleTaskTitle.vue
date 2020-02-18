@@ -1,10 +1,13 @@
 <template>
   <div class="task-title">
-    <h1 class="d-flex align-items-center">
-      {{task.title}}
-      <bc-check-status :task="task" class="ml-2"/>
-    </h1>
-    <small-employer :employer="task.client" class="mb-5" v-if="task.client"/>
+    <div class="d-flex align-items-center">
+      <h1 class="d-flex align-items-center">
+        {{task.title}}
+        <bc-check-status :task="task" class="ml-2"/>
+      </h1>
+      <slot name="title"/>
+    </div>
+    <small-employer :employer="clientData" class="mb-5" v-if="clientData"/>
   </div>
 </template>
 
@@ -23,6 +26,15 @@ export default {
     task: {
       type: Object,
       required: true,
+    },
+    client: {
+      type: Object,
+      default: null,
+    },
+  },
+  computed: {
+    clientData() {
+      return this.client ? this.client : this.task.client;
     },
   },
 };

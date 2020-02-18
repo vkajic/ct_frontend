@@ -2,11 +2,16 @@
   <div class="applied-freelancer" v-if="freelancer">
     <header class="d-flex align-items-center justify-content-between p-3">
       <div class="d-flex align-items-top">
-        <avatar-display :avatar="freelancer.avatar" :user-name="fullName" :options="avatarOptions"/>
+        <avatar-display :avatar="freelancer.avatar"
+                        :user-name="freelancer.name"
+                        :options="avatarOptions"/>
         <div>
-          <router-link :to="`/freelancers/${freelancer.id}`" class="freelancer-name">
-            {{fullName}}
-          </router-link>
+          <div class="d-flex align-items-center">
+            <router-link :to="`/freelancers/${freelancer.id}`" class="freelancer-name mr-2">
+              {{freelancer.name}}
+            </router-link>
+            <application-status-badge :application="application"/>
+          </div>
           <div class="freelancer-occupation">
             {{freelancer.occupation}} in {{freelancer.location}}
           </div>
@@ -22,15 +27,14 @@
     </header>
     <p class="pt-3 pr-3">{{application.letter}}</p>
 
-    <div class="reply d-flex align-items-center">
-      <b-button variant="light" class="btn-round mr-3" @click="reply">Reply</b-button>
-      <b-button variant="info"
-                class="btn-round"
-                @click="hire"
-                v-if="!alreadyHired"
-                :disabled="hiring">
-        {{hiring ? 'Hiring...' : 'Hire'}}
-      </b-button>
+    <client-application-buttons :application="application"
+                                @hire="$emit('hire', application)"
+                                @select="$emit('select', application)"
+                                @feedback="$emit('feedback', application)"/>
+
+    <div v-if="application.feedback && application.feedback.freelancerRate">
+      <hr>
+      <application-feedback :feedback="application.feedback"/>
     </div>
   </div>
 </template>
@@ -39,15 +43,22 @@
 import { intersection } from 'lodash';
 import { dateFilter } from 'vue-date-fns';
 import AvatarDisplay from '../ui/AvatarDisplay.vue';
+import ClientApplicationButtons from './ClientApplicationButtons.vue';
+import ApplicationStatusBadge from './ApplicationStatusBadge.vue';
+import ApplicationFeedback from '../client/ApplicationFeedback.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'AppliedFreelancer',
-  components: { AvatarDisplay },
+  components: {
+    ApplicationFeedback,
+    ApplicationStatusBadge,
+    ClientApplicationButtons,
+    AvatarDisplay,
+  },
   data() {
     return {
       hiring: false,
-      hired: false,
       avatarOptions: {
         resize: {
           width: 90,
@@ -73,12 +84,6 @@ export default {
     freelancer() {
       return this.application.freelancer;
     },
-    fullName() {
-      return `${this.freelancer.firstName} ${this.freelancer.lastName}`;
-    },
-    alreadyHired() {
-      return this.application.status === 1 || this.hired;
-    },
 
     /**
      * Returns array of matching skills between task and freelancer
@@ -88,20 +93,6 @@ export default {
       const freelancerSkills = this.freelancer.skills.map(f => f.id);
 
       return intersection(taskSkills, freelancerSkills);
-    },
-  },
-  methods: {
-    /**
-     * Clicked on reply button
-     */
-    reply() {
-      this.$emit('select', this.application);
-    },
-    /**
-     * Clicked on hire button
-     */
-    hire() {
-      this.$emit('hire', this.application);
     },
   },
 };

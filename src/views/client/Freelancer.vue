@@ -27,6 +27,9 @@
                 <experience-preview :items="freelancer.workExperiences"
                                     :resume="freelancer.resume"/>
               </b-tab>
+              <b-tab title="Feedbacks">
+                <freelancer-feedbacks :feedbacks="feedbacks"/>
+              </b-tab>
             </b-tabs>
           </div>
         </div>
@@ -47,11 +50,13 @@ import ExperiencePreview from '../../components/profile/ExperiencePreview.vue';
 import ProjectsPreview from '../../components/freelancer/ProjectsPreview.vue';
 import InviteToJobModal from '../../components/client/InviteToJobModal.vue';
 import Paper from '../../components/ui/Paper.vue';
+import FreelancerFeedbacks from '../../components/freelancer/FreelancerFeedbacks.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'Freelancer',
   components: {
+    FreelancerFeedbacks,
     Paper,
     InviteToJobModal,
     ProjectsPreview,
@@ -62,10 +67,15 @@ export default {
     return {
       freelancer: null,
       inviteActive: null,
+      feedbacks: [],
     };
   },
   created() {
     this.$store.commit('ui/showLoader');
+    apiService.get(`/freelancers/${this.id}/feedbacks`)
+      .then((res) => {
+        this.feedbacks = res.data.data;
+      });
     apiService.get(`/freelancers/${this.id}`)
       .then((res) => {
         this.freelancer = res.data.data;

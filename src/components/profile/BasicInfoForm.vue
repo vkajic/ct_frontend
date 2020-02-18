@@ -76,8 +76,7 @@
           </div>
         </div>
 
-        <funnel-buttons skip-url="/create-freelancer/skills"
-                        submit-text="Next: Set skills & services"
+        <funnel-buttons submit-text="Next: Set skills & services"
                         :saving="saving"/>
       </div>
     </div>

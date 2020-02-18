@@ -1,23 +1,7 @@
 <template>
   <div class="task-details">
     <h5 class="d-none d-lg-block mb-4">Project details</h5>
-
-    <b-button variant="primary"
-              block
-              class="btn-round mb-4"
-              v-if="applyAllowed"
-              :disabled="alreadyApplied"
-              v-b-modal.applicationModal>
-      <template v-if="!alreadyApplied">Apply for job</template>
-      <template v-if="alreadyApplied">Already applied</template>
-    </b-button>
-
-    <b-modal id="applicationModal" title="Apply for task" ok-title="Apply" @ok="apply">
-      <b-form>
-        <textarea-group v-model="letter" label="Message" :rows="10"/>
-      </b-form>
-    </b-modal>
-
+    <slot name="buttons"/>
     <div>
       <div class="detail d-flex align-items-center">
         <check-square-icon size="20" class="mr-3"/>
@@ -65,7 +49,7 @@
           <div class="small-heading">
             LOCATION
           </div>
-          <strong>{{task.location === "onsite" ? "On Site" : "Remote"}}</strong>
+          <strong>{{task.location === 'onsite' ? 'On Site' : 'Remote'}}</strong>
         </div>
       </div>
 
@@ -75,7 +59,7 @@
           <div class="small-heading">
             TYPE
           </div>
-          <strong>{{task.type === "parttime" ? "Part Time" : "Full Time"}}</strong>
+          <strong>{{task.type === 'parttime' ? 'Part Time' : 'Full Time'}}</strong>
         </div>
       </div>
     </div>
@@ -107,7 +91,6 @@ import {
   MapPinIcon,
   TagIcon,
 } from 'vue-feather-icons';
-import TextareaGroup from '../form/TextareaGroup.vue';
 
 // TODO change how status is displayed
 
@@ -115,7 +98,6 @@ import TextareaGroup from '../form/TextareaGroup.vue';
 export default {
   name: 'TaskDetails',
   components: {
-    TextareaGroup,
     CheckSquareIcon,
     PlusSquareIcon,
     CalendarIcon,
@@ -130,7 +112,6 @@ export default {
   data() {
     return {
       applied: false,
-      letter: null,
     };
   },
   props: {
@@ -138,29 +119,8 @@ export default {
       type: Object,
       required: true,
     },
-    applicable: {
-      type: Boolean,
-      default: true,
-    },
   },
   computed: {
-    /**
-     * Checks if user can apply on task
-     * @return {boolean}
-     */
-    applyAllowed() {
-      return this.$store.state.user.activeRole === 'freelancer' && this.applicable;
-    },
-
-    /**
-     * Check if user freelancer already applied for task
-     * @return {boolean}
-     */
-    alreadyApplied() {
-      return this.applied
-        || (!!this.task.applications && !!this.task.applications.length);
-    },
-
     /**
      * Is edit allowed on task
      * Edit is allowed only if status is CREATED or HIRED and current user has created that task
@@ -169,27 +129,6 @@ export default {
     editAllowed() {
       const client = get(this, '$store.state.user.user.client');
       return this.task.status === 0 && client && client.id === this.task.postedBy;
-    },
-  },
-  methods: {
-    async apply() {
-      try {
-        await this.$store.dispatch('tasks/applyForTask', {
-          taskId: this.task.id,
-          letter: this.letter,
-        });
-        this.$store.dispatch('ui/showNotification', {
-          type: 'success',
-          text: 'You applied for this task',
-        });
-        this.applied = true;
-        this.letter = null;
-      } catch (err) {
-        this.$store.dispatch('ui/showNotification', {
-          type: 'danger',
-          text: err.response.data.message,
-        });
-      }
     },
   },
 };

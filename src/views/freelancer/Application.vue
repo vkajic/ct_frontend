@@ -7,7 +7,7 @@ import ApplicationFreelancer from '../../components/tasks/ApplicationFreelancer.
 
 // noinspection JSUnusedGlobalSymbols
 export default {
-  name: 'ApplicationApplied',
+  name: 'Application',
   components: { ApplicationFreelancer },
 };
 </script>

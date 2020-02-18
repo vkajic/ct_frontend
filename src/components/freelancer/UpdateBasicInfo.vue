@@ -101,7 +101,7 @@
         justify-content-center justify-content-lg-end
         align-items-center">
             <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
-              <template v-if="!saving">Save profile</template>
+              <template v-if="!saving">{{buttonText}}</template>
               <template v-if="saving">Saving...</template>
             </b-button>
           </div>
@@ -214,6 +214,13 @@ export default {
 
       return skills;
     },
+
+    /**
+     * Save button text
+     */
+    buttonText() {
+      return this.freelancer.published ? 'Save profile' : 'Save and publish';
+    },
   },
   methods: {
     /**
@@ -241,7 +248,10 @@ export default {
         this.saving = true;
 
         try {
-          await this.$store.dispatch('user/updateFreelancerBasicInfo', this.form);
+          await this.$store.dispatch('user/updateFreelancerBasicInfo', {
+            ...this.form,
+            published: true,
+          });
 
           this.$store.commit('user/setProfileAvatar', {
             avatar: this.form.avatar,

@@ -29,7 +29,7 @@ const actions = {
     try {
       const res = await apiService.get('/freelancers', { params });
       commit('setFreelancers', res.data.data.hits);
-      commit('setTotal', res.data.data.total);
+      commit('setTotal', res.data.data.total.value);
     } catch (err) {
       commit('setFreelancers', []);
       commit('setTotal', 0);
@@ -55,7 +55,7 @@ const actions = {
       try {
         const res = await apiService.get('/freelancers', { params });
         commit('addFreelancers', res.data.data.hits);
-        commit('setTotal', res.data.data.total);
+        commit('setTotal', res.data.data.total.value);
       } catch (err) {
         throw err;
       }

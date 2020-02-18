@@ -7,11 +7,14 @@
         Applied {{application.createdAt | date('MMM Do')}}
       </div>
     </div>
-    <h4>
-      <router-link class="font-18-sm" :to="url">
-        {{application.task.title}}
-      </router-link>
-    </h4>
+    <div class="d-flex align-items-center mb-2">
+      <h4 class="m-0 mr-2">
+        <router-link class="font-18-sm" :to="url">
+          {{application.task.title}}
+        </router-link>
+      </h4>
+      <application-status-badge :application="application"/>
+    </div>
     <div class="d-flex align-items-center mb-3">
       <div class="duration pr-3">{{application.task.duration}} days</div>
       <div class="price">${{application.task.price}}</div>
@@ -26,11 +29,14 @@
 <script>
 import { dateFilter } from 'vue-date-fns';
 import TaskTags from './TaskTags.vue';
+import { applicationUrl } from '../mixins/applicationUrl';
+import ApplicationStatusBadge from './ApplicationStatusBadge.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ShortApplicationItem',
-  components: { TaskTags },
+  components: { ApplicationStatusBadge, TaskTags },
+  mixins: [applicationUrl],
   filters: {
     date: dateFilter,
   },
@@ -42,9 +48,7 @@ export default {
   },
   computed: {
     url() {
-      return this.application.status === 0
-        ? `/applications/${this.application.id}`
-        : `/in-progress/${this.application.id}`;
+      return this.generateApplicationUrl(this.application);
     },
   },
 };

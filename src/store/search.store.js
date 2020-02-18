@@ -132,7 +132,7 @@ const actions = {
       const res = await apiService.get('/tasks/search', { params });
 
       commit('setTasks', res.data.data.hits);
-      commit('setTotal', res.data.data.total);
+      commit('setTotal', res.data.data.total.value);
     } catch (err) {
       throw err;
     }
@@ -159,7 +159,7 @@ const actions = {
       try {
         const res = await apiService.get('/tasks/search', { params });
         commit('addTasks', res.data.data.hits);
-        commit('setTotal', res.data.data.total);
+        commit('setTotal', res.data.data.total.value);
       } catch (err) {
         throw err;
       }

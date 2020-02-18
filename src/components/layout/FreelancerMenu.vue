@@ -18,6 +18,12 @@
         Applications sent
       </router-link>
     </li>
+    <li class="d-none d-lg-block">
+      <router-link to="/completed">
+        <check-icon size="1.5x"/>
+        Completed jobs
+      </router-link>
+    </li>
     <li class="d-lg-none">
       <router-link to="/messages">
         <mail-icon size="1.5x"/>
@@ -29,7 +35,7 @@
 
 <script>
 import {
-  CheckSquareIcon, CoffeeIcon, InboxIcon, MailIcon,
+  CheckSquareIcon, CoffeeIcon, InboxIcon, MailIcon, CheckIcon,
 } from 'vue-feather-icons';
 
 // noinspection JSUnusedGlobalSymbols
@@ -40,6 +46,7 @@ export default {
     CoffeeIcon,
     InboxIcon,
     MailIcon,
+    CheckIcon,
   },
   data() {
     return {

@@ -10,11 +10,13 @@
 
 <script>
 import Thread from './Thread.vue';
+import { applicationUrl } from '../../mixins/applicationUrl';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'FreelancerThreads',
   components: { Thread },
+  mixins: [applicationUrl],
   computed: {
     threads() {
       return this.$store.state.chat.threads;
@@ -29,9 +31,7 @@ export default {
       this.$store.commit('ui/setTaskSelectedTab', 1);
 
       // redirect to page if not already there
-      const path = thread.status === 0
-        ? `/applications/${thread.id}`
-        : `/in-progress/${thread.id}`;
+      const path = this.generateApplicationUrl(thread);
       if (this.$route.path !== path) {
         await this.$router.push(path);
       }

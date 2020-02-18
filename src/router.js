@@ -8,7 +8,6 @@ import Search from './views/freelancer/Search.vue';
 import EmailConfirmation from './views/auth/EmailConfirmation.vue';
 import Task from './views/freelancer/Task.vue';
 import Entry from './Entry.vue';
-import ApplicationApplied from './views/freelancer/ApplicationApplied.vue';
 import EditTask from './views/client/EditTask.vue';
 import ForgotPassword from './views/auth/ForgotPassword.vue';
 import ResetPassword from './views/auth/ResetPassword.vue';
@@ -23,15 +22,16 @@ import Preview from './views/freelancer/createFreelancer/Preview.vue';
 import MyTasks from './views/client/MyTasks.vue';
 import CreateClient from './views/client/CreateClient.vue';
 import ClientBasicInfo from './views/client/createClient/ClientBasicInfo.vue';
-import Applications from './views/freelancer/Applications.vue';
-import InProgress from './views/freelancer/InProgress.vue';
-import ApplicationWorking from './views/freelancer/ApplicationWorking.vue';
 import MyTask from './views/client/MyTask.vue';
 import Freelancers from './views/client/Freelancers.vue';
 import Freelancer from './views/client/Freelancer.vue';
 import ChangePassword from './views/auth/ChangePassword.vue';
 import UpdateProfile from './views/common/UpdateProfile.vue';
 import Chats from './views/common/Chats.vue';
+import Applications from './views/freelancer/Applications.vue';
+import InProgressApplications from './views/freelancer/InProgressApplications.vue';
+import CompletedApplications from './views/freelancer/CompletedApplications.vue';
+import Application from './views/freelancer/Application.vue';
 
 Vue.use(Router);
 
@@ -99,32 +99,58 @@ const router = new Router({
               meta: {
                 requiresAuth: true,
                 forbidAccess: 'client',
+                menuWidth: 0,
               },
               children: [
                 {
                   path: 'basic-info',
                   name: 'basicInfo',
                   component: BasicInfo,
+                  meta: {
+                    requiresAuth: true,
+                    forbidAccess: 'client',
+                    menuWidth: 0,
+                  },
                 },
                 {
                   path: 'skills',
                   name: 'skills',
                   component: Skills,
+                  meta: {
+                    requiresAuth: true,
+                    forbidAccess: 'client',
+                    menuWidth: 0,
+                  },
                 },
                 {
                   path: 'work-experience',
                   name: 'workExperience',
                   component: Experience,
+                  meta: {
+                    requiresAuth: true,
+                    forbidAccess: 'client',
+                    menuWidth: 0,
+                  },
                 },
                 {
                   path: 'projects',
                   name: 'projects',
                   component: Projects,
+                  meta: {
+                    requiresAuth: true,
+                    forbidAccess: 'client',
+                    menuWidth: 0,
+                  },
                 },
                 {
                   path: 'preview',
                   name: 'preview',
                   component: Preview,
+                  meta: {
+                    requiresAuth: true,
+                    forbidAccess: 'client',
+                    menuWidth: 0,
+                  },
                 },
               ],
             },
@@ -141,9 +167,9 @@ const router = new Router({
                   name: 'clientBasicInfo',
                   component: ClientBasicInfo,
                   meta: {
-                    menuWidth: 2,
-                    showMenu: false,
-                    showChat: false,
+                    requiresAuth: true,
+                    forbidAccess: 'freelancer',
+                    menuWidth: 0,
                   },
                 },
               ],
@@ -209,7 +235,43 @@ const router = new Router({
             {
               path: '/applications/:id',
               name: 'application',
-              component: ApplicationApplied,
+              component: Application,
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'client',
+              },
+            },
+            {
+              path: '/in-progress',
+              name: 'inProgress',
+              component: InProgressApplications,
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'client',
+              },
+            },
+            {
+              path: '/in-progress/:id',
+              name: 'inProgressApplication',
+              component: Application,
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'client',
+              },
+            },
+            {
+              path: '/completed',
+              name: 'completed',
+              component: CompletedApplications,
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'client',
+              },
+            },
+            {
+              path: '/completed/:id',
+              name: 'completedApplication',
+              component: Application,
               meta: {
                 requiresAuth: true,
                 forbidAccess: 'client',
@@ -220,24 +282,6 @@ const router = new Router({
               name: 'chats',
               component: Chats,
               meta: { requiresAuth: true },
-            },
-            {
-              path: '/in-progress',
-              name: 'inProgress',
-              component: InProgress,
-              meta: {
-                requiresAuth: true,
-                forbidAccess: 'client',
-              },
-            },
-            {
-              path: '/in-progress/:id',
-              name: 'inProgressItem',
-              component: ApplicationWorking,
-              meta: {
-                requiresAuth: true,
-                forbidAccess: 'client',
-              },
             },
             {
               path: '/freelancers',

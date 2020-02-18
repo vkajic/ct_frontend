@@ -1,5 +1,5 @@
 <template>
-  <freelancer-applications-list :status="0"/>
+  <freelancer-applications-list :status="2"/>
 </template>
 
 <script>
@@ -7,9 +7,7 @@ import FreelancerApplicationsList from '../../components/tasks/FreelancerApplica
 
 // noinspection JSUnusedGlobalSymbols
 export default {
-  name: 'Applications',
-  components: {
-    FreelancerApplicationsList,
-  },
+  name: 'CompletedApplications',
+  components: { FreelancerApplicationsList },
 };
 </script>

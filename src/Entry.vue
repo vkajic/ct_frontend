@@ -1,10 +1,10 @@
 <template>
   <div class="row">
-    <div class="d-none d-lg-block pt-5" :class="menuClass">
-      <left-menu v-if="showMenu"/>
+    <div class="col-lg-3 d-none d-lg-block pt-5" v-if="showMenu">
+      <left-menu/>
       <chat-history class="mt-5" v-if="loggedIn && showChat"/>
     </div>
-    <div class="col-12" :class="bodyClass">
+    <div class="col-12 col-lg-9">
       <router-view/>
       <loading-overlay :visible="loading"/>
     </div>
@@ -19,7 +19,11 @@ import LoadingOverlay from './components/ui/LoadingOverlay.vue';
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'Entry',
-  components: { LoadingOverlay, ChatHistory, LeftMenu },
+  components: {
+    LoadingOverlay,
+    ChatHistory,
+    LeftMenu,
+  },
   created() {
     // load static data
     this.$store.dispatch('util/getSkills');
@@ -78,7 +82,7 @@ export default {
      * @return {Number}
      */
     menuWidth() {
-      return this.$route.meta.menuWidth || 3;
+      return this.$route.meta.menuWidth === undefined ? 3 : this.$route.meta.menuWidth;
     },
   },
 };
