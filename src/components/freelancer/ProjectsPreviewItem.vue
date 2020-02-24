@@ -1,5 +1,5 @@
 <template>
-  <div class="project-preview mb-5">
+  <div class="project-preview mb-5 pr-4">
     <image-display :file="project.cover" :alt="project.title" class="mb-3"/>
     <h6 class="mb-0">{{project.title}}</h6>
     <div class="text-muted"><small>{{tags}}</small></div>
