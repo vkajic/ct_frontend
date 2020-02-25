@@ -191,7 +191,7 @@ export default {
       duration: {
         // eslint-disable-next-line func-names
         required: requiredIf(function () {
-          return !this.negotiableDuration;
+          return !this.isDurationNegotiable;
         }),
         integer,
         minValue: minValue(1),
@@ -260,7 +260,7 @@ export default {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',
-            text: `Task save failed. ${err.response.data.message}`,
+            text: 'Task save failed.',
           });
         }
       }

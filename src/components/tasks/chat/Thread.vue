@@ -2,7 +2,7 @@
   <a href="#" @click.prevent="selectThread" class="thread d-flex align-items-center mb-3">
     <chat-history-avatar :avatar="otherUser.avatar" :online="otherUser.user.online"/>
     <div class="flex-grow-1">
-      <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex flex-column flex-xl-row align-items-xl-center justify-content-xl-between">
         <h6 class="m-0">{{headerString}}</h6>
         <div class="text-muted"><small>{{timeString}}</small></div>
       </div>

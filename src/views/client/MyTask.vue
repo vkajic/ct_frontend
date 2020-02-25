@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="d-none d-lg-block col-lg-3 offset-lg-1 order-lg-2">
+      <div class="d-none d-lg-block col-lg-4 col-xl-3 offset-xl-1 order-lg-2">
         <task-details :task="task" :applicable="false"/>
         <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
       </div>
@@ -156,8 +156,14 @@ export default {
           status,
         });
         const res = await ApiService.post('/feedbacks', data);
-        this.$store.commit('tasks/setClientApplicationFeedback', res.data.data);
-        this.$store.commit('tasks/setClientApplicationStatus', status);
+        this.$store.commit('tasks/setClientApplicationFeedback', {
+          feedback: res.data.data,
+          applicationId: this.application.id,
+        });
+        this.$store.commit('tasks/setClientApplicationStatus', {
+          status,
+          applicationId: this.application.id,
+        });
 
         this.$store.dispatch('ui/showNotification', {
           type: 'success',

@@ -14,8 +14,7 @@
         <task-details :task="task">
           <template slot="buttons">
             <freelancer-task-buttons :application="application"
-                                     @feedback="saveFeedback"
-                                     @apply="apply"/>
+                                     @feedback="saveFeedback"/>
           </template>
         </task-details>
         <required-skills class="skills p-4 m-2" :skills="task.skills" v-if="task.skills"/>
@@ -89,33 +88,6 @@ export default {
      */
     selectTab(tabId) {
       this.$store.commit('ui/setTaskSelectedTab', tabId);
-    },
-
-    async apply(letter) {
-      try {
-        const application = await this.$store.dispatch('tasks/applyForTask', {
-          taskId: this.task.id,
-          letter,
-        });
-        // add new thread from new application
-        this.$store.commit('chat/addThread', application);
-
-        // emit to socket that freelancer applied to task
-        this.$socket.emit('applied', application);
-
-        // show toast
-        await this.$store.dispatch('ui/showNotification', {
-          type: 'success',
-          text: 'You applied for this task',
-        });
-        this.applied = true;
-        this.letter = null;
-      } catch (err) {
-        await this.$store.dispatch('ui/showNotification', {
-          type: 'danger',
-          text: err.response.data.message,
-        });
-      }
     },
 
     /**

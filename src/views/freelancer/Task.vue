@@ -9,7 +9,7 @@
       <div class="col-12 col-lg-3 offset-lg-1 order-lg-2">
         <task-details :task="task">
           <template slot="buttons">
-            <freelancer-task-buttons/>
+            <freelancer-task-buttons @apply="apply" :application="application"/>
           </template>
         </task-details>
         <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
@@ -38,6 +38,11 @@ export default {
     RequiredSkills,
     TaskDetails,
   },
+  data() {
+    return {
+      application: null,
+    };
+  },
   mounted() {
     const { id } = this.$route.params;
     this.$store.dispatch('tasks/selectTask', id);
@@ -47,5 +52,34 @@ export default {
       return this.$store.state.tasks.selectedTask || {};
     },
   },
+  methods: {
+    async apply(letter) {
+      try {
+        this.application = await this.$store.dispatch('tasks/applyForTask', {
+          taskId: this.task.id,
+          letter,
+        });
+        // add new thread from new application
+        this.$store.commit('chat/addThread', this.application);
+
+        // emit to socket that freelancer applied to task
+        this.$socket.emit('applied', this.application);
+
+        // show toast
+        await this.$store.dispatch('ui/showNotification', {
+          type: 'success',
+          text: 'You applied for this task',
+        });
+        await this.$router.push(`/applications/${this.application.id}`);
+        this.applied = true;
+        this.letter = null;
+      } catch (err) {
+        await this.$store.dispatch('ui/showNotification', {
+          type: 'danger',
+          text: err.response.data.message,
+        });
+      }
+    },
+  }
 };
 </script>

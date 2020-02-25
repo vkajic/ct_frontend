@@ -10,7 +10,7 @@
       </router-link>
     </h4>
     <div class="d-flex align-items-center mb-3">
-      <task-duration :task="taskData"/>
+      <task-duration class="pr-3" :task="taskData"/>
       <task-price :task="taskData"/>
     </div>
 

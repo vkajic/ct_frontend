@@ -146,7 +146,13 @@ class SmartContract {
     const nonce = resNonce.decodedResult;
     console.log('nonce', nonce);
 
-    const args = `${nonce.toString()}postTask${taskData.title}${descriptionHash}${taskData.price.toString()}${taskData.duration.toString()}`;
+    const price = taskData.price && !taskData.negotiablePrice
+      ? taskData.price.toString()
+      : '0';
+    const duration = taskData.duration && !taskData.negotiableDuration
+      ? taskData.duration.toString()
+      : '0';
+    const args = `${nonce.toString()}postTask${taskData.title}${descriptionHash}${price}${duration}`;
     console.log(args);
     const hash = Crypto.hash(args);
     console.log('hash', hash);
