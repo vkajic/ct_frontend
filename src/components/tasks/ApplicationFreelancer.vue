@@ -24,7 +24,7 @@
         <b-tabs :value="selectedTab" @input="selectTab">
           <b-tab title="Project details" class="py-4">
             <task-details :task="task" :applicable="false" class="d-lg-none mb-4"/>
-            {{task.description}}
+            <task-description :description="task.description"/>
           </b-tab>
           <b-tab title="Messages">
             <chat-container :task="task" :application="application"/>
@@ -44,11 +44,13 @@ import SingleTaskTitle from './SingleTaskTitle.vue';
 import ApplicationStatusBadge from './ApplicationStatusBadge.vue';
 import FreelancerTaskButtons from './FreelancerTaskButtons.vue';
 import ApiService from '../../services/api.service';
+import TaskDescription from './TaskDescription.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ApplicationFreelancer',
   components: {
+    TaskDescription,
     FreelancerTaskButtons,
     ApplicationStatusBadge,
     SingleTaskTitle,

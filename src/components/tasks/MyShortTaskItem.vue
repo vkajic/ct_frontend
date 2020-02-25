@@ -7,8 +7,8 @@
       <router-link class="font-18-sm" :to="`/my-tasks/${task.id}`">{{task.title}}</router-link>
     </h2>
     <div class="d-flex align-items-center mb-3">
-      <div class="pr-3">{{task.duration}} days</div>
-      <div>${{task.price}}</div>
+      <task-duration class="pr-3" :task="task"/>
+      <task-price :task="task"/>
     </div>
 
     <task-tags :tags="task.skills"/>
@@ -20,6 +20,8 @@
 <script>
 import { dateFilter } from 'vue-date-fns';
 import TaskTags from './TaskTags.vue';
+import TaskPrice from './TaskPrice.vue';
+import TaskDuration from './TaskDuration.vue';
 
 // TODO add number of views and applications like in design and edit link if applicable
 
@@ -27,6 +29,8 @@ import TaskTags from './TaskTags.vue';
 export default {
   name: 'MyShortTaskItem',
   components: {
+    TaskDuration,
+    TaskPrice,
     TaskTags,
   },
   filters: {

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import VueSocketIO from 'vue-socket.io';
+import CKEditor from '@ckeditor/ckeditor5-vue';
 import VueGtag from 'vue-gtag';
 import App from './App.vue';
 import router from './router';
@@ -22,6 +23,7 @@ Vue.use(new VueSocketIO({
     mutationPrefix: 'socket_',
   },
 }));
+Vue.use(CKEditor);
 
 if (process.env.NODE_ENV !== 'development') {
   Vue.use(VueGtag, {

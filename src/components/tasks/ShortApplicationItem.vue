@@ -16,8 +16,8 @@
       <application-status-badge :application="application"/>
     </div>
     <div class="d-flex align-items-center mb-3">
-      <div class="duration pr-3">{{application.task.duration}} days</div>
-      <div class="price">${{application.task.price}}</div>
+      <task-duration class="pr-3" :task="application.task"/>
+      <task-price :task="application.task"/>
     </div>
 
     <task-tags :tags="application.task.skills"/>
@@ -31,11 +31,13 @@ import { dateFilter } from 'vue-date-fns';
 import TaskTags from './TaskTags.vue';
 import { applicationUrl } from '../mixins/applicationUrl';
 import ApplicationStatusBadge from './ApplicationStatusBadge.vue';
+import TaskPrice from './TaskPrice.vue';
+import TaskDuration from './TaskDuration.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ShortApplicationItem',
-  components: { ApplicationStatusBadge, TaskTags },
+  components: { TaskDuration, TaskPrice, ApplicationStatusBadge, TaskTags },
   mixins: [applicationUrl],
   filters: {
     date: dateFilter,

@@ -5,6 +5,7 @@
     :type="type"
     :placeholder="placeholder"
     :state="state"
+    :disabled="disabled"
     @input="$emit('input', $event)"/>
 </template>
 
@@ -34,6 +35,10 @@ export default {
       default() {
         return {};
       },
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

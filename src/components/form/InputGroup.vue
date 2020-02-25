@@ -12,6 +12,7 @@
                    :value="value"
                    :placeholder="placeholder"
                    :validation="validation"
+                   :disabled="disabled"
                    @input="$emit('input', $event)"/>
       <input-select v-if="options.length"
                     :name="name"
@@ -73,6 +74,10 @@ export default {
       default() {
         return [];
       },
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
   },
   computed: {

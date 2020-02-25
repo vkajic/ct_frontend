@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-lg-3 offset-lg-2 order-lg-2">
+      <div class="col-12 col-lg-3 offset-lg-1 order-lg-2">
         <task-details :task="task">
           <template slot="buttons">
             <freelancer-task-buttons/>
@@ -14,8 +14,8 @@
         </task-details>
         <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
       </div>
-      <div class="col-12 col-lg-6 order-lg-1">
-        <p class="pt-3 pt-lg-0">{{task.description}}</p>
+      <div class="col-12 col-lg-7 order-lg-1">
+        <task-description class="pt-3 pt-lg-0" :description="task.description"/>
       </div>
     </div>
   </div>
@@ -26,11 +26,13 @@ import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import SingleTaskTitle from '../../components/tasks/SingleTaskTitle.vue';
 import FreelancerTaskButtons from '../../components/tasks/FreelancerTaskButtons.vue';
+import TaskDescription from '../../components/tasks/TaskDescription.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'Task',
   components: {
+    TaskDescription,
     FreelancerTaskButtons,
     SingleTaskTitle,
     RequiredSkills,
@@ -42,7 +44,7 @@ export default {
   },
   computed: {
     task() {
-      return this.$store.state.tasks.selectedTask;
+      return this.$store.state.tasks.selectedTask || {};
     },
   },
 };

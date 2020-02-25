@@ -1,17 +1,17 @@
 <template>
   <div class="short-task-item">
     <div class="d-flex align-items-center justify-content-between mb-2">
-      <div class="client-name font-14-sm">{{task._source.postedBy}}</div>
-      <div class="published-date">{{task._source.timePosted | date('MMM Do')}}</div>
+      <div class="client-name font-14-sm">{{taskData.postedBy}}</div>
+      <div class="published-date">{{taskData.timePosted | date('MMM Do')}}</div>
     </div>
     <h4>
       <router-link class="font-18-sm" :to="`/tasks/${task._id}`">
-        {{task._source.title}}
+        {{taskData.title}}
       </router-link>
     </h4>
     <div class="d-flex align-items-center mb-3">
-      <div class="duration pr-3">{{task._source.duration}} days</div>
-      <div class="price">${{task._source.price}}</div>
+      <task-duration :task="taskData"/>
+      <task-price :task="taskData"/>
     </div>
 
     <task-tags :tags="skills"/>
@@ -23,11 +23,13 @@
 <script>
 import { dateFilter } from 'vue-date-fns';
 import TaskTags from './TaskTags.vue';
+import TaskPrice from './TaskPrice.vue';
+import TaskDuration from './TaskDuration.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'SearchTaskItem',
-  components: { TaskTags },
+  components: { TaskDuration, TaskPrice, TaskTags },
   filters: {
     date: dateFilter,
   },
@@ -38,8 +40,11 @@ export default {
     },
   },
   computed: {
+    taskData() {
+      return this.task._source;
+    },
     skills() {
-      return this.task._source.skills.map(s => ({ name: s }));
+      return this.taskData.skills.map(s => ({ name: s }));
     },
   },
 };

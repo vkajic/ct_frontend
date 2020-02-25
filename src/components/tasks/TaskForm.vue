@@ -18,8 +18,15 @@
                          v-model="form.duration"
                          placeholder="Job duration"
                          label="Duration"
+                         :disabled="form.negotiableDuration"
                          :validation="$v.form.duration">
-              <template slot="append">days</template>
+              <template slot="prepend">days</template>
+              <template slot="append">
+                <label class="m-0">
+                  <input type="checkbox" v-model="form.negotiableDuration">
+                  Negotiable
+                </label>
+              </template>
             </input-group>
           </div>
           <div class="col-6">
@@ -28,8 +35,15 @@
                          v-model="form.price"
                          placeholder="Job value"
                          label="Value"
+                         :disabled="form.negotiablePrice"
                          :validation="$v.form.price">
               <template slot="prepend">$</template>
+              <template slot="append">
+                <label class="m-0">
+                  <input type="checkbox" v-model="form.negotiablePrice">
+                  Negotiable
+                </label>
+              </template>
             </input-group>
           </div>
         </div>
@@ -62,12 +76,11 @@
                     :options="skills"
                     options-label="name"/>
 
-        <textarea-group name="description"
-                        class="mb-4"
-                        v-model="form.description"
-                        label="Description"
-                        :rows="12"
-                        :validation="$v.form.description"/>
+        <wysiwyg-textarea-group id="description"
+                                class="mb-4"
+                                v-model="form.description"
+                                label="Description"
+                                :validation="$v.form.description"/>
 
         <div class="pt-5 d-flex justify-content-end align-items-center">
           <b-button type="submit" variant="info" class="btn-round" :disabled="sending">
@@ -82,11 +95,11 @@
 
 <script>
 import {
-  required, integer, minValue, decimal,
+  required, integer, minValue, decimal, requiredIf,
 } from 'vuelidate/lib/validators';
 import InputGroup from '../form/InputGroup.vue';
 import InputTags from '../form/InputTags.vue';
-import TextareaGroup from '../form/TextareaGroup.vue';
+import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
 
 // TODO add attachments uploader
 
@@ -97,13 +110,15 @@ const initialForm = {
   duration: null,
   published: false,
   attachments: [],
+  negotiablePrice: false,
+  negotiableDuration: false,
 };
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'TaskForm',
   components: {
-    TextareaGroup,
+    WysiwygTextareaGroup,
     InputTags,
     InputGroup,
   },
@@ -166,12 +181,18 @@ export default {
         required,
       },
       price: {
-        required,
+        // eslint-disable-next-line func-names
+        required: requiredIf(function () {
+          return !this.isPriceNegotiable;
+        }),
         decimal,
         minValue: minValue(1),
       },
       duration: {
-        required,
+        // eslint-disable-next-line func-names
+        required: requiredIf(function () {
+          return !this.negotiableDuration;
+        }),
         integer,
         minValue: minValue(1),
       },
@@ -191,6 +212,20 @@ export default {
      */
     skills() {
       return this.$store.getters['util/getAllSkills'];
+    },
+
+    /**
+     * Is price negotiable
+     */
+    isPriceNegotiable() {
+      return this.form.negotiablePrice;
+    },
+
+    /**
+     * Is duration negotiable
+     */
+    isDurationNegotiable() {
+      return this.form.negotiableDuration;
     },
   },
   methods: {

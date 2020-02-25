@@ -23,25 +23,8 @@
         </div>
       </div>
 
-      <div class="detail d-flex align-items-center">
-        <calendar-icon size="20" class="mr-3"/>
-        <div>
-          <div class="small-heading">
-            DURATION
-          </div>
-          <strong>{{task.duration}} days</strong>
-        </div>
-      </div>
-
-      <div class="detail d-flex align-items-center">
-        <credit-card-icon size="20" class="mr-3"/>
-        <div>
-          <div class="small-heading">
-            VALUE
-          </div>
-          <strong>${{task.price}}</strong>
-        </div>
-      </div>
+      <task-details-duration :task="task"/>
+      <task-details-value :task="task"/>
 
       <div v-if="task.location" class="detail d-flex align-items-center">
         <map-pin-icon size="20" class="mr-3"/>
@@ -85,12 +68,12 @@ import { dateFilter } from 'vue-date-fns';
 import {
   CheckSquareIcon,
   PlusSquareIcon,
-  CalendarIcon,
-  CreditCardIcon,
   Share2Icon,
   MapPinIcon,
   TagIcon,
 } from 'vue-feather-icons';
+import TaskDetailsValue from './TaskDetailsValue.vue';
+import TaskDetailsDuration from './TaskDetailsDuration.vue';
 
 // TODO change how status is displayed
 
@@ -98,10 +81,10 @@ import {
 export default {
   name: 'TaskDetails',
   components: {
+    TaskDetailsDuration,
+    TaskDetailsValue,
     CheckSquareIcon,
     PlusSquareIcon,
-    CalendarIcon,
-    CreditCardIcon,
     Share2Icon,
     MapPinIcon,
     TagIcon,

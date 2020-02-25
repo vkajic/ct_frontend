@@ -14,7 +14,7 @@
         <b-tabs :value="selectedTab" nav-class="my-task-tabs" @input="selectTab">
           <b-tab title="Description" class="py-4">
             <task-details :task="task" :applicable="false" class="d-lg-none mb-4"/>
-            {{task.description}}
+            <task-description :description="task.description"/>
           </b-tab>
           <b-tab title="Freelancers" class="pt-3">
             <div v-if="task.applications">
@@ -60,11 +60,13 @@ import SingleTaskTitle from '../../components/tasks/SingleTaskTitle.vue';
 import ClientThreads from '../../components/tasks/chat/ClientThreads.vue';
 import FeedbackModal from '../../components/feedback/FeedbackModal.vue';
 import ApiService from '../../services/api.service';
+import TaskDescription from '../../components/tasks/TaskDescription.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MyTask',
   components: {
+    TaskDescription,
     FeedbackModal,
     ClientThreads,
     SingleTaskTitle,
