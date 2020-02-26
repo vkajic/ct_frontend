@@ -1,5 +1,4 @@
 /* eslint-disable no-param-reassign,import/no-cycle */
-import Vue from 'vue';
 import { get, set } from 'lodash';
 import ApiService from '../services/api.service';
 

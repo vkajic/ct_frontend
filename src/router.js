@@ -32,6 +32,8 @@ import Applications from './views/freelancer/Applications.vue';
 import InProgressApplications from './views/freelancer/InProgressApplications.vue';
 import CompletedApplications from './views/freelancer/CompletedApplications.vue';
 import Application from './views/freelancer/Application.vue';
+import MyPublicProfile from './views/common/MyPublicProfile.vue';
+import Client from './views/freelancer/Client.vue';
 
 Vue.use(Router);
 
@@ -85,12 +87,19 @@ const router = new Router({
               meta: { requiresAuth: true },
             },
             {
+              path: '/profile/preview',
+              name: 'previewProfile',
+              component: MyPublicProfile,
+              meta: {
+                requiresAuth: true,
+              },
+            },
+            {
               path: '/profile',
               name: 'updateProfile',
               component: UpdateProfile,
               meta: {
                 requiresAuth: true,
-                menuWidth: 2,
               },
             },
             {
@@ -292,9 +301,11 @@ const router = new Router({
               path: '/freelancers/:id',
               name: 'freelancerPublicProfile',
               component: Freelancer,
-              meta: {
-                menuWidth: 2,
-              },
+            },
+            {
+              path: '/clients/:id',
+              name: 'clientPublicProfile',
+              component: Client,
             },
           ],
         },

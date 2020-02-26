@@ -2,12 +2,12 @@
   <div>
     <lazy-loader :visible="loading"/>
     <template v-for="(f, i) in validFeedbacks">
-      <div class="freelancer-feedback" :key="i">
-        <p>{{f.clientFeedback}}</p>
+      <div class="client-feedback" :key="i">
+        <p>{{f.freelancerFeedback}}</p>
         <div class="d-flex align-items-center justify-content-between">
-          <star-rating v-model="f.clientRate" :read-only="true" :star-size="15"/>
+          <star-rating v-model="f.freelancerRate" :read-only="true" :star-size="15"/>
           <div class="text-muted">
-            {{f.client.name}} - {{f.application.task.title}}
+            {{f.freelancer.name}} - {{f.application.task.title}}
           </div>
         </div>
         <hr>
@@ -23,13 +23,13 @@ import LazyLoader from '../ui/LazyLoader.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
-  name: 'FreelancerFeedbacks',
+  name: 'ClientFeedbacks',
   components: {
     LazyLoader,
     StarRating,
   },
   props: {
-    freelancerId: {
+    clientId: {
       type: Number,
       required: true,
     },
@@ -42,7 +42,7 @@ export default {
   },
   created() {
     this.loading = true;
-    apiService.get(`/freelancers/${this.freelancerId}/feedbacks`)
+    apiService.get(`/clients/${this.clientId}/feedbacks`)
       .then((res) => {
         this.feedbacks = res.data.data;
         this.loading = false;
@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     validFeedbacks() {
-      return this.feedbacks.filter(f => f.clientFeedback);
+      return this.feedbacks.filter(f => f.freelancerFeedback);
     },
   },
 };

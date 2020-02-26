@@ -1,11 +1,11 @@
 <template>
-  <div class="employer d-flex align-items-center">
+  <router-link :to="`/clients/${employer.id}`" class="employer d-flex align-items-center">
     <avatar-display :avatar="employer.avatar"
                     v-if="employer.avatar"
                     class="mr-2"
                     :options="avatarOptions"/>
     {{employer.name}}
-  </div>
+  </router-link>
 </template>
 
 <script>

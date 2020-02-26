@@ -9,6 +9,7 @@
     <b-dropdown-item-button @click="logout">Logout</b-dropdown-item-button>
     <b-dropdown-divider/>
     <b-dropdown-item to="/profile">Edit Profile</b-dropdown-item>
+    <b-dropdown-item to="/profile/preview">Preview Profile</b-dropdown-item>
     <b-dropdown-item to="/change-password">Change password</b-dropdown-item>
   </b-dropdown>
 </template>
