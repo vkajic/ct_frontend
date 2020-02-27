@@ -9,7 +9,7 @@
       <div class="col-12 col-lg-3 offset-lg-1 order-lg-2">
         <task-details :task="task">
           <template slot="buttons">
-            <freelancer-task-buttons @apply="apply" :application="application"/>
+            <freelancer-task-buttons @apply="apply" :application="application" :task="task"/>
           </template>
         </task-details>
         <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
@@ -80,6 +80,6 @@ export default {
         });
       }
     },
-  }
+  },
 };
 </script>

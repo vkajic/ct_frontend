@@ -13,16 +13,7 @@
         </div>
       </div>
 
-      <div class="detail d-flex align-items-center">
-        <plus-square-icon size="20" class="mr-3"/>
-        <div>
-          <div class="small-heading">
-            STATUS
-          </div>
-          <strong>Accepting applications</strong>
-        </div>
-      </div>
-
+      <task-details-status :task="task"/>
       <task-details-duration :task="task"/>
       <task-details-value :task="task"/>
 
@@ -67,13 +58,13 @@ import { get } from 'lodash';
 import { dateFilter } from 'vue-date-fns';
 import {
   CheckSquareIcon,
-  PlusSquareIcon,
   Share2Icon,
   MapPinIcon,
   TagIcon,
 } from 'vue-feather-icons';
 import TaskDetailsValue from './TaskDetailsValue.vue';
 import TaskDetailsDuration from './TaskDetailsDuration.vue';
+import TaskDetailsStatus from './TaskDetailsStatus.vue';
 
 // TODO change how status is displayed
 
@@ -81,10 +72,10 @@ import TaskDetailsDuration from './TaskDetailsDuration.vue';
 export default {
   name: 'TaskDetails',
   components: {
+    TaskDetailsStatus,
     TaskDetailsDuration,
     TaskDetailsValue,
     CheckSquareIcon,
-    PlusSquareIcon,
     Share2Icon,
     MapPinIcon,
     TagIcon,

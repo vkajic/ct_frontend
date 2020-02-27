@@ -7,7 +7,11 @@
     </div>
     <div class="row">
       <div class="d-none d-lg-block col-lg-4 col-xl-3 offset-xl-1 order-lg-2">
-        <task-details :task="task" :applicable="false"/>
+        <task-details :task="task" :applicable="false">
+          <template slot="buttons">
+            <reopen-task-button :task="task" @reopen="reopen"/>
+          </template>
+        </task-details>
         <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
       </div>
       <div class="col-12 col-lg-7 order-lg-1">
@@ -61,11 +65,13 @@ import ClientThreads from '../../components/tasks/chat/ClientThreads.vue';
 import FeedbackModal from '../../components/feedback/FeedbackModal.vue';
 import ApiService from '../../services/api.service';
 import TaskDescription from '../../components/tasks/TaskDescription.vue';
+import ReopenTaskButton from '../../components/client/ReopenTaskButton.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MyTask',
   components: {
+    ReopenTaskButton,
     TaskDescription,
     FeedbackModal,
     ClientThreads,
@@ -126,6 +132,24 @@ export default {
         this.$store.dispatch('ui/showNotification', {
           type: 'success',
           text: 'Freelancer successfully hired',
+        });
+      } catch (err) {
+        this.$store.dispatch('ui/showNotification', {
+          type: 'danger',
+          text: 'Something went wrong',
+        });
+      }
+    },
+
+    /**
+     * Reopen task again
+     */
+    async reopen() {
+      try {
+        await this.$store.dispatch('tasks/reopen', this.task);
+        await this.$store.dispatch('ui/showNotification', {
+          type: 'success',
+          text: 'Task is accepting applications again',
         });
       } catch (err) {
         this.$store.dispatch('ui/showNotification', {

@@ -75,6 +75,10 @@ export default {
       type: Object,
       default: null,
     },
+    task: {
+      type: Object,
+      default: null,
+    },
   },
   computed: {
     isFreelancer() {
@@ -93,7 +97,7 @@ export default {
      * @return {boolean}
      */
     applyVisible() {
-      return !this.application;
+      return !this.application && this.task && this.task.status !== 1;
     },
 
     /**

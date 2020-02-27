@@ -130,6 +130,18 @@ const actions = {
 
     commit('setApplicationHired', application);
   },
+
+  /**
+   * Reopen task
+   * @param commit
+   * @param {Object} task
+   * @return {Promise<void>}
+   */
+  async reopen({ commit }, task) {
+    await ApiService.put(`/tasks/${task.id}/reopen`);
+
+    commit('setTaskReopened');
+  },
 };
 
 const mutations = {
@@ -295,6 +307,16 @@ const mutations = {
    */
   openFeedbackModal(state) {
     state.feedbackModalDisplayed = true;
+  },
+
+  /**
+   * Reopen selected task
+   * @param state
+   */
+  setTaskReopened(state) {
+    if (state.selectedTask) {
+      set(state, 'selectedTask.status', 2);
+    }
   },
 };
 
