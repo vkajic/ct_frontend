@@ -8,6 +8,7 @@
       <a v-if="freelancer.web" :href="freelancer.web" class="d-block"><u>
         <small>{{freelancer.web}}</small>
       </u></a>
+      <freelancer-rate :freelancer-id="freelancer.id"/>
     </div>
     <div class="col-12 col-lg-8">
       <h1 class="text-center text-lg-left">
@@ -36,11 +37,13 @@
 import { truncate } from 'lodash';
 import TagsDisplay from '../ui/TagsDisplay.vue';
 import AvatarDisplay from '../ui/AvatarDisplay.vue';
+import FreelancerRate from '../freelancer/FreelancerRate.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'BasicInfoPreview',
   components: {
+    FreelancerRate,
     AvatarDisplay,
     TagsDisplay,
   },

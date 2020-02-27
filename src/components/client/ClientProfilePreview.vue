@@ -7,6 +7,8 @@
                           :avatar="client.avatar"
                           :user-name="client.name"
                           :options="avatarOptions"/>
+
+          <client-rate :client-id="client.id"/>
         </div>
         <div class="col-12 col-lg-8">
           <h1 class="text-center text-lg-left">
@@ -41,11 +43,13 @@ import Paper from '../ui/Paper.vue';
 import AvatarDisplay from '../ui/AvatarDisplay.vue';
 import ClientFeedbacks from './ClientFeedbacks.vue';
 import ClientTasksList from './ClientTasksList.vue';
+import ClientRate from './ClientRate.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ClientProfilePreview',
   components: {
+    ClientRate,
     ClientTasksList,
     ClientFeedbacks,
     AvatarDisplay,
