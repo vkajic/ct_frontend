@@ -2,7 +2,7 @@
   <div v-if="count > 0" class="d-flex flex-column align-items-center">
     <star-rating v-model="rate" :read-only="true" :star-size="20" class="mb-2"
                  :show-rating="false"/>
-    <h2>{{rate}}/{{count}}</h2>
+    <h2>{{rate}} ({{count}})</h2>
   </div>
 </template>
 

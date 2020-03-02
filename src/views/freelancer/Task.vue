@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-12">
-        <single-task-title :task="task"/>
+      <div class="col-12 col-lg-7">
+        <single-task-title :task="task" :client="task.owner"/>
       </div>
     </div>
     <div class="row">

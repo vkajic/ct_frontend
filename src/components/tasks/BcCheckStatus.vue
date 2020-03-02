@@ -1,6 +1,9 @@
 <template>
   <div class="on-bc" v-if="isOnBc">
-    <img src="@/assets/img/aeternity.png" alt="Aeternity"/>
+    <a
+      href="https://explorer.aeternity.io/contracts/transactions/ct_DeRuk3os1AaoiNtpiHnX5GnUHCVhqgZP9uQnEdx1UzNMq65Pf">
+      <img src="@/assets/img/aeternity.png" alt="Aeternity"/>
+    </a>
   </div>
 </template>
 

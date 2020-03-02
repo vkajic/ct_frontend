@@ -80,7 +80,7 @@ export default {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',
-            text: `Something went wrong. ${err.response.data.message}`,
+            text: err.response.data.message,
           });
         }
       }

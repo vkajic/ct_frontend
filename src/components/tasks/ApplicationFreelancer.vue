@@ -1,7 +1,7 @@
 <template>
   <div v-if="application">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 col-lg-7">
         <single-task-title :task="task" :client="application.client" class="mb-3 mb-lg-5">
           <template slot="title">
             <application-status-badge :application="application" class="ml-3"/>
