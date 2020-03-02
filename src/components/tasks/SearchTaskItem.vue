@@ -1,7 +1,9 @@
 <template>
   <div class="short-task-item">
     <div class="d-flex align-items-center justify-content-between mb-2">
-      <div class="client-name font-14-sm">{{taskData.postedBy}}</div>
+      <router-link :to="`clients/${taskData.postedById}`" class="client-name font-14-sm">
+        {{taskData.postedBy}}
+      </router-link>
       <div class="published-date">{{taskData.timePosted | date('MMM Do')}}</div>
     </div>
     <h4>
@@ -29,7 +31,11 @@ import TaskDuration from './TaskDuration.vue';
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'SearchTaskItem',
-  components: { TaskDuration, TaskPrice, TaskTags },
+  components: {
+    TaskDuration,
+    TaskPrice,
+    TaskTags,
+  },
   filters: {
     date: dateFilter,
   },

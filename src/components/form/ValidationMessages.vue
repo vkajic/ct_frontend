@@ -18,6 +18,9 @@
     <template v-if="errorVisible('minLength')">
       {{title}} must have at least {{validation.$params.minLength.min}} value
     </template>
+    <template v-if="errorVisible('maxLength')">
+      {{title}} can't have more then {{validation.$params.maxLength.max}} characters
+    </template>
   </b-form-invalid-feedback>
 </template>
 

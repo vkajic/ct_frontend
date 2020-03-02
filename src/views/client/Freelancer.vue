@@ -28,7 +28,7 @@
                                     :resume="freelancer.resume"/>
               </b-tab>
               <b-tab title="Feedbacks">
-                <freelancer-feedbacks :feedbacks="feedbacks"/>
+                <freelancer-feedbacks :freelancer-id="freelancer.id"/>
               </b-tab>
             </b-tabs>
           </div>

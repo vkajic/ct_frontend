@@ -306,6 +306,7 @@ const router = new Router({
               path: '/clients/:id',
               name: 'clientPublicProfile',
               component: Client,
+              meta: { requiresAuth: false },
             },
           ],
         },

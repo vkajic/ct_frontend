@@ -95,7 +95,7 @@
 
 <script>
 import {
-  required, integer, minValue, decimal, requiredIf,
+  required, integer, minValue, decimal, requiredIf, maxLength,
 } from 'vuelidate/lib/validators';
 import InputGroup from '../form/InputGroup.vue';
 import InputTags from '../form/InputTags.vue';
@@ -176,6 +176,7 @@ export default {
     form: {
       title: {
         required,
+        maxLength: maxLength(100),
       },
       description: {
         required,
