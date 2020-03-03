@@ -11009,6 +11009,13 @@ vue-style-loader@^4.1.0:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
+vue-tawk@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-tawk/-/vue-tawk-1.0.1.tgz#b80038a34519316de657cb1f0ee625478f5cfd73"
+  integrity sha512-ewta7slPTNdcxMRfqWLZq/28G6fJR0JzUA3SAtTVH1APSTPReUqh1UFtouTVsKONBXsKJvsb9Zhfkcxjys6X+A==
+  dependencies:
+    vue "^2.5.16"
+
 vue-template-compiler@^2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.6.10.tgz#323b4f3495f04faa3503337a82f5d6507799c9cc"
@@ -11033,6 +11040,11 @@ vue@^2.4.1, vue@^2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
+
+vue@^2.5.16:
+  version "2.6.11"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
+  integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
 
 vuejs-datepicker@^1.6.2:
   version "1.6.2"

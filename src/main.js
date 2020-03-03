@@ -4,6 +4,7 @@ import Vuelidate from 'vuelidate';
 import VueSocketIO from 'vue-socket.io';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import VueGtag from 'vue-gtag';
+import Tawk from 'vue-tawk';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -27,7 +28,11 @@ Vue.use(CKEditor);
 
 if (process.env.NODE_ENV !== 'development') {
   Vue.use(VueGtag, {
-    config: { id: 'UA-109515146-2' },
+    config: { id: process.env.VUE_APP_GTAG },
+  });
+
+  Vue.use(Tawk, {
+    tawkSrc: process.env.VUE_APP_TAWK_SRC,
   });
 }
 

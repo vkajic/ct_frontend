@@ -19,5 +19,14 @@ export default {
     Paper,
     TaskForm,
   },
+  created() {
+    if (!this.$store.state.user.user.client.name) {
+      this.$store.dispatch('ui/showNotification', {
+        type: 'danger',
+        text: 'Client data must be set to be able to create new task',
+      });
+      this.$router.replace('/profile');
+    }
+  },
 };
 </script>

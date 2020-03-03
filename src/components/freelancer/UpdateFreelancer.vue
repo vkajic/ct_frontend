@@ -1,7 +1,17 @@
 <template>
   <div>
     <paper class="mb-5">
-      <basic-info-preview :freelancer="freelancer"/>
+      <basic-info-preview :freelancer="freelancer">
+        <template slot="buttons">
+          <b-button variant="info"
+                    v-if="publishButtonVisible"
+                    class="btn-round"
+                    :disabled="publishing"
+                    @click="publishProfile">
+            {{publishing ? 'Publishing...' : 'Publish profile'}}
+          </b-button>
+        </template>
+      </basic-info-preview>
     </paper>
 
     <div class="row">
@@ -38,6 +48,11 @@ import Paper from '../ui/Paper.vue';
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'UpdateFreelancer',
+  data() {
+    return {
+      publishing: false,
+    };
+  },
   components: {
     Paper,
     ExperienceForm,
@@ -48,6 +63,20 @@ export default {
   computed: {
     freelancer() {
       return this.$store.state.user.user ? this.$store.state.user.user.freelancer : null;
+    },
+    publishButtonVisible() {
+      return !this.freelancer.published;
+    },
+  },
+  methods: {
+    async publishProfile() {
+      this.publishing = true;
+      await this.$store.dispatch('user/publishFreelancerProfile');
+      this.publishing = false;
+      await this.$store.dispatch('ui/showNotification', {
+        type: 'success',
+        text: 'Profile successfully published',
+      });
     },
   },
 };

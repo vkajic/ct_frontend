@@ -49,6 +49,14 @@ const actions = {
 
         commit('setUser', userData);
 
+        // set tawk data
+        if (this._vm.$Tawk) {
+          this._vm.$Tawk.$updateChatUser({
+            name: userData.name,
+            email: userData.email,
+          });
+        }
+
         // check if profile exists and if does not redirect to profile wizard
         const firstRole = userData.roles[0].name;
 
@@ -89,6 +97,14 @@ const actions = {
     const userData = user.data.data;
 
     commit('setUser', userData);
+
+    // set tawk data
+    if (this._vm.$Tawk) {
+      this._vm.$Tawk.$updateChatUser({
+        name: userData.name,
+        email: userData.email,
+      });
+    }
 
     // check if profile exists and if does not redirect to profile wizard
     const firstRole = userData.roles[0].name;

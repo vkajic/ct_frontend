@@ -59,6 +59,7 @@
     "vue-select": "^3.1.0",
     "vue-socket.io": "^3.0.7",
     "vue-star-rating": "^1.6.1",
+    "vue-tawk": "^1.0.1",
     "vue2-dropzone": "^3.5.9",
     "vuejs-datepicker": "^1.6.2",
     "vuelidate": "^0.7.4",
