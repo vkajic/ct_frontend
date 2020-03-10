@@ -74,7 +74,8 @@
                     v-model="form.skills"
                     placeholder="Select skills"
                     :options="skills"
-                    options-label="name"/>
+                    options-label="name"
+                    :validation="$v.form.skills"/>
 
         <wysiwyg-textarea-group id="description"
                                 class="mb-4"
@@ -95,7 +96,7 @@
 
 <script>
 import {
-  required, integer, minValue, decimal, requiredIf, maxLength,
+  required, integer, minValue, decimal, requiredIf, maxLength, minLength,
 } from 'vuelidate/lib/validators';
 import InputGroup from '../form/InputGroup.vue';
 import InputTags from '../form/InputTags.vue';
@@ -196,6 +197,10 @@ export default {
         }),
         integer,
         minValue: minValue(1),
+      },
+      skills: {
+        required,
+        minLength: minLength(1),
       },
     },
   },

@@ -73,9 +73,6 @@ export default {
   },
   validations: {
     form: {
-      avatar: {
-        required,
-      },
       name: {
         required,
       },
