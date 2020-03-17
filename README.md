@@ -39,3 +39,13 @@ yarn run test:unit
 
 Copy example.env file to .env or .env.local and set configuration.
 After each configuration change compilation must be restarted.
+
+### Running in Docker container
+
+Customize configuration as it is described above and just run:
+ `docker build -t frontend . && docker run -p 8080:8080 frontend`
+
+
+### TODO
+
+Publish this docker image to docker hub so we can integrate frontend into docker-compose in backend repo.
