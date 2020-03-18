@@ -45,7 +45,3 @@ After each configuration change compilation must be restarted.
 Customize configuration as it is described above and just run:
  `docker build -t frontend . && docker run -itp 8080:8080 frontend`
 
-
-### TODO
-
-Publish this docker image to docker hub so we can integrate frontend into docker-compose in backend repo.
