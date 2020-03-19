@@ -2,4 +2,27 @@
   .dropdown-toggle-no-caret {
     font-size: 1.125rem;
   }
+
+  @include media-breakpoint-down(sm) {
+    flex-direction: column-reverse;
+    align-items: unset !important;
+
+    form {
+      input {
+        width: 100%;
+      }
+    }
+  }
+
+  &__dropdown-group {
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+    }
+  }
+
+  &__search {
+    @include media-breakpoint-down(sm) {
+      flex-direction: column;
+    }
+  }
 }

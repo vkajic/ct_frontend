@@ -1,10 +1,12 @@
 <template>
   <div class="search-heading d-flex align-items-center justify-content-between">
-    <div class="d-flex align-items-center">
+    <div class="search-heading__dropdown-group d-flex">
       <categories-dropdown @select="selectCategory" :category="category" class="mr-lg-5"/>
       <skills-dropdown @select="selectSkill" :category="category" :skill="skill" class="mr-lg-5"/>
     </div>
-    <quick-search @search="search" :term="term"/>
+    <div class="search-heading__search">
+      <quick-search @search="search" :term="term"/>
+    </div>
   </div>
 </template>
 
