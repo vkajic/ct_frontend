@@ -14,9 +14,22 @@
     }
   }
 
+  @include media-breakpoint-only(md) {
+    form {
+      input {
+        width: 100%;
+      }
+    }
+  }
+
+  @include media-breakpoint-only(lg) {
+   }
+
+
   &__dropdown-group {
     @include media-breakpoint-down(sm) {
       flex-direction: column;
+      margin: 0 1rem;
     }
   }
 
