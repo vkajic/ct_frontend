@@ -6,6 +6,13 @@
 
 .dropdown-menu {
   box-shadow: $paper-shadow;
+
+    @include media-breakpoint-down(sm) {
+      width: 100%;
+      height: 15rem;
+      overflow: auto;
+      transform: translate3d(0px, 69px, 0px) !important;
+    }
 }
 
 .dropdown-wrapper {
