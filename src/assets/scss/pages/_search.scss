@@ -1,21 +1,24 @@
 .search-heading {
+
   .dropdown-toggle-no-caret {
     font-size: 1.125rem;
   }
 
   @include media-breakpoint-down(sm) {
     flex-direction: column-reverse;
-    align-items: unset !important;
-
-    form {
+    
+    .quick-search {
       input {
         width: 100%;
       }
     }
   }
-
+  
   @include media-breakpoint-only(md) {
-    form {
+    align-items: center;
+    justify-content: space-between;
+    
+    .quick-search {
       input {
         width: 100%;
       }
@@ -23,13 +26,28 @@
   }
 
   @include media-breakpoint-only(lg) {
-   }
+    flex-direction: column-reverse;
 
+    .quick-search {
+      input {
+        width: 100%;
+      }
+    }
+  }
+
+  @include media-breakpoint-up(xl) {
+    align-items: center;
+    justify-content: space-between;
+  }
 
   &__dropdown-group {
     @include media-breakpoint-down(sm) {
       flex-direction: column;
       margin: 0 1rem;
+    }
+
+    @include media-breakpoint-only(lg) {
+      flex-direction: column;
     }
   }
 

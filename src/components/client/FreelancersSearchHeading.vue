@@ -1,5 +1,5 @@
 <template>
-  <div class="search-heading d-flex align-items-center justify-content-between">
+  <div class="search-heading d-flex">
     <div class="search-heading__dropdown-group d-flex">
       <categories-dropdown @select="selectCategory" :category="category" class="mr-lg-5"/>
       <skills-dropdown @select="selectSkill" :category="category" :skill="skill" class="mr-lg-5"/>
