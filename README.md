@@ -39,3 +39,9 @@ yarn run test:unit
 
 Copy example.env file to .env or .env.local and set configuration.
 After each configuration change compilation must be restarted.
+
+### Running in Docker container
+
+Customize configuration as it is described above and just run:
+ `docker build -t frontend . && docker run -itp 8080:8080 frontend`
+
