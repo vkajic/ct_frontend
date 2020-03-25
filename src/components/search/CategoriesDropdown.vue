@@ -1,9 +1,14 @@
 <template>
-  <div>
+  <div class="dropdown-wrapper">
+    <a class="dropdown__clear-btn" @click.prevent="removeCategory" v-if="category">
+      <x-icon size="1x"/>
+    </a>
     <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none px-0" no-caret>
       <template slot="button-content">
-        <strong>{{category ? category : 'Category'}}</strong>
-        <chevron-down-icon size="10" class="ml-2"/>
+        <div class="dropdown__button-wrapper">
+          <strong>{{category ? category : 'Select category'}}</strong>
+          <chevron-down-icon size="16" class="ml-2"/>
+        </div>
       </template>
       <b-dropdown-item-button v-for="(c, i) in categories"
                               :active="c === category"
@@ -12,9 +17,6 @@
         {{c}}
       </b-dropdown-item-button>
     </b-dropdown>
-    <a @click.prevent="removeCategory" v-if="category">
-      <x-icon size="1x"/>
-    </a>
   </div>
 </template>
 
