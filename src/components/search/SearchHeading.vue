@@ -1,6 +1,6 @@
 <template>
-  <div class="search-heading d-flex align-items-center justify-content-between">
-    <div class="d-flex align-items-center">
+  <div class="search-heading d-flex">
+    <div class="search-heading__dropdown-group d-flex">
       <categories-dropdown @select="selectCategory" class="mr-lg-5" :category="category"/>
       <sort-dropdown @select="selectSort" :sort="sort"/>
     </div>
