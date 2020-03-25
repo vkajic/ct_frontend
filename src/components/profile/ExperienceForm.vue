@@ -2,12 +2,9 @@
   <div>
     <h1 class="mb-5 d-none d-lg-block">Work experience</h1>
     <b-form @submit.prevent="save">
-      <textarea-group name="resume"
-                      class="mb-5"
-                      :rows="10"
-                      :max-rows="20"
-                      v-model="resume"
-                      label="Resume"/>
+      <wysiwyg-textarea-group class="mb-5"
+                              v-model="resume"
+                              label="Resume"/>
 
       <hr class="mb-5 d-block">
 
@@ -43,12 +40,9 @@
           </b-input-group>
         </div>
 
-        <textarea-group name="description"
-                        class="mb-5"
-                        :rows="15"
-                        :max-rows="20"
-                        v-model="item.description.$model"
-                        label="Description"/>
+        <wysiwyg-textarea-group label="Description"
+                                v-model="item.description.$model"
+                                class="mb-5"/>
 
         <hr class="mb-5 d-block">
       </div>
@@ -74,6 +68,7 @@ import InputGroup from '../form/InputGroup.vue';
 import ValidationMessages from '../form/ValidationMessages.vue';
 import TextareaGroup from '../form/TextareaGroup.vue';
 import FunnelButtons from './FunnelButtons.vue';
+import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
 
 const initialForm = {
   company: null,
@@ -87,6 +82,7 @@ const initialForm = {
 export default {
   name: 'ExperienceForm',
   components: {
+    WysiwygTextareaGroup,
     FunnelButtons,
     TextareaGroup,
     ValidationMessages,

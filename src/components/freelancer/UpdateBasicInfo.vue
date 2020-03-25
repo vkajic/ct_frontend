@@ -50,10 +50,9 @@
             Open to travel for the right opportunity
           </b-form-checkbox>
 
-          <textarea-group name="bio"
-                          class="mb-4"
-                          v-model="form.bio"
-                          label="About me"/>
+          <wysiwyg-textarea-group class="mb-4"
+                                  v-model="form.bio"
+                                  label="About me"/>
 
           <h4 class="mb-3">Web presence</h4>
 
@@ -119,11 +118,13 @@ import ValidationMessages from '../form/ValidationMessages.vue';
 import InputGroup from '../form/InputGroup.vue';
 import TextareaGroup from '../form/TextareaGroup.vue';
 import InputTags from '../form/InputTags.vue';
+import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'UpdateBasicInfo',
   components: {
+    WysiwygTextareaGroup,
     InputTags,
     TextareaGroup,
     InputGroup,

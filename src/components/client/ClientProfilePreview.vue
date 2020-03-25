@@ -17,8 +17,7 @@
           <h6 class="mb-4 font-weight-normal text-center text-lg-left">
             <template v-if="client.location">{{client.location}}</template>
           </h6>
-
-          <p class="mb-4 lead">{{client.about}}</p>
+          <div class="mb-4 lead" v-html="client.about"></div>
         </div>
       </div>
     </paper>

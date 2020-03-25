@@ -9,9 +9,7 @@
         <span v-if="!item.to">Present</span>
       </p>
     </div>
-    <div class="col-12 col-lg-8">
-      {{item.description}}
-    </div>
+    <div class="col-12 col-lg-8" v-html="item.description"></div>
   </div>
 </template>
 

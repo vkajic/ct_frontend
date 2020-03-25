@@ -71,7 +71,8 @@ export default {
   },
   computed: {
     bio() {
-      return truncate(this.freelancer.bio, {
+      const striped = this.freelancer.bio.replace(/(<([^>]+)>)/ig, '');
+      return truncate(striped, {
         length: 200,
         separator: ' ',
       });

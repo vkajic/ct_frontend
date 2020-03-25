@@ -26,10 +26,9 @@
                      placeholder="Location"
                      label="Location"/>
 
-        <textarea-group name="about"
-                        class="mb-4"
-                        v-model="form.about"
-                        label="About me"/>
+        <wysiwyg-textarea-group class="mb-4"
+                                v-model="form.about"
+                                label="About me"/>
 
         <div class="pt-5 d-flex flex-column flex-lg-row
         justify-content-center justify-content-lg-end
@@ -50,11 +49,13 @@ import { required } from 'vuelidate/src/validators';
 import ImageUploader from '../form/ImageUploader.vue';
 import InputGroup from '../form/InputGroup.vue';
 import TextareaGroup from '../form/TextareaGroup.vue';
+import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ClientBasicInfoForm',
   components: {
+    WysiwygTextareaGroup,
     TextareaGroup,
     InputGroup,
     ImageUploader,

@@ -20,7 +20,10 @@
         <div class="row">
           <div class="col-12 col-lg-10 offset-lg-1">
             <b-tabs content-class="py-4">
-              <b-tab title="Projects" active>
+              <b-tab title="Bio" active>
+                <div v-html="freelancer.bio"></div>
+              </b-tab>
+              <b-tab title="Projects">
                 <projects-preview :projects="freelancer.projects"/>
               </b-tab>
               <b-tab title="Experience">
