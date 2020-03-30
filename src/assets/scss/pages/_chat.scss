@@ -145,8 +145,12 @@
   padding-top: 0.5rem;
   height: auto;
 
+  @media (min-width: 992px) and (max-width: 1366px) { 
+    margin-top: 1rem !important;
+  }
+
   .thread {
-    padding-right: 1rem;
+    padding-right: .5rem;
   }
 
   hr {

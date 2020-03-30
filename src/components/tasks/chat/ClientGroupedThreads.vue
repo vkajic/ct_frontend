@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-3">
+  <div class="mb-3 pr-2">
     <a href="#" @click.prevent="toggleVisibility"
        class="d-flex w-100 mb-2 d-flex align-items-center justify-content-between">
       <h5 class="mb-0">{{groupTitle}}</h5>

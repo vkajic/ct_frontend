@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chat-history-list">
     <template v-if="!taskId">
       <client-grouped-threads v-for="(group, key) in threads"
                               :threads="group"
