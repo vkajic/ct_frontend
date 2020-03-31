@@ -5,9 +5,8 @@
                       :avatar="freelancer.avatar"
                       :user-name="fullName"
                       :options="avatarOptions"/>
-      <a v-if="freelancer.web" :href="freelancer.web" class="personal-website-link d-block"><u>
-        <small>{{freelancer.web}}</small>
-      </u></a>
+      <!-- TEST COMPONENT -->
+      <web-presence-group :freelancer="freelancer" />
       <freelancer-rate :freelancer-id="freelancer.id"/>
     </div>
     <div class="col-12 col-lg-8">
@@ -38,6 +37,7 @@ import { truncate } from 'lodash';
 import TagsDisplay from '../ui/TagsDisplay.vue';
 import AvatarDisplay from '../ui/AvatarDisplay.vue';
 import FreelancerRate from '../freelancer/FreelancerRate.vue';
+import WebPresenceGroup from './WebPresenceGroup.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -46,6 +46,7 @@ export default {
     FreelancerRate,
     AvatarDisplay,
     TagsDisplay,
+    WebPresenceGroup,
   },
   data() {
     return {

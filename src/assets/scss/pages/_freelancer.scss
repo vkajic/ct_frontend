@@ -87,13 +87,13 @@
     }
   }
 
-  .personal-website-link {
+  .web-presence-group {
+    display: flex;
     width: 100%;
-    word-break: break-word;
-    overflow-wrap: break-word;
+    justify-content: space-around;
 
-    @include media-breakpoint-down(md) {
-      text-align: center;
-      margin-bottom: 1rem;    }
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 2rem;
+    }
   }
 }
