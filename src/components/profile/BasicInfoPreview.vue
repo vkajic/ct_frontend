@@ -5,7 +5,7 @@
                       :avatar="freelancer.avatar"
                       :user-name="fullName"
                       :options="avatarOptions"/>
-      <a v-if="freelancer.web" :href="freelancer.web" class="d-block"><u>
+      <a v-if="freelancer.web" :href="freelancer.web" class="personal-website-link d-block"><u>
         <small>{{freelancer.web}}</small>
       </u></a>
       <freelancer-rate :freelancer-id="freelancer.id"/>
