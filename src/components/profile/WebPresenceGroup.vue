@@ -1,21 +1,21 @@
 <template>
     <div class="web-presence-group">
         <WebPresenceItem v-if="freelancer.linkedin" class="web-presence-group__item" :href="freelancer.linkedin" ariaLabel="Link to the Linkedin profile">
-            <linkedin-icon size="1.5x"></linkedin-icon>
+            <font-awesome-icon :icon="linkedinIcon" size="lg" />
         </WebPresenceItem>
         <WebPresenceItem v-if="freelancer.web" class="web-presence-group__item" :href="freelancer.web" ariaLabel="Link to the Webpage">
-            <globe-icon size="1.5x"></globe-icon>
+            <font-awesome-icon :icon="websiteIcon" size="lg" />
         </WebPresenceItem>
-        <WebPresenceItem v-if="freelancer.blogdsfsd" class="web-presence-group__item" :href="freelancer.web" ariaLabel="Link to the Blog">
-            <edit-icon size="1.5x"></edit-icon>
+        <WebPresenceItem v-if="freelancer.blog" class="web-presence-group__item" :href="freelancer.web" ariaLabel="Link to the Blog">
+            <font-awesome-icon :icon="blogIcon" size="lg" />
         </WebPresenceItem>
     </div>
 </template>
 
 <script>
-import {
-  LinkedinIcon, GlobeIcon, EditIcon,
-} from 'vue-feather-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faGlobeEurope, faPenSquare } from '@fortawesome/free-solid-svg-icons';
 import WebPresenceItem from './WebPresenceItem.vue';
 
 // noinspection JSUnusedGlobalSymbols
@@ -23,9 +23,7 @@ export default {
   name: 'WebPresenceGroup',
   components: {
     WebPresenceItem,
-    LinkedinIcon,
-    GlobeIcon,
-    EditIcon,
+    FontAwesomeIcon,
   },
   props: {
     freelancer: {
@@ -33,6 +31,17 @@ export default {
       default() {
         return {};
       },
+    },
+  },
+  computed: {
+    linkedinIcon() {
+      return faLinkedin;
+    },
+    websiteIcon() {
+      return faGlobeEurope;
+    },
+    blogIcon() {
+      return faPenSquare;
     },
   },
 };

@@ -95,5 +95,10 @@
     @include media-breakpoint-down(lg) {
       margin-bottom: 2rem;
     }
+
+    &__item {
+      //TODO move this to _variables.scss
+      color: rgba(0, 0, 0, 0.6);
+    }
   }
 }
