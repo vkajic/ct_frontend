@@ -97,8 +97,12 @@
     }
 
     &__item {
-      //TODO move this to _variables.scss
-      color: rgba(0, 0, 0, 0.6);
+      color: $gray-600;
+
+      &:hover {
+        color: $gray-600;
+        cursor: pointer;
+      }
     }
   }
 }

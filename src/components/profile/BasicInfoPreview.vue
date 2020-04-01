@@ -5,8 +5,7 @@
                       :avatar="freelancer.avatar"
                       :user-name="fullName"
                       :options="avatarOptions"/>
-      <!-- TEST COMPONENT -->
-      <web-presence-group :freelancer="freelancer" />
+      <web-presence-group v-if="isThereWebPresence" :freelancer="freelancer" />
       <freelancer-rate :freelancer-id="freelancer.id"/>
     </div>
     <div class="col-12 col-lg-8">
@@ -81,6 +80,10 @@ export default {
 
     fullName() {
       return `${this.freelancer.firstName} ${this.freelancer.lastName}` || '';
+    },
+
+    isThereWebPresence() {
+      return this.freelancer.linkedin || this.freelancer.web || this.freelancer.blog;
     },
   },
 };

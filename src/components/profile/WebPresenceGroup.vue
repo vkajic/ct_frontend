@@ -3,7 +3,7 @@
         <WebPresenceItem v-if="freelancer.linkedin" class="web-presence-group__item" :href="freelancer.linkedin" ariaLabel="Link to the Linkedin profile">
             <font-awesome-icon :icon="linkedinIcon" size="lg" />
         </WebPresenceItem>
-        <WebPresenceItem v-if="freelancer.web" class="web-presence-group__item" :href="freelancer.web" ariaLabel="Link to the Webpage">
+        <WebPresenceItem v-if="freelancer.web" class="web-presence-group__item" :href="freelancer.web" ariaLabel="Link to the Website">
             <font-awesome-icon :icon="websiteIcon" size="lg" />
         </WebPresenceItem>
         <WebPresenceItem v-if="freelancer.blog" class="web-presence-group__item" :href="freelancer.web" ariaLabel="Link to the Blog">
@@ -18,7 +18,6 @@ import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { faGlobeEurope, faPenSquare } from '@fortawesome/free-solid-svg-icons';
 import WebPresenceItem from './WebPresenceItem.vue';
 
-// noinspection JSUnusedGlobalSymbols
 export default {
   name: 'WebPresenceGroup',
   components: {
