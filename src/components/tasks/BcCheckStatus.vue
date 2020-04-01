@@ -1,7 +1,7 @@
 <template>
   <div class="on-bc" v-if="isOnBc">
     <a
-      href="https://explorer.aeternity.io/contracts/transactions/ct_DeRuk3os1AaoiNtpiHnX5GnUHCVhqgZP9uQnEdx1UzNMq65Pf">
+      href="https://explorer.aeternity.io/contracts/transactions/ct_DeRuk3os1AaoiNtpiHnX5GnUHCVhqgZP9uQnEdx1UzNMq65Pf" target="_blank" rel="noopener noreferrer">
       <img src="@/assets/img/aeternity.png" alt="Aeternity"/>
     </a>
   </div>
