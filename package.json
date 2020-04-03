@@ -28,6 +28,7 @@
     "@ckeditor/ckeditor5-theme-lark": "^17.0.0",
     "@ckeditor/ckeditor5-vue": "^1.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
+    "@fortawesome/free-brands-svg-icons": "^5.13.0",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "axios": "^0.19.0",

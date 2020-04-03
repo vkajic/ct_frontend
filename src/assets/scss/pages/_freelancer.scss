@@ -86,4 +86,23 @@
       height: 100%;
     }
   }
+
+  .web-presence-group {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+
+    @include media-breakpoint-down(lg) {
+      margin-bottom: 2rem;
+    }
+
+    &__item {
+      color: $gray-600;
+
+      &:hover {
+        color: $gray-600;
+        cursor: pointer;
+      }
+    }
+  }
 }

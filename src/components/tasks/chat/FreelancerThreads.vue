@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="chat-history-list">
     <thread v-for="thread in threads"
             :key="thread.applicationId"
             :thread="thread"
