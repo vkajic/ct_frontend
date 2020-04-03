@@ -21,6 +21,10 @@ header.main-header {
         font-size: $header-menu-font-size;
       }
     }
+    
+    li:last-child {
+      margin-right: 0;
+    }
   }
 
   .header-menu {
