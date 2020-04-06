@@ -1,5 +1,5 @@
 <template>
-  <b-dropdown class="d-xl-none" variant="link" no-caret right toggle-class="p-0" v-if="!user">
+  <b-dropdown class="dropdown--responsive d-xl-none" variant="link" no-caret right toggle-class="p-0" v-if="!user">
     <template slot="button-content">
         <span class="d-block">
               <menu-icon size="1.5x" />
