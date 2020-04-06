@@ -4,7 +4,7 @@
       <div class="col-12 col-lg-4 d-flex justify-content-center">
         <image-uploader label="Add profile image"
                         title="Profile image"
-                        class="mb-5"
+                        class="image-uploader-basic mb-5"
                         @input="avatarAdded"
                         :value="form.avatar"
                         type="public"
@@ -48,7 +48,6 @@
 import { required } from 'vuelidate/src/validators';
 import ImageUploader from '../form/ImageUploader.vue';
 import InputGroup from '../form/InputGroup.vue';
-import TextareaGroup from '../form/TextareaGroup.vue';
 import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
 
 // noinspection JSUnusedGlobalSymbols
@@ -56,7 +55,6 @@ export default {
   name: 'ClientBasicInfoForm',
   components: {
     WysiwygTextareaGroup,
-    TextareaGroup,
     InputGroup,
     ImageUploader,
   },
