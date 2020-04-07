@@ -45,6 +45,26 @@
             <chat-container :task="task"
                             :application="selectedApplication"/>
           </b-tab>
+          <!-- <template v-if="selectedApplication" v-slot:tabs-end>
+            <client-application-buttons class="my-task-tabs__action"
+                                        :application="selectedApplication"
+                                        :replyEnabled="false"
+                                        @hire="hire(selectedApplication)"
+                                        @feedback="openFeedbackModal(selectedApplication)"/>
+          </template> -->
+          <template v-if="selectedApplication" v-slot:tabs-end>
+            <b-dropdown id="dropdown-dropup" boundary="viewport" size="sm" no-flip variant="link" toggle-class="text-decoration-none" no-caret>
+                <template v-slot:button-content>
+                   <chevron-down-icon size="1x" class="custom-class"></chevron-down-icon>
+                </template>
+              <b-dropdown-item>Hire</b-dropdown-item>
+              <!-- <client-application-buttons class="my-task-tabs__action"
+                                        :application="selectedApplication"
+                                        :replyEnabled="false"
+                                        @hire="hire(selectedApplication)"
+                                        @feedback="openFeedbackModal(selectedApplication)"/> -->
+            </b-dropdown>
+          </template>
         </b-tabs>
       </div>
     </div>
@@ -56,6 +76,7 @@
 <script>
 import { get } from 'lodash';
 import { mapState } from 'vuex';
+import { ChevronDownIcon } from 'vue-feather-icons';
 import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
@@ -66,6 +87,7 @@ import FeedbackModal from '../../components/feedback/FeedbackModal.vue';
 import ApiService from '../../services/api.service';
 import TaskDescription from '../../components/tasks/TaskDescription.vue';
 import ReopenTaskButton from '../../components/client/ReopenTaskButton.vue';
+// import ClientApplicationButtons from '../../components/tasks/ClientApplicationButtons.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -80,6 +102,7 @@ export default {
     AppliedFreelancer,
     RequiredSkills,
     TaskDetails,
+    ChevronDownIcon,
   },
   data() {
     return {
@@ -133,6 +156,7 @@ export default {
           type: 'success',
           text: 'Freelancer successfully hired',
         });
+        this.resetSelectedApplication();
       } catch (err) {
         this.$store.dispatch('ui/showNotification', {
           type: 'danger',
@@ -165,6 +189,7 @@ export default {
     openFeedbackModal(application) {
       this.application = application;
       this.$store.commit('tasks/openFeedbackModal');
+      console.log(this.application);
     },
 
     /**
@@ -221,6 +246,14 @@ export default {
     selectTab(tabId) {
       this.$store.commit('ui/setTaskSelectedTab', tabId);
     },
+
+    /**
+     * Set selected application to default value
+     */
+    resetSelectedApplication() {
+      this.$store.commit('tasks/setSelectedApplication', null);
+    },
+
   },
   created() {
     this.getData(this.$route.params.id)
