@@ -1,7 +1,7 @@
 <template>
-  <div class="search-heading d-flex align-items-center justify-content-between">
+  <div class="search-heading d-flex">
     <div class="d-flex align-items-center">
-      <sort-dropdown @select="selectSort"/>
+      <sort-dropdown class="sort-dropdown" @select="selectSort"/>
     </div>
     <quick-search @search="search"/>
   </div>
