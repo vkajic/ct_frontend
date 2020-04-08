@@ -41,29 +41,39 @@
           <b-tab title="Messages">
             <client-threads :task-id="task.id" class="pt-3" @select="goToMessages"/>
           </b-tab>
-          <b-tab v-if="selectedApplication" :title="selectedFreelancerName">
+          <b-tab v-if="selectedApplication" :title="truncatedFreelancerName">
             <chat-container :task="task"
                             :application="selectedApplication"/>
           </b-tab>
-          <!-- <template v-if="selectedApplication" v-slot:tabs-end>
-            <client-application-buttons class="my-task-tabs__action"
-                                        :application="selectedApplication"
-                                        :replyEnabled="false"
-                                        @hire="hire(selectedApplication)"
-                                        @feedback="openFeedbackModal(selectedApplication)"/>
-          </template> -->
           <template v-if="selectedApplication" v-slot:tabs-end>
-            <b-dropdown id="dropdown-dropup" boundary="viewport" size="sm" no-flip variant="link" toggle-class="text-decoration-none" no-caret>
-                <template v-slot:button-content>
-                   <chevron-down-icon size="1x" class="custom-class"></chevron-down-icon>
-                </template>
-              <b-dropdown-item>Hire</b-dropdown-item>
-              <!-- <client-application-buttons class="my-task-tabs__action"
-                                        :application="selectedApplication"
-                                        :replyEnabled="false"
-                                        @hire="hire(selectedApplication)"
-                                        @feedback="openFeedbackModal(selectedApplication)"/> -->
-            </b-dropdown>
+            <div class="my-task-tabs__wrapper">
+              <client-application-buttons class="my-task-tabs__action-btn"
+                                          :application="selectedApplication"
+                                          :replyEnabled="false"
+                                          @hire="hire(selectedApplication)"
+                                          @feedback="openFeedbackModal(selectedApplication)"/>
+              <b-dropdown class="my-task-tabs__actions-dropdown"
+                          id="dropdown-dropup"
+                          boundary="viewport"
+                          size="sm"
+                          no-flip
+                          variant="link"
+                          toggle-class="text-decoration-none"
+                          no-caret>
+                  <template v-slot:button-content>
+                     <chevron-down-icon size="1x" class="custom-class"></chevron-down-icon>
+                  </template>
+                <b-dropdown-item>
+                  <client-application-buttons :application="selectedApplication"
+                                              :replyEnabled="false"
+                                              @hire="hire(selectedApplication)"
+                                              @feedback="openFeedbackModal(selectedApplication)"/>
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  <b-button>Cancel</b-button>
+                </b-dropdown-item>
+              </b-dropdown>
+            </div>
           </template>
         </b-tabs>
       </div>
@@ -74,7 +84,7 @@
 </template>
 
 <script>
-import { get } from 'lodash';
+import { get, truncate } from 'lodash';
 import { mapState } from 'vuex';
 import { ChevronDownIcon } from 'vue-feather-icons';
 import TaskDetails from '../../components/tasks/TaskDetails.vue';
@@ -87,7 +97,7 @@ import FeedbackModal from '../../components/feedback/FeedbackModal.vue';
 import ApiService from '../../services/api.service';
 import TaskDescription from '../../components/tasks/TaskDescription.vue';
 import ReopenTaskButton from '../../components/client/ReopenTaskButton.vue';
-// import ClientApplicationButtons from '../../components/tasks/ClientApplicationButtons.vue';
+import ClientApplicationButtons from '../../components/tasks/ClientApplicationButtons.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -103,6 +113,7 @@ export default {
     RequiredSkills,
     TaskDetails,
     ChevronDownIcon,
+    ClientApplicationButtons,
   },
   data() {
     return {
@@ -129,6 +140,12 @@ export default {
       return this.selectedApplication
         ? get(this, 'selectedApplication.freelancer.name', '')
         : '';
+    },
+    /**
+     * Truncate freelancer name
+     */
+    truncatedFreelancerName() {
+      return truncate(this.selectedFreelancerName, { length: 15 });
     },
   },
   methods: {
