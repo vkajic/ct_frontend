@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Meta from 'vue-meta';
 import store from './store';
 import Home from './views/Home.vue';
 import MainLayout from './layouts/main/MainLayout.vue';
@@ -38,6 +39,7 @@ import ProfileLayout from './layouts/profile/ProfileLayout.vue';
 import AuthLayout from './layouts/auth/AuthLayout.vue';
 
 Vue.use(Router);
+Vue.use(Meta);
 
 const router = new Router({
   mode: 'history',
