@@ -76,7 +76,7 @@ export default {
       return moment()
         .isSame(dateTime, 'day')
         ? dateTime.format('HH:mm:ss')
-        : dateTime.format('D.M.YYYY HH:mm:ss');
+        : dateTime.format('D.M.YYYY');
     },
 
     /**

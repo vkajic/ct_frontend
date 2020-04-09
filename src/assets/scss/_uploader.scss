@@ -29,6 +29,11 @@
     width: 12rem;
     height: 12rem;
 
+    @include media-breakpoint-only(lg) {
+      width: 10rem;
+      height: 10rem;
+    }
+
     @include media-breakpoint-up(xxl) {
       width: 15rem;
       height: 15rem;

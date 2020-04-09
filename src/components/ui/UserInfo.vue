@@ -7,7 +7,7 @@
         <user-menu/>
       </div>
     </div>
-    <div class="user-info-widget d-flex align-items-center pr-lg-4" v-if="!loggedIn">
+    <div class="d-none d-xl-flex user-info-widget align-items-center" v-if="!loggedIn">
       <ul class="list-unstyled list-inline m-0">
         <li class="list-inline-item pr-3">
           <router-link to="/login">Login</router-link>

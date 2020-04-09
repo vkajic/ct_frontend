@@ -5,9 +5,7 @@
                       :avatar="freelancer.avatar"
                       :user-name="fullName"
                       :options="avatarOptions"/>
-      <a v-if="freelancer.web" :href="freelancer.web" class="d-block"><u>
-        <small>{{freelancer.web}}</small>
-      </u></a>
+      <web-presence-group v-if="isThereWebPresence" :freelancer="freelancer" />
       <freelancer-rate :freelancer-id="freelancer.id"/>
     </div>
     <div class="col-12 col-lg-8">
@@ -38,6 +36,7 @@ import { truncate } from 'lodash';
 import TagsDisplay from '../ui/TagsDisplay.vue';
 import AvatarDisplay from '../ui/AvatarDisplay.vue';
 import FreelancerRate from '../freelancer/FreelancerRate.vue';
+import WebPresenceGroup from './WebPresenceGroup.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -46,6 +45,7 @@ export default {
     FreelancerRate,
     AvatarDisplay,
     TagsDisplay,
+    WebPresenceGroup,
   },
   data() {
     return {
@@ -84,6 +84,10 @@ export default {
 
     fullName() {
       return `${this.freelancer.firstName} ${this.freelancer.lastName}` || '';
+    },
+
+    isThereWebPresence() {
+      return this.freelancer.linkedin || this.freelancer.web || this.freelancer.blog;
     },
   },
 };
