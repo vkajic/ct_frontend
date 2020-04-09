@@ -1,9 +1,9 @@
 <template>
   <b-form @submit.prevent="save">
     <div class="row">
-      <div class="col-12 col-lg-4">
+      <div class="col-12 col-lg-4 d-flex justify-content-center">
         <image-uploader label="Add profile image"
-                        class="mb-5"
+                        class="image-uploader-basic mb-5"
                         title="Profile image"
                         @input="avatarAdded"
                         :value="form.avatar"

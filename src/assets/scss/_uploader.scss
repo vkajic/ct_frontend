@@ -105,3 +105,16 @@
     }
   }
 }
+
+.image-uploader-basic {
+  @include media-breakpoint-up(lg) {
+    width: 100%;
+  }
+
+  & > .image-uploader {
+    @include media-breakpoint-up(lg) {
+      width: 80%;
+      height: 12rem;
+    }
+  }
+}
