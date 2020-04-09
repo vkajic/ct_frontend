@@ -1,3 +1,19 @@
+@mixin dropdown-button {
+  width: 100%;
+  text-align: left;
+  font-size: .9em;
+  background: inherit;
+  color: inherit;
+  border: none;
+  box-shadow: none;
+
+  &:hover, &:active {
+    background: none !important;
+    color: inherit !important;
+    box-shadow: none !important;
+  }
+}
+
 .short-task-item, .short-job-item {
   .duration, .price, .published-date {
     font-size: .875rem;
@@ -154,8 +170,8 @@
     overflow-y: hidden;
     display: -webkit-box;
     display: -moz-box;
-    
-    li {      
+
+    li {
       a {
         padding: 1rem .8rem;
         border-bottom: none !important;
@@ -170,7 +186,7 @@
           padding: 1rem 0.6rem;
         }
 
-        @media (min-width: 1200px) and (max-width: 1400px) { 
+        @media (min-width: 1200px) and (max-width: 1400px) {
           font-size: .8em;
         }
       }
@@ -203,6 +219,7 @@
       display: block !important;
 
       button {
+        margin-right: 0 !important;
         padding: 0 .6rem;
         font-size: .65em;
       }
@@ -233,7 +250,7 @@
         .dropdown-item {
           padding: .4rem .5rem;
         }
-        
+
         &:first-child {
           @include media-breakpoint-up(md) {
             display: none;
@@ -246,20 +263,29 @@
       }
 
       button {
-        width: 100%;
-        text-align: left;
-        font-size: .9em;
-        background: inherit;
-        color: inherit;
-        border: none;
-        box-shadow: none;
-
-        &:hover, &:active {
-          background: none !important;
-          color: inherit !important;
-          box-shadow: none !important;
-        }
+        @include dropdown-button;
       }
+    }
+  }
+}
+
+.application-freelancer-tabs {
+  &__actions-dropdown {
+    width: auto;
+
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+
+    a {
+      padding: .4rem .5rem;
+    }
+
+    button {
+      @include dropdown-button;
+      padding: 0;
+      margin-bottom: 0 !important;
+      text-align: left;
     }
   }
 }

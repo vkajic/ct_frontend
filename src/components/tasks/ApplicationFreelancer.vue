@@ -28,6 +28,24 @@
           <b-tab title="Messages">
             <chat-container :task="task" :application="application"/>
           </b-tab>
+          <template v-slot:tabs-end>
+              <b-dropdown class="application-freelancer-tabs__actions-dropdown"
+                          id="dropdown-buttons"
+                          boundary="viewport"
+                          size="sm"
+                          no-flip
+                          variant="link"
+                          toggle-class="text-decoration-none"
+                          no-caret>
+                <template v-slot:button-content>
+                  <chevron-down-icon size="1x"></chevron-down-icon>
+                </template>
+                <b-dropdown-item>
+                  <freelancer-task-buttons :application="application"
+                                           @feedback="saveFeedback"/>
+                </b-dropdown-item>
+              </b-dropdown>
+          </template>
         </b-tabs>
       </div>
     </div>
@@ -36,6 +54,7 @@
 
 <script>
 import { mapState } from 'vuex';
+import { ChevronDownIcon } from 'vue-feather-icons';
 import TaskDetails from './TaskDetails.vue';
 import RequiredSkills from './RequiredSkills.vue';
 import ChatContainer from './chat/ChatContainer.vue';
@@ -56,6 +75,7 @@ export default {
     ChatContainer,
     RequiredSkills,
     TaskDetails,
+    ChevronDownIcon,
   },
   computed: {
     ...mapState('tasks', {

@@ -61,7 +61,7 @@
                           toggle-class="text-decoration-none"
                           no-caret>
                   <template v-slot:button-content>
-                     <chevron-down-icon size="1x" class="custom-class"></chevron-down-icon>
+                     <chevron-down-icon size="1x"></chevron-down-icon>
                   </template>
                 <b-dropdown-item>
                   <client-application-buttons :application="selectedApplication"
