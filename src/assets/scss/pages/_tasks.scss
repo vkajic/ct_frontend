@@ -1,3 +1,19 @@
+@mixin dropdown-button {
+  width: 100%;
+  text-align: left;
+  font-size: .9em;
+  background: inherit;
+  color: inherit;
+  border: none;
+  box-shadow: none;
+
+  &:hover, &:active {
+    background: none !important;
+    color: inherit !important;
+    box-shadow: none !important;
+  }
+}
+
 .short-task-item, .short-job-item {
   .duration, .price, .published-date {
     font-size: .875rem;
@@ -146,14 +162,130 @@
 
 
 .my-task-tabs {
+  display: flex;
+  align-items: center;
+
   &.nav-tabs {
     overflow-x: auto;
     overflow-y: hidden;
     display: -webkit-box;
     display: -moz-box;
 
+    li {
+      a {
+        padding: 1rem .8rem;
+        border-bottom: none !important;
+
+        @include media-breakpoint-down(sm) {
+          font-size: .7em;
+          padding: 1rem 0.4rem;
+        }
+
+        @include media-breakpoint-only(lg) {
+          font-size: .8em;
+          padding: 1rem 0.6rem;
+        }
+
+        @media (min-width: 1200px) and (max-width: 1400px) {
+          font-size: .8em;
+        }
+      }
+    }
+
     > li {
       float: none;
+    }
+
+    li:nth-child(4) {
+        a {
+          padding-right: .5rem;
+          text-decoration: none;
+
+          @include media-breakpoint-down(sm) {
+            padding-right: 0.2rem;
+          }
+        }
+      }
+    }
+
+  &__wrapper {
+    display: flex;
+  }
+
+  &__action-btn {
+    display: none !important;
+
+    @include media-breakpoint-up(md) {
+      display: block !important;
+
+      button {
+        margin-right: 0 !important;
+        padding: 0 .6rem;
+        font-size: .65em;
+      }
+    }
+
+    @include media-breakpoint-only(lg) {
+      display: none !important;
+    }
+  }
+
+  &__actions-dropdown {
+    padding: 0;
+
+    @include media-breakpoint-up(md) {
+      padding-left: .6rem;
+    }
+
+    @include media-breakpoint-only(lg) {
+      padding: 0;
+    }
+
+    button {
+      padding: 0;
+    }
+
+    ul {
+      li {
+        .dropdown-item {
+          padding: .4rem .5rem;
+        }
+
+        &:first-child {
+          @include media-breakpoint-up(md) {
+            display: none;
+          }
+
+          @include media-breakpoint-only(lg) {
+            display: block;
+          }
+        }
+      }
+
+      button {
+        @include dropdown-button;
+      }
+    }
+  }
+}
+
+.application-freelancer-tabs {
+  &__actions-dropdown {
+    width: auto;
+
+    @include media-breakpoint-up(lg) {
+      display: none;
+    }
+
+    a {
+      padding: .4rem .5rem;
+    }
+
+    button {
+      @include dropdown-button;
+      padding: 0;
+      margin-bottom: 0 !important;
+      text-align: left;
     }
   }
 }

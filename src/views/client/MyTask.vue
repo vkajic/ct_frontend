@@ -41,10 +41,40 @@
           <b-tab title="Messages">
             <client-threads :task-id="task.id" class="pt-3" @select="goToMessages"/>
           </b-tab>
-          <b-tab v-if="selectedApplication" :title="selectedFreelancerName">
+          <b-tab v-if="selectedApplication" :title="truncatedFreelancerName">
             <chat-container :task="task"
                             :application="selectedApplication"/>
           </b-tab>
+          <template v-if="selectedApplication" v-slot:tabs-end>
+            <div class="my-task-tabs__wrapper">
+              <client-application-buttons class="my-task-tabs__action-btn"
+                                          :application="selectedApplication"
+                                          :replyEnabled="false"
+                                          @hire="hire(selectedApplication)"
+                                          @feedback="openFeedbackModal(selectedApplication)"/>
+              <b-dropdown class="my-task-tabs__actions-dropdown"
+                          id="dropdown-dropup"
+                          boundary="viewport"
+                          size="sm"
+                          no-flip
+                          variant="link"
+                          toggle-class="text-decoration-none"
+                          no-caret>
+                  <template v-slot:button-content>
+                     <chevron-down-icon size="1x"></chevron-down-icon>
+                  </template>
+                <b-dropdown-item>
+                  <client-application-buttons :application="selectedApplication"
+                                              :replyEnabled="false"
+                                              @hire="hire(selectedApplication)"
+                                              @feedback="openFeedbackModal(selectedApplication)"/>
+                </b-dropdown-item>
+                <b-dropdown-item>
+                  <b-button>Cancel</b-button>
+                </b-dropdown-item>
+              </b-dropdown>
+            </div>
+          </template>
         </b-tabs>
       </div>
     </div>
@@ -54,8 +84,9 @@
 </template>
 
 <script>
-import { get } from 'lodash';
+import { get, truncate } from 'lodash';
 import { mapState } from 'vuex';
+import { ChevronDownIcon } from 'vue-feather-icons';
 import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
@@ -66,6 +97,7 @@ import FeedbackModal from '../../components/feedback/FeedbackModal.vue';
 import ApiService from '../../services/api.service';
 import TaskDescription from '../../components/tasks/TaskDescription.vue';
 import ReopenTaskButton from '../../components/client/ReopenTaskButton.vue';
+import ClientApplicationButtons from '../../components/tasks/ClientApplicationButtons.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -80,6 +112,8 @@ export default {
     AppliedFreelancer,
     RequiredSkills,
     TaskDetails,
+    ChevronDownIcon,
+    ClientApplicationButtons,
   },
   data() {
     return {
@@ -107,6 +141,12 @@ export default {
         ? get(this, 'selectedApplication.freelancer.name', '')
         : '';
     },
+    /**
+     * Truncate freelancer name
+     */
+    truncatedFreelancerName() {
+      return truncate(this.selectedFreelancerName, { length: 15 });
+    },
   },
   methods: {
     /**
@@ -133,6 +173,7 @@ export default {
           type: 'success',
           text: 'Freelancer successfully hired',
         });
+        this.resetSelectedApplication();
       } catch (err) {
         this.$store.dispatch('ui/showNotification', {
           type: 'danger',
@@ -165,6 +206,7 @@ export default {
     openFeedbackModal(application) {
       this.application = application;
       this.$store.commit('tasks/openFeedbackModal');
+      console.log(this.application);
     },
 
     /**
@@ -221,6 +263,14 @@ export default {
     selectTab(tabId) {
       this.$store.commit('ui/setTaskSelectedTab', tabId);
     },
+
+    /**
+     * Set selected application to default value
+     */
+    resetSelectedApplication() {
+      this.$store.commit('tasks/setSelectedApplication', null);
+    },
+
   },
   created() {
     this.getData(this.$route.params.id)

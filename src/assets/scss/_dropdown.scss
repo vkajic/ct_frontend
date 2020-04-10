@@ -36,6 +36,10 @@
     margin: 0 !important;
   }
 
+  &.sort-dropdown {
+    width: 100%;
+    margin: 0 1rem;
+  }
 }
 
 .dropdown {
@@ -58,5 +62,9 @@
     align-content: center;
     align-items: center;
     font-size: .9rem;
+  }
+
+  &--responsive {
+    width: auto;
   }
 }

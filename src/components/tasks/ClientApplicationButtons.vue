@@ -1,6 +1,11 @@
 <template>
   <div class="reply d-flex align-items-center">
-    <b-button variant="light" class="btn-round mr-3" @click="reply">Reply</b-button>
+    <b-button variant="light"
+              class="btn-round mr-3"
+              @click="reply"
+              v-if="replyEnabled">
+      Reply
+    </b-button>
     <b-button variant="info"
               class="btn-round mr-3"
               @click="hire"
@@ -31,6 +36,11 @@ export default {
     application: {
       type: Object,
       required: true,
+    },
+    replyEnabled: {
+      type: Boolean,
+      required: false,
+      default: true,
     },
   },
   computed: {
