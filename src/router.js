@@ -337,7 +337,7 @@ router.beforeEach((to, from, next) => {
     .then(() => {
       if (to.matched.some(record => record.meta.forbidAccess)) {
         const role = store.state.user.activeRole;
-        console.log('forbidding access', role, to);
+        // console.log('forbidding access', role, to);
         if (role === to.meta.forbidAccess) {
           next({
             path: '/',
