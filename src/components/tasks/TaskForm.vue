@@ -258,7 +258,7 @@ export default {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'success',
-            text: 'Task saved successfully',
+            text: 'Task saved successfully. It will be reviewed and published in next 24 hours.',
           });
           this.$router.push('/my-tasks');
         } catch (err) {

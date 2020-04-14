@@ -1,7 +1,12 @@
 <template>
   <div class="short-job-item">
     <div class="d-flex align-items-center mb-2">
-      <div class="active-since">Published {{task.createdAt | date('MMM Do')}}</div>
+      <div class="active-since" v-if="task.published">
+        Published {{task.createdAt | date('MMM Do')}}
+      </div>
+      <b-badge variant="danger" v-if="!task.published">
+        Unpublished
+      </b-badge>
     </div>
     <h2>
       <router-link class="font-18-sm" :to="`/my-tasks/${task.id}`">{{task.title}}</router-link>
