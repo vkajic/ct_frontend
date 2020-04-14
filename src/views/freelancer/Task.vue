@@ -81,5 +81,10 @@ export default {
       }
     },
   },
+  metaInfo() {
+    return {
+      title: this.task ? this.task.title : '',
+    };
+  },
 };
 </script>

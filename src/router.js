@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Meta from 'vue-meta';
 import store from './store';
 import Home from './views/Home.vue';
 import MainLayout from './layouts/main/MainLayout.vue';
@@ -34,8 +35,11 @@ import CompletedApplications from './views/freelancer/CompletedApplications.vue'
 import Application from './views/freelancer/Application.vue';
 import MyPublicProfile from './views/common/MyPublicProfile.vue';
 import Client from './views/freelancer/Client.vue';
+import ProfileLayout from './layouts/profile/ProfileLayout.vue';
+import AuthLayout from './layouts/auth/AuthLayout.vue';
 
 Vue.use(Router);
+Vue.use(Meta);
 
 const router = new Router({
   mode: 'history',
@@ -43,36 +47,11 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      component: MainLayout,
+      component: Entry,
       children: [
         {
-          path: '/sign-up',
-          name: 'signUp',
-          component: SignUp,
-        },
-        {
-          path: '/login',
-          name: 'login',
-          component: Login,
-        },
-        {
-          path: '/forgot-password',
-          name: 'forgotPassword',
-          component: ForgotPassword,
-        },
-        {
-          path: '/reset-password/:hash',
-          name: 'resetPassword',
-          component: ResetPassword,
-        },
-        {
-          path: '/confirm-email/:hash',
-          name: 'confirmEmail',
-          component: EmailConfirmation,
-        },
-        {
           path: '/',
-          component: Entry,
+          component: MainLayout,
           children: [
             {
               path: '/',
@@ -101,87 +80,6 @@ const router = new Router({
               meta: {
                 requiresAuth: true,
               },
-            },
-            {
-              path: 'create-freelancer',
-              component: CreateFreelancer,
-              meta: {
-                requiresAuth: true,
-                forbidAccess: 'client',
-                menuWidth: 0,
-              },
-              children: [
-                {
-                  path: 'basic-info',
-                  name: 'basicInfo',
-                  component: BasicInfo,
-                  meta: {
-                    requiresAuth: true,
-                    forbidAccess: 'client',
-                    menuWidth: 0,
-                  },
-                },
-                {
-                  path: 'skills',
-                  name: 'skills',
-                  component: Skills,
-                  meta: {
-                    requiresAuth: true,
-                    forbidAccess: 'client',
-                    menuWidth: 0,
-                  },
-                },
-                {
-                  path: 'work-experience',
-                  name: 'workExperience',
-                  component: Experience,
-                  meta: {
-                    requiresAuth: true,
-                    forbidAccess: 'client',
-                    menuWidth: 0,
-                  },
-                },
-                {
-                  path: 'projects',
-                  name: 'projects',
-                  component: Projects,
-                  meta: {
-                    requiresAuth: true,
-                    forbidAccess: 'client',
-                    menuWidth: 0,
-                  },
-                },
-                {
-                  path: 'preview',
-                  name: 'preview',
-                  component: Preview,
-                  meta: {
-                    requiresAuth: true,
-                    forbidAccess: 'client',
-                    menuWidth: 0,
-                  },
-                },
-              ],
-            },
-            {
-              path: 'create-client',
-              component: CreateClient,
-              meta: {
-                requiresAuth: true,
-                forbidAccess: 'freelancer',
-              },
-              children: [
-                {
-                  path: 'basic-info',
-                  name: 'clientBasicInfo',
-                  component: ClientBasicInfo,
-                  meta: {
-                    requiresAuth: true,
-                    forbidAccess: 'freelancer',
-                    menuWidth: 0,
-                  },
-                },
-              ],
             },
             {
               path: '/create-task',
@@ -307,6 +205,124 @@ const router = new Router({
               name: 'clientPublicProfile',
               component: Client,
               meta: { requiresAuth: false },
+            },
+          ],
+        },
+        {
+          path: '/',
+          component: ProfileLayout,
+          children: [
+            {
+              path: 'create-freelancer',
+              component: CreateFreelancer,
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'client',
+                menuWidth: 0,
+              },
+              children: [
+                {
+                  path: 'basic-info',
+                  name: 'basicInfo',
+                  component: BasicInfo,
+                  meta: {
+                    requiresAuth: true,
+                    forbidAccess: 'client',
+                    menuWidth: 0,
+                  },
+                },
+                {
+                  path: 'skills',
+                  name: 'skills',
+                  component: Skills,
+                  meta: {
+                    requiresAuth: true,
+                    forbidAccess: 'client',
+                    menuWidth: 0,
+                  },
+                },
+                {
+                  path: 'work-experience',
+                  name: 'workExperience',
+                  component: Experience,
+                  meta: {
+                    requiresAuth: true,
+                    forbidAccess: 'client',
+                    menuWidth: 0,
+                  },
+                },
+                {
+                  path: 'projects',
+                  name: 'projects',
+                  component: Projects,
+                  meta: {
+                    requiresAuth: true,
+                    forbidAccess: 'client',
+                    menuWidth: 0,
+                  },
+                },
+                {
+                  path: 'preview',
+                  name: 'preview',
+                  component: Preview,
+                  meta: {
+                    requiresAuth: true,
+                    forbidAccess: 'client',
+                    menuWidth: 0,
+                  },
+                },
+              ],
+            },
+            {
+              path: 'create-client',
+              component: CreateClient,
+              meta: {
+                requiresAuth: true,
+                forbidAccess: 'freelancer',
+              },
+              children: [
+                {
+                  path: 'basic-info',
+                  name: 'clientBasicInfo',
+                  component: ClientBasicInfo,
+                  meta: {
+                    requiresAuth: true,
+                    forbidAccess: 'freelancer',
+                    menuWidth: 0,
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          path: '/',
+          component: AuthLayout,
+          children: [
+            {
+              path: '/sign-up',
+              name: 'signUp',
+              component: SignUp,
+            },
+            {
+              path: '/login',
+              name: 'login',
+              component: Login,
+            },
+            {
+              path: '/forgot-password',
+              name: 'forgotPassword',
+              component: ForgotPassword,
+            },
+            {
+              path: '/reset-password/:hash',
+              name: 'resetPassword',
+              component: ResetPassword,
+            },
+            {
+              path: '/confirm-email/:hash',
+              name: 'confirmEmail',
+              component: EmailConfirmation,
             },
           ],
         },

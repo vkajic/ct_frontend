@@ -71,11 +71,15 @@ export default {
   },
   computed: {
     bio() {
-      const striped = this.freelancer.bio.replace(/(<([^>]+)>)/ig, '');
-      return truncate(striped, {
-        length: 200,
-        separator: ' ',
-      });
+      if (this.freelancer && this.freelancer.bio) {
+        const striped = this.freelancer.bio.replace(/(<([^>]+)>)/ig, '');
+        return truncate(striped, {
+          length: 200,
+          separator: ' ',
+        });
+      }
+
+      return '';
     },
 
     fullName() {

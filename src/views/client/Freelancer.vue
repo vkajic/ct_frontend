@@ -126,5 +126,10 @@ export default {
       await this.$router.push('/freelancers');
     },
   },
+  metaInfo() {
+    return {
+      title: this.freelancer ? this.freelancer.name : '',
+    };
+  },
 };
 </script>
