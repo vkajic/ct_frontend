@@ -17,10 +17,18 @@
       <div class="col-12 col-lg-7 order-lg-1">
         <b-tabs :value="selectedTab" nav-class="my-task-tabs" @input="selectTab">
           <b-tab title="Description" class="py-4">
-            <task-details :task="task" :applicable="false" class="d-lg-none mb-4"/>
-            <task-description :description="task.description"/>
+            <template v-slot:title>
+              <span class="nav-link__title">Description</span>
+              <clipboard-icon class="nav-link__icon" size="1.5x"></clipboard-icon>
+            </template>
+              <task-details :task="task" :applicable="false" class="d-lg-none mb-4"/>
+              <task-description :description="task.description"/>
           </b-tab>
           <b-tab title="Freelancers" class="pt-3">
+            <template v-slot:title>
+              <span class="nav-link__title">Freelancers</span>
+              <users-icon class="nav-link__icon" size="1.5x"></users-icon>
+            </template>
             <div v-if="task.applications">
               <applied-freelancer :application="a"
                                   :task="task"
@@ -39,6 +47,10 @@
             </div>
           </b-tab>
           <b-tab title="Messages">
+            <template v-slot:title>
+              <span class="nav-link__title">Messages</span>
+              <message-circle-icon class="nav-link__icon" size="1.5x"></message-circle-icon>
+            </template>
             <client-threads :task-id="task.id" class="pt-3" @select="goToMessages"/>
           </b-tab>
           <b-tab v-if="selectedApplication" :title="truncatedFreelancerName">
@@ -64,12 +76,6 @@
                      <chevron-down-icon size="1x"></chevron-down-icon>
                   </template>
                 <b-dropdown-item>
-                  <client-application-buttons :application="selectedApplication"
-                                              :replyEnabled="false"
-                                              @hire="hire(selectedApplication)"
-                                              @feedback="openFeedbackModal(selectedApplication)"/>
-                </b-dropdown-item>
-                <b-dropdown-item>
                   <b-button>Cancel</b-button>
                 </b-dropdown-item>
               </b-dropdown>
@@ -86,7 +92,9 @@
 <script>
 import { get, truncate } from 'lodash';
 import { mapState } from 'vuex';
-import { ChevronDownIcon } from 'vue-feather-icons';
+import {
+  ChevronDownIcon, UsersIcon, MessageCircleIcon, ClipboardIcon,
+} from 'vue-feather-icons';
 import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
@@ -113,6 +121,9 @@ export default {
     RequiredSkills,
     TaskDetails,
     ChevronDownIcon,
+    UsersIcon,
+    MessageCircleIcon,
+    ClipboardIcon,
     ClientApplicationButtons,
   },
   data() {
