@@ -276,6 +276,19 @@ const actions = {
 
     commit('setFreelancerPublished');
   },
+
+  /**
+   * Subscribe user to newsletter
+   * @param commit
+   * @return {Promise<void>}
+   */
+  async newsletterToggleSubscription({ commit }, status) {
+    const res = await apiService.post('/users/toggle-subscription', {
+      subscribed: status,
+    });
+
+    commit('setUserEmailSubscription', res.data.data);
+  },
 };
 
 const mutations = {
@@ -409,6 +422,17 @@ const mutations = {
    */
   activateBcData(state) {
     state.bcDataSet = true;
+  },
+
+  /**
+   * Update user newsletter subscription status
+   * @param state
+   * @param status
+   */
+  setUserEmailSubscription(state, status) {
+    if (state.user) {
+      state.user = Object.assign({}, state.user, { emailSubscribed: status });
+    }
   },
 };
 

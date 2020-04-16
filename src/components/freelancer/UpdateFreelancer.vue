@@ -14,7 +14,7 @@
       </basic-info-preview>
     </paper>
 
-    <div class="row">
+    <div class="row mb-5">
       <div class="col-12 col-lg-10 offset-lg-1">
         <b-tabs content-class="py-4">
           <b-tab title="Basic Info" active>
@@ -35,6 +35,10 @@
         </b-tabs>
       </div>
     </div>
+
+    <paper>
+      <newsletter-subscription-form/>
+    </paper>
   </div>
 </template>
 
@@ -44,6 +48,7 @@ import UpdateBasicInfo from './UpdateBasicInfo.vue';
 import ProjectsForm from '../profile/ProjectsForm.vue';
 import ExperienceForm from '../profile/ExperienceForm.vue';
 import Paper from '../ui/Paper.vue';
+import NewsletterSubscriptionForm from '../profile/NewsletterSubscriptionForm.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -54,6 +59,7 @@ export default {
     };
   },
   components: {
+    NewsletterSubscriptionForm,
     Paper,
     ExperienceForm,
     ProjectsForm,

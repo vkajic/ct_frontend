@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="user-info-widget d-flex align-items-center pr-lg-4" v-if="loggedIn">
-      <notifications-popover/>
+      <!-- <notifications-popover/> -->
 
       <div class="ml-3 ml-lg-4">
         <user-menu/>
