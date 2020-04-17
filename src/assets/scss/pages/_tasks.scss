@@ -202,26 +202,12 @@
     }
 
     .nav-link {
+      @include nav-link;
+
       padding: 1rem .8rem;
       border-bottom: none !important;
-
-      &__icon {
-        // hide icons on screens bigger then 1400px
-        @media only screen and (min-width: 1400px) {
-          display: none;
-        }
-      }
-      &__title {
-        // hidden initially
-        display: none;
-
-        // display on screens bigger then 1400px
-        @media only screen and (min-width: 1400px) {
-          display: block;
-        }
-      }
     }
-    }
+  }
 
   &__wrapper {
     display: flex;
