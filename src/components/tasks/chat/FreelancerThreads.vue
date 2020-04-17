@@ -19,7 +19,7 @@ export default {
   mixins: [applicationUrl],
   computed: {
     threads() {
-      return this.$store.state.chat.threads;
+      return this.$store.getters['chat/getSortedThreads'];
     },
   },
   methods: {

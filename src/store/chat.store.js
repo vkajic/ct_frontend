@@ -3,6 +3,7 @@ import Vue from 'vue';
 import {
   orderBy, set, get, groupBy,
 } from 'lodash';
+import moment from 'moment';
 import apiService from '../services/api.service';
 
 const initialState = {
@@ -245,6 +246,8 @@ const mutations = {
     state.threads = state.threads.map((t) => {
       if (t.id === message.applicationId) {
         t.lastMessage = message;
+        t.lastMessageId = message.id;
+        t.updatedAt = moment().toISOString();
       }
 
       return t;
@@ -381,11 +384,21 @@ const getters = {
   },
 
   /**
+   * Get threads sorted by thread modified date
+   * @param state
+   * @return {Array}
+   */
+  getSortedThreads(state) {
+    return orderBy(state.threads, ['updatedAt'], ['desc']);
+  },
+
+  /**
    * Get threads grouped by task ID
    * @param state
+   * @param getters
    */
-  getGroupedThreads(state) {
-    const { threads } = state;
+  getGroupedThreads(state, getters) {
+    const threads = getters.getSortedThreads;
 
     return groupBy(threads, 'taskId');
   },
@@ -396,7 +409,7 @@ const getters = {
    * @return {Object}
    */
   getTaskGroupedThreads: state => (taskId) => {
-    const { threads } = state;
+    const threads = getters.getSortedThreads;
 
     return groupBy(threads.filter(t => t.taskId === taskId), 'taskId');
   },
