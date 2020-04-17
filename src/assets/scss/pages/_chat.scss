@@ -137,6 +137,28 @@
     font-size: .75rem;
     padding: .5rem 0 0 1rem;
   }
+
+  &__alert {
+    display: flex;
+    align-items: center;
+    font-size: .9em;
+    margin: 1rem 0;
+    font-weight: bold;
+
+    button {
+      top: auto !important;
+      right: 1.5rem !important;
+      padding: 0 !important;
+    }
+
+    svg {
+      margin-right: 1rem;
+    }
+
+    @include media-breakpoint-up(xl) {
+      font-size: 1em;
+    }
+  }
 }
 
 .chat-history {
@@ -145,7 +167,7 @@
   padding-top: 0.5rem;
   height: auto;
 
-  @media (min-width: 992px) and (max-width: 1366px) { 
+  @media (min-width: 992px) and (max-width: 1366px) {
     margin-top: 1rem !important;
   }
 
