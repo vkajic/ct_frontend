@@ -20,15 +20,23 @@
         <required-skills class="skills p-4 m-2" :skills="task.skills" v-if="task.skills"/>
       </div>
       <div class="col-12 col-lg-7 order-lg-1">
-        <b-tabs :value="selectedTab" @input="selectTab">
+        <b-tabs class="application-freelancer-tabs" :value="selectedTab" @input="selectTab">
           <b-tab title="Project details" class="py-4">
+            <template v-slot:title>
+              <span class="nav-link__title">Description</span>
+              <clipboard-icon class="nav-link__icon" size="1.5x"></clipboard-icon>
+            </template>
             <task-details :task="task" :applicable="false" class="d-lg-none mb-4"/>
             <task-description :description="task.description"/>
           </b-tab>
           <b-tab title="Messages">
-            <chat-container :task="task" :application="application"/>
+            <template v-slot:title>
+              <span class="nav-link__title">Messages</span>
+              <message-circle-icon class="nav-link__icon" size="1.5x"></message-circle-icon>
+            </template>
+              <chat-container :task="task" :application="application"/>
           </b-tab>
-          <template v-slot:tabs-end>
+          <template v-if="!!application.status" v-slot:tabs-end>
               <b-dropdown class="application-freelancer-tabs__actions-dropdown"
                           id="dropdown-buttons"
                           boundary="viewport"
@@ -54,7 +62,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { ChevronDownIcon } from 'vue-feather-icons';
+import { ChevronDownIcon, MessageCircleIcon, ClipboardIcon } from 'vue-feather-icons';
 import TaskDetails from './TaskDetails.vue';
 import RequiredSkills from './RequiredSkills.vue';
 import ChatContainer from './chat/ChatContainer.vue';
@@ -76,6 +84,8 @@ export default {
     RequiredSkills,
     TaskDetails,
     ChevronDownIcon,
+    MessageCircleIcon,
+    ClipboardIcon,
   },
   computed: {
     ...mapState('tasks', {
