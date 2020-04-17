@@ -3,6 +3,15 @@
     <div class="messages flex-grow-1 mb-3" @scroll="onScroll" ref="messagesContainer">
       <div class="loading text-center p-2" v-if="loading">Loading...</div>
       <!--<p v-if="!messages.length">Send your first message!</p>-->
+      <b-alert class="chat-container__alert"
+               v-if="showAlert"
+               variant="warning"
+               show
+               dismissible
+               fade>
+          <alert-triangle-icon size="1.5x"></alert-triangle-icon>
+          Don't start working until you have been hired!
+      </b-alert>
       <chat-message v-for="message in messages"
                     :message="message"
                     :key="message.id + 'chat-message'"/>
@@ -13,6 +22,7 @@
 </template>
 
 <script>
+import { AlertTriangleIcon } from 'vue-feather-icons';
 import ChatMessage from './ChatMessage.vue';
 import ChatInput from './ChatInput.vue';
 import ChatTypingInfo from './ChatTypingInfo.vue';
@@ -25,6 +35,7 @@ export default {
     // FileUploader,
     ChatInput,
     ChatMessage,
+    AlertTriangleIcon,
   },
   data() {
     return {
@@ -72,6 +83,13 @@ export default {
      */
     userRole() {
       return this.$store.state.user.activeRole;
+    },
+    /**
+     * Show alert if active user is freelancer, he isn't hired and there is no loading
+     * @return {boolean}
+     * */
+    showAlert() {
+      return this.userRole !== 'client' && !this.application.status && !this.loading;
     },
   },
   methods: {
