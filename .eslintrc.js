@@ -14,8 +14,6 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-underscore-dangle': 'off',
     'import/no-cycle': 'off',
-    'linebreak-style': ['error', 'windows'],
-    'max-len': ['error', { code: 200 }],
   },
   parserOptions: {
     parser: 'babel-eslint',

@@ -393,25 +393,14 @@ const getters = {
   },
 
   /**
-   * Get threads grouped by task ID
-   * @param state
-   * @param getters
-   */
-  getGroupedThreads(state, getters) {
-    const threads = getters.getSortedThreads;
-
-    return groupBy(threads, 'taskId');
-  },
-
-  /**
    * Get all grouped threads for task
    * @param state
    * @return {Object}
    */
-  getTaskGroupedThreads: state => (taskId) => {
+  getTaskThreads: state => (taskId) => {
     const threads = getters.getSortedThreads;
 
-    return groupBy(threads.filter(t => t.taskId === taskId), 'taskId');
+    return threads.filter(t => t.taskId === taskId);
   },
 };
 

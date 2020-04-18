@@ -1,14 +1,12 @@
 <template>
   <div class="chat-history-list">
     <template v-if="!taskId">
-      <client-grouped-threads v-for="(group, key) in threads"
-                              :threads="group"
-                              :key="key"
+      <client-grouped-threads :threads="threads"
                               @click="openThread"/>
     </template>
     <template v-else>
-      <template v-if="firstGroup.length">
-        <thread v-for="thread in firstGroup"
+      <template v-if="threads.length">
+        <thread v-for="thread in threads"
                 :key="thread.id"
                 :thread="thread"
                 role="client"
@@ -44,16 +42,8 @@ export default {
      */
     threads() {
       return this.taskId
-        ? this.$store.getters['chat/getTaskGroupedThreads'](this.taskId)
-        : this.$store.getters['chat/getGroupedThreads'];
-    },
-    /**
-     * Get first item in threads for single task threads
-     * @return {*}
-     */
-    firstGroup() {
-      const keys = Object.keys(this.threads);
-      return keys.length ? this.threads[keys[0]] : [];
+        ? this.$store.getters['chat/getTaskThreads'](this.taskId)
+        : this.$store.getters['chat/getSortedThreads'];
     },
   },
   methods: {
