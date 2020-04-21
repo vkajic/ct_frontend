@@ -62,7 +62,7 @@
               <client-application-buttons class="my-task-tabs__action-btn"
                                           :application="selectedApplication"
                                           :replyEnabled="false"
-                                          @hire="hire(selectedApplication)"
+                                          @hire="openHireModal(selectedApplication)"
                                           @feedback="openFeedbackModal(selectedApplication)"/>
               <b-dropdown class="my-task-tabs__actions-dropdown"
                           id="dropdown-dropup"
@@ -84,7 +84,9 @@
         </b-tabs>
       </div>
     </div>
-
+    <confirm-hire-modal v-if="selectedApplication"
+                        :application="selectedApplication"
+                        :is-visible="isHireModalVisible"/>
     <feedback-modal @save="saveFeedback"/>
   </div>
 </template>
@@ -106,11 +108,13 @@ import ApiService from '../../services/api.service';
 import TaskDescription from '../../components/tasks/TaskDescription.vue';
 import ReopenTaskButton from '../../components/client/ReopenTaskButton.vue';
 import ClientApplicationButtons from '../../components/tasks/ClientApplicationButtons.vue';
+import ConfirmHireModal from '../../components/client/ConfirmHireModal.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MyTask',
   components: {
+    ConfirmHireModal,
     ReopenTaskButton,
     TaskDescription,
     FeedbackModal,
@@ -129,6 +133,7 @@ export default {
   data() {
     return {
       application: null,
+      isHireModalVisible: false,
     };
   },
   computed: {
@@ -177,20 +182,22 @@ export default {
      * Hire freelancer
      */
     async hire(application) {
-      try {
-        await this.$store.dispatch('tasks/hire', application);
-
-        this.$store.dispatch('ui/showNotification', {
-          type: 'success',
-          text: 'Freelancer successfully hired',
-        });
-        this.resetSelectedApplication();
-      } catch (err) {
-        this.$store.dispatch('ui/showNotification', {
-          type: 'danger',
-          text: 'Something went wrong',
-        });
-      }
+      console.log(application);
+      this.isHireModalVisible = true;
+      // try {
+      //   await this.$store.dispatch('tasks/hire', application);
+      //
+      //   this.$store.dispatch('ui/showNotification', {
+      //     type: 'success',
+      //     text: 'Freelancer successfully hired',
+      //   });
+      //   this.resetSelectedApplication();
+      // } catch (err) {
+      //   this.$store.dispatch('ui/showNotification', {
+      //     type: 'danger',
+      //     text: 'Something went wrong',
+      //   });
+      // }
     },
 
     /**
@@ -218,6 +225,11 @@ export default {
       this.application = application;
       this.$store.commit('tasks/openFeedbackModal');
       console.log(this.application);
+    },
+    openHireModal(application) {
+      this.application = application;
+      this.isHireModalVisible = true;
+      console.log(application);
     },
 
     /**
