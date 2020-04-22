@@ -1,9 +1,15 @@
 <template>
   <b-modal :visible="isVisible"
            title="Hire Freelancer"
+           @close="close"
+           @cancel="close"
+           @hidden="close"
+           @ok.prevent="hireFreelancer"
            ok-title="Confirm">
     Are you sure you want to hire
-    <b>{{application.freelancer.name}}</b> for job <b>{{application.task.title}}?</b>
+    <b>{{application.freelancer.name}}</b>
+    for job
+    <b>{{application.task.title}}?</b>
   </b-modal>
 </template>
 
@@ -28,6 +34,15 @@ export default {
         message: null,
       },
     };
+  },
+  methods: {
+    close() {
+      this.$emit('close');
+    },
+    hireFreelancer() {
+      console.log('EMIT HIRE');
+      this.$emit('hire', this.application);
+    },
   },
 };
 </script>

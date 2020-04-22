@@ -86,6 +86,8 @@
     </div>
     <confirm-hire-modal v-if="selectedApplication"
                         :application="selectedApplication"
+                        @close="closeHireModal"
+                        @hire="hire"
                         :is-visible="isHireModalVisible"/>
     <feedback-modal @save="saveFeedback"/>
   </div>
@@ -183,21 +185,21 @@ export default {
      */
     async hire(application) {
       console.log(application);
-      this.isHireModalVisible = true;
-      // try {
-      //   await this.$store.dispatch('tasks/hire', application);
-      //
-      //   this.$store.dispatch('ui/showNotification', {
-      //     type: 'success',
-      //     text: 'Freelancer successfully hired',
-      //   });
-      //   this.resetSelectedApplication();
-      // } catch (err) {
-      //   this.$store.dispatch('ui/showNotification', {
-      //     type: 'danger',
-      //     text: 'Something went wrong',
-      //   });
-      // }
+      try {
+        await this.$store.dispatch('tasks/hire', application);
+
+        this.$store.dispatch('ui/showNotification', {
+          type: 'success',
+          text: 'Freelancer successfully hired',
+        });
+        this.resetSelectedApplication();
+        this.closeHireModal();
+      } catch (err) {
+        this.$store.dispatch('ui/showNotification', {
+          type: 'danger',
+          text: 'Something went wrong',
+        });
+      }
     },
 
     /**
@@ -230,6 +232,12 @@ export default {
       this.application = application;
       this.isHireModalVisible = true;
       console.log(application);
+    },
+    closeHireModal() {
+      console.log(this.isHireModalVisible);
+      console.log('Event CLOSE fired');
+      this.isHireModalVisible = false;
+      console.log(this.isHireModalVisible);
     },
 
     /**
