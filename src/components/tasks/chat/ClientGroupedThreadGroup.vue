@@ -35,7 +35,9 @@ export default {
     },
     threads: {
       type: Array,
-      required: true,
+      default() {
+        return [];
+      },
     },
   },
   data() {
@@ -64,7 +66,7 @@ export default {
       return this.threads.filter(t => t.taskId === this.groupId);
     },
     groupTitle() {
-      return this.groupThreads[0].task.title;
+      return this.groupThreads.length ? this.groupThreads[0].task.title : '';
     },
   },
 };

@@ -7,8 +7,8 @@
           <div class="name">{{senderName}}</div>
           <div class="date">{{createdAt}}</div>
         </div>
-        <div class="message">
-          <span v-if="!hasAttachments">{{message.text}}</span>
+        <div class="message pr-2">
+          <span v-if="!hasAttachments"><pre>{{message.text}}</pre></span>
 
           <template v-if="hasAttachments">
             <ul class="list-unstyled m-0">

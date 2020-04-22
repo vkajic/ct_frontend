@@ -1,15 +1,19 @@
 <template>
-  <b-form class="chat-input d-flex align-items-center w-100" @submit.prevent="send">
+  <b-form class="chat-input d-flex align-items-start w-100 p-1" @submit.prevent="send">
 
-    <a href="#" @click.prevent="openUploader" class="attachments pl-3">
+    <a href="#" @click.prevent="openUploader" class="attachments px-2 py-1 btn btn-link">
       <paperclip-icon size="1.5x"/>
     </a>
 
-    <b-form-input v-model="message"
-                  :disabled="uploading"
-                  class="flex-grow-1"
-                  :placeholder="inputPlaceholder"
-                  @keyup.native="userTyping"/>
+    <b-form-textarea v-model="message"
+                     :disabled="uploading"
+                     class="flex-grow-1 overflow-auto p-2"
+                     :placeholder="inputPlaceholder"
+                     :max-rows="8"
+                     no-resize
+                     @keyup.native="userTyping"
+                     @keydown.enter.exact.prevent
+                     @keyup.enter.exact="send"/>
 
     <input type="file"
            class="d-none"
@@ -19,7 +23,7 @@
            ref="attachments"
            @change="uploadFiles($event.target.files)"/>
 
-    <button type="submit" class="btn btn-round submit" :disabled="uploading">
+    <button type="submit" class="btn btn-round submit m-0 ml-2 mr-1" :disabled="uploading">
       Send
     </button>
   </b-form>
@@ -45,7 +49,7 @@ export default {
   },
   data() {
     return {
-      message: null,
+      message: '',
       uploading: false,
       errors: [],
       fileUrls: [],
@@ -151,6 +155,14 @@ export default {
         return `${this.uploadPercentage}% uploading...`;
       }
       return DEFAULT_PLACEHOLDER;
+    },
+
+    /**
+     * Check if message has multiple lines
+     * @return {RegExpExecArray & {groups: {}}}
+     */
+    hasNewline() {
+      return /\r|\n/.exec(this.message);
     },
   },
 };

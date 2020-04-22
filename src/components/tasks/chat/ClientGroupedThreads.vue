@@ -1,7 +1,8 @@
 <template>
   <div>
     <client-grouped-thread-group v-for="group in groups" :key="group" :group-id="group"
-                                 :threads="threads"/>
+                                 :threads="threads"
+                                 @click="openThread"/>
   </div>
 </template>
 
@@ -18,12 +19,23 @@ export default {
   props: {
     threads: {
       type: Array,
-      required: true,
+      default() {
+        return [];
+      },
     },
   },
   computed: {
     groups() {
       return uniq(this.threads.map(t => t.taskId));
+    },
+  },
+  methods: {
+    /**
+     * Open thread for selected application
+     * @param thread
+     */
+    openThread(thread) {
+      this.$emit('click', thread);
     },
   },
 };
