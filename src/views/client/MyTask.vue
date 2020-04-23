@@ -214,10 +214,12 @@ export default {
     /**
      * Open feedback modal
      */
-    openFeedbackModal(application) {
+    openFeedbackModal({ application, status }) {
       this.application = application;
-      this.$store.commit('tasks/openFeedbackModal');
-      console.log(this.application);
+      this.$store.commit('tasks/openFeedbackModal', {
+        applicationId: this.application.id,
+        status,
+      });
     },
 
     /**
@@ -225,20 +227,14 @@ export default {
      * @param {Object} formData
      */
     async saveFeedback(formData) {
-      const status = 2;
-
       try {
-        const data = Object.assign({}, formData, {
-          applicationId: this.application.id,
-          status,
-        });
-        const res = await ApiService.post('/feedbacks', data);
+        const res = await ApiService.post('/feedbacks', formData);
         this.$store.commit('tasks/setClientApplicationFeedback', {
           feedback: res.data.data,
           applicationId: this.application.id,
         });
         this.$store.commit('tasks/setClientApplicationStatus', {
-          status,
+          status: formData.status,
           applicationId: this.application.id,
         });
 

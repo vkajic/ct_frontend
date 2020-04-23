@@ -67,7 +67,6 @@ export default {
   data() {
     return {
       letter: null,
-      status: null,
     };
   },
   props: {
@@ -124,16 +123,20 @@ export default {
     },
 
     startCancel() {
-      this.status = 3;
-      this.$store.commit('tasks/openFeedbackModal');
+      this.$store.commit('tasks/openFeedbackModal', {
+        applicationId: this.application.id,
+        status: 3,
+      });
     },
 
     /**
      * Leave feedback
      */
     async startFeedback() {
-      this.status = 2;
-      this.$store.commit('tasks/openFeedbackModal');
+      this.$store.commit('tasks/openFeedbackModal', {
+        applicationId: this.application.id,
+        status: 2,
+      });
     },
 
     /**
@@ -141,7 +144,7 @@ export default {
      * @param formData
      */
     saveFeedback(formData) {
-      this.$emit('feedback', { formData, status: this.status });
+      this.$emit('feedback', formData);
     },
   },
 };

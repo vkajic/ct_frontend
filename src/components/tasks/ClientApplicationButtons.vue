@@ -15,9 +15,16 @@
     </b-button>
     <b-button variant="info"
               class="btn-round"
-              @click="leaveFeedback"
+              @click="leaveFeedback(2)"
               v-if="completeEnabled">
       Complete
+    </b-button>
+
+    <b-button variant="info"
+              class="btn-round"
+              @click="leaveFeedback(3)"
+              v-if="leaveFeedbackEnabled">
+      Leave feedback
     </b-button>
   </div>
 </template>
@@ -57,6 +64,15 @@ export default {
     completeEnabled() {
       return this.application.status === 1;
     },
+
+    /**
+     * Freelancer canceled the job so client can leave feedback
+     */
+    leaveFeedbackEnabled() {
+      return this.application.status === 3
+        && this.application.feedback
+        && !this.application.feedback.clientRate;
+    },
   },
   methods: {
     /**
@@ -75,8 +91,8 @@ export default {
     /**
      * Leave feedback on application
      */
-    leaveFeedback() {
-      this.$emit('feedback');
+    leaveFeedback(status) {
+      this.$emit('feedback', status);
     },
   },
 };

@@ -123,15 +123,12 @@ export default {
     /**
      * Save feedback data
      */
-    async saveFeedback({ formData, status }) {
+    async saveFeedback(formData) {
+      console.log(formData);
       try {
-        const data = Object.assign({}, formData, {
-          applicationId: this.application.id,
-          status,
-        });
-        const res = await ApiService.post('/feedbacks', data);
+        const res = await ApiService.post('/feedbacks', formData);
         this.$store.commit('tasks/setFreelancerApplicationFeedback', res.data.data);
-        this.$store.commit('tasks/setFreelancerApplicationStatus', status);
+        this.$store.commit('tasks/setFreelancerApplicationStatus', formData.status);
 
         this.$store.dispatch('ui/showNotification', {
           type: 'success',

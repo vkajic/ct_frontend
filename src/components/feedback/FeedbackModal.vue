@@ -62,6 +62,13 @@ export default {
     },
 
     /**
+     * Modal application id and status
+     */
+    modalData() {
+      return this.$store.state.tasks.feedbackModalData;
+    },
+
+    /**
      * Override OK button text
      * @return {string}
      */
@@ -80,7 +87,7 @@ export default {
 
       if (!this.$v.$invalid) {
         this.sending = true;
-        this.$emit('save', this.formData);
+        this.$emit('save', { ...this.formData, ...this.modalData });
       }
     },
   },

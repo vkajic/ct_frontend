@@ -11,6 +11,7 @@ const initialState = {
   selectedTaskApplications: [],
   selectedApplication: null,
   feedbackModalDisplayed: false,
+  feedbackModalData: null,
 };
 
 const actions = {
@@ -299,14 +300,19 @@ const mutations = {
    */
   closeFeedbackModal(state) {
     state.feedbackModalDisplayed = false;
+    state.feedbackModalData = null;
   },
 
   /**
    * Open feedback modal
    * @param state
+   * @param {Object} data
+   * @param {Number} data.applicationId
+   * @param {Number} data.status
    */
-  openFeedbackModal(state) {
+  openFeedbackModal(state, data) {
     state.feedbackModalDisplayed = true;
+    state.feedbackModalData = data;
   },
 
   /**
