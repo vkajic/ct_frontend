@@ -36,7 +36,7 @@
                                   :key="i"
                                   v-for="(a, i) in task.applications"
                                   @select="goToMessages"
-                                  @hire="hire"
+                                  @hire="openHireModal(a)"
                                   @feedback="openFeedbackModal"/>
             </div>
             <div v-if="!task.applications || !task.applications.length">
@@ -84,8 +84,9 @@
         </b-tabs>
       </div>
     </div>
-    <confirm-hire-modal v-if="selectedApplication"
-                        :application="selectedApplication"
+    <confirm-hire-modal v-if="application"
+                        :application="application"
+                        :task="task"
                         @close="closeHireModal"
                         @hire="hire"
                         :is-visible="isHireModalVisible"/>
@@ -184,8 +185,8 @@ export default {
      * Hire freelancer
      */
     async hire(application) {
-      console.log(application);
       try {
+        this.closeHireModal();
         await this.$store.dispatch('tasks/hire', application);
 
         this.$store.dispatch('ui/showNotification', {
@@ -193,7 +194,6 @@ export default {
           text: 'Freelancer successfully hired',
         });
         this.resetSelectedApplication();
-        this.closeHireModal();
       } catch (err) {
         this.$store.dispatch('ui/showNotification', {
           type: 'danger',
@@ -230,16 +230,21 @@ export default {
         status,
       });
     },
+
+    /**
+     * Open hire modal
+     * @param {Object} application
+     */
     openHireModal(application) {
       this.application = application;
       this.isHireModalVisible = true;
-      console.log(application);
     },
+
+    /**
+     * Close hire modal
+     */
     closeHireModal() {
-      console.log(this.isHireModalVisible);
-      console.log('Event CLOSE fired');
       this.isHireModalVisible = false;
-      console.log(this.isHireModalVisible);
     },
 
     /**
