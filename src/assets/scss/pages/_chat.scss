@@ -38,6 +38,13 @@
       .message {
         color: $gray-700;
 
+        pre {
+          white-space: pre-wrap;
+          font-family: $font-family-sans-serif;
+          font-size: 1rem;
+          color: $primary;
+        }
+
         .attachment {
           margin: .5rem 0;
 
@@ -86,6 +93,7 @@
   .chat-input {
     border: 2px solid $gray-200;
     border-radius: 0.25rem;
+    background: $gray-100;
 
     .attachments {
       .feather {
@@ -107,7 +115,7 @@
       border: 0;
 
       &.submit {
-        background: $gray-200;
+        background: $gray-300;
         margin: 5px;
         color: $gray-700;
 
@@ -117,9 +125,9 @@
       }
     }
 
-    input {
-      border: 0;
+    textarea {
       line-height: 1.1875rem;
+      border: 0;
 
       &:hover, &:focus {
         outline: none;

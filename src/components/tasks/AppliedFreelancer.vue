@@ -30,7 +30,7 @@
     <client-application-buttons :application="application"
                                 @hire="$emit('hire', application)"
                                 @select="$emit('select', application)"
-                                @feedback="$emit('feedback', application)"/>
+                                @feedback="leaveFeedback"/>
 
     <div v-if="application.feedback && application.feedback.freelancerRate">
       <hr>
@@ -93,6 +93,11 @@ export default {
       const freelancerSkills = this.freelancer.skills.map(f => f.id);
 
       return intersection(taskSkills, freelancerSkills);
+    },
+  },
+  methods: {
+    leaveFeedback(status) {
+      this.$emit('feedback', { application: this.application, status });
     },
   },
 };

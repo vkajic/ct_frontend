@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import Vue from 'vue';
 import {
-  orderBy, set, get, groupBy,
+  orderBy, set, get,
 } from 'lodash';
 import moment from 'moment';
 import apiService from '../services/api.service';
@@ -394,13 +394,13 @@ const getters = {
 
   /**
    * Get all grouped threads for task
-   * @param state
    * @return {Object}
    */
-  getTaskThreads: state => (taskId) => {
+  // eslint-disable-next-line no-shadow
+  getTaskThreads: (state, getters) => (taskId) => {
     const threads = getters.getSortedThreads;
 
-    return threads.filter(t => t.taskId === taskId);
+    return threads && threads.length ? threads.filter(t => t.taskId === taskId) : [];
   },
 };
 
