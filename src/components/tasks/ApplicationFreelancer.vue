@@ -36,7 +36,7 @@
             </template>
               <chat-container :task="task" :application="application"/>
           </b-tab>
-          <template v-if="!!application.status" v-slot:tabs-end>
+          <template v-if="showActionsDropdown" v-slot:tabs-end>
               <b-dropdown class="application-freelancer-tabs__actions-dropdown"
                           id="dropdown-buttons"
                           boundary="viewport"
@@ -96,6 +96,12 @@ export default {
     },
     selectedTab() {
       return this.$store.state.ui.taskSelectedTab;
+    },
+    showActionsDropdown() {
+      const { status, feedback } = this.application;
+      if (status === 1) return true;
+      if (status === 2) return !feedback.freelancerFeedback;
+      return false;
     },
   },
   methods: {
