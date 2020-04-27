@@ -63,7 +63,7 @@
                                           :application="selectedApplication"
                                           :replyEnabled="false"
                                           @hire="openHireModal(selectedApplication)"
-                                          @feedback="openFeedbackModal(selectedApplication)"/>
+                                          @feedback="mapDataAndOpenFeedbackModal($event)"/>
               <b-dropdown class="my-task-tabs__actions-dropdown"
                           id="dropdown-dropup"
                           boundary="viewport"
@@ -302,7 +302,14 @@ export default {
     resetSelectedApplication() {
       this.$store.commit('tasks/setSelectedApplication', null);
     },
-
+    /**
+     * Map data and open feedback modal
+     * @param statusValue
+     */
+    mapDataAndOpenFeedbackModal(statusValue) {
+      const payload = { application: this.selectedApplication, status: statusValue };
+      this.openFeedbackModal(payload);
+    },
   },
   created() {
     this.getData(this.$route.params.id)
