@@ -1,55 +1,67 @@
 <template>
-  <div v-if="isFreelancer">
-    <template v-if="isPublished">
-      <template v-if="!application">
-        <b-button variant="info"
-                  block
-                  class="btn-round mb-4"
-                  v-if="applyVisible"
-                  v-b-modal.applicationModal>
-          Apply for job
-        </b-button>
-      </template>
-      <template v-else>
-        <b-button variant="primary"
-                  block
-                  class="btn-round mb-4"
-                  v-if="cancelVisible"
-                  @click.prevent="startCancel">
-          Cancel job
-        </b-button>
-
-        <b-button variant="info"
-                  block
-                  class="btn-round mb-4"
-                  v-if="leaveFeedbackVisible"
-                  @click.prevent="startFeedback">
-          Leave feedback
-        </b-button>
-      </template>
-    </template>
-
-    <template v-else>
-      <p class="mb-3 px-2 text-muted">
-        Task applications are only enabled for freelancers with published profiles. Please publish
-        your profile.
-      </p>
-
-      <b-button variant="primary"
-                to="/profile"
+  <div>
+    <div v-if="!isUserLoggedIn">
+      <b-button variant="info"
                 block
-                class="btn-round mb-4">
-        Go To Profile
+                class="btn-round mb-4"
+                v-if="applyVisible"
+                to="/sign-up"
+                >
+        Apply for job
       </b-button>
-    </template>
+    </div>
+    <div v-if="isFreelancer">
+      <template v-if="isPublished">
+        <template v-if="!application">
+          <b-button variant="info"
+                    block
+                    class="btn-round mb-4"
+                    v-if="applyVisible"
+                    v-b-modal.applicationModal>
+            Apply for job
+          </b-button>
+        </template>
+        <template v-else>
+          <b-button variant="primary"
+                    block
+                    class="btn-round mb-4"
+                    v-if="cancelVisible"
+                    @click.prevent="startCancel">
+            Cancel job
+          </b-button>
 
-    <b-modal id="applicationModal" title="Apply for task" ok-title="Apply" @ok="apply">
-      <b-form>
-        <textarea-group v-model="letter" label="Message" :rows="10"/>
-      </b-form>
-    </b-modal>
+          <b-button variant="info"
+                    block
+                    class="btn-round mb-4"
+                    v-if="leaveFeedbackVisible"
+                    @click.prevent="startFeedback">
+            Leave feedback
+          </b-button>
+        </template>
+      </template>
 
-    <feedback-modal @save="saveFeedback"/>
+      <template v-else>
+        <p class="mb-3 px-2 text-muted">
+          Task applications are only enabled for freelancers with published profiles. Please publish
+          your profile.
+        </p>
+
+        <b-button variant="primary"
+                  to="/profile"
+                  block
+                  class="btn-round mb-4">
+          Go To Profile
+        </b-button>
+      </template>
+
+      <b-modal id="applicationModal" title="Apply for task" ok-title="Apply" @ok="apply">
+        <b-form>
+          <textarea-group v-model="letter" label="Message" :rows="10"/>
+        </b-form>
+      </b-modal>
+
+      <feedback-modal @save="saveFeedback"/>
+    </div>
   </div>
 </template>
 
@@ -82,6 +94,9 @@ export default {
   computed: {
     isFreelancer() {
       return this.$store.state.user.activeRole === 'freelancer';
+    },
+    isUserLoggedIn() {
+      return !!this.$store.state.user.user;
     },
 
     /**
