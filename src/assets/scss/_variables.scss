@@ -1,6 +1,7 @@
 // Colors
 $gray-100: #F3F3F3;
 $gray-300: #D0D2D6;
+$gray-400: #B9BBC0;
 $gray-500: #9D9FA5;
 $gray-600: #72757D;
 
@@ -9,10 +10,12 @@ $dark: #0D0D22;
 $green: #1DCC4B;
 
 $almost-black: #070B17;
+$dark-grayish-navy: #1F222E;
 
 $theme-colors: (
         "almost-black": $almost-black
 );
+
 
 $primary: $almost-black;
 
@@ -27,6 +30,8 @@ $spacers: (
 
 // Body
 $body-color: $dark;
+$body-color--dark: $gray-400;
+$body-bg--dark: $almost-black;
 
 // Grid
 $grid-breakpoints: (
@@ -51,6 +56,7 @@ $container-max-widths: (
 
 // Links
 $link-color: $dark;
+$link-color--dark: $gray-400;
 
 // Typography
 $font-family-sans-serif: 'Roboto', sans-serif;
@@ -80,10 +86,15 @@ $input-border-radius: 0;
 $input-border-radius-lg: 0;
 $input-border-radius-sm: 0;
 
+$input-bg--dark: $dark-grayish-navy;
+
 $input-border-color: $gray-300;
 $input-box-shadow: none;
 
 $input-placeholder-color: rgba($dark, 0.3);
+$input-placeholder-color--dark: rgba($gray-400, 0.3);
+
+$input-focus-bg--dark: rgba($dark-grayish-navy, 0.3);
 
 $custom-checkbox-indicator-border-radius: 0;
 
@@ -98,6 +109,8 @@ $dropdown-border-width: 0;
 $dropdown-font-size: 1.125rem;
 $dropdown-box-shadow: $paper-shadow;
 $dropdown-item-padding-y: .4rem;
+$dropdown-item-color--dark: $gray-400;
+$dropdown-box-bg--dark: $dark-grayish-navy;
 
 // Layout
 $header-menu-font-size: 1.125rem;
@@ -133,3 +146,27 @@ $popover-box-shadow: $paper-shadow;
 
 // Notifications
 $notifications-indicator-size: 15px;
+
+// Horizontal divider
+$hr-color--dark: $gray-400;
+
+// Loading overlay
+$loading-overlay-bg--dark: rgba($almost-black, .8);
+
+// Spinner
+$spinner-bg--dark: $gray-400;
+
+// Dark theme map
+$theme-dark: (
+        "body-color": $body-color--dark,
+        "body-bg": $body-bg--dark,
+        "link-color": $link-color--dark,
+        "dropdown-bg": $dropdown-box-bg--dark,
+        "dropdown-item-color": $dropdown-item-color--dark,
+        "input-bg": $input-bg--dark,
+        "input-focus": $input-focus-bg--dark,
+        "input-placeholder-color": $input-placeholder-color--dark,
+        "hr-color": $hr-color--dark,
+        "loading-overlay-bg": $loading-overlay-bg--dark,
+        "spinner-bg": $spinner-bg--dark,
+);

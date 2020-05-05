@@ -6,6 +6,10 @@
 }
 
 .lds-ring div {
+  @include apply-dark-theme1() {
+    border-color: t("spinner-bg") transparent transparent transparent;
+  }
+
   box-sizing: border-box;
   display: block;
   position: absolute;
@@ -41,6 +45,10 @@
 
 
 .loading-overlay {
+  @include apply-dark-theme1() {
+    background: t("loading-overlay-bg");
+  }
+
   position: absolute;
   width: 100%;
   height: 100%;

@@ -14,9 +14,20 @@
       transform: translate3d(0, 4.3125rem, 0) !important;
     }
   }
+  .dropdown-menu .dropdown-item {
+    // TODO
+    @include apply-dark-theme1() {
+      color: t("body-color");
+    }
+  }
 }
 
 .dropdown-menu {
+  // TODO
+  @include apply-dark-theme1() {
+    background: t("dropdown-bg");
+  }
+
   box-shadow: $paper-shadow;
   overflow: auto;
   max-height: 20rem;
@@ -56,6 +67,10 @@
   }
 
   &__button-wrapper {
+    @include apply-dark-theme1() {
+      color: t("dropdown-item-color");
+    }
+
     display: inline-flex;
     justify-content: space-between;
     width: 100%;
@@ -66,5 +81,12 @@
 
   &--responsive {
     width: auto;
+
+    button {
+      @include apply-dark-theme1() {
+        //TODO add new color for header menu icon
+        color: t("body-color")
+      }
+    }
   }
 }

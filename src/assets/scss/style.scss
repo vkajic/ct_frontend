@@ -9,6 +9,32 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~vue-select/src/scss/vue-select";
 
+@mixin apply-dark-theme($property, $key, $map: $dark-theme) {
+  .dark-theme & {
+    #{$property}: map-get($map, $key);
+  }
+}
+
+@mixin apply-dark-theme1() {
+  .dark-theme & {
+    @content;
+  }
+}
+
+@function t($key, $map: $theme-dark) {
+  @return map-get($map, $key);
+}
+
+$dark-theme: (
+        "almost-dark": #070B17,
+        "primary-text-color": #B9BBC0,
+        "input-background-color": #1F222E,
+        "input-focus-color": #1d202b,
+        "paper-color": #070B17,
+        "paper-shadow": #01040B,
+        "border-color": #B9BBC0
+);
+
 // Component styles
 @import "typography";
 @import "buttons";
@@ -36,3 +62,22 @@
 @import "pages/tasks";
 @import "pages/chat";
 @import "pages/landing";
+
+body {
+  &.dark-theme {
+      background-color: t("body-bg");
+      color: t("body-color");
+  }
+}
+
+a, a:hover {
+  @include apply-dark-theme1() {
+    color: t("link-color")
+  }
+}
+
+hr {
+  @include apply-dark-theme1() {
+    border-top-color: t("hr-color");
+  }
+}

@@ -1,6 +1,10 @@
 .nav-tabs {
   border-bottom: 2px solid rgba($black, .1);
 
+  .dark-theme & {
+    border-bottom: 2px solid rgba(map-get($dark-theme, "border-color"), .1);;
+  }
+
   .nav-link {
     font-weight: bold;
     margin-bottom: -2px;

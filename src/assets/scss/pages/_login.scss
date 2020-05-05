@@ -6,10 +6,18 @@
       font-size: 4.125rem;
       font-weight: 900;
     }
-
     .h1-sm{
       @include media-breakpoint-down(sm) {
         font-size: 3.25rem;
+      }
+    }
+  }
+  .dark-theme & {
+    .auth-form input {
+      background: map-get($dark-theme, "input-background-color") !important;
+
+      &::placeholder {
+        color: map-get($dark-theme, "primary-text-color");
       }
     }
   }

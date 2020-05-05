@@ -1,6 +1,12 @@
 <template>
-  <sun-icon class="theme-icon" v-if="!isDark" @click="toggleDarkMode"></sun-icon>
-  <moon-icon class="theme-icon" v-else @click="toggleDarkMode"></moon-icon>
+  <sun-icon v-if="isDarkThemeEnabled"
+            class="theme-icon"
+            @click="toggleDarkMode">
+  </sun-icon>
+  <moon-icon v-else
+             class="theme-icon"
+             @click="toggleDarkMode">
+  </moon-icon>
 </template>
 <script>
 import { SunIcon, MoonIcon } from 'vue-feather-icons';
@@ -13,21 +19,37 @@ export default {
   },
   data() {
     return {
-      isDark: false,
+      isDarkThemeEnabled: false,
     };
   },
   methods: {
-    toggleDarkMode() {
+    enableDarkTheme() {
       const { body } = document;
-      this.isDark = !this.isDark;
-      body.classList.toggle('dark-theme');
+      this.isDarkThemeEnabled = true;
+      body.classList.add('dark-theme');
+      localStorage.setItem('dark-theme', 'active');
     },
+    disableDarkTheme() {
+      const { body } = document;
+      this.isDarkThemeEnabled = false;
+      body.classList.remove('dark-theme');
+      localStorage.removeItem('dark-theme');
+    },
+    toggleDarkMode() {
+      const isDarkThemeActive = localStorage.getItem('dark-theme');
+
+      if (isDarkThemeActive) {
+        this.isDarkThemeEnabled = true;
+        this.disableDarkTheme();
+        return;
+      }
+      this.enableDarkTheme();
+    },
+  },
+  created() {
+    const isDarkThemeActive = localStorage.getItem('dark-theme');
+    console.log(isDarkThemeActive);
+    if (isDarkThemeActive) this.enableDarkTheme();
   },
 };
 </script>
-<style lang="scss" scoped>
-  .theme-icon {
-    margin-left: 1rem;
-    cursor: pointer;
-  }
-</style>

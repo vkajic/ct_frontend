@@ -1,4 +1,9 @@
 .paper {
   background: $white;
   box-shadow: $paper-shadow;
+
+  .dark-theme & {
+    background: map-get($dark-theme, "paper-color");
+    box-shadow: 0 0 96px 0 map-get($dark-theme, "paper-shadow");
+  }
 }
