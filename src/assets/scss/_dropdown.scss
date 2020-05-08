@@ -18,6 +18,14 @@
     // TODO
     @include apply-dark-theme1() {
       color: t("body-color");
+
+      &.active {
+        background: $dark-grayish-navy;
+      }
+
+      &:hover, &:active {
+        background: $dark-grayish-navy;
+      }
     }
   }
 }
@@ -35,6 +43,11 @@
 }
 
 .dropdown-wrapper {
+  @include apply-dark-theme1() {
+    // TODO
+    border-bottom-color: $input-border-color--dark;
+  }
+
   display: inline-flex;
   align-items: center;
   border-bottom: .0625rem solid $gray-100;

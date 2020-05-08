@@ -12,15 +12,13 @@
       }
     }
   }
-  .dark-theme & {
-    .auth-form input {
-      background: map-get($dark-theme, "input-background-color") !important;
-
-      &::placeholder {
-        color: map-get($dark-theme, "primary-text-color");
-      }
+  .auth-form button {
+    @include apply-dark-theme1() {
+      // TODO
+      background: $input-border-color--dark;
     }
   }
+
 }
 
 .roles-chooser {

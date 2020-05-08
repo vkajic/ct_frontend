@@ -67,7 +67,8 @@
 
   input {
     @include apply-dark-theme1() {
-      background: t("input-bg");
+      // TODO
+      background: $dark-grayish-navy;
     };
 
     width: 11rem;

@@ -1,0 +1,47 @@
+body {
+  &.dark-theme {
+    background-color: t("body-bg");
+    color: t("body-color");
+  }
+}
+
+a, a:hover {
+  @include apply-dark-theme1() {
+    color: t("link-color")
+  }
+}
+
+hr {
+  @include apply-dark-theme1() {
+    border-top-color: t("hr-color");
+  }
+}
+
+.text-muted {
+  @include apply-dark-theme1() {
+    color: t("text-muted") !important;
+  }
+}
+
+input {
+  @include apply-dark-theme1() {
+    background: t("input-bg");
+    border-color: t("input-border-color");
+
+    &::placeholder {
+      color: t("input-placeholder-color");
+    }
+  }
+}
+
+.form-control {
+  &:focus {
+    background-color: inherit;
+  }
+}
+
+.small-heading {
+  @include apply-dark-theme1() {
+    color: t("headings-small-color");
+  }
+}

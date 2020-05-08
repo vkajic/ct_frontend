@@ -1,10 +1,12 @@
 .list-tags {
   .tag-item {
+    @include apply-dark-theme1() {
+      background: t("pill-bg");
+    }
+
     font-size: .75rem;
     padding: .5rem 1rem;
     background: $gray-100;
     border-radius: 1rem;
-
-    @include apply-dark-theme(background, "input-background-color");
   }
 }

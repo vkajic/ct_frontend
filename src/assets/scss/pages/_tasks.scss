@@ -41,8 +41,12 @@
     color: $gray-600;
   }
 }
-
+// TODO
 .task-details {
+  @include apply-dark-theme1() {
+    background: $dark-grayish-navy;
+  }
+
   background: $gray-100;
   padding: 1.5rem 1rem;
 
@@ -81,6 +85,10 @@
       margin-left: -1rem;
 
       span {
+        @include apply-dark-theme1() {
+          background: t("pill-bg");
+        }
+
         background: $gray-100;
         padding: .75rem 1rem;
         border-radius: 2rem;

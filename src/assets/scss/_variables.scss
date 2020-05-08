@@ -62,8 +62,10 @@ $link-color--dark: $gray-400;
 $font-family-sans-serif: 'Roboto', sans-serif;
 $font-family-sans-serif-secondary: 'Roboto Condensed', sans-serif;
 $text-muted: rgba($dark, 0.4);
+$text-muted--dark: rgba($gray-400, 0.4);
 $headings-font-weight: 900;
 $enable-responsive-font-sizes: true;
+$headings-small-color: rgba($gray-400, 0.4);
 
 // Buttons + Forms
 $input-btn-padding-y-lg: 1.25rem;
@@ -86,9 +88,10 @@ $input-border-radius: 0;
 $input-border-radius-lg: 0;
 $input-border-radius-sm: 0;
 
-$input-bg--dark: $dark-grayish-navy;
+$input-bg--dark: $almost-black;
 
 $input-border-color: $gray-300;
+$input-border-color--dark: #3B3F4B;
 $input-box-shadow: none;
 
 $input-placeholder-color: rgba($dark, 0.3);
@@ -102,6 +105,9 @@ $custom-select-border-radius: 0;
 
 // Paper
 $paper-shadow: 0 0 6rem 0 rgba($dark, 0.06);
+// TODO
+$paper-shadow--dark: 0 0 6rem 0 #01040B;
+$paper-bg--dark: $almost-black;
 
 // Dropdowns
 $dropdown-border-radius: 0;
@@ -110,7 +116,7 @@ $dropdown-font-size: 1.125rem;
 $dropdown-box-shadow: $paper-shadow;
 $dropdown-item-padding-y: .4rem;
 $dropdown-item-color--dark: $gray-400;
-$dropdown-box-bg--dark: $dark-grayish-navy;
+$dropdown-box-bg--dark: $almost-black;
 
 // Layout
 $header-menu-font-size: 1.125rem;
@@ -148,13 +154,16 @@ $popover-box-shadow: $paper-shadow;
 $notifications-indicator-size: 15px;
 
 // Horizontal divider
-$hr-color--dark: $gray-400;
+$hr-color--dark: $dark-grayish-navy;
 
 // Loading overlay
 $loading-overlay-bg--dark: rgba($almost-black, .8);
 
 // Spinner
 $spinner-bg--dark: $gray-400;
+
+// Pills
+$pill-bg--dark: $dark-grayish-navy;
 
 // Dark theme map
 $theme-dark: (
@@ -166,7 +175,13 @@ $theme-dark: (
         "input-bg": $input-bg--dark,
         "input-focus": $input-focus-bg--dark,
         "input-placeholder-color": $input-placeholder-color--dark,
+        "input-border-color": $input-border-color--dark,
         "hr-color": $hr-color--dark,
         "loading-overlay-bg": $loading-overlay-bg--dark,
         "spinner-bg": $spinner-bg--dark,
+        "text-muted": $text-muted--dark,
+        "paper-bg": $paper-bg--dark,
+        "paper-shadow": $paper-shadow--dark,
+        "pill-bg": $pill-bg--dark,
+        "headings-small-color": $headings-small-color
 );

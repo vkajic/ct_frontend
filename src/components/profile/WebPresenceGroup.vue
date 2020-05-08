@@ -1,12 +1,21 @@
 <template>
-    <div class="web-presence-group">
-        <WebPresenceItem v-if="freelancer.linkedin" class="web-presence-group__item" :href="freelancer.linkedin" ariaLabel="Link to the Linkedin profile">
+    <div class="web-presence-group mb-4">
+        <WebPresenceItem v-if="freelancer.linkedin"
+                         class="web-presence-group__item"
+                         :href="freelancer.linkedin"
+                         ariaLabel="Link to the Linkedin profile">
             <font-awesome-icon :icon="linkedinIcon" size="lg" />
         </WebPresenceItem>
-        <WebPresenceItem v-if="freelancer.web" class="web-presence-group__item" :href="freelancer.web" ariaLabel="Link to the Website">
+        <WebPresenceItem v-if="freelancer.web"
+                         class="web-presence-group__item"
+                         :href="freelancer.web"
+                         ariaLabel="Link to the Website">
             <font-awesome-icon :icon="websiteIcon" size="lg" />
         </WebPresenceItem>
-        <WebPresenceItem v-if="freelancer.blog" class="web-presence-group__item" :href="freelancer.web" ariaLabel="Link to the Blog">
+        <WebPresenceItem v-if="freelancer.blog"
+                         class="web-presence-group__item"
+                         :href="freelancer.web"
+                         ariaLabel="Link to the Blog">
             <font-awesome-icon :icon="blogIcon" size="lg" />
         </WebPresenceItem>
     </div>

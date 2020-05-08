@@ -3,7 +3,7 @@
     <div class="d-none d-lg-block py-2">
       <router-link to="/">
         <div class="logo">
-          <img src="@/assets/img/cryptotask-logo.svg" alt="Cryptotask"/>
+          <img src="@/assets/img/cryptotask-logo--light.svg" alt="Cryptotask"/>
         </div>
       </router-link>
     </div>
