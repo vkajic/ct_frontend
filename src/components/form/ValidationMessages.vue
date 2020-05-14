@@ -1,29 +1,32 @@
 <template>
   <b-form-invalid-feedback :class="{'d-block': visible}">
-    <template v-if="errorVisible('required')">
+    <div v-if="errorVisible('required')">
       {{title}} is required
-    </template>
-    <template v-if="errorVisible('integer')">
+    </div>
+    <div v-if="errorVisible('integer')">
       {{title}} must be number
-    </template>
-    <template v-if="errorVisible('numeric')">
+    </div>
+    <div v-if="errorVisible('numeric')">
       {{title}} must be number
-    </template>
-    <template v-if="errorVisible('decimal')">
+    </div>
+    <div v-if="errorVisible('decimal')">
       {{title}} must be number
-    </template>
-    <template v-if="errorVisible('minValue')">
+    </div>
+    <div v-if="errorVisible('minValue')">
       {{title}} must be at least {{validation.$params.minValue.min}}
-    </template>
-    <template v-if="errorVisible('minLength')">
+    </div>
+    <div v-if="errorVisible('minLength')">
       {{title}} must have at least {{validation.$params.minLength.min}} value
-    </template>
-    <template v-if="errorVisible('maxLength')">
+    </div>
+    <div v-if="errorVisible('maxLength')">
       {{title}} can't have more then {{validation.$params.maxLength.max}} characters
-    </template>
-    <template v-if="errorVisible('minLength')">
-      {{title}} must have at least {{validation.$params.maxLength.max}} values
-    </template>
+    </div>
+    <div v-if="errorVisible('minLength')">
+      {{title}} must have at least {{validation.$params.minLength.max}} values
+    </div>
+    <div v-if="errorVisible('passwordStrength')">
+      {{title}} too weak
+    </div>
   </b-form-invalid-feedback>
 </template>
 

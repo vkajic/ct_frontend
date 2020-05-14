@@ -12,7 +12,7 @@
           :state="$v.form.email.$dirty ? !$v.form.email.$error : null"/>
       </b-form-group>
 
-      <b-form-group >
+      <b-form-group>
         <template slot="description">
           <div class="font-12-sm">{{passwordDescription}}</div>
         </template>
@@ -23,6 +23,8 @@
           size="lg"
           placeholder="Password"
           :state="$v.form.password.$dirty ? !$v.form.password.$error : null"/>
+        <password v-model="form.password" :strength-meter-only="true"/>
+        <validation-messages title="Password" :validation="$v.form.password"/>
       </b-form-group>
 
       <b-form-group>
@@ -52,8 +54,11 @@
 
 <script>
 import {
-  required, minLength, email, sameAs,
+  required, email, sameAs,
 } from 'vuelidate/lib/validators';
+import Password from 'vue-password-strength-meter';
+import passwordStrength from '../../validations/passwordStrength';
+import ValidationMessages from '../form/ValidationMessages.vue';
 
 const initialForm = {
   email: null,
@@ -65,6 +70,10 @@ const initialForm = {
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'RegisterForm',
+  components: {
+    ValidationMessages,
+    Password,
+  },
   data() {
     return {
       form: Object.assign({}, initialForm),
@@ -81,11 +90,12 @@ export default {
       },
       password: {
         required,
-        minLength: minLength(8),
+        // minLength: minLength(8),
+        passwordStrength,
       },
       passwordConfirmation: {
         required,
-        minLength: minLength(8),
+        // minLength: minLength(8),
         sameAsPassword: sameAs('password'),
       },
     },
