@@ -36,7 +36,7 @@
                                   :key="i"
                                   v-for="(a, i) in task.applications"
                                   @select="goToMessages"
-                                  @hire="hire"
+                                  @hire="openHireModal(a)"
                                   @feedback="openFeedbackModal"/>
             </div>
             <div v-if="!task.applications || !task.applications.length">
@@ -62,8 +62,8 @@
               <client-application-buttons class="my-task-tabs__action-btn"
                                           :application="selectedApplication"
                                           :replyEnabled="false"
-                                          @hire="hire(selectedApplication)"
-                                          @feedback="openFeedbackModal(selectedApplication)"/>
+                                          @hire="openHireModal(selectedApplication)"
+                                          @feedback="mapDataAndOpenFeedbackModal($event)"/>
               <b-dropdown class="my-task-tabs__actions-dropdown"
                           id="dropdown-dropup"
                           boundary="viewport"
@@ -84,7 +84,12 @@
         </b-tabs>
       </div>
     </div>
-
+    <confirm-hire-modal v-if="application"
+                        :application="application"
+                        :task="task"
+                        @close="closeHireModal"
+                        @hire="hire"
+                        :is-visible="isHireModalVisible"/>
     <feedback-modal @save="saveFeedback"/>
   </div>
 </template>
@@ -106,11 +111,13 @@ import ApiService from '../../services/api.service';
 import TaskDescription from '../../components/tasks/TaskDescription.vue';
 import ReopenTaskButton from '../../components/client/ReopenTaskButton.vue';
 import ClientApplicationButtons from '../../components/tasks/ClientApplicationButtons.vue';
+import ConfirmHireModal from '../../components/client/ConfirmHireModal.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MyTask',
   components: {
+    ConfirmHireModal,
     ReopenTaskButton,
     TaskDescription,
     FeedbackModal,
@@ -129,6 +136,7 @@ export default {
   data() {
     return {
       application: null,
+      isHireModalVisible: false,
     };
   },
   computed: {
@@ -178,6 +186,7 @@ export default {
      */
     async hire(application) {
       try {
+        this.closeHireModal();
         await this.$store.dispatch('tasks/hire', application);
 
         this.$store.dispatch('ui/showNotification', {
@@ -220,6 +229,22 @@ export default {
         applicationId: this.application.id,
         status,
       });
+    },
+
+    /**
+     * Open hire modal
+     * @param {Object} application
+     */
+    openHireModal(application) {
+      this.application = application;
+      this.isHireModalVisible = true;
+    },
+
+    /**
+     * Close hire modal
+     */
+    closeHireModal() {
+      this.isHireModalVisible = false;
     },
 
     /**
@@ -277,7 +302,14 @@ export default {
     resetSelectedApplication() {
       this.$store.commit('tasks/setSelectedApplication', null);
     },
-
+    /**
+     * Map data and open feedback modal
+     * @param statusValue
+     */
+    mapDataAndOpenFeedbackModal(statusValue) {
+      const payload = { application: this.selectedApplication, status: statusValue };
+      this.openFeedbackModal(payload);
+    },
   },
   created() {
     this.getData(this.$route.params.id)
