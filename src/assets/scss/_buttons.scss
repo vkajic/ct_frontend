@@ -21,3 +21,9 @@
   // TODO
   color: #fff !important;
 }
+
+.btn-primary {
+  @include apply-dark-theme1() {
+    background: $almost-black;
+  }
+}

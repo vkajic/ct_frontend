@@ -34,6 +34,11 @@
   }
 
   .vs__selected {
+    @include apply-dark-theme1() {
+      background: $dark-grayish-navy;
+      color: $gray-400;
+    }
+
     font-size: .75rem;
     padding: .5rem 1rem;
     background: $gray-100;
@@ -43,12 +48,35 @@
     border-width: 0;
 
     .vs__deselect {
+      @include apply-dark-theme1() {
+        fill: $gray-400;
+      }
+
       margin-left: 8px;
     }
   }
 }
 
 .input-group {
+  // TODO
+  .input-group-prepend,
+  .input-group-append {
+    &  > .input-group-text {
+      @include apply-dark-theme1() {
+        background: $dark-grayish-navy;
+        border-color: $dark-grayish-navy;
+      }
+    }
+  }
+  // TODO
+  .custom-select {
+    @include apply-dark-theme1() {
+      background: $almost-black;
+      border-color: $dark-grayish-navy;
+      color: $body-color--dark;
+    }
+  }
+
   .vdp-datepicker {
     position: relative;
     flex: 1 1 auto;

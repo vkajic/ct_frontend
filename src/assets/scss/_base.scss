@@ -45,3 +45,50 @@ input {
     color: t("headings-small-color");
   }
 }
+// TODO
+button {
+  @include apply-dark-theme1() {
+    box-shadow: none;
+  }
+}
+
+.modal {
+  @include apply-dark-theme1() {
+    background: $almost-black;
+
+    .modal-content {
+      box-shadow: 0 0 1rem #01040B;
+      background: $almost-black;
+      color: $body-color--dark;
+
+      button {
+        color: $body-color--dark;
+
+        &:hover {
+          background: inherit;
+        }
+
+        &.btn-primary {
+          background: $dark-grayish-navy;
+          &:hover {
+            background: rgba($dark-grayish-navy, 0.8);
+          }
+        }
+
+        &.btn-secondary {
+          background: $gray-600;
+          border: none;
+
+          &:hover {
+            background: rgba($gray-600, 0.8);
+          }
+        }
+      }
+
+      textarea {
+        background: $almost-black;
+        border-color: $input-border-color--dark;
+      }
+    }
+  }
+}
