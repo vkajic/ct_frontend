@@ -14,15 +14,21 @@
       {{hiring ? 'Hiring...' : 'Hire'}}
     </b-button>
     <b-button variant="info"
-              class="btn-round"
+              class="btn-round mr-3"
               @click="leaveFeedback(2)"
               v-if="completeEnabled">
       Complete
     </b-button>
 
+    <b-button class="btn-round"
+              @click="leaveFeedback(3)"
+              v-if="completeEnabled">
+      Cancel
+    </b-button>
+
     <b-button variant="info"
               class="btn-round"
-              @click="leaveFeedback(3)"
+              @click="leaveFeedback(null)"
               v-if="leaveFeedbackEnabled">
       Leave feedback
     </b-button>
@@ -71,7 +77,7 @@ export default {
     leaveFeedbackEnabled() {
       return this.application.status === 3
         && this.application.feedback
-        && !this.application.feedback.clientRate;
+        && !this.application.feedback.clientCreatedAt;
     },
   },
   methods: {

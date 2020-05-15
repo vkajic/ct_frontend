@@ -230,11 +230,11 @@ export default {
       try {
         const res = await ApiService.post('/feedbacks', formData);
         this.$store.commit('tasks/setClientApplicationFeedback', {
-          feedback: res.data.data,
+          feedback: res.data.data.feedback,
           applicationId: this.application.id,
         });
         this.$store.commit('tasks/setClientApplicationStatus', {
-          status: formData.status,
+          status: res.data.data.application.status,
           applicationId: this.application.id,
         });
 

@@ -112,7 +112,7 @@ export default {
      * @return {boolean}
      */
     leaveFeedbackVisible() {
-      return this.application.status === 2
+      return (this.application.status === 2 || this.application.status === 3)
         && this.application.feedback
         && !this.application.feedback.freelancerCreatedAt;
     },
@@ -135,7 +135,7 @@ export default {
     async startFeedback() {
       this.$store.commit('tasks/openFeedbackModal', {
         applicationId: this.application.id,
-        status: 2,
+        status: null,
       });
     },
 
