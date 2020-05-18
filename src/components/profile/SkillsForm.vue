@@ -20,8 +20,7 @@
                   :validation="$v.form.skills"/>
 
       <funnel-buttons :saving="saving"
-                      submit-text="Next: Work experience"
-                      skip-url="/create-freelancer/work-experience"/>
+                      submit-text="Next: Work experience"/>
     </b-form>
   </div>
 </template>

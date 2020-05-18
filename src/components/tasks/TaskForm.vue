@@ -69,6 +69,13 @@
           </div>
         </div>
 
+        <input-tags label="Task categories"
+                    class="mb-3"
+                    v-model="form.categories"
+                    :options="categories"
+                    placeholder="Select categories"
+                    options-label="name"/>
+
         <input-tags label="Required skills"
                     class="mb-3"
                     v-model="form.skills"
@@ -213,11 +220,25 @@ export default {
       return '';
     },
 
+    categories() {
+      return this.$store.state.util.skills;
+    },
+
     /**
      * Get all skills for dropdown
      */
     skills() {
-      return this.$store.getters['util/getAllSkills'];
+      const selectedIds = this.form.categories ? this.form.categories.map(r => r.id) : [];
+      const selectedRoles = this.$store.state.util.skills
+        .filter(r => selectedIds.indexOf(r.id) > -1);
+
+      const skills = [];
+
+      selectedRoles.forEach((r) => {
+        skills.push(...r.skills);
+      });
+
+      return skills;
     },
 
     /**
