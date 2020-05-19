@@ -1,5 +1,5 @@
 <template>
-  <freelancer-applications-list :status="2"/>
+  <freelancer-applications-list :status="statuses"/>
 </template>
 
 <script>
@@ -9,5 +9,10 @@ import FreelancerApplicationsList from '../../components/tasks/FreelancerApplica
 export default {
   name: 'CompletedApplications',
   components: { FreelancerApplicationsList },
+  data() {
+    return {
+      statuses: [2, 3],
+    };
+  },
 };
 </script>

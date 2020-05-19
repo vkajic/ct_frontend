@@ -1,15 +1,19 @@
 <template>
-    <div class="web-presence-group">
-        <WebPresenceItem v-if="freelancer.linkedin" class="web-presence-group__item" :href="freelancer.linkedin" ariaLabel="Link to the Linkedin profile">
-            <font-awesome-icon :icon="linkedinIcon" size="lg" />
-        </WebPresenceItem>
-        <WebPresenceItem v-if="freelancer.web" class="web-presence-group__item" :href="freelancer.web" ariaLabel="Link to the Website">
-            <font-awesome-icon :icon="websiteIcon" size="lg" />
-        </WebPresenceItem>
-        <WebPresenceItem v-if="freelancer.blog" class="web-presence-group__item" :href="freelancer.web" ariaLabel="Link to the Blog">
-            <font-awesome-icon :icon="blogIcon" size="lg" />
-        </WebPresenceItem>
-    </div>
+  <div class="web-presence-group">
+    <web-presence-item v-if="freelancer.linkedin" class="web-presence-group__item"
+                       :href="freelancer.linkedin" ariaLabel="Link to the Linkedin profile">
+      <font-awesome-icon :icon="linkedinIcon" size="lg"/>
+    </web-presence-item>
+    <web-presence-item v-if="freelancer.web" class="web-presence-group__item" :href="websiteUrl"
+                       ariaLabel="Link to the Website">
+      <font-awesome-icon :icon="websiteIcon" size="lg"/>
+    </web-presence-item>
+    <web-presence-item v-if="freelancer.blog" class="web-presence-group__item"
+                       :href="blogUrl"
+                       ariaLabel="Link to the Blog">
+      <font-awesome-icon :icon="blogIcon" size="lg"/>
+    </web-presence-item>
+  </div>
 </template>
 
 <script>
@@ -41,6 +45,25 @@ export default {
     },
     blogIcon() {
       return faPenSquare;
+    },
+    websiteUrl() {
+      const pattern = /^((http|https|ftp):\/\/)/;
+
+      if (!pattern.test(this.freelancer.web)) {
+        return `http://${this.freelancer.web}`;
+      }
+
+      return this.freelancer.web;
+    },
+
+    blogUrl() {
+      const pattern = /^((http|https|ftp):\/\/)/;
+
+      if (!pattern.test(this.freelancer.blog)) {
+        return `http://${this.freelancer.blog}`;
+      }
+
+      return this.freelancer.blog;
     },
   },
 };

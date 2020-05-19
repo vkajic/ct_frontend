@@ -1,7 +1,7 @@
 <template>
-    <a :href="href" :aria-label="ariaLabel" target="_blank" rel="noopener noreferrer">
-        <slot></slot>
-    </a>
+  <a :href="href" :aria-label="ariaLabel" target="_blank" rel="noopener noreferrer">
+    <slot></slot>
+  </a>
 </template>
 
 <script>

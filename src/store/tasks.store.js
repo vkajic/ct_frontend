@@ -256,6 +256,7 @@ const mutations = {
 
       if (index > -1) {
         set(state, ['selectedTask', 'applications', index, 'status'], 1);
+        set(state, ['selectedTask', 'status'], 1);
       }
     }
   },

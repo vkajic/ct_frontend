@@ -61,7 +61,7 @@
             <div class="my-task-tabs__wrapper">
               <client-application-buttons class="my-task-tabs__action-btn"
                                           :application="selectedApplication"
-                                          :replyEnabled="false"
+                                          :reply-enabled="false"
                                           @hire="openHireModal(selectedApplication)"
                                           @feedback="mapDataAndOpenFeedbackModal($event)"/>
               <b-dropdown class="my-task-tabs__actions-dropdown"

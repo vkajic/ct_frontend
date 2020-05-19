@@ -25,8 +25,10 @@ export default {
   },
   props: {
     status: {
-      type: Number,
-      default: 1,
+      type: Array,
+      default() {
+        return [1];
+      },
     },
   },
   data() {

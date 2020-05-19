@@ -1,5 +1,5 @@
 <template>
-  <freelancer-applications-list :status="1"/>
+  <freelancer-applications-list :status="statuses"/>
 </template>
 
 <script>
@@ -10,6 +10,11 @@ export default {
   name: 'InProgress',
   components: {
     FreelancerApplicationsList,
+  },
+  data() {
+    return {
+      statuses: [1],
+    };
   },
 };
 </script>
