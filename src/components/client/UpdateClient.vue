@@ -4,8 +4,12 @@
       <client-basic-info-form :client="client" :redirect-after-save="false"/>
     </paper>
 
-    <paper>
+    <paper class="mb-5">
       <newsletter-subscription-form/>
+    </paper>
+
+    <paper>
+      <delete-user-form/>
     </paper>
   </div>
 </template>
@@ -14,11 +18,13 @@
 import ClientBasicInfoForm from './ClientBasicInfoForm.vue';
 import Paper from '../ui/Paper.vue';
 import NewsletterSubscriptionForm from '../profile/NewsletterSubscriptionForm.vue';
+import DeleteUserForm from '../profile/DeleteUserForm.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'UpdateClient',
   components: {
+    DeleteUserForm,
     NewsletterSubscriptionForm,
     Paper,
     ClientBasicInfoForm,

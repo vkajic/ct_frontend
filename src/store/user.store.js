@@ -280,6 +280,7 @@ const actions = {
   /**
    * Subscribe user to newsletter
    * @param commit
+   * @param status
    * @return {Promise<void>}
    */
   async newsletterToggleSubscription({ commit }, status) {
@@ -288,6 +289,17 @@ const actions = {
     });
 
     commit('setUserEmailSubscription', res.data.data);
+  },
+
+  /**
+   * Delete user
+   * @param commit
+   * @param dispatch
+   * @return {Promise<void>}
+   */
+  async removeUser({ dispatch }) {
+    await apiService.delete('/users');
+    dispatch('logout');
   },
 };
 

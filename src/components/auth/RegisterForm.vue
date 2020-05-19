@@ -61,9 +61,9 @@ import passwordStrength from '../../validations/passwordStrength';
 import ValidationMessages from '../form/ValidationMessages.vue';
 
 const initialForm = {
-  email: null,
-  password: null,
-  passwordConfirmation: null,
+  email: '',
+  password: '',
+  passwordConfirmation: '',
   role: null,
 };
 
@@ -78,8 +78,7 @@ export default {
     return {
       form: Object.assign({}, initialForm),
       sending: false,
-      passwordDescription: `Make sure it's at least 15 characters OR at least
-      8 characters including a number and a lowercase letter.`,
+      passwordDescription: 'Please choose a strong password (indicator to at least 4 green bars).',
     };
   },
   validations: {

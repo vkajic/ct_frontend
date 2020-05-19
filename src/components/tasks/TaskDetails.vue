@@ -38,18 +38,14 @@
       </div>
     </div>
 
-    <div class="share d-none">
+    <!-- <div class="share d-none">
       <a href="#" class="d-flex align-items-center text-secondary">
         <share-2-icon size="20" class="mr-3"/>
         Share
       </a>
-    </div>
+    </div> -->
 
-    <b-link :to="`/my-tasks/${task.id}/edit`"
-            class="btn btn-primary btn-block btn-round mt-4"
-            v-if="editAllowed">
-      Edit
-    </b-link>
+    <task-details-buttons :task="task"/>
   </div>
 </template>
 
@@ -65,6 +61,7 @@ import {
 import TaskDetailsValue from './TaskDetailsValue.vue';
 import TaskDetailsDuration from './TaskDetailsDuration.vue';
 import TaskDetailsStatus from './TaskDetailsStatus.vue';
+import TaskDetailsButtons from './TaskDetailsButtons.vue';
 
 // TODO change how status is displayed
 
@@ -72,6 +69,7 @@ import TaskDetailsStatus from './TaskDetailsStatus.vue';
 export default {
   name: 'TaskDetails',
   components: {
+    TaskDetailsButtons,
     TaskDetailsStatus,
     TaskDetailsDuration,
     TaskDetailsValue,
@@ -92,17 +90,6 @@ export default {
     task: {
       type: Object,
       required: true,
-    },
-  },
-  computed: {
-    /**
-     * Is edit allowed on task
-     * Edit is allowed only if status is CREATED or HIRED and current user has created that task
-     * @return {boolean}
-     */
-    editAllowed() {
-      const client = get(this, '$store.state.user.user.client');
-      return this.task.status === 0 && client && client.id === this.task.postedBy;
     },
   },
 };

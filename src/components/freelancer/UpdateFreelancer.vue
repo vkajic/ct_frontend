@@ -36,8 +36,12 @@
       </div>
     </div>
 
-    <paper>
+    <paper class="mb-5">
       <newsletter-subscription-form/>
+    </paper>
+
+    <paper>
+      <delete-user-form/>
     </paper>
   </div>
 </template>
@@ -49,6 +53,7 @@ import ProjectsForm from '../profile/ProjectsForm.vue';
 import ExperienceForm from '../profile/ExperienceForm.vue';
 import Paper from '../ui/Paper.vue';
 import NewsletterSubscriptionForm from '../profile/NewsletterSubscriptionForm.vue';
+import DeleteUserForm from '../profile/DeleteUserForm.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -59,6 +64,7 @@ export default {
     };
   },
   components: {
+    DeleteUserForm,
     NewsletterSubscriptionForm,
     Paper,
     ExperienceForm,
