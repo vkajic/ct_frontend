@@ -155,6 +155,10 @@ export default {
           value: 'parttime',
           text: 'Part Time',
         },
+        {
+          value: 'onetime',
+          text: 'One Time',
+        },
       ],
       locations: [
         {
