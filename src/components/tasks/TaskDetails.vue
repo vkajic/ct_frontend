@@ -33,7 +33,7 @@
           <div class="small-heading">
             TYPE
           </div>
-          <strong>{{task.type === 'parttime' ? 'Part Time' : 'Full Time'}}</strong>
+          <strong>{{task.type === 'fulltime' ? 'Full Time' : task.type === 'parttime' ? 'Part Time' : 'One Time'}}</strong>
         </div>
       </div>
     </div>
