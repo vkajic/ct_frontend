@@ -83,6 +83,7 @@ const actions = {
   /**
    * Login user
    * @param commit
+   * @param dispatch
    * @param {Object} credentials
    * @return {Promise<*>}
    */
@@ -118,12 +119,6 @@ const actions = {
       .then(() => {
         commit('activateBcData');
       });
-
-    if (!userData[firstRole].name) {
-      await router.replace(`/create-${firstRole}/basic-info`);
-    } else {
-      await router.replace('/');
-    }
 
     // reset socket connection
     this._vm.$socket.disconnect();
@@ -488,6 +483,15 @@ const getters = {
    */
   getFreelancer(state) {
     return state.user && state.user.freelancer ? state.user.freelancer : null;
+  },
+
+  /**
+   * Check if current user has completed his profile with required fields
+   * @param state
+   */
+  isUserCompleted(state) {
+    const { activeRole } = state;
+    return state.user && state.user[activeRole] && state.user[activeRole].name;
   },
 };
 

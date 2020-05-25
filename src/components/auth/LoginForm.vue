@@ -40,6 +40,7 @@
 <script>
 import { required, email } from 'vuelidate/lib/validators';
 import ValidationMessages from '../form/ValidationMessages.vue';
+import router from '../../router.js';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -73,9 +74,27 @@ export default {
 
         try {
           await this.$store.dispatch('user/login', this.form);
+
+          const { activeRole } = this.$store.state.user;
+          const profileCompleted = this.$store.getters['user/isUserCompleted'];
+
           this.form = {};
           this.$v.$reset();
           this.sending = false;
+
+          if (!profileCompleted) {
+            await this.$router.replace(`/create-${activeRole}/basic-info`);
+          } else {
+            const { redirect } = this.$route.query;
+
+            console.log('redirect', redirect);
+
+            if (redirect) {
+              await this.$router.replace(redirect);
+            } else {
+              await this.$router.replace('/');
+            }
+          }
         } catch (err) {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
