@@ -1,0 +1,19 @@
+.ck-toolbar {
+  @include apply-dark-theme1() {
+    background: $almost-black !important;
+    color: $gray-400;
+  }
+}
+
+.ck-button__icon {
+  @include apply-dark-theme1() {
+    color: $gray-400;
+  }
+}
+
+.ck-editor__editable {
+  @include apply-dark-theme1() {
+    background: $almost-black !important;
+    color: $gray-400;
+  }
+}

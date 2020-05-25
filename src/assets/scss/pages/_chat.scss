@@ -131,6 +131,7 @@
         // TODO
         @include apply-dark-theme1() {
           background: $dark-grayish-navy;
+          color: $gray-400;
 
           &:hover {
             background: $dark-grayish-navy;

@@ -50,6 +50,14 @@
 }
 
 .mobile-menu {
+  @include apply-dark-theme1() {
+    background: $almost-black;
+
+    a {
+      color: $gray-400;
+    }
+  }
+
   height: 3.5rem;
   background: $gray-100;
 

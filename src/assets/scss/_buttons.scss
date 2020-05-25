@@ -24,6 +24,8 @@
 
 .btn-primary {
   @include apply-dark-theme1() {
-    background: $almost-black;
+    // TODO styling when active
+    //background: $almost-black;
+    background: $dark-grayish-navy;
   }
 }
