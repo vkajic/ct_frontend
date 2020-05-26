@@ -183,6 +183,8 @@ export default {
     if (this.task) {
       this.form = Object.assign({}, this.form, this.task);
     }
+    this.form.type = 'onetime';
+    this.form.location = 'remote';
   },
   validations: {
     form: {
