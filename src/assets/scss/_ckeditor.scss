@@ -1,0 +1,14 @@
+// Override default CKEditor colors when dark theme is enabled
+.dark-theme {
+  @each $name, $color in $ck-editor--dark-colors {
+    --ck-color-#{$name}: #{$color};
+  }
+}
+
+.ck-content pre {
+  @include apply-dark-theme1() {
+    background: $dark-grayish-navy;
+    color: $gray-400;
+    border: $input-border-color--dark;
+  }
+}

@@ -35,7 +35,10 @@ input {
 }
 
 .form-control {
-  color: $gray-400;
+  // TODO
+  @include apply-dark-theme1() {
+   color: $gray-400;
+  }
 
   &:focus {
     color: $gray-400;

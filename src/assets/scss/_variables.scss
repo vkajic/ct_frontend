@@ -185,3 +185,32 @@ $theme-dark: (
         "pill-bg": $pill-bg--dark,
         "headings-small-color": $headings-small-color
 );
+
+// CKEditor dark theme colors
+$ck-editor--dark-colors: (
+        "base-background": $almost-black,
+        "base-foreground": $almost-black,
+        "base-border": $input-border-color--dark,
+        "base-text": $gray-400,
+        "text": $gray-400,
+        "toolbar-background": $almost-black,
+        "toolbar-border": $input-border-color--dark,
+        "button-default-hover-background": $dark-grayish-navy,
+        "button-default-active-background": $dark-grayish-navy,
+        "button-on-background": $dark-grayish-navy,
+        "button-on-hover-background": $dark-grayish-navy,
+        "dropdown-panel-border": $input-border-color--dark,
+        "list-background": $almost-black,
+        "list-button-hover-background": $dark-grayish-navy,
+        "list-button-on-background": $dark-grayish-navy,
+        "list-button-on-background-focus": $dark-grayish-navy,
+        "split-button-hover-background": $dark-grayish-navy,
+        "split-button-hover-border": $input-border-color--dark,
+        "code-block-label-background": $almost-black,
+        "panel-background": $almost-black,
+        "panel-border": $input-border-color--dark,
+        "input-background": $almost-black,
+        "input-border": $input-border-color--dark,
+        "link-selected-background": $dark-grayish-navy,
+        "link-default": $gray-400
+);

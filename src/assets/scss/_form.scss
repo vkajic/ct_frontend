@@ -1,5 +1,19 @@
 .custom-checkbox {
+  .custom-control-input:checked ~ label::before {
+    @include apply-dark-theme1() {
+      // TODO
+      background: $dark-grayish-navy;
+    }
+  }
+
   label {
+    &::before {
+      // TODO
+      @include apply-dark-theme1() {
+        background: $almost-black;
+      }
+    }
+
     color: $gray-500;
     font-size: .875rem;
   }
