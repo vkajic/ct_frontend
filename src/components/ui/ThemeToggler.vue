@@ -1,11 +1,11 @@
 <template>
   <sun-icon v-if="isDarkThemeEnabled"
             class="theme-icon"
-            @click="toggleDarkMode">
+            @click="toggleDarkTheme">
   </sun-icon>
   <moon-icon v-else
              class="theme-icon"
-             @click="toggleDarkMode">
+             @click="toggleDarkTheme">
   </moon-icon>
 </template>
 <script>
@@ -17,39 +17,50 @@ export default {
     SunIcon,
     MoonIcon,
   },
-  data() {
-    return {
-      isDarkThemeEnabled: false,
-    };
+  created() {
+    const isDarkThemeEnabled = localStorage.getItem('dark-theme');
+    if (isDarkThemeEnabled) this.$store.commit('ui/enableDarkTheme');
+  },
+  computed: {
+    /**
+     * Check if dark theme is enabled
+     * @return boolean
+     * */
+    isDarkThemeEnabled() {
+      return this.$store.state.ui.isDarkThemeEnabled;
+    },
   },
   methods: {
+    /**
+     * Enables dark theme, adds item to local storage
+     * */
     enableDarkTheme() {
       const { body } = document;
-      this.isDarkThemeEnabled = true;
       body.classList.add('dark-theme');
-      localStorage.setItem('dark-theme', 'active');
+      localStorage.setItem('dark-theme', 'enabled');
     },
+    /**
+     * Enables dark theme, removes item to local storage
+     * */
     disableDarkTheme() {
       const { body } = document;
-      this.isDarkThemeEnabled = false;
       body.classList.remove('dark-theme');
       localStorage.removeItem('dark-theme');
     },
-    toggleDarkMode() {
-      const isDarkThemeActive = localStorage.getItem('dark-theme');
+    /**
+     * Toggles theme
+     * */
+    toggleDarkTheme() {
+      const isDarkThemeEnabled = localStorage.getItem('dark-theme');
 
-      if (isDarkThemeActive) {
-        this.isDarkThemeEnabled = true;
+      if (isDarkThemeEnabled) {
+        this.$store.commit('ui/disableDarkTheme');
         this.disableDarkTheme();
         return;
       }
+      this.$store.commit('ui/enableDarkTheme');
       this.enableDarkTheme();
     },
-  },
-  created() {
-    const isDarkThemeActive = localStorage.getItem('dark-theme');
-    console.log(isDarkThemeActive);
-    if (isDarkThemeActive) this.enableDarkTheme();
   },
 };
 </script>

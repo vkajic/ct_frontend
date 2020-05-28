@@ -3,6 +3,7 @@ const initialState = {
   notificationText: null,
   notificationType: null,
   taskSelectedTab: 0,
+  isDarkThemeEnabled: false,
 };
 
 const mutations = {
@@ -49,6 +50,20 @@ const mutations = {
    */
   setTaskSelectedTab(state, tab) {
     state.taskSelectedTab = tab;
+  },
+  /**
+   * Enable dark theme
+   * @param state
+   */
+  enableDarkTheme(state) {
+    state.isDarkThemeEnabled = true;
+  },
+  /**
+   * Disable dark theme
+   * @param state
+   */
+  disableDarkTheme(state) {
+    state.isDarkThemeEnabled = false;
   },
 };
 
