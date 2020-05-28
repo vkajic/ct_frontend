@@ -50,7 +50,7 @@
 }
 
 .mobile-menu {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     background: $almost-black;
 
     a {

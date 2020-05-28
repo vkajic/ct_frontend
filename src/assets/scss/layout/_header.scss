@@ -53,7 +53,7 @@ header.main-header {
 }
 
 .theme-icon {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     color: t("body-color");
   }
 

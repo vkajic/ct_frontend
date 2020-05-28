@@ -16,7 +16,7 @@
   }
   .dropdown-menu .dropdown-item {
     // TODO
-    @include apply-dark-theme1() {
+    @include apply-dark-theme() {
       color: t("body-color");
 
       &.active {
@@ -32,7 +32,7 @@
 
 .dropdown-menu {
   // TODO
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     background: t("dropdown-bg");
   }
 
@@ -43,7 +43,7 @@
 }
 
 .dropdown-wrapper {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     // TODO
     border-bottom-color: $input-border-color--dark;
   }
@@ -80,7 +80,7 @@
   }
 
   &__button-wrapper {
-    @include apply-dark-theme1() {
+    @include apply-dark-theme() {
       color: t("dropdown-item-color");
     }
 
@@ -96,7 +96,7 @@
     width: auto;
 
     button {
-      @include apply-dark-theme1() {
+      @include apply-dark-theme() {
         //TODO add new color for header menu icon
         color: t("body-color")
       }

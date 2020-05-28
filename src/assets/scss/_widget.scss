@@ -1,12 +1,12 @@
 .user-info-widget {
   button {
-    @include apply-dark-theme1() {
+    @include apply-dark-theme() {
       color: t("body-color");
     }
   }
   // TODO
   & .dropdown-item {
-    @include apply-dark-theme1() {
+    @include apply-dark-theme() {
       &.active {
         background: $dark-grayish-navy;
       }

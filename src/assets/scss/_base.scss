@@ -6,25 +6,25 @@ body {
 }
 
 a, a:hover {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     color: t("link-color")
   }
 }
 
 hr {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     border-top-color: t("hr-color");
   }
 }
 
 .text-muted {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     color: t("text-muted") !important;
   }
 }
 
 input {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     background: t("input-bg");
     border-color: t("input-border-color");
 
@@ -36,8 +36,10 @@ input {
 
 .form-control {
   // TODO
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
    color: $gray-400;
+    background: inherit;
+    border-color: $input-border-color--dark;
   }
 
   &:focus {
@@ -48,19 +50,19 @@ input {
 }
 
 .small-heading {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     color: t("headings-small-color");
   }
 }
 // TODO
 button {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     box-shadow: none;
   }
 }
 
 .modal {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     background: $almost-black;
 
     .modal-content {

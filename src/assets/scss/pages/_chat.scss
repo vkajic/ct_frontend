@@ -39,7 +39,7 @@
         color: $gray-700;
 
         pre {
-          @include apply-dark-theme1() {
+          @include apply-dark-theme() {
             color: t("body-color");
           }
 
@@ -95,7 +95,7 @@
   }
 
   .chat-input {
-    @include apply-dark-theme1() {
+    @include apply-dark-theme() {
       background: t("input-bg");
       border-color: t("input-border-color");
 
@@ -129,7 +129,7 @@
 
       &.submit {
         // TODO
-        @include apply-dark-theme1() {
+        @include apply-dark-theme() {
           background: $dark-grayish-navy;
           color: $gray-400;
 
@@ -150,7 +150,7 @@
 
     textarea {
       // TODO
-      @include apply-dark-theme1() {
+      @include apply-dark-theme() {
         background: $dark-grayish-navy;
 
         &::placeholder {
@@ -203,7 +203,7 @@
 
 .chat-history {
   // TODO
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     box-shadow: 0 0 1rem #01040B;
   }
 

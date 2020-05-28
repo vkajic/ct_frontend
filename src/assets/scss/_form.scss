@@ -1,6 +1,6 @@
 .custom-checkbox {
   .custom-control-input:checked ~ label::before {
-    @include apply-dark-theme1() {
+    @include apply-dark-theme() {
       // TODO
       background: $dark-grayish-navy;
     }
@@ -9,7 +9,7 @@
   label {
     &::before {
       // TODO
-      @include apply-dark-theme1() {
+      @include apply-dark-theme() {
         background: $almost-black;
       }
     }
@@ -48,7 +48,7 @@
   }
 
   .vs__selected {
-    @include apply-dark-theme1() {
+    @include apply-dark-theme() {
       background: $dark-grayish-navy;
       color: $gray-400;
     }
@@ -62,7 +62,7 @@
     border-width: 0;
 
     .vs__deselect {
-      @include apply-dark-theme1() {
+      @include apply-dark-theme() {
         fill: $gray-400;
       }
 
@@ -76,7 +76,7 @@
   .input-group-prepend,
   .input-group-append {
     &  > .input-group-text {
-      @include apply-dark-theme1() {
+      @include apply-dark-theme() {
         background: $dark-grayish-navy;
         border-color: $dark-grayish-navy;
       }
@@ -84,7 +84,7 @@
   }
   // TODO
   .custom-select {
-    @include apply-dark-theme1() {
+    @include apply-dark-theme() {
       background: $almost-black;
       border-color: $dark-grayish-navy;
       color: $body-color--dark;
@@ -108,7 +108,7 @@
   text-align: right;
 
   input {
-    @include apply-dark-theme1() {
+    @include apply-dark-theme() {
       // TODO
       background: $dark-grayish-navy;
     };
@@ -121,13 +121,13 @@
     padding: 1.2rem 2.7rem 1.2rem 1.5rem;
 
     &::placeholder {
-      @include apply-dark-theme1() {
+      @include apply-dark-theme() {
         color: t("input-placeholder-color");
       }
     }
 
     &:focus {
-      @include apply-dark-theme1() {
+      @include apply-dark-theme() {
         background: t("input-focus");
       }
 

@@ -6,7 +6,7 @@
 }
 
 .lds-ring div {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     border-color: t("spinner-bg") transparent transparent transparent;
   }
 
@@ -45,7 +45,7 @@
 
 
 .loading-overlay {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     background: t("loading-overlay-bg");
   }
 

@@ -43,7 +43,7 @@
 }
 // TODO
 .task-details {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     background: $dark-grayish-navy;
   }
 
@@ -85,7 +85,7 @@
       margin-left: -1rem;
 
       span {
-        @include apply-dark-theme1() {
+        @include apply-dark-theme() {
           background: t("pill-bg");
         }
 

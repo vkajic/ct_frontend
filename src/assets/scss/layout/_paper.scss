@@ -1,5 +1,5 @@
 .paper {
-  @include apply-dark-theme1() {
+  @include apply-dark-theme() {
     background: t("paper-bg");
     box-shadow: t("paper-shadow");
   }

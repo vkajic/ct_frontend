@@ -1,6 +1,6 @@
 .list-tags {
   .tag-item {
-    @include apply-dark-theme1() {
+    @include apply-dark-theme() {
       background: t("pill-bg");
     }
 
