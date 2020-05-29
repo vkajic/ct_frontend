@@ -37,14 +37,22 @@ input {
 .form-control {
   // TODO
   @include apply-dark-theme() {
-   color: $gray-400;
-    background: inherit;
-    border-color: $input-border-color--dark;
-  }
-
-  &:focus {
     color: $gray-400;
-    background-color: inherit;
+    background-color: transparent;
+    border-color: $input-border-color--dark;
+
+    &.is-valid {
+      border-color: $green;
+    }
+
+    &.is-invalid {
+      border-color: #dc3545;
+    }
+
+    &:focus {
+      color: $gray-400;
+      background-color: inherit;
+    }
   }
 
 }
@@ -68,11 +76,12 @@ button {
     .modal-content {
       box-shadow: 0 0 1rem #01040B;
       background: $almost-black;
-      color: $body-color--dark;
+
+      .close {
+        color: $body-color--dark;
+      }
 
       button {
-        color: $body-color--dark;
-
         &:hover {
           background: inherit;
         }
@@ -98,6 +107,27 @@ button {
         background: $almost-black;
         border-color: $input-border-color--dark;
       }
+    }
+  }
+}
+
+.dropdown-menu {
+  // TODO
+  .dropdown-item {
+    @include apply-dark-theme() {
+      color: t("body-color");
+
+      &.active {
+        background: $dark-grayish-navy;
+      }
+
+      &:hover, &:active {
+        background: $dark-grayish-navy;
+      }
+
+      //&.router-link-exact-active {
+      //  background: $dark-grayish-navy;
+      //}
     }
   }
 }

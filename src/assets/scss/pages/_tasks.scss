@@ -15,18 +15,18 @@
 }
 
 @mixin nav-link {
-    &__icon {
-      @media only screen and (min-width: 1400px) {
-        display: none;
-      }
-    }
-    &__title {
+  &__icon {
+    @media only screen and (min-width: 1400px) {
       display: none;
-
-      @media only screen and (min-width: 1400px) {
-        display: block;
-      }
     }
+  }
+  &__title {
+    display: none;
+
+    @media only screen and (min-width: 1400px) {
+      display: block;
+    }
+  }
 }
 
 .short-task-item, .short-job-item {
@@ -41,10 +41,23 @@
     color: $gray-600;
   }
 }
+
 // TODO
 .task-details {
   @include apply-dark-theme() {
     background: $dark-grayish-navy;
+
+    .btn-primary, &:active, &:focus {
+      background: $gray-600 !important;
+      border-color: $gray-600;
+      box-shadow: none;
+    }
+
+    .btn-info, &:active, &:focus {
+      background: $almost-black !important;
+      border-color: $almost-black;
+      box-shadow: none;
+    }
   }
 
   background: $gray-100;
@@ -222,11 +235,11 @@
   }
 
   &__action-btn {
-      button {
-        margin-right: .8rem !important;
-        padding: 0 .6rem;
-        font-size: .65em;
-      }
+    button {
+      margin-right: .8rem !important;
+      padding: 0 .6rem;
+      font-size: .65em;
+    }
   }
 
   &__actions-dropdown {
@@ -256,6 +269,10 @@
     @include nav-link;
   }
 
+  ul {
+    outline: none;
+  }
+
   &__actions-dropdown {
     margin-left: 1rem;
     width: auto;
@@ -267,10 +284,20 @@
     a {
       padding: .2rem .5rem;
       font-size: .8em;
+
+      &:hover button {
+        @include apply-dark-theme() {
+          background: $dark-grayish-navy !important;
+        }
+      }
     }
 
     button {
       @include dropdown-button;
+      @include apply-dark-theme() {
+        background: $almost-black !important;
+        border-radius: 0;
+      }
       padding: 0;
       margin-bottom: 0 !important;
       text-align: left;

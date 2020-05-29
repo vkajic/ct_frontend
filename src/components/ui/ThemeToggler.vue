@@ -19,7 +19,10 @@ export default {
   },
   created() {
     const isDarkThemeEnabled = localStorage.getItem('dark-theme');
-    if (isDarkThemeEnabled) this.$store.commit('ui/enableDarkTheme');
+    if (isDarkThemeEnabled) {
+      this.enableDarkTheme();
+      this.$store.commit('ui/enableDarkTheme');
+    }
   },
   computed: {
     /**

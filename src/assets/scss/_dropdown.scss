@@ -14,20 +14,20 @@
       transform: translate3d(0, 4.3125rem, 0) !important;
     }
   }
-  .dropdown-menu .dropdown-item {
-    // TODO
-    @include apply-dark-theme() {
-      color: t("body-color");
-
-      &.active {
-        background: $dark-grayish-navy;
-      }
-
-      &:hover, &:active {
-        background: $dark-grayish-navy;
-      }
-    }
-  }
+  //.dropdown-menu .dropdown-item {
+  //  // TODO
+  //  @include apply-dark-theme() {
+  //    color: t("body-color");
+  //
+  //    &.active {
+  //      background: $dark-grayish-navy;
+  //    }
+  //
+  //    &:hover, &:active {
+  //      background: $dark-grayish-navy;
+  //    }
+  //  }
+  //}
 }
 
 .dropdown-menu {

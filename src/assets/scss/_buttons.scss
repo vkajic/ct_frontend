@@ -23,9 +23,12 @@
 }
 
 .btn-primary {
-  @include apply-dark-theme() {
-    // TODO styling when active
-    //background: $almost-black;
-    background: $dark-grayish-navy;
+  &, &:active, &:focus {
+    @include apply-dark-theme() {
+      // TODO styling when active
+      background: $dark-grayish-navy !important;
+      box-shadow: none !important;
+      // background: $dark-grayish-navy;
+    }
   }
 }

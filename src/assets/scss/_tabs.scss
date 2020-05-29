@@ -1,4 +1,9 @@
 .nav-tabs {
+  // TODO
+  @include apply-dark-theme() {
+    border-color: $dark-grayish-navy;
+  }
+
   border-bottom: 2px solid rgba($black, .1);
 
   .nav-link {

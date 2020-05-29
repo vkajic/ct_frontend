@@ -39,6 +39,9 @@
   }
 
   .vs__dropdown-toggle {
+    @include apply-dark-theme() {
+      border-color: $input-border-color--dark;
+    }
     padding: 0;
   }
 
@@ -51,6 +54,7 @@
     @include apply-dark-theme() {
       background: $dark-grayish-navy;
       color: $gray-400;
+      border-color: $input-border-color--dark;
     }
 
     font-size: .75rem;
@@ -67,6 +71,28 @@
       }
 
       margin-left: 8px;
+    }
+
+    //.vs__open-indicator {
+    //  @include apply-dark-theme() {
+    //    fill: $body-color--dark !important;
+    //  }
+    //}
+  }
+  .vs__dropdown-menu {
+    @include apply-dark-theme() {
+      background: $almost-black;
+      border-color: $input-border-color--dark;
+      color: $body-color--dark;
+
+      li {
+        color: $body-color--dark;
+
+        &:hover {
+          background: $dark-grayish-navy;
+        }
+      }
+
     }
   }
 }
@@ -96,6 +122,35 @@
     flex: 1 1 auto;
     width: 1%;
     margin-bottom: 0;
+
+    &__calendar {
+      // TODO
+      @include apply-dark-theme() {
+        background: $almost-black;
+        border-color: $input-border-color--dark;
+
+        .prev,
+        .next,
+        .day__month_btn,
+        .month__year_btn {
+          &:hover {
+            background: $dark-grayish-navy;
+          }
+        }
+
+        .prev:after {
+          border-right-color: $input-border-color--dark;
+        }
+
+        .next:after {
+          border-left-color: $input-border-color--dark;
+        }
+
+        .cell.selected {
+          background: $dark-grayish-navy;
+        }
+      }
+    }
   }
 
   > .vdp-datepicker + .vdp-datepicker {
