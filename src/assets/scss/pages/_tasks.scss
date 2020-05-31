@@ -116,6 +116,11 @@
 
 .applied-freelancer {
   header {
+    // TODO
+    @include apply-dark-theme() {
+      background: $dark-grayish-navy;
+    }
+
     background: $gray-100;
     border-radius: .5rem;
 
