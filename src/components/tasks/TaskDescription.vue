@@ -1,5 +1,5 @@
 <template>
-  <div v-html="description"></div>
+  <div class="text-break" v-html="description"></div>
 </template>
 
 <script>
