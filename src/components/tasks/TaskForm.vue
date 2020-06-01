@@ -120,6 +120,8 @@ const initialForm = {
   attachments: [],
   negotiablePrice: false,
   negotiableDuration: false,
+  type: 'onetime',
+  location: 'remote',
 };
 
 // noinspection JSUnusedGlobalSymbols
