@@ -38,6 +38,7 @@ import Client from './views/freelancer/Client.vue';
 import ProfileLayout from './layouts/profile/ProfileLayout.vue';
 import AuthLayout from './layouts/auth/AuthLayout.vue';
 import Unsubscribe from './views/common/Unsubscribe.vue';
+import NotFound from './views/errors/404.vue';
 
 Vue.use(Router);
 Vue.use(Meta);
@@ -333,6 +334,11 @@ const router = new Router({
           ],
         },
       ],
+    },
+    {
+      path: '*',
+      name: '404',
+      component: NotFound,
     },
   ],
 });

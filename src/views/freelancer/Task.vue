@@ -45,7 +45,7 @@ export default {
   },
   mounted() {
     const { id } = this.$route.params;
-    this.$store.dispatch('tasks/selectTask', id);
+    this.selectTask(id);
   },
   computed: {
     task() {
@@ -53,6 +53,15 @@ export default {
     },
   },
   methods: {
+    async selectTask(id) {
+      try {
+        await this.$store.dispatch('tasks/selectTask', id);
+      } catch (e) {
+        if (e.response && e.response.status === 404) {
+          this.$router.replace({ name: '404' });
+        }
+      }
+    },
     async apply(letter) {
       try {
         this.application = await this.$store.dispatch('tasks/applyForTask', {

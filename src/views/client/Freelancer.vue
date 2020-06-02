@@ -75,24 +75,10 @@ export default {
   },
   created() {
     this.$store.commit('ui/showLoader');
-    apiService.get(`/freelancers/${this.id}/feedbacks`)
-      .then((res) => {
-        this.feedbacks = res.data.data;
-      });
-    apiService.get(`/freelancers/${this.id}`)
-      .then((res) => {
-        this.freelancer = res.data.data;
-        this.$store.commit('ui/hideLoader');
-      });
+    this.loadFreelancer();
+    this.loadFeedbacks();
   },
   computed: {
-    /**
-     * Current freelancer ID
-     */
-    id() {
-      return this.$route.params.id;
-    },
-
     /**
      * Is user logged in
      * @return {Boolean}
@@ -124,6 +110,40 @@ export default {
     async skillClicked($event) {
       await this.$store.dispatch('freelancers/setSkillCategory', $event);
       await this.$router.push('/freelancers');
+    },
+
+    /**
+     * Load freelancer
+     * @return {Promise<void>}
+     */
+    async loadFreelancer() {
+      const { id } = this.$route.params;
+      try {
+        const freelancer = await apiService.get(`/freelancers/${id}`);
+        this.freelancer = freelancer.data.data;
+        this.$store.commit('ui/hideLoader');
+      } catch (e) {
+        if (e.response && e.response.status === 404) {
+          this.$router.replace({ name: '404' });
+        }
+      }
+    },
+
+    /**
+     * Load feedbacks
+     * @return {Promise<void>}
+     */
+    async loadFeedbacks() {
+      const { id } = this.$route.params;
+
+      try {
+        apiService.get(`/freelancers/${id}/feedbacks`)
+          .then((res) => {
+            this.feedbacks = res.data.data;
+          });
+      } catch (e) {
+        //
+      }
     },
   },
   metaInfo() {

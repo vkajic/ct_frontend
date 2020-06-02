@@ -23,12 +23,21 @@ export default {
     };
   },
   created() {
-    this.loading = true;
-    apiService.get(`/clients/${this.$route.params.id}`)
-      .then((res) => {
+    this.loadClient();
+  },
+  methods: {
+    async loadClient() {
+      this.loading = true;
+      try {
+        const res = await apiService.get(`/clients/${this.$route.params.id}`);
         this.client = res.data.data;
         this.loading = false;
-      });
+      } catch (e) {
+        if (e.response && e.response.status === 404) {
+          this.$router.replace({ name: '404' });
+        }
+      }
+    },
   },
 };
 </script>
