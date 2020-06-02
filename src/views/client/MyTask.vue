@@ -10,6 +10,7 @@
         <task-details :task="task" :applicable="false">
           <template slot="buttons">
             <reopen-task-button :task="task" @reopen="reopen"/>
+            <close-task-button :task="task" @close="close"/>
           </template>
         </task-details>
         <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
@@ -110,6 +111,7 @@ import FeedbackModal from '../../components/feedback/FeedbackModal.vue';
 import ApiService from '../../services/api.service';
 import TaskDescription from '../../components/tasks/TaskDescription.vue';
 import ReopenTaskButton from '../../components/client/ReopenTaskButton.vue';
+import CloseTaskButton from '../../components/client/CloseTaskButton.vue';
 import ClientApplicationButtons from '../../components/tasks/ClientApplicationButtons.vue';
 import ConfirmHireModal from '../../components/client/ConfirmHireModal.vue';
 
@@ -119,6 +121,7 @@ export default {
   components: {
     ConfirmHireModal,
     ReopenTaskButton,
+    CloseTaskButton,
     TaskDescription,
     FeedbackModal,
     ClientThreads,
@@ -211,6 +214,24 @@ export default {
         await this.$store.dispatch('ui/showNotification', {
           type: 'success',
           text: 'Task is accepting applications again',
+        });
+      } catch (err) {
+        this.$store.dispatch('ui/showNotification', {
+          type: 'danger',
+          text: 'Something went wrong',
+        });
+      }
+    },
+
+    /**
+     * Close task to applications
+     */
+    async close() {
+      try {
+        await this.$store.dispatch('tasks/close', this.task);
+        await this.$store.dispatch('ui/showNotification', {
+          type: 'success',
+          text: 'Task is closed to applications',
         });
       } catch (err) {
         this.$store.dispatch('ui/showNotification', {
