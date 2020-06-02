@@ -143,6 +143,18 @@ const actions = {
 
     commit('setTaskReopened');
   },
+
+  /**
+   * Close task
+   * @param commit
+   * @param {Object} task
+   * @return {Promise<void>}
+   */
+  async close({ commit }, task) {
+    await ApiService.put(`/tasks/${task.id}/close`);
+
+    commit('setTaskClosed');
+  },
 };
 
 const mutations = {
@@ -323,6 +335,16 @@ const mutations = {
   setTaskReopened(state) {
     if (state.selectedTask) {
       set(state, 'selectedTask.status', 2);
+    }
+  },
+
+  /**
+   * Close selected task
+   * @param state
+   */
+  setTaskClosed(state) {
+    if (state.selectedTask) {
+      set(state, 'selectedTask.status', 1);
     }
   },
 };
