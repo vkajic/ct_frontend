@@ -48,8 +48,11 @@
     background: $dark-grayish-navy;
 
     .btn-primary, &:active, &:focus {
-      background: $gray-600 !important;
-      border-color: $gray-600;
+      //background: $gray-600 !important;
+      //border-color: $gray-600;
+      //box-shadow: none;
+      background: $almost-black !important;
+      border-color: $almost-black;
       box-shadow: none;
     }
 
@@ -162,6 +165,9 @@
   }
 
   p {
+    @include apply-dark-theme() {
+      color: $body-color--dark;
+    }
     color: $gray-800;
     padding-left: 6rem;
 

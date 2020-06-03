@@ -39,22 +39,23 @@ input {
   @include apply-dark-theme() {
     color: $gray-400;
     background-color: transparent;
-    border-color: $input-border-color--dark;
 
     &.is-valid {
-      border-color: $green;
+      border-color: $green !important;
     }
 
     &.is-invalid {
       border-color: #dc3545;
     }
 
-    &:focus {
-      color: $gray-400;
-      background-color: inherit;
+    &:disabled {
+      background-color: $dark-grayish-navy;
     }
-  }
 
+    //&:focus {
+    //  border-color: inherit;
+    //}
+  }
 }
 
 .small-heading {
@@ -88,24 +89,12 @@ button {
 
         &.btn-primary {
           background: $dark-grayish-navy;
-          &:hover {
-            background: rgba($dark-grayish-navy, 0.8);
-          }
         }
 
         &.btn-secondary {
-          background: $gray-600;
-          border: none;
-
-          &:hover {
-            background: rgba($gray-600, 0.8);
-          }
+          background: inherit;
+          border: 1px solid $input-border-color--dark;
         }
-      }
-
-      textarea {
-        background: $almost-black;
-        border-color: $input-border-color--dark;
       }
     }
   }

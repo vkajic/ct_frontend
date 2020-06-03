@@ -22,7 +22,7 @@
 .v-select {
   &.is-invalid {
     .vs__dropdown-toggle {
-      border-color: $danger;
+      border-color: $danger !important;
     }
 
     ~ .invalid-feedback {
@@ -104,15 +104,16 @@
     &  > .input-group-text {
       @include apply-dark-theme() {
         background: $dark-grayish-navy;
-        border-color: $dark-grayish-navy;
+        border-color: $input-border-color--dark;
+        color: $gray-400;
       }
     }
   }
   // TODO
   .custom-select {
     @include apply-dark-theme() {
-      background: $almost-black;
-      border-color: $dark-grayish-navy;
+      background-color: $almost-black;
+      border-color: $input-border-color--dark;
       color: $body-color--dark;
     }
   }

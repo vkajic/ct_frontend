@@ -212,5 +212,8 @@ $ck-editor--dark-colors: (
         "input-background": $almost-black,
         "input-border": $input-border-color--dark,
         "link-selected-background": $dark-grayish-navy,
-        "link-default": $gray-400
+        "link-default": $gray-400,
+        "focus-border": $body-color--dark,
+        "focus-ring": $body-color--dark,
+        "shadow-inner": $body-color--dark
 );
