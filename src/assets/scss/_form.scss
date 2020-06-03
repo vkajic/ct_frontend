@@ -1,14 +1,12 @@
 .custom-checkbox {
   .custom-control-input:checked ~ label::before {
     @include apply-dark-theme() {
-      // TODO
       background: $dark-grayish-navy;
     }
   }
 
   label {
     &::before {
-      // TODO
       @include apply-dark-theme() {
         background: $almost-black;
       }
@@ -40,7 +38,7 @@
 
   .vs__dropdown-toggle {
     @include apply-dark-theme() {
-      border-color: $input-border-color--dark;
+      border-color: $gray-800;
     }
     padding: 0;
   }
@@ -54,7 +52,7 @@
     @include apply-dark-theme() {
       background: $dark-grayish-navy;
       color: $gray-400;
-      border-color: $input-border-color--dark;
+      border-color: $gray-800;
     }
 
     font-size: .75rem;
@@ -72,17 +70,11 @@
 
       margin-left: 8px;
     }
-
-    //.vs__open-indicator {
-    //  @include apply-dark-theme() {
-    //    fill: $body-color--dark !important;
-    //  }
-    //}
   }
   .vs__dropdown-menu {
     @include apply-dark-theme() {
       background: $almost-black;
-      border-color: $input-border-color--dark;
+      border-color: $gray-800;
       color: $body-color--dark;
 
       li {
@@ -98,22 +90,21 @@
 }
 
 .input-group {
-  // TODO
   .input-group-prepend,
   .input-group-append {
     &  > .input-group-text {
       @include apply-dark-theme() {
         background: $dark-grayish-navy;
-        border-color: $input-border-color--dark;
+        border-color: $gray-800;
         color: $gray-400;
       }
     }
   }
-  // TODO
+
   .custom-select {
     @include apply-dark-theme() {
       background-color: $almost-black;
-      border-color: $input-border-color--dark;
+      border-color: $gray-800;
       color: $body-color--dark;
     }
   }
@@ -125,10 +116,9 @@
     margin-bottom: 0;
 
     &__calendar {
-      // TODO
       @include apply-dark-theme() {
         background: $almost-black;
-        border-color: $input-border-color--dark;
+        border-color: $gray-800;
 
         .prev,
         .next,
@@ -140,11 +130,11 @@
         }
 
         .prev:after {
-          border-right-color: $input-border-color--dark;
+          border-right-color: $gray-800;
         }
 
         .next:after {
-          border-left-color: $input-border-color--dark;
+          border-left-color: $gray-800;
         }
 
         .cell.selected {
@@ -165,8 +155,11 @@
 
   input {
     @include apply-dark-theme() {
-      // TODO
-      background: $dark-grayish-navy;
+      background: t("form-control-search-bg-color");
+
+      &:focus {
+        background: t("form-control-search-bg-focus-color");
+      }
     };
 
     width: 11rem;
@@ -176,17 +169,7 @@
     font-size: 1.125rem;
     padding: 1.2rem 2.7rem 1.2rem 1.5rem;
 
-    &::placeholder {
-      @include apply-dark-theme() {
-        color: t("input-placeholder-color");
-      }
-    }
-
     &:focus {
-      @include apply-dark-theme() {
-        background: t("input-focus");
-      }
-
       box-shadow: none;
       background: $gray-200;
     }
@@ -241,6 +224,25 @@
 
     .feather {
       stroke: $gray-600;
+    }
+  }
+}
+
+.form-control {
+  @include apply-dark-theme() {
+    color:  t("form-control-text-color");
+    background-color: transparent;
+
+    &:not(.is-invalid):not(.is-valid) {
+      border-color: t("form-control-border-color");
+    }
+
+    &::placeholder {
+      color: t("form-control-placeholder-color");
+    }
+
+    &:disabled {
+      background-color: $dark-grayish-navy;
     }
   }
 }

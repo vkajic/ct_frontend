@@ -42,24 +42,32 @@
   }
 }
 
-// TODO
 .task-details {
   @include apply-dark-theme() {
     background: $dark-grayish-navy;
 
-    .btn-primary, &:active, &:focus {
-      //background: $gray-600 !important;
-      //border-color: $gray-600;
-      //box-shadow: none;
+    .btn-primary,
+    &:active,
+    &:focus {
       background: $almost-black !important;
       border-color: $almost-black;
       box-shadow: none;
     }
 
-    .btn-info, &:active, &:focus {
+    .btn-primary--grey {
+      background-color: $gray-600 !important;
+    }
+
+    .btn-info,
+    &:active,
+    &:focus {
       background: $almost-black !important;
       border-color: $almost-black;
       box-shadow: none;
+    }
+
+    .btn-info--grey {
+      background-color: $gray-600 !important;
     }
   }
 
@@ -102,7 +110,7 @@
 
       span {
         @include apply-dark-theme() {
-          background: t("pill-bg");
+          background: t("pill-bg-color");
         }
 
         background: $gray-100;
@@ -119,7 +127,6 @@
 
 .applied-freelancer {
   header {
-    // TODO
     @include apply-dark-theme() {
       background: $dark-grayish-navy;
     }

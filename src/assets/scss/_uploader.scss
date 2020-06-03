@@ -1,8 +1,7 @@
 .uploader-container {
   .uploader {
-    // TODO
     @include apply-dark-theme() {
-      border-color: $input-border-color--dark;
+      border-color: $gray-800;
     }
     border: 2px dashed $gray-300;
     border-radius: .5rem;

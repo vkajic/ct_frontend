@@ -1,7 +1,7 @@
 .list-tags {
   .tag-item {
     @include apply-dark-theme() {
-      background: t("pill-bg");
+      background: t("pill-bg-color");
     }
 
     font-size: .75rem;

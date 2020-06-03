@@ -2,22 +2,15 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap&subset=latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap');
 
+// Mixins and functions
+@import "mixins";
+
 // Override variables
 @import "variables";
 
 // Default bootstrap stuff
 @import "~bootstrap/scss/bootstrap";
 @import "~vue-select/src/scss/vue-select";
-
-@mixin apply-dark-theme() {
-  .dark-theme & {
-    @content;
-  }
-}
-
-@function t($key, $map: $theme-dark) {
-  @return map-get($map, $key);
-}
 
 // Component styles
 @import "typography";
@@ -37,6 +30,7 @@
 @import "password";
 @import "widget";
 @import "ckeditor";
+@import "modal";
 
 // Layout styles
 @import "layout/paper";

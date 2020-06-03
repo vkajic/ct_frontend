@@ -18,9 +18,11 @@
 }
 
 .btn-info {
-  // TODO
   color: #fff !important;
-  &, &:active, &:focus {
+
+  &,
+  &:active,
+  &:focus {
     @include apply-dark-theme() {
       background: $dark-grayish-navy !important;
       box-shadow: none !important;
@@ -30,12 +32,13 @@
 }
 
 .btn-primary {
-  &, &:active, &:focus {
+  color: #fff !important;
+  &,
+  &:active,
+  &:focus {
     @include apply-dark-theme() {
-      // TODO styling when active
       background: $dark-grayish-navy !important;
       box-shadow: none !important;
-      // background: $dark-grayish-navy;
     }
   }
 }

@@ -1,0 +1,29 @@
+.modal {
+  @include apply-dark-theme() {
+    background: $almost-black;
+
+    .modal-content {
+      box-shadow: 0 0 1rem $very-dark-blue;
+      background: $almost-black;
+
+      .close {
+        color: $body-color--dark;
+      }
+
+      button {
+        &:hover {
+          background: inherit;
+        }
+
+        &.btn-primary {
+          background: $dark-grayish-navy;
+        }
+
+        &.btn-secondary {
+          background: inherit;
+          border: 1px solid $gray-800;
+        }
+      }
+    }
+  }
+}

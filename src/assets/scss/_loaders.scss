@@ -46,7 +46,7 @@
 
 .loading-overlay {
   @include apply-dark-theme() {
-    background: t("loading-overlay-bg");
+    background: t("loading-overlay-bg-color");
   }
 
   position: absolute;

@@ -24,7 +24,7 @@
         <template v-else>
           <b-button variant="primary"
                     block
-                    class="btn-round mb-4"
+                    class="btn-primary--grey btn-round mb-4"
                     v-if="cancelVisible"
                     @click.prevent="startCancel">
             Cancel job

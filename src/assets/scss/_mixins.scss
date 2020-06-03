@@ -1,0 +1,9 @@
+@mixin apply-dark-theme() {
+  .dark-theme & {
+    @content;
+  }
+}
+
+@function t($key, $map: $theme-dark) {
+  @return map-get($map, $key);
+}

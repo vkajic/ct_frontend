@@ -9,6 +9,6 @@
   @include apply-dark-theme() {
     background: $dark-grayish-navy;
     color: $gray-400;
-    border: $input-border-color--dark;
+    border: $gray-800;
   }
 }

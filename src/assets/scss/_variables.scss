@@ -4,6 +4,7 @@ $gray-300: #D0D2D6;
 $gray-400: #B9BBC0;
 $gray-500: #9D9FA5;
 $gray-600: #72757D;
+$gray-800: #3B3F4B;
 
 $info: #003AF9;
 $dark: #0D0D22;
@@ -11,6 +12,7 @@ $green: #1DCC4B;
 
 $almost-black: #070B17;
 $dark-grayish-navy: #1F222E;
+$very-dark-blue: #01040B;
 
 $theme-colors: (
         "almost-black": $almost-black
@@ -91,7 +93,6 @@ $input-border-radius-sm: 0;
 $input-bg--dark: $almost-black;
 
 $input-border-color: $gray-300;
-$input-border-color--dark: #3B3F4B;
 $input-box-shadow: none;
 
 $input-placeholder-color: rgba($dark, 0.3);
@@ -105,7 +106,6 @@ $custom-select-border-radius: 0;
 
 // Paper
 $paper-shadow: 0 0 6rem 0 rgba($dark, 0.06);
-// TODO
 $paper-shadow--dark: 0 0 6rem 0 #01040B;
 $paper-bg--dark: $almost-black;
 
@@ -115,8 +115,6 @@ $dropdown-border-width: 0;
 $dropdown-font-size: 1.125rem;
 $dropdown-box-shadow: $paper-shadow;
 $dropdown-item-padding-y: .4rem;
-$dropdown-item-color--dark: $gray-400;
-$dropdown-box-bg--dark: $almost-black;
 
 // Layout
 $header-menu-font-size: 1.125rem;
@@ -167,53 +165,56 @@ $pill-bg--dark: $dark-grayish-navy;
 
 // Dark theme map
 $theme-dark: (
-        "body-color": $body-color--dark,
-        "body-bg": $body-bg--dark,
-        "link-color": $link-color--dark,
-        "dropdown-bg": $dropdown-box-bg--dark,
-        "dropdown-item-color": $dropdown-item-color--dark,
-        "input-bg": $input-bg--dark,
-        "input-focus": $input-focus-bg--dark,
-        "input-placeholder-color": $input-placeholder-color--dark,
-        "input-border-color": $input-border-color--dark,
-        "hr-color": $hr-color--dark,
-        "loading-overlay-bg": $loading-overlay-bg--dark,
-        "spinner-bg": $spinner-bg--dark,
-        "text-muted": $text-muted--dark,
-        "paper-bg": $paper-bg--dark,
+        "body-text-color": $gray-400,
+        "body-bg-color": $almost-black,
+        "link-color": $gray-400,
+        "form-control-text-color": $gray-400,
+        "form-control-placeholder-color": rgba($gray-400, 0.3),
+        "form-control-border-color": $gray-800,
+        "form-control-search-bg-focus-color": rgba($dark-grayish-navy, 0.3),
+        "form-control-search-bg-color": $dark-grayish-navy,
+        "dropdown-bg-color": $almost-black,
+        "dropdown-item-text-color": $gray-400,
+        "dropdown-item-bg-active-color": $dark-grayish-navy,
+        "dropdown-item-bg-hover-color": $dark-grayish-navy,
+        "paper-bg-color": $almost-black,
         "paper-shadow": $paper-shadow--dark,
-        "pill-bg": $pill-bg--dark,
-        "headings-small-color": $headings-small-color
+        "headings-small-text-color": rgba($gray-400, 0.4),
+        "hr-color": $dark-grayish-navy,
+        "loading-overlay-bg-color": rgba($almost-black, .8),
+        "spinner-bg": $gray-400,
+        "text-muted-color": rgba($gray-400, 0.4),
+        "pill-bg-color": $dark-grayish-navy,
 );
 
 // CKEditor dark theme colors
 $ck-editor--dark-colors: (
         "base-background": $almost-black,
         "base-foreground": $almost-black,
-        "base-border": $input-border-color--dark,
+        "base-border": $gray-800,
         "base-text": $gray-400,
         "text": $gray-400,
         "toolbar-background": $almost-black,
-        "toolbar-border": $input-border-color--dark,
+        "toolbar-border": $gray-800,
         "button-default-hover-background": $dark-grayish-navy,
         "button-default-active-background": $dark-grayish-navy,
         "button-on-background": $dark-grayish-navy,
         "button-on-hover-background": $dark-grayish-navy,
-        "dropdown-panel-border": $input-border-color--dark,
+        "dropdown-panel-border": $gray-800,
         "list-background": $almost-black,
         "list-button-hover-background": $dark-grayish-navy,
         "list-button-on-background": $dark-grayish-navy,
         "list-button-on-background-focus": $dark-grayish-navy,
         "split-button-hover-background": $dark-grayish-navy,
-        "split-button-hover-border": $input-border-color--dark,
+        "split-button-hover-border": $gray-800,
         "code-block-label-background": $almost-black,
         "panel-background": $almost-black,
-        "panel-border": $input-border-color--dark,
+        "panel-border": $gray-800,
         "input-background": $almost-black,
-        "input-border": $input-border-color--dark,
+        "input-border": $gray-800,
         "link-selected-background": $dark-grayish-navy,
         "link-default": $gray-400,
-        "focus-border": $body-color--dark,
-        "focus-ring": $body-color--dark,
-        "shadow-inner": $body-color--dark
+        "focus-border": $gray-400,
+        "focus-ring": $gray-400,
+        "shadow-inner": $gray-400
 );

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <b-button variant="info"
-              block
-              class="btn-round mb-4"
-              v-if="buttonVisible"
-              @click="close">
+    <b-button
+      block
+      class="btn-info--grey btn-round btn-secondary mb-4"
+      v-if="buttonVisible"
+      @click="close">
       Close job
     </b-button>
   </div>

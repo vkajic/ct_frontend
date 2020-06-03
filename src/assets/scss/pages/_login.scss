@@ -14,8 +14,7 @@
   }
   .auth-form button {
     @include apply-dark-theme() {
-      // TODO
-      background: $input-border-color--dark;
+      background: $gray-800;
     }
   }
 

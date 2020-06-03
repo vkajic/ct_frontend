@@ -33,7 +33,8 @@
           <div class="small-heading">
             TYPE
           </div>
-          <strong>{{task.type === 'fulltime' ? 'Full Time' : task.type === 'parttime' ? 'Part Time' : 'One Time'}}</strong>
+          <strong>{{task.type === 'fulltime' ? 'Full Time' : task.type === 'parttime' ? 'Part Time'
+            : 'One Time'}}</strong>
         </div>
       </div>
     </div>
@@ -50,11 +51,9 @@
 </template>
 
 <script>
-import { get } from 'lodash';
 import { dateFilter } from 'vue-date-fns';
 import {
   CheckSquareIcon,
-  Share2Icon,
   MapPinIcon,
   TagIcon,
 } from 'vue-feather-icons';
@@ -74,7 +73,6 @@ export default {
     TaskDetailsDuration,
     TaskDetailsValue,
     CheckSquareIcon,
-    Share2Icon,
     MapPinIcon,
     TagIcon,
   },

@@ -1,5 +1,4 @@
 .nav-tabs {
-  // TODO
   @include apply-dark-theme() {
     border-color: $dark-grayish-navy;
   }

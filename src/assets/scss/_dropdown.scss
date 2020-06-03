@@ -14,26 +14,25 @@
       transform: translate3d(0, 4.3125rem, 0) !important;
     }
   }
-  //.dropdown-menu .dropdown-item {
-  //  // TODO
-  //  @include apply-dark-theme() {
-  //    color: t("body-color");
-  //
-  //    &.active {
-  //      background: $dark-grayish-navy;
-  //    }
-  //
-  //    &:hover, &:active {
-  //      background: $dark-grayish-navy;
-  //    }
-  //  }
-  //}
 }
 
 .dropdown-menu {
-  // TODO
   @include apply-dark-theme() {
-    background: t("dropdown-bg");
+    background: t("dropdown-bg-color");
+  }
+
+  .dropdown-item {
+    @include apply-dark-theme() {
+      color: t("dropdown-item-text-color");
+
+      &.active {
+        background: t("dropdown-item-bg-hover-color");
+      }
+
+      &:hover {
+        background: t("dropdown-item-bg-hover-color")
+      }
+    }
   }
 
   box-shadow: $paper-shadow;
@@ -44,8 +43,7 @@
 
 .dropdown-wrapper {
   @include apply-dark-theme() {
-    // TODO
-    border-bottom-color: $input-border-color--dark;
+    border-bottom-color: t("form-control-border-color");
   }
 
   display: inline-flex;
@@ -81,7 +79,7 @@
 
   &__button-wrapper {
     @include apply-dark-theme() {
-      color: t("dropdown-item-color");
+      color: t("dropdown-item-text-color");
     }
 
     display: inline-flex;
@@ -98,7 +96,7 @@
     button {
       @include apply-dark-theme() {
         //TODO add new color for header menu icon
-        color: t("body-color")
+        color: t("dropdown-item-text-color")
       }
     }
   }
