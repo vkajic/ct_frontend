@@ -16,3 +16,26 @@
     border-radius: 35px;
   }
 }
+
+.btn-info {
+  // TODO
+  color: #fff !important;
+  &, &:active, &:focus {
+    @include apply-dark-theme() {
+      background: $dark-grayish-navy !important;
+      box-shadow: none !important;
+      border-color: $dark-grayish-navy;
+    }
+  }
+}
+
+.btn-primary {
+  &, &:active, &:focus {
+    @include apply-dark-theme() {
+      // TODO styling when active
+      background: $dark-grayish-navy !important;
+      box-shadow: none !important;
+      // background: $dark-grayish-navy;
+    }
+  }
+}

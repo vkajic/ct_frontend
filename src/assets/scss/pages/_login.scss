@@ -6,13 +6,19 @@
       font-size: 4.125rem;
       font-weight: 900;
     }
-
     .h1-sm{
       @include media-breakpoint-down(sm) {
         font-size: 3.25rem;
       }
     }
   }
+  .auth-form button {
+    @include apply-dark-theme() {
+      // TODO
+      background: $input-border-color--dark;
+    }
+  }
+
 }
 
 .roles-chooser {

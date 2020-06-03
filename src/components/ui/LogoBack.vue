@@ -3,7 +3,10 @@
     <div class="d-none d-lg-block py-2">
       <router-link to="/">
         <div class="logo">
-          <img src="@/assets/img/cryptotask-logo.svg" alt="Cryptotask"/>
+          <img v-if="isDarkThemeEnabled" src="@/assets/img/cryptotask-logo--light.svg"
+               alt="Cryptotask"/>
+          <img v-else src="@/assets/img/cryptotask-logo.svg"
+               alt="Cryptotask"/>
         </div>
       </router-link>
     </div>
@@ -17,7 +20,10 @@
       <template v-else>
         <router-link to="/" class="d-block">
           <div class="logo">
-            <img src="@/assets/img/cryptotask-logo.svg" alt="Cryptotask"/>
+            <img v-if="isDarkThemeEnabled" src="@/assets/img/cryptotask-logo--light.svg"
+                 alt="Cryptotask"/>
+            <img v-else src="@/assets/img/cryptotask-logo.svg"
+                 alt="Cryptotask"/>
           </div>
         </router-link>
       </template>
@@ -70,6 +76,13 @@ export default {
     funnelItemTitle() {
       const current = this.$route.name;
       return this.freelancerFunnelMapping[current];
+    },
+    /**
+     * Check if dark theme is enabled
+     * @return boolean
+     * */
+    isDarkThemeEnabled() {
+      return this.$store.state.ui.isDarkThemeEnabled;
     },
   },
   methods: {

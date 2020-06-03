@@ -1,6 +1,7 @@
 // Colors
 $gray-100: #F3F3F3;
 $gray-300: #D0D2D6;
+$gray-400: #B9BBC0;
 $gray-500: #9D9FA5;
 $gray-600: #72757D;
 
@@ -9,10 +10,12 @@ $dark: #0D0D22;
 $green: #1DCC4B;
 
 $almost-black: #070B17;
+$dark-grayish-navy: #1F222E;
 
 $theme-colors: (
         "almost-black": $almost-black
 );
+
 
 $primary: $almost-black;
 
@@ -27,6 +30,8 @@ $spacers: (
 
 // Body
 $body-color: $dark;
+$body-color--dark: $gray-400;
+$body-bg--dark: $almost-black;
 
 // Grid
 $grid-breakpoints: (
@@ -51,13 +56,16 @@ $container-max-widths: (
 
 // Links
 $link-color: $dark;
+$link-color--dark: $gray-400;
 
 // Typography
 $font-family-sans-serif: 'Roboto', sans-serif;
 $font-family-sans-serif-secondary: 'Roboto Condensed', sans-serif;
 $text-muted: rgba($dark, 0.4);
+$text-muted--dark: rgba($gray-400, 0.4);
 $headings-font-weight: 900;
 $enable-responsive-font-sizes: true;
+$headings-small-color: rgba($gray-400, 0.4);
 
 // Buttons + Forms
 $input-btn-padding-y-lg: 1.25rem;
@@ -80,10 +88,16 @@ $input-border-radius: 0;
 $input-border-radius-lg: 0;
 $input-border-radius-sm: 0;
 
+$input-bg--dark: $almost-black;
+
 $input-border-color: $gray-300;
+$input-border-color--dark: #3B3F4B;
 $input-box-shadow: none;
 
 $input-placeholder-color: rgba($dark, 0.3);
+$input-placeholder-color--dark: rgba($gray-400, 0.3);
+
+$input-focus-bg--dark: rgba($dark-grayish-navy, 0.3);
 
 $custom-checkbox-indicator-border-radius: 0;
 
@@ -91,6 +105,9 @@ $custom-select-border-radius: 0;
 
 // Paper
 $paper-shadow: 0 0 6rem 0 rgba($dark, 0.06);
+// TODO
+$paper-shadow--dark: 0 0 6rem 0 #01040B;
+$paper-bg--dark: $almost-black;
 
 // Dropdowns
 $dropdown-border-radius: 0;
@@ -98,6 +115,8 @@ $dropdown-border-width: 0;
 $dropdown-font-size: 1.125rem;
 $dropdown-box-shadow: $paper-shadow;
 $dropdown-item-padding-y: .4rem;
+$dropdown-item-color--dark: $gray-400;
+$dropdown-box-bg--dark: $almost-black;
 
 // Layout
 $header-menu-font-size: 1.125rem;
@@ -133,3 +152,68 @@ $popover-box-shadow: $paper-shadow;
 
 // Notifications
 $notifications-indicator-size: 15px;
+
+// Horizontal divider
+$hr-color--dark: $dark-grayish-navy;
+
+// Loading overlay
+$loading-overlay-bg--dark: rgba($almost-black, .8);
+
+// Spinner
+$spinner-bg--dark: $gray-400;
+
+// Pills
+$pill-bg--dark: $dark-grayish-navy;
+
+// Dark theme map
+$theme-dark: (
+        "body-color": $body-color--dark,
+        "body-bg": $body-bg--dark,
+        "link-color": $link-color--dark,
+        "dropdown-bg": $dropdown-box-bg--dark,
+        "dropdown-item-color": $dropdown-item-color--dark,
+        "input-bg": $input-bg--dark,
+        "input-focus": $input-focus-bg--dark,
+        "input-placeholder-color": $input-placeholder-color--dark,
+        "input-border-color": $input-border-color--dark,
+        "hr-color": $hr-color--dark,
+        "loading-overlay-bg": $loading-overlay-bg--dark,
+        "spinner-bg": $spinner-bg--dark,
+        "text-muted": $text-muted--dark,
+        "paper-bg": $paper-bg--dark,
+        "paper-shadow": $paper-shadow--dark,
+        "pill-bg": $pill-bg--dark,
+        "headings-small-color": $headings-small-color
+);
+
+// CKEditor dark theme colors
+$ck-editor--dark-colors: (
+        "base-background": $almost-black,
+        "base-foreground": $almost-black,
+        "base-border": $input-border-color--dark,
+        "base-text": $gray-400,
+        "text": $gray-400,
+        "toolbar-background": $almost-black,
+        "toolbar-border": $input-border-color--dark,
+        "button-default-hover-background": $dark-grayish-navy,
+        "button-default-active-background": $dark-grayish-navy,
+        "button-on-background": $dark-grayish-navy,
+        "button-on-hover-background": $dark-grayish-navy,
+        "dropdown-panel-border": $input-border-color--dark,
+        "list-background": $almost-black,
+        "list-button-hover-background": $dark-grayish-navy,
+        "list-button-on-background": $dark-grayish-navy,
+        "list-button-on-background-focus": $dark-grayish-navy,
+        "split-button-hover-background": $dark-grayish-navy,
+        "split-button-hover-border": $input-border-color--dark,
+        "code-block-label-background": $almost-black,
+        "panel-background": $almost-black,
+        "panel-border": $input-border-color--dark,
+        "input-background": $almost-black,
+        "input-border": $input-border-color--dark,
+        "link-selected-background": $dark-grayish-navy,
+        "link-default": $gray-400,
+        "focus-border": $body-color--dark,
+        "focus-ring": $body-color--dark,
+        "shadow-inner": $body-color--dark
+);

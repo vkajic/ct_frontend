@@ -39,6 +39,10 @@
         color: $gray-700;
 
         pre {
+          @include apply-dark-theme() {
+            color: t("body-color");
+          }
+
           white-space: pre-wrap;
           font-family: $font-family-sans-serif;
           font-size: 1rem;
@@ -91,6 +95,15 @@
   }
 
   .chat-input {
+    @include apply-dark-theme() {
+      background: t("input-bg");
+      border-color: t("input-border-color");
+
+      &::placeholder {
+        color: t("input-placeholder-color");
+      }
+    }
+
     border: 2px solid $gray-200;
     border-radius: 0.25rem;
     background: $gray-100;
@@ -115,6 +128,16 @@
       border: 0;
 
       &.submit {
+        // TODO
+        @include apply-dark-theme() {
+          background: $dark-grayish-navy;
+          color: $gray-400;
+
+          &:hover {
+            background: $dark-grayish-navy;
+          }
+        }
+
         background: $gray-300;
         margin: 5px;
         color: $gray-700;
@@ -126,6 +149,15 @@
     }
 
     textarea {
+      // TODO
+      @include apply-dark-theme() {
+        background: $dark-grayish-navy;
+
+        &::placeholder {
+          color: t("input-placeholder-color");
+        }
+      }
+
       line-height: 1.1875rem;
       border: 0;
 
@@ -170,6 +202,11 @@
 }
 
 .chat-history {
+  // TODO
+  @include apply-dark-theme() {
+    box-shadow: 0 0 1rem #01040B;
+  }
+
   box-shadow: 0px 0px 1rem $gray-100;
   padding: 1rem;
   padding-top: 0.5rem;

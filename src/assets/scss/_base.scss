@@ -1,0 +1,122 @@
+body {
+  &.dark-theme {
+    background-color: t("body-bg");
+    color: t("body-color");
+  }
+}
+
+a, a:hover {
+  @include apply-dark-theme() {
+    color: t("link-color")
+  }
+}
+
+hr {
+  @include apply-dark-theme() {
+    border-top-color: t("hr-color");
+  }
+}
+
+.text-muted {
+  @include apply-dark-theme() {
+    color: t("text-muted") !important;
+  }
+}
+
+input {
+  @include apply-dark-theme() {
+    background: t("input-bg");
+    border-color: t("input-border-color");
+
+    &::placeholder {
+      color: t("input-placeholder-color");
+    }
+  }
+}
+
+.form-control {
+  // TODO
+  @include apply-dark-theme() {
+    color: $gray-400;
+    background-color: transparent;
+
+    &.is-valid {
+      border-color: $green !important;
+    }
+
+    &.is-invalid {
+      border-color: #dc3545;
+    }
+
+    &:disabled {
+      background-color: $dark-grayish-navy;
+    }
+
+    //&:focus {
+    //  border-color: inherit;
+    //}
+  }
+}
+
+.small-heading {
+  @include apply-dark-theme() {
+    color: t("headings-small-color");
+  }
+}
+// TODO
+button {
+  @include apply-dark-theme() {
+    box-shadow: none;
+  }
+}
+
+.modal {
+  @include apply-dark-theme() {
+    background: $almost-black;
+
+    .modal-content {
+      box-shadow: 0 0 1rem #01040B;
+      background: $almost-black;
+
+      .close {
+        color: $body-color--dark;
+      }
+
+      button {
+        &:hover {
+          background: inherit;
+        }
+
+        &.btn-primary {
+          background: $dark-grayish-navy;
+        }
+
+        &.btn-secondary {
+          background: inherit;
+          border: 1px solid $input-border-color--dark;
+        }
+      }
+    }
+  }
+}
+
+.dropdown-menu {
+  // TODO
+  .dropdown-item {
+    @include apply-dark-theme() {
+      color: t("body-color");
+
+      &.active {
+        background: $dark-grayish-navy;
+      }
+
+      &:hover, &:active {
+        background: $dark-grayish-navy;
+      }
+
+      //&.router-link-exact-active {
+      //  background: $dark-grayish-navy;
+      //}
+    }
+  }
+}

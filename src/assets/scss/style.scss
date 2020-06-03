@@ -9,8 +9,19 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~vue-select/src/scss/vue-select";
 
+@mixin apply-dark-theme() {
+  .dark-theme & {
+    @content;
+  }
+}
+
+@function t($key, $map: $theme-dark) {
+  @return map-get($map, $key);
+}
+
 // Component styles
 @import "typography";
+@import "base";
 @import "buttons";
 @import "form";
 @import "uploader";
@@ -24,6 +35,8 @@
 @import "notifications";
 @import "rating";
 @import "password";
+@import "widget";
+@import "ckeditor";
 
 // Layout styles
 @import "layout/paper";
