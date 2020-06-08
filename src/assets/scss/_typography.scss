@@ -1,4 +1,8 @@
 .small-heading {
+  @include apply-dark-theme() {
+    color: t("headings-small-text-color");
+  }
+
   font-size: .6875rem;
   text-transform: uppercase;
   color: $text-muted;

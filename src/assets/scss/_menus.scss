@@ -5,7 +5,7 @@
       align-items: center;
       font-weight: bold;
       font-size: 1.125rem;
-      color: $black;
+      // color: $black;
       padding: 1.5rem .5rem;
 
       .feather {
@@ -52,6 +52,14 @@
 }
 
 .mobile-menu {
+  @include apply-dark-theme() {
+    background: $dark-grayish-navy;
+
+    a {
+      color: $gray-400;
+    }
+  }
+
   height: 3.5rem;
   background: $gray-100;
 

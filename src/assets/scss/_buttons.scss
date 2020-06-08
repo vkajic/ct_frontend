@@ -16,3 +16,29 @@
     border-radius: 35px;
   }
 }
+
+.btn-info {
+  color: #fff !important;
+
+  &,
+  &:active,
+  &:focus {
+    @include apply-dark-theme() {
+      background: $dark-grayish-navy !important;
+      box-shadow: none !important;
+      border-color: $dark-grayish-navy;
+    }
+  }
+}
+
+.btn-primary {
+  color: #fff !important;
+  &,
+  &:active,
+  &:focus {
+    @include apply-dark-theme() {
+      background: $dark-grayish-navy !important;
+      box-shadow: none !important;
+    }
+  }
+}

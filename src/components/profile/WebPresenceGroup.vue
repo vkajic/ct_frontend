@@ -1,5 +1,5 @@
 <template>
-  <div class="web-presence-group">
+  <div class="web-presence-group mb-4">
     <web-presence-item v-if="freelancer.linkedin" class="web-presence-group__item"
                        :href="freelancer.linkedin" ariaLabel="Link to the Linkedin profile">
       <font-awesome-icon :icon="linkedinIcon" size="lg"/>

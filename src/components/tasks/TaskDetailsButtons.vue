@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-link :to="`/my-tasks/${task.id}/edit`"
-            class="btn btn-primary btn-block btn-round mt-4"
+            class="btn btn-primary btn-block btn-round mt-4 btn-primary--dark"
             v-if="editAllowed">
       Edit
     </b-link>

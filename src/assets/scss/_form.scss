@@ -1,5 +1,17 @@
 .custom-checkbox {
+  .custom-control-input:checked ~ label::before {
+    @include apply-dark-theme() {
+      background: $dark-grayish-navy;
+    }
+  }
+
   label {
+    &::before {
+      @include apply-dark-theme() {
+        background: $almost-black;
+      }
+    }
+
     color: $gray-500;
     font-size: .875rem;
   }
@@ -8,7 +20,7 @@
 .v-select {
   &.is-invalid {
     .vs__dropdown-toggle {
-      border-color: $danger;
+      border-color: $danger !important;
     }
 
     ~ .invalid-feedback {
@@ -25,6 +37,9 @@
   }
 
   .vs__dropdown-toggle {
+    @include apply-dark-theme() {
+      border-color: $gray-800;
+    }
     padding: 0;
   }
 
@@ -34,6 +49,12 @@
   }
 
   .vs__selected {
+    @include apply-dark-theme() {
+      background: $dark-grayish-navy;
+      color: $gray-400;
+      border-color: $gray-800;
+    }
+
     font-size: .75rem;
     padding: .5rem 1rem;
     background: $gray-100;
@@ -43,17 +64,84 @@
     border-width: 0;
 
     .vs__deselect {
+      @include apply-dark-theme() {
+        fill: $gray-400;
+      }
+
       margin-left: 8px;
+    }
+  }
+  .vs__dropdown-menu {
+    @include apply-dark-theme() {
+      background: $almost-black;
+      border-color: $gray-800;
+      color: $body-color--dark;
+
+      li {
+        color: $body-color--dark;
+
+        &:hover {
+          background: $dark-grayish-navy;
+        }
+      }
+
     }
   }
 }
 
 .input-group {
+  .input-group-prepend,
+  .input-group-append {
+    &  > .input-group-text {
+      @include apply-dark-theme() {
+        background: $dark-grayish-navy;
+        border-color: $gray-800;
+        color: $gray-400;
+      }
+    }
+  }
+
+  .custom-select {
+    @include apply-dark-theme() {
+      background-color: $almost-black;
+      border-color: $gray-800;
+      color: $body-color--dark;
+    }
+  }
+
   .vdp-datepicker {
     position: relative;
     flex: 1 1 auto;
     width: 1%;
     margin-bottom: 0;
+
+    &__calendar {
+      @include apply-dark-theme() {
+        background: $almost-black;
+        border-color: $gray-800;
+
+        .prev,
+        .next,
+        .day__month_btn,
+        .month__year_btn {
+          &:hover {
+            background: $dark-grayish-navy;
+          }
+        }
+
+        .prev:after {
+          border-right-color: $gray-800;
+        }
+
+        .next:after {
+          border-left-color: $gray-800;
+        }
+
+        .cell.selected {
+          background: $dark-grayish-navy;
+        }
+      }
+    }
   }
 
   > .vdp-datepicker + .vdp-datepicker {
@@ -66,6 +154,14 @@
   text-align: right;
 
   input {
+    @include apply-dark-theme() {
+      background: t("form-control-search-bg-color");
+
+      &:focus {
+        background: t("form-control-search-bg-focus-color");
+      }
+    };
+
     width: 11rem;
     border: 0;
     background: $gray-100;
@@ -128,6 +224,25 @@
 
     .feather {
       stroke: $gray-600;
+    }
+  }
+}
+
+.form-control {
+  @include apply-dark-theme() {
+    color:  t("form-control-text-color");
+    background-color: transparent;
+
+    &:not(.is-invalid):not(.is-valid) {
+      border-color: t("form-control-border-color");
+    }
+
+    &::placeholder {
+      color: t("form-control-placeholder-color");
+    }
+
+    &:disabled {
+      background-color: $dark-grayish-navy;
     }
   }
 }

@@ -39,6 +39,10 @@
         color: $gray-700;
 
         pre {
+          @include apply-dark-theme() {
+            color: t("body-text-color");
+          }
+
           white-space: pre-wrap;
           font-family: $font-family-sans-serif;
           font-size: 1rem;
@@ -91,6 +95,11 @@
   }
 
   .chat-input {
+    @include apply-dark-theme() {
+      background: transparent;
+      border-color: t("form-control-border-color");
+    }
+
     border: 2px solid $gray-200;
     border-radius: 0.25rem;
     background: $gray-100;
@@ -115,6 +124,15 @@
       border: 0;
 
       &.submit {
+        @include apply-dark-theme() {
+          background: $dark-grayish-navy;
+          color: $gray-400;
+
+          &:hover {
+            background: $dark-grayish-navy;
+          }
+        }
+
         background: $gray-300;
         margin: 5px;
         color: $gray-700;
@@ -126,6 +144,10 @@
     }
 
     textarea {
+      @include apply-dark-theme() {
+        background: $dark-grayish-navy;
+      }
+
       line-height: 1.1875rem;
       border: 0;
 
@@ -170,6 +192,10 @@
 }
 
 .chat-history {
+  @include apply-dark-theme() {
+    box-shadow: 0 0 1rem $very-dark-blue;
+  }
+
   box-shadow: 0px 0px 1rem $gray-100;
   padding: 1rem;
   padding-top: 0.5rem;

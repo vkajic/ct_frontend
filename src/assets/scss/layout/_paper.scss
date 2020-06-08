@@ -1,4 +1,9 @@
 .paper {
+  @include apply-dark-theme() {
+    background: t("paper-bg-color");
+    box-shadow: t("paper-shadow");
+  }
+
   background: $white;
   box-shadow: $paper-shadow;
 }

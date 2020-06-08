@@ -1,0 +1,30 @@
+body {
+  &.dark-theme {
+    background-color: t("body-bg-color");
+    color: t("body-text-color");
+  }
+}
+
+a, a:hover {
+  @include apply-dark-theme() {
+    color: t("link-color")
+  }
+}
+
+hr {
+  @include apply-dark-theme() {
+    border-top-color: t("hr-color");
+  }
+}
+
+.text-muted {
+  @include apply-dark-theme() {
+    color: t("text-muted-color") !important;
+  }
+}
+
+button {
+  @include apply-dark-theme() {
+    box-shadow: none;
+  }
+}

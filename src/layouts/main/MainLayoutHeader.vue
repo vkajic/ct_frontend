@@ -10,6 +10,7 @@
           <top-menu/>
         </div>
         <div class="col-7 col-lg-2 d-flex justify-content-end align-content-center ml-auto">
+          <theme-toggler/>
           <user-info/>
           <mobile-top-menu/>
         </div>
@@ -23,11 +24,13 @@ import TopMenu from '../../components/layout/TopMenu.vue';
 import MobileTopMenu from '../../components/layout/MobileTopMenu.vue';
 import UserInfo from '../../components/ui/UserInfo.vue';
 import LogoBack from '../../components/ui/LogoBack.vue';
+import ThemeToggler from '../../components/ui/ThemeToggler.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MainLayoutHeader',
   components: {
+    ThemeToggler,
     LogoBack,
     UserInfo,
     TopMenu,

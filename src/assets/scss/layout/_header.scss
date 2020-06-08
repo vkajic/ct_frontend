@@ -51,3 +51,13 @@ header.main-header {
     }
   }
 }
+
+.theme-icon {
+  @include apply-dark-theme() {
+    color: t("body-text-color");
+  }
+
+  margin-right: 1.4rem;
+  align-self: center;
+  cursor: pointer;
+}
