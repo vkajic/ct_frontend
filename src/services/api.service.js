@@ -13,10 +13,10 @@ class ApiService {
           || error.response.data.error === 'invalid_token')
         ) {
           store.dispatch('user/logout');
-          store.dispatch('ui/showNotification', {
+          /* store.dispatch('ui/showNotification', {
             text: 'Unauthorized, please log in!',
             type: 'danger',
-          });
+          }); */
         }
 
         throw error;
