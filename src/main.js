@@ -5,6 +5,7 @@ import VueSocketIO from 'vue-socket.io';
 import CKEditor from '@ckeditor/ckeditor5-vue';
 import VueGtag from 'vue-gtag';
 import Tawk from 'vue-tawk';
+import VueI18n from 'vue-i18n';
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -25,6 +26,7 @@ Vue.use(new VueSocketIO({
   },
 }));
 Vue.use(CKEditor);
+Vue.use(VueI18n);
 
 if (process.env.NODE_ENV !== 'development') {
   Vue.use(VueGtag, {
