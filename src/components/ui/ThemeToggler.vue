@@ -1,12 +1,8 @@
 <template>
-  <sun-icon v-if="isDarkThemeEnabled"
-            class="theme-icon"
-            @click="toggleDarkTheme">
-  </sun-icon>
-  <moon-icon v-else
-             class="theme-icon"
-             @click="toggleDarkTheme">
-  </moon-icon>
+  <a href="#" @click.prevent="toggleDarkTheme" class="mr-3 d-flex align-items-center">
+    <sun-icon v-if="isDarkThemeEnabled" class="theme-icon" size="1.5x"/>
+    <moon-icon v-else class="theme-icon" size="1.5x"/>
+  </a>
 </template>
 <script>
 import { SunIcon, MoonIcon } from 'vue-feather-icons';
@@ -18,10 +14,14 @@ export default {
     MoonIcon,
   },
   created() {
+    const { mode } = this.$route.query;
     const isDarkThemeEnabled = localStorage.getItem('dark-theme');
-    if (isDarkThemeEnabled) {
+    if (isDarkThemeEnabled || (mode && mode === 'dark')) {
       this.enableDarkTheme();
       this.$store.commit('ui/enableDarkTheme');
+    } else {
+      this.$store.commit('ui/disableDarkTheme');
+      this.disableDarkTheme();
     }
   },
   computed: {

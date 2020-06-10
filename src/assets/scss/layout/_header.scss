@@ -7,7 +7,7 @@ header.main-header {
     box-shadow: none;
   }
 
-  @media (min-width: 992px) and (max-width: 1366px) { 
+  @media (min-width: 992px) and (max-width: 1366px) {
     height: 5rem;
     box-shadow: none;
   }
@@ -21,7 +21,7 @@ header.main-header {
         font-size: $header-menu-font-size;
       }
     }
-    
+
     li:last-child {
       margin-right: 0;
     }
@@ -56,8 +56,4 @@ header.main-header {
   @include apply-dark-theme() {
     color: t("body-text-color");
   }
-
-  margin-right: 1.4rem;
-  align-self: center;
-  cursor: pointer;
 }
