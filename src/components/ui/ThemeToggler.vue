@@ -16,12 +16,17 @@ export default {
   created() {
     const { mode } = this.$route.query;
     const isDarkThemeEnabled = localStorage.getItem('dark-theme');
-    if (isDarkThemeEnabled || (mode && mode === 'dark')) {
+    if (mode) {
+      if (mode === 'dark') {
+        this.enableDarkTheme();
+        this.$store.commit('ui/enableDarkTheme');
+      } else {
+        this.$store.commit('ui/disableDarkTheme');
+        this.disableDarkTheme();
+      }
+    } else if (isDarkThemeEnabled) {
       this.enableDarkTheme();
       this.$store.commit('ui/enableDarkTheme');
-    } else {
-      this.$store.commit('ui/disableDarkTheme');
-      this.disableDarkTheme();
     }
   },
   computed: {

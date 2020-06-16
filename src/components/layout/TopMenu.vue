@@ -24,7 +24,7 @@ export default {
       return this.$store.state.user.user;
     },
     landingUrl() {
-      return `${process.env.VUE_APP_LANDING_URL}how-cryptotask-works${this.isDarkThemeEnabled ? '?mode=dark' : ''}`;
+      return `${process.env.VUE_APP_LANDING_URL}how-cryptotask-works?mode=${this.isDarkThemeEnabled ? 'dark' : 'light'}`;
     },
     isDarkThemeEnabled() {
       return this.$store.state.ui.isDarkThemeEnabled;
