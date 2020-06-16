@@ -1,6 +1,5 @@
 <template>
   <div>
-    <sun-icon size="3x" class="text-muted mb-4"/>
     <div>
       <strong class="d-block mb-3 font-14-sm">Why Cryptotask</strong>
       <ul class="list-unstyled m-0">
@@ -13,13 +12,8 @@
 </template>
 
 <script>
-import { SunIcon } from 'vue-feather-icons';
-
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'AuthDescription',
-  components: {
-    SunIcon,
-  },
 };
 </script>
