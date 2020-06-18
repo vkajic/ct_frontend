@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     categories() {
-      return this.$store.state.util.skills.map(c => c.name);
+      return _.orderBy(this.$store.state.util.skills, [skill => skill.name.toLowerCase()], 'asc').map(c => c.name);
     },
   },
   methods: {

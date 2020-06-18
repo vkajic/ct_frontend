@@ -43,10 +43,8 @@ export default {
   computed: {
     skills() {
       if (this.category) {
-        return this.$store.state.util.skills
-          .find(c => c.name === this.category)
-          .skills
-          .map(s => s.name);
+        //orderBy sorts alphabetically ignoring case, then sortBy moves skill Other to the end
+        return _.sortBy(_.orderBy(this.$store.state.util.skills.find(c => c.name === this.category).skills, [skill => skill.name.toLowerCase()], 'asc'), function(skill) { return skill.name === 'Other' ? 1 : 0; }).map(s => s.name);
       }
 
       return [];
