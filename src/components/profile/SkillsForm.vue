@@ -102,7 +102,7 @@ export default {
      * Get all categories
      */
     categories() {
-      return this.$store.state.util.skills;
+      return _.orderBy(this.$store.state.util.skills, [skill => skill.name.toLowerCase()], 'asc');
     },
 
     /**
@@ -117,7 +117,8 @@ export default {
       const skills = [];
 
       selectedRoles.forEach((r) => {
-        skills.push(...r.skills);
+        //orderBy sorts alphabetically ignoring case, then sortBy moves skill Other to the end
+        skills.push(..._.sortBy(_.orderBy(r.skills, [skill => skill.name.toLowerCase()], 'asc'), function(skill) { return skill.name === 'Other' ? 1 : 0; }));
       });
 
       return skills;
