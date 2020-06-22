@@ -116,8 +116,21 @@ const actions = {
 
     this._vm.$smartContract.createKeypairs(credentials);
     this._vm.$smartContract.createBcData()
-      .then(() => {
+      .then(async() => {
         commit('activateBcData');
+
+        console.log(login.data.data);
+        try {
+          if (typeof login.data.data.freelancer !== "undefined") {
+            const bcFreelancer = await this._vm.$smartContract.setFreelancerProperties(login.data.data.freelancer);
+            //await apiService.post('/freelancers/regBcFreelancer', bcFreelancer);
+            console.log(bcFreelancer);
+          } else if (typeof login.data.data.client !== "undefined") {
+
+          }
+        } catch (e) {
+          console.log(e);
+        }
       });
 
     // reset socket connection

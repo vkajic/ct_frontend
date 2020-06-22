@@ -133,6 +133,38 @@ class SmartContract {
   }
 
   /**
+   * Update freelancer properties with smart contract properties
+   * @param {Object} freelancerData
+   * @return {Promise<any>}
+   */
+  async setFreelancerProperties(freelancerData) {
+    const bcData = this.getBcData();
+    console.log('bcdata', bcData);
+    const flancerInfoHash = Buffer.from(Crypto.hash([freelancerData.name, freelancerData.bio, freelancerData.resume].join('')))
+      .toString('hex');
+    const resNonce = await bcData.contract.methods.getNonce(bcData.keypairFormatted.publicKey);
+    const nonce = resNonce.decodedResult;
+    console.log('nonce', nonce);
+
+    const args = `1${nonce.toString()}signUp${flancerInfoHash}11`;
+    console.log(args);
+    const hash = Crypto.hash(args);
+    console.log('hash', hash);
+    const signedHash = Crypto.sign(hash, bcData.keypair.secretKey);
+    console.log(signedHash);
+    const sig = Buffer.from(signedHash)
+      .toString('hex');
+    console.log(sig);
+
+    return Object.assign({}, freelancerData, {
+      publicKey: bcData.keypairFormatted.publicKey,
+      sig,
+      nonce,
+      flancerInfoHash,
+    });
+  }
+
+  /**
    * Update task properties with smart contract properties
    * @param {Object} taskData
    * @return {Promise<any>}
