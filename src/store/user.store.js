@@ -123,7 +123,7 @@ const actions = {
         try {
           if (typeof login.data.data.freelancer !== "undefined") {
             const bcFreelancer = await this._vm.$smartContract.setFreelancerProperties(login.data.data.freelancer);
-            //await apiService.post('/freelancers/regBcFreelancer', bcFreelancer);
+            await apiService.post('/freelancers/regBcFreelancer', bcFreelancer);
             console.log(bcFreelancer);
           } else if (typeof login.data.data.client !== "undefined") {
 
