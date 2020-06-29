@@ -13,7 +13,8 @@
         </router-link>
       </h2>
       <div class="font-14-sm">
-        {{freelancer.occupation}} <span v-if="freelancer.location">in</span> {{freelancer.location}}
+        {{freelancer.occupation}} <span
+        v-if="freelancer.location">{{ $t('freelancers_search.in') }}</span> {{freelancer.location}}
       </div>
       <ul class="list-unstyled list-inline m-0">
         <li class="list-inline-item text-muted pr-2" v-for="s in skills" :key="s">

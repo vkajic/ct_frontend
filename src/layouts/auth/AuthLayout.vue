@@ -5,7 +5,7 @@
       <global-notification/>
       <div class="row">
         <div class="col-12">
-          <router-view/>
+          <slot/>
           <loading-overlay :visible="loading"/>
         </div>
       </div>

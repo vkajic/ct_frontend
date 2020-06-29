@@ -1,7 +1,7 @@
 <template>
-  <b-dropdown variant="link" no-caret right toggle-class="p-0">
+  <b-dropdown variant="link" no-caret right toggle-class="p-0" size="lg">
     <template slot="button-content">
-      <span class="d-none d-lg-block">{{userName}}</span>
+      <span class="d-none d-lg-block small">{{userName}}</span>
       <span class="d-block d-lg-none">
               <user-icon size="1.5x" />
             </span>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="d-flex align-items-center">
     <div class="user-info-widget d-flex align-items-center pr-lg-4" v-if="loggedIn">
       <!-- <notifications-popover/> -->
 

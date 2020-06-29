@@ -1,11 +1,15 @@
 <template>
   <div id="app">
-    <router-view/>
+    <component :is="layout">
+      <router-view/>
+    </component>
   </div>
 </template>
 
 <script>
-import MetaTags from './mixins/MetaTags.js';
+import MetaTags from './mixins/MetaTags';
+
+const defaultLayout = 'main';
 
 export default {
   name: 'App',
@@ -79,6 +83,11 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    layout() {
+      return `${this.$route.meta.layout || defaultLayout}-layout`;
+    },
   },
 };
 </script>

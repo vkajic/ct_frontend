@@ -6,7 +6,7 @@
     <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none px-0" no-caret>
       <template slot="button-content">
         <div class="dropdown__button-wrapper">
-          <strong>{{skill ? skill : 'Select skill'}}</strong>
+          <strong>{{skill ? skill : $t('freelancers_search.select_skills')}}</strong>
           <chevron-down-icon size="16" class="ml-2"/>
         </div>
       </template>

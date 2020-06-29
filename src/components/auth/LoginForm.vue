@@ -1,12 +1,12 @@
 <template>
   <div class="auth-form">
-    <h1 class="mb-5 text-center text-lg-left">Login.</h1>
+    <h1 class="mb-5 text-center text-lg-left">{{$t('auth.login.title')}}</h1>
     <b-form @submit.prevent="login">
       <b-form-group>
         <b-form-input
           v-model="form.email"
           type="email"
-          placeholder="Email"
+          :placeholder="$t('auth.login.email')"
           size="lg"
           :state="$v.form.email.$dirty ? !$v.form.email.$error : null"/>
         <validation-messages title="Email" :validation="$v.form.email"/>
@@ -16,7 +16,7 @@
         <b-form-input
           v-model="form.password"
           type="password"
-          placeholder="Password"
+          :placeholder="$t('auth.login.password')"
           size="lg"
           :state="$v.form.password.$dirty ? !$v.form.password.$error : null"/>
         <validation-messages title="Password" :validation="$v.form.password"/>
@@ -27,11 +27,11 @@
                 size="lg"
                 block
                 class="mb-3"
-                :disabled="sending">Login to CryptoTask
+                :disabled="sending">{{$t('auth.login.button_label')}}
       </b-button>
 
       <div class="text-center">
-        <router-link to="/forgot-password">Forgot password?</router-link>
+        <language-link to="/forgot-password">{{$t('auth.login.forgot_password')}}</language-link>
       </div>
     </b-form>
   </div>
@@ -40,12 +40,15 @@
 <script>
 import { required, email } from 'vuelidate/lib/validators';
 import ValidationMessages from '../form/ValidationMessages.vue';
-import router from '../../router.js';
+import LanguageLink from '../ui/LanguageLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'LoginForm',
-  components: { ValidationMessages },
+  components: {
+    LanguageLink,
+    ValidationMessages,
+  },
   data() {
     return {
       form: {
@@ -86,8 +89,6 @@ export default {
             await this.$router.replace(`/create-${activeRole}/basic-info`);
           } else {
             const { redirect } = this.$route.query;
-
-            console.log('redirect', redirect);
 
             if (redirect) {
               await this.$router.replace(redirect);

@@ -1,0 +1,117 @@
+{
+  "auth": {
+    "info": {
+      "why_cryptotask": "Why Cryptotask",
+      "line1": "Just 3% fees",
+      "line2": "More high paying clients",
+      "line3": "Effective escrow and dispute mechanism"
+    },
+    "login": {
+      "title": "Login.",
+      "forgot_password": "Forgot password?",
+      "button_label": "Login to CryptoTask",
+      "password": "Password",
+      "email": "Email"
+    },
+    "change_password": {
+      "title": "Change Password.",
+      "old": "Old Password",
+      "new": "New Password",
+      "new_again": "New Password Again",
+      "button_label": "Update password",
+      "button_loading": "Updating password...",
+      "saved": "New password is saved."
+    },
+    "confirmation": {
+      "loading": "We are confirming your email address. Please hold!",
+      "confirmed": "Email successfully confirmed. Please login with your credentials."
+    },
+    "forgot_password": {
+      "title": "Forgot Password.",
+      "email": "Email",
+      "button_label": "Send token",
+      "success_notification": "Password reset token is sent to your email address. Please follow instructions from email."
+    },
+    "reset_password": {
+      "title": "Reset Password.",
+      "new": "New Password",
+      "new_again": "New Password Again",
+      "button_label": "Set password",
+      "password_description": "Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.",
+      "success_notification": "New password is set. You can now log in."
+    },
+    "sign_up": {
+      "title": "Sign Up.",
+      "iam": "I'm a",
+      "freelancer": "Freelancer",
+      "client": "Client",
+      "email": "Email",
+      "password": "Password",
+      "password_confirmation": "Password Confirmation",
+      "button_label": "Sign Up for CryptoTask",
+      "button_loading": "Saving...",
+      "terms_label": "By clicking “Sign up for CryptoTask”, you agree to our Terms of Service and Privacy Statement. We’ll occasionally send you account related emails.",
+      "password_description": "Please choose a strong password (indicator to at least 4 green bars).",
+      "success_notification": "You are registered. Please check your email for confirmation"
+    }
+  },
+  "client_profile": {
+    "image_label": "Add profile image",
+    "image_title": "Profile image",
+    "basic_info_title": "Basic Info",
+    "name": "Your/Company name",
+    "location": "Location",
+    "bio": "About me",
+    "button_label": "Save profile",
+    "button_loading": "Saving...",
+    "success_notification": "Your profile is saved"
+  },
+  "tasks": {
+    "no_tasks": "No tasks available...",
+    "form": {
+      "title": "Post new job",
+      "warning": "Client data must be set to be able to create new task",
+      "job_title": "Job title",
+      "job_label": "Title",
+      "job_duration": "Job duration",
+      "duration": "Duration",
+      "days": "days",
+      "negotiable": "Negotiable",
+      "job_value": "Job value",
+      "value": "Value",
+      "job_type": "Job type",
+      "type": "Type",
+      "job_location": "Job location",
+      "location": "Location",
+      "categories_label": "Task categories",
+      "select_categories": "Select categories",
+      "skills_label": "Required skills",
+      "select_skills": "Select skills",
+      "description": "Description",
+      "button_label": "Post job",
+      "button_loading": "Saving...",
+      "success_notification": "Task saved successfully. It will be reviewed and published in next 24 hours.",
+      "error_notification": "Task save failed.",
+      "fulltime": "Full Time",
+      "parttime": "Part Time",
+      "onetime": "One Time",
+      "onsite": "On Site",
+      "remote": "Remote",
+      "edit_job": "Edit job"
+    }
+  },
+  "freelancer_info": {
+    "invite_button": "Invite to Job",
+    "bio": "Bio",
+    "projects": "Projects",
+    "experience": "Experience",
+    "feedbacks": "Feedbacks"
+  },
+  "freelancers_search": {
+    "nothing": "No freelancers available...",
+    "search": "Search",
+    "select_category": "Select category",
+    "select_skills": "Select skill",
+    "in": "in"
+  }
+}

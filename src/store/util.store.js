@@ -4,6 +4,7 @@ import apiService from '../services/api.service';
 const initialState = {
   skills: [],
   languages: [],
+  currentLanguage: 'en',
 };
 
 const actions = {
@@ -51,6 +52,15 @@ const mutations = {
    */
   setLanguages(state, languages) {
     state.languages = languages;
+  },
+
+  /**
+   * Set language
+   * @param state
+   * @param {String} language
+   */
+  setLanguage(state, language) {
+    state.currentLanguage = language;
   },
 };
 

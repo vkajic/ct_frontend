@@ -2,8 +2,8 @@
   <b-form @submit.prevent="save">
     <div class="row">
       <div class="col-12 col-lg-4 d-flex justify-content-center">
-        <image-uploader label="Add profile image"
-                        title="Profile image"
+        <image-uploader :label="$t('client_profile.image_label')"
+                        :title="$t('client_profile.image_title')"
                         class="image-uploader-basic mb-5"
                         @input="avatarAdded"
                         :value="form.avatar"
@@ -12,30 +12,30 @@
                         :options="avatarOptions"/>
       </div>
       <div class="col-12 col-lg-8">
-        <h1 class="d-none d-lg-block mb-5">Basic Info</h1>
+        <h1 class="d-none d-lg-block mb-5">{{$t('client_profile.basic_info_title')}}</h1>
         <input-group name="name"
                      class="mb-3"
                      v-model="form.name"
-                     placeholder="Your/Company name"
-                     label="Name"
+                     :placeholder="$t('client_profile.name')"
+                     :label="$t('client_profile.name')"
                      :validation="$v.form.name"/>
 
         <input-group name="location"
                      class="mb-3"
                      v-model="form.location"
-                     placeholder="Location"
-                     label="Location"/>
+                     :placeholder="$t('client_profile.location')"
+                     :label="$t('client_profile.location')"/>
 
         <wysiwyg-textarea-group class="mb-4"
                                 v-model="form.about"
-                                label="About me"/>
+                                :label="$t('client_profile.bio')"/>
 
         <div class="pt-5 d-flex flex-column flex-lg-row
         justify-content-center justify-content-lg-end
         align-items-center">
           <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
-            <template v-if="!saving">Save profile</template>
-            <template v-if="saving">Saving...</template>
+            <template v-if="!saving">{{$t('client_profile.button_label')}}</template>
+            <template v-if="saving">{{$t('client_profile.button_loading')}}</template>
           </b-button>
         </div>
 
@@ -111,7 +111,7 @@ export default {
           this.saving = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'success',
-            text: 'Your profile is saved',
+            text: this.$t('client_profile.success_notification'),
           });
           if (this.redirectAfterSave) {
             this.$router.replace('/freelancers');

@@ -16,7 +16,7 @@
       <lazy-loader :visible="lazyLoading"/>
 
       <div class="h1 mb-4" v-if="!tasks.length && !loading">
-        No tasks available...
+        {{$t('tasks.no_tasks')}}
       </div>
     </div>
   </div>

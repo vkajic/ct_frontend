@@ -10,6 +10,8 @@ export default {
     // load static data
     this.$store.dispatch('util/getSkills');
     this.$store.dispatch('util/getLanguages');
+
+    this.$i18n.locale = this.$route.params.lang;
   },
 };
 </script>

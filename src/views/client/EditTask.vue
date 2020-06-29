@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12 col-lg-9">
       <paper>
-        <task-form :task="task" title="Edit job"/>
+        <task-form :task="task" :title="$t('tasks.form.edit_job')"/>
       </paper>
     </div>
   </div>

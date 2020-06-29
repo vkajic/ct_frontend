@@ -16,7 +16,7 @@
       <lazy-loader :visible="lazyLoading"/>
 
       <div class="h1 mb-4" v-if="!freelancers.length && !loading">
-        No freelancers available...
+        {{$t('freelancers_search.nothing')}}
       </div>
     </div>
   </div>

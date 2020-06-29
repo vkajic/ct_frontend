@@ -9,7 +9,7 @@
           <chat-history class="mt-5" v-if="loggedIn && showChat"/>
         </div>
         <div class="col-12 col-lg-9">
-          <router-view/>
+          <slot/>
           <loading-overlay :visible="loading"/>
         </div>
       </div>

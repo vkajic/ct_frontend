@@ -1,6 +1,6 @@
 <template>
   <div class="auth-form">
-    <h1 class="h1-sm mb-5 text-center text-lg-left">Sign Up.</h1>
+    <h1 class="h1-sm mb-5 text-center text-lg-left">{{$t('auth.sign_up.title')}}</h1>
 
     <b-form @submit.prevent="register">
       <b-form-group>
@@ -8,23 +8,23 @@
           v-model="form.email"
           type="email"
           size="lg"
-          placeholder="Email"
+          :placeholder="$t('auth.sign_up.email')"
           :state="$v.form.email.$dirty ? !$v.form.email.$error : null"/>
       </b-form-group>
 
       <b-form-group>
         <template slot="description">
-          <div class="font-12-sm">{{passwordDescription}}</div>
+          <div class="font-12-sm">{{$t('auth.sign_up.password_description')}}</div>
         </template>
 
         <b-form-input
           v-model="form.password"
           type="password"
           size="lg"
-          placeholder="Password"
+          :placeholder="$t('auth.sign_up.password')"
           :state="$v.form.password.$dirty ? !$v.form.password.$error : null"/>
         <password v-model="form.password" :strength-meter-only="true"/>
-        <validation-messages title="Password" :validation="$v.form.password"/>
+        <validation-messages :title="$t('auth.sign_up.password')" :validation="$v.form.password"/>
       </b-form-group>
 
       <b-form-group>
@@ -32,20 +32,19 @@
           v-model="form.passwordConfirmation"
           type="password"
           size="lg"
-          placeholder="Password Confirmation"
+          :placeholder="$t('auth.sign_up.password_confirmation')"
           :state="$v.form.passwordConfirmation.$dirty
           ? !$v.form.passwordConfirmation.$error : null"/>
       </b-form-group>
 
       <b-button type="submit" size="lg" block variant="primary" class="mb-3" :disabled="sending">
-        <template v-if="!sending">Sign Up for CryptoTask</template>
-        <template v-if="sending">Saving...</template>
+        <template v-if="!sending">{{$t('auth.sign_up.button_label')}}</template>
+        <template v-if="sending">{{$t('auth.sign_up.button_loading')}}</template>
       </b-button>
 
       <p class="text-muted">
         <small class="font-12-sm">
-          By clicking “Sign up for CryptoTask”, you agree to our Terms of Service
-          and Privacy Statement. We’ll occasionally send you account related emails.
+          {{$t('auth.sign_up.terms_label')}}
         </small>
       </p>
     </b-form>
@@ -78,7 +77,6 @@ export default {
     return {
       form: Object.assign({}, initialForm),
       sending: false,
-      passwordDescription: 'Please choose a strong password (indicator to at least 4 green bars).',
     };
   },
   validations: {
@@ -118,13 +116,13 @@ export default {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'success',
-            text: 'You are registered. Please check your email for confirmation',
+            text: this.$t('auth.sign_up.success_notification'),
           });
         } catch (err) {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',
-            text: `Something went wrong. ${err.response.data.message}`,
+            text: err.response.data.message,
           });
         }
       }

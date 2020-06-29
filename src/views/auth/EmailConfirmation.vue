@@ -6,7 +6,7 @@
           {{error}}
         </b-alert>
 
-        <span v-if="!error">We are confirming your email address. Please hold!</span>
+        <span v-if="!error">{{$t('auth.confirmation.loading')}}</span>
       </b-card>
     </div>
   </div>
@@ -31,7 +31,7 @@ export default {
         .then(() => {
           this.error = null;
           this.$store.dispatch('ui/showNotification', {
-            text: 'Email successfully confirmed. Please login with your credentials.',
+            text: this.$t('auth.confirmation.confirmed'),
             type: 'success',
           });
           this.$router.replace('/login');
