@@ -135,7 +135,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: this.$t('tasks.form.title'),
+      default: '',
     },
     task: {
       type: Object,
@@ -273,6 +273,9 @@ export default {
 
         try {
           if (!this.task || !this.task.id) {
+            this.form = Object.assign({}, this.form, {
+              languageId: this.$store.getters['util/getCurrentLanguage'].id,
+            });
             await this.$store.dispatch('tasks/create', this.form);
             this.form = Object.assign({}, initialForm);
           } else {

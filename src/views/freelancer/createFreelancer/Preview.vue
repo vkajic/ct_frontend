@@ -8,8 +8,8 @@
                     @click="publish"
                     :disabled="publishing"
                     v-if="!freelancer.published">
-            <template v-if="!publishing">Publish profile</template>
-            <template v-else>Publishing profile...</template>
+            <template v-if="!publishing">{{ $t('freelancers.publish_button') }}</template>
+            <template v-else>{{ $t('freelancers.publish_button_loading') }}</template>
           </b-button>
         </template>
       </basic-info-preview>
@@ -18,11 +18,11 @@
     <div class="row">
       <div class="col-12 col-lg-6 offset-lg-3">
         <b-tabs content-class="py-4">
-          <b-tab title="My profile" active>
+          <b-tab :title="$t('freelancers.my_profile')" active>
             {{freelancer.bio}}
           </b-tab>
-          <b-tab title="Projects"></b-tab>
-          <b-tab title="Experience">
+          <b-tab :title="$t('freelancers.projects')"></b-tab>
+          <b-tab :title="$t('freelancers.experience')">
             <experience-preview :items="freelancer.workExperiences"/>
           </b-tab>
         </b-tabs>
@@ -63,7 +63,7 @@ export default {
       this.publishing = false;
       this.$store.dispatch('ui/showNotification', {
         type: 'success',
-        text: 'Profile successfully published',
+        text: this.$t('freelancers.publish_success'),
       });
       this.$router.replace('/');
     },

@@ -1,15 +1,17 @@
 <template>
   <div class="task-details">
-    <h5 class="d-none d-lg-block mb-4">Project details</h5>
+    <h5 class="d-none d-lg-block mb-4">{{$t('tasks.details.title')}}</h5>
     <slot name="buttons"/>
     <div>
       <div class="detail d-flex align-items-center">
         <check-square-icon size="20" class="mr-3"/>
         <div>
           <div class="small-heading">
-            POSTED
+            {{$t('tasks.details.posted_label')}}
           </div>
-          <strong>Posted on {{task.createdAt | date('MMM Do, YYYY')}}</strong>
+          <strong>
+            {{$t('tasks.details.posted_on')}} {{task.createdAt | date('MMM Do, YYYY')}}
+          </strong>
         </div>
       </div>
 
@@ -21,9 +23,9 @@
         <map-pin-icon size="20" class="mr-3"/>
         <div>
           <div class="small-heading">
-            LOCATION
+            {{$t('tasks.details.location')}}
           </div>
-          <strong>{{task.location === 'onsite' ? 'On Site' : 'Remote'}}</strong>
+          <strong>{{$t('tasks.details.' + task.location)}}</strong>
         </div>
       </div>
 
@@ -31,10 +33,9 @@
         <tag-icon size="20" class="mr-3"/>
         <div>
           <div class="small-heading">
-            TYPE
+            {{$t('tasks.details.type')}}
           </div>
-          <strong>{{task.type === 'fulltime' ? 'Full Time' : task.type === 'parttime' ? 'Part Time'
-            : 'One Time'}}</strong>
+          <strong>{{$t('tasks.details.' + task.type)}}</strong>
         </div>
       </div>
     </div>

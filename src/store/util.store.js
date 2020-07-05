@@ -4,7 +4,7 @@ import apiService from '../services/api.service';
 const initialState = {
   skills: [],
   languages: [],
-  currentLanguage: 'en',
+  activeLanguage: 'en',
 };
 
 const actions = {
@@ -33,6 +33,18 @@ const actions = {
       commit('setLanguages', languages.data.data);
     }
   },
+
+  /**
+   * Set active language
+   * @param commit
+   * @param language
+   * @return {Promise<void>}
+   */
+  async setActiveLanguage({ commit }, language) {
+    localStorage.setItem('language', language);
+    apiService.setHeader();
+    commit('setActiveLanguage', language);
+  },
 };
 
 const mutations = {
@@ -55,12 +67,14 @@ const mutations = {
   },
 
   /**
-   * Set language
+   * Set currently active language
    * @param state
-   * @param {String} language
+   * @param language
    */
-  setLanguage(state, language) {
-    state.currentLanguage = language;
+  setActiveLanguage(state, language) {
+    if (state.activeLanguage !== language) {
+      state.activeLanguage = language;
+    }
   },
 };
 
@@ -77,6 +91,15 @@ const getters = {
     });
 
     return skills;
+  },
+
+  /**
+   * Get currently active language record
+   * @param state
+   * @return {Object}
+   */
+  getCurrentLanguage(state) {
+    return state.languages.find(l => l.code === state.activeLanguage);
   },
 };
 

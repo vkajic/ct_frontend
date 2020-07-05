@@ -1,26 +1,26 @@
 <template>
   <div>
-    <h1 class="mb-5 d-none d-lg-block">My skills & services</h1>
+    <h1 class="mb-5 d-none d-lg-block">{{ $t('freelancers.my_skills') }}</h1>
 
     <b-form @submit.prevent="save">
-      <input-tags label="Roles I'm interested in"
+      <input-tags :label="$t('freelancers.roles_interested')"
                   class="mb-3"
                   v-model="form.categories"
                   :options="categories"
-                  placeholder="Select roles"
+                  :placeholder="$t('freelancers.select_roles')"
                   options-label="name"
                   :validation="$v.form.categories"/>
 
-      <input-tags label="Skills"
+      <input-tags :label="$t('freelancers.skills')"
                   class="mb-3"
                   v-model="form.skills"
-                  placeholder="Select skills"
+                  :placeholder="$t('freelancers.select_skills')"
                   :options="skills"
                   options-label="name"
                   :validation="$v.form.skills"/>
 
       <funnel-buttons :saving="saving"
-                      submit-text="Next: Work experience"/>
+                      :submit-text="$t('freelancers.next_experience')"/>
     </b-form>
   </div>
 </template>

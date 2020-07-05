@@ -24,7 +24,7 @@
            @change="uploadFiles($event.target.files)"/>
 
     <button type="submit" class="btn btn-round submit m-0 ml-2 mr-1" :disabled="uploading">
-      Send
+      {{$t('chat.send')}}
     </button>
   </b-form>
 </template>
@@ -32,8 +32,6 @@
 <script>
 import { PaperclipIcon } from 'vue-feather-icons';
 import apiService from '../../../services/api.service';
-
-const DEFAULT_PLACEHOLDER = 'Enter message';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -154,7 +152,7 @@ export default {
       if (this.uploading) {
         return `${this.uploadPercentage}% uploading...`;
       }
-      return DEFAULT_PLACEHOLDER;
+      return this.$t('chat.input_placeholder');
     },
 
     /**

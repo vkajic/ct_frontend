@@ -2,10 +2,10 @@
   <div class="short-job-item">
     <div class="d-flex align-items-center mb-2">
       <div class="active-since" v-if="task.published">
-        Published {{task.createdAt | date('MMM Do')}}
+        {{$t('tasks.published')}} {{task.createdAt | date('MMM Do')}}
       </div>
       <b-badge variant="danger" v-if="!task.published">
-        Unpublished
+        {{$t('tasks.unpublished')}}
       </b-badge>
     </div>
     <h2>

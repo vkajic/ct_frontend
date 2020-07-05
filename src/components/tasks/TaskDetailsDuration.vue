@@ -3,7 +3,7 @@
     <calendar-icon size="20" class="mr-3"/>
     <div>
       <div class="small-heading">
-        DURATION
+        {{$t('tasks.details.duration')}}
       </div>
       <task-duration :task="task"/>
     </div>

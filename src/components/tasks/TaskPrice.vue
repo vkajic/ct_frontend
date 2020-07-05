@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="price" v-if="!task.negotiablePrice">${{task.price}}</div>
-    <div class="price" v-else>Negotiable</div>
+    <div class="price" v-else>{{$t('tasks.details.negotiable')}}</div>
   </div>
 </template>
 

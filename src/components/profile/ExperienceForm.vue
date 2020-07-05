@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1 class="mb-5 d-none d-lg-block">Work experience</h1>
+    <h1 class="mb-5 d-none d-lg-block">{{ $t('freelancers.work_experience_title') }}</h1>
     <b-form @submit.prevent="save">
       <wysiwyg-textarea-group class="mb-5"
                               v-model="resume"
-                              label="Resume"/>
+                              :label="$t('freelancers.resume')"/>
 
       <hr class="mb-5 d-block">
 
@@ -12,26 +12,26 @@
         <input-group name="company"
                      class="mb-3"
                      v-model="item.company.$model"
-                     placeholder="Company name"
-                     label="Company"
+                     :placeholder="$t('freelancers.company_name')"
+                     :label="$t('freelancers.company')"
                      :validation="item.company"/>
 
         <input-group name="title"
                      class="mb-3"
                      v-model="item.title.$model"
-                     placeholder="Job title"
-                     label="Job title"
+                     :placeholder="$t('freelancers.job_title')"
+                     :label="$t('freelancers.job_title')"
                      :validation="item.title"/>
 
         <div class="mb-3">
-          <label>When have you worked there</label>
+          <label>{{ $t('freelancers.when_worked') }}</label>
           <b-input-group>
-            <datepicker placeholder="From"
+            <datepicker :placeholder="$t('freelancers.from')"
                         name="from"
                         :bootstrap-styling="true"
                         :monday-first="true"
                         v-model="item.from.$model"/>
-            <datepicker placeholder="To"
+            <datepicker :placeholder="$t('freelancers.to')"
                         name="to"
                         :bootstrap-styling="true"
                         :monday-first="true"
@@ -40,7 +40,7 @@
           </b-input-group>
         </div>
 
-        <wysiwyg-textarea-group label="Description"
+        <wysiwyg-textarea-group :label="$t('freelancers.description')"
                                 v-model="item.description.$model"
                                 class="mb-5"/>
 
@@ -48,10 +48,8 @@
       </div>
 
       <div>
-        <a href="#" @click="addExperience"><u>Add work experience</u></a><br>
-        <small class="text-muted">
-          Not required but recommended to enter at least last three positions
-        </small>
+        <a href="#" @click="addExperience"><u>{{ $t('freelancers.add_experience') }}</u></a><br>
+        <small class="text-muted">{{ $t('freelancers.experience_text') }}</small>
       </div>
 
       <funnel-buttons :skip-url="skipUrl"
@@ -66,7 +64,6 @@ import { required } from 'vuelidate/src/validators';
 import Datepicker from 'vuejs-datepicker/src/components/Datepicker.vue';
 import InputGroup from '../form/InputGroup.vue';
 import ValidationMessages from '../form/ValidationMessages.vue';
-import TextareaGroup from '../form/TextareaGroup.vue';
 import FunnelButtons from './FunnelButtons.vue';
 import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
 
@@ -84,7 +81,6 @@ export default {
   components: {
     WysiwygTextareaGroup,
     FunnelButtons,
-    TextareaGroup,
     ValidationMessages,
     Datepicker,
     InputGroup,
@@ -155,7 +151,7 @@ export default {
           } else {
             this.$store.dispatch('ui/showNotification', {
               type: 'success',
-              text: 'Previous experience saved',
+              text: this.$t('freelancers.experience_saved'),
             });
           }
         } catch (err) {

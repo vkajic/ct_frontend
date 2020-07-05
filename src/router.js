@@ -362,27 +362,34 @@ router.beforeEach(async (to, from, next) => {
 
   // init users data
   try {
+    await store.dispatch('util/setActiveLanguage', defaultLang);
     await store.dispatch('user/init');
     const role = store.state.user.activeRole;
 
     if (to.meta.forbidAccess && role === to.meta.forbidAccess) {
+      console.log('router 1');
       next({
         path: langRoute,
       });
     } else if (to.fullPath !== redirectTo) {
+      console.log('router 2');
       next({ path: redirectTo });
     } else {
+      console.log('router 3');
       next();
     }
   } catch (err) {
     if (to.meta.requiresAuth && to.meta.layout !== 'auth') {
+      console.log('router 4');
       next({
         path: `${langRoute}/login`,
         query: { redirect: to.path, ...to.query },
       });
     } else if (to.fullPath !== redirectTo) {
+      console.log('router 5');
       next({ path: redirectTo });
     } else {
+      console.log('router 6');
       next();
     }
   }

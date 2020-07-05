@@ -6,9 +6,9 @@
 
       <div v-if="!tasks.length && !loading">
         <div class="h1 mb-4">
-          You have no tasks atm...
+          {{$t('tasks.no_my_tasks')}}
         </div>
-        <router-link to="/create-task"><u>Create</u></router-link>
+        <router-link to="/create-task"><u>{{$t('tasks.create')}}</u></router-link>
       </div>
     </div>
   </div>

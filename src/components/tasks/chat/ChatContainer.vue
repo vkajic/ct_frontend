@@ -1,7 +1,9 @@
 <template>
   <div class="chat-container d-flex flex-column">
     <div class="messages flex-grow-1 mb-3" @scroll="onScroll" ref="messagesContainer">
-      <div class="loading text-center p-2" v-if="loading">Loading...</div>
+      <div class="loading text-center p-2" v-if="loading">
+        {{$t('chat.loading')}}
+      </div>
       <!--<p v-if="!messages.length">Send your first message!</p>-->
       <b-alert class="chat-container__alert"
                v-if="showAlert"
@@ -9,8 +11,8 @@
                show
                dismissible
                fade>
-          <alert-triangle-icon size="1.5x"></alert-triangle-icon>
-          Don't start working until you have been hired!
+        <alert-triangle-icon size="1.5x"></alert-triangle-icon>
+        {{$t('chat.warning')}}
       </b-alert>
       <chat-message v-for="message in messages"
                     :message="message"

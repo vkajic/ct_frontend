@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12 col-lg-9">
       <paper>
-        <task-form/>
+        <task-form :title="$t('tasks.form.title')"/>
       </paper>
     </div>
   </div>

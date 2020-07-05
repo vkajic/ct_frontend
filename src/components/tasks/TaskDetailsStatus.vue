@@ -3,7 +3,7 @@
     <plus-square-icon size="20" class="mr-3"/>
     <div>
       <div class="small-heading">
-        STATUS
+        {{$t('tasks.details.status')}}
       </div>
       <strong>{{status}}</strong>
     </div>
@@ -28,9 +28,9 @@ export default {
   computed: {
     status() {
       const mapping = {
-        0: 'Accepting applications',
-        1: 'Filled',
-        2: 'Accepting applications',
+        0: this.$t('tasks.details.status_0'),
+        1: this.$t('tasks.details.status_1'),
+        2: this.$t('tasks.details.status_2'),
       };
 
       return mapping[this.task.status];

@@ -3,8 +3,8 @@
     <div class="d-flex align-items-center justify-content-between mb-2">
       <div class="client-name">{{application.client.name}}</div>
       <div class="published-date">
-        Published {{application.task.createdAt | date('MMM Do')}} |
-        Applied {{application.createdAt | date('MMM Do')}}
+        {{$t('freelancers.published')}} {{application.task.createdAt | date('MMM Do')}} |
+        {{$t('freelancers.applied')}} {{application.createdAt | date('MMM Do')}}
       </div>
     </div>
     <div class="d-flex align-items-center mb-2">

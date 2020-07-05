@@ -5,7 +5,7 @@
       class="btn-info--grey btn-round btn-secondary mb-4"
       v-if="buttonVisible"
       @click="close">
-      Close job
+      {{$t('tasks.details.close_button')}}
     </b-button>
   </div>
 </template>

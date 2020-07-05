@@ -17,17 +17,17 @@
       </div>
       <div class="col-12 col-lg-7 order-lg-1">
         <b-tabs :value="selectedTab" nav-class="my-task-tabs" @input="selectTab">
-          <b-tab title="Description" class="py-4">
+          <b-tab :title="$t('common.description')" class="py-4">
             <template v-slot:title>
-              <span class="nav-link__title">Description</span>
+              <span class="nav-link__title">{{$t('common.description')}}</span>
               <clipboard-icon class="nav-link__icon" size="1.5x"></clipboard-icon>
             </template>
               <task-details :task="task" :applicable="false" class="d-lg-none mb-4"/>
               <task-description :description="task.description"/>
           </b-tab>
-          <b-tab title="Freelancers" class="pt-3">
+          <b-tab :title="$t('common.freelancers')" class="pt-3">
             <template v-slot:title>
-              <span class="nav-link__title">Freelancers</span>
+              <span class="nav-link__title">{{$t('common.freelancers')}}</span>
               <users-icon class="nav-link__icon" size="1.5x"></users-icon>
             </template>
             <div v-if="task.applications">
@@ -42,14 +42,16 @@
             </div>
             <div v-if="!task.applications || !task.applications.length">
               <div class="h1 mb-4">
-                You have no applications for this task atm...
+                {{$t('applications.no_applications')}}
               </div>
-              <router-link to="/freelancers"><u>Browse freelancers</u></router-link>
+              <router-link to="/freelancers"><u>
+                {{$t('tasks.details.browse_freelancers')}}
+              </u></router-link>
             </div>
           </b-tab>
-          <b-tab title="Messages">
+          <b-tab :title="$t('applications.messages')">
             <template v-slot:title>
-              <span class="nav-link__title">Messages</span>
+              <span class="nav-link__title">{{$t('applications.messages')}}</span>
               <message-circle-icon class="nav-link__icon" size="1.5x"></message-circle-icon>
             </template>
             <client-threads :task-id="task.id" class="pt-3" @select="goToMessages"/>
@@ -77,7 +79,7 @@
                      <chevron-down-icon size="1x"></chevron-down-icon>
                   </template>
                 <b-dropdown-item>
-                  <b-button>Cancel</b-button>
+                  <b-button>{{$t('common.cancel')}}</b-button>
                 </b-dropdown-item>
               </b-dropdown>
             </div>

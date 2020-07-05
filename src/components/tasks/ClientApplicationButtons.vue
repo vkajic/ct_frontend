@@ -4,33 +4,33 @@
               class="btn-round mr-3"
               @click="reply"
               v-if="replyEnabled">
-      Reply
+      {{$t('applications.reply')}}
     </b-button>
     <b-button variant="info"
               class="btn-round mr-3"
               @click="hire"
               v-if="hireEnabled"
               :disabled="hiring">
-      {{hiring ? 'Hiring...' : 'Hire'}}
+      {{hiring ? $t('applications.hire_loading') : $t('applications.hire')}}
     </b-button>
     <b-button variant="info"
               class="btn-round mr-3"
               @click="leaveFeedback(2)"
               v-if="completeEnabled">
-      Complete
+      {{$t('applications.complete')}}
     </b-button>
 
     <b-button class="btn-round"
               @click="leaveFeedback(3)"
               v-if="completeEnabled">
-      Cancel
+      {{$t('applications.cancel')}}
     </b-button>
 
     <b-button variant="info"
               class="btn-round"
               @click="leaveFeedback(null)"
               v-if="leaveFeedbackEnabled">
-      Leave feedback
+      {{$t('applications.leave_feedback')}}
     </b-button>
   </div>
 </template>

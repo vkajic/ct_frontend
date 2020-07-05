@@ -13,11 +13,11 @@
             <application-status-badge :application="application"/>
           </div>
           <div class="freelancer-occupation">
-            {{freelancer.occupation}} in {{freelancer.location}}
+            {{freelancer.occupation}} {{$t('applications.in')}} {{freelancer.location}}
           </div>
           <div class="freelancer-meta">
             {{matchingSkills.length}}/{{this.task.skills.length}}
-            skills required
+            {{$t('applications.skills_required')}}
           </div>
         </div>
       </div>

@@ -77,7 +77,7 @@ export default {
         // show toast
         await this.$store.dispatch('ui/showNotification', {
           type: 'success',
-          text: 'You applied for this task',
+          text: this.$t('freelancers.apply_success'),
         });
         await this.$router.push(`/applications/${this.application.id}`);
         this.applied = true;

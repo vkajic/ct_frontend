@@ -5,7 +5,7 @@
               class="btn-round mb-4"
               v-if="buttonVisible"
               @click="reopen">
-      Reopen job
+      {{$t('tasks.details.reopen_button')}}
     </b-button>
   </div>
 </template>

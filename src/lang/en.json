@@ -1,4 +1,11 @@
 {
+  "common": {
+    "description": "Description",
+    "freelancers": "Freelancers",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "browse": "Browse"
+  },
   "auth": {
     "info": {
       "why_cryptotask": "Why Cryptotask",
@@ -64,10 +71,17 @@
     "bio": "About me",
     "button_label": "Save profile",
     "button_loading": "Saving...",
-    "success_notification": "Your profile is saved"
+    "success_notification": "Your profile is saved",
+    "published_tasks": "Published Tasks",
+    "feedbacks": "Feedbacks"
   },
   "tasks": {
     "no_tasks": "No tasks available...",
+    "no_my_tasks": "You have no tasks atm...",
+    "create": "Create",
+    "sort": "Sort",
+    "published": "Published",
+    "unpublished": "Unpublished",
     "form": {
       "title": "Post new job",
       "warning": "Client data must be set to be able to create new task",
@@ -98,6 +112,35 @@
       "onsite": "On Site",
       "remote": "Remote",
       "edit_job": "Edit job"
+    },
+    "details": {
+      "title": "Project details",
+      "posted_label": "POSTED",
+      "posted_on": "Posted on",
+      "location": "LOCATION",
+      "type": "TYPE",
+      "fulltime": "Full Time",
+      "parttime": "Part Time",
+      "onetime": "One Time",
+      "onsite": "On Site",
+      "remote": "Remote",
+      "edit": "Edit",
+      "delete": "Delete",
+      "delete_confirmation": "Are you sure you want to delete this task?",
+      "delete_success": "Task deleted successfully!",
+      "status": "STATUS",
+      "status_0": "Accepting applications",
+      "status_1": "Filled",
+      "status_2": "Accepting applications",
+      "duration": "DURATION",
+      "negotiable": "Negotiable",
+      "days": "days",
+      "value": "VALUE",
+      "reopen_button": "Reopen job",
+      "close_button": "Close job",
+      "required_skills": "Skills Required",
+      "browse_freelancers": "Browse freelancers",
+      "no_applications": "No applications for this task."
     }
   },
   "freelancer_info": {
@@ -113,5 +156,128 @@
     "select_category": "Select category",
     "select_skills": "Select skill",
     "in": "in"
+  },
+  "applications": {
+    "no_applications": "You have no applications for this task atm...",
+    "completed": "Completed",
+    "canceled": "Canceled",
+    "in": "in",
+    "skills_required": "skills required",
+    "reply": "Reply",
+    "hire_loading": "Hiring...",
+    "hire": "Hire",
+    "complete": "Complete",
+    "cancel": "Cancel",
+    "leave_feedback": "Leave feedback",
+    "messages": "Messages"
+  },
+  "chat": {
+    "loading": "Loading...",
+    "warning": "Don't start working until you have been hired!",
+    "send": "Send",
+    "input_placeholder": "Enter message",
+    "is_typing": "is typing..."
+  },
+  "feedback": {
+    "form_title": "Leave your feedback",
+    "rate": "Rate",
+    "comment": "Comment",
+    "saving": "Saving...",
+    "save": "Save"
+  },
+  "newsletter": {
+    "unsubscribe_title": "Please wait, we are unsubscribing you!",
+    "unsubscribed": "<h1>Unsubscribed!</h1><p>We are sorry to hear this but you are unsubscribed from all CryptoTask newsletters.</p><p>If you wish to subscribe again please set it in your settings.</p><p><strong>CryptoTask Team</strong></p>",
+    "unsubscribe_error": "<h1>Error!</h1><p>Something went wrong.</p><p>{error}</p><p>If this continues to happen please contact us.</p><p><strong>CryptoTask Team</strong></p>",
+    "setting_title": "Email subscription",
+    "checkbox_label": "Subscribed",
+    "button_label": "Update preferences",
+    "button_loading": "Updating...",
+    "update_success": "Your email subscription preferences changed"
+  },
+  "users": {
+    "remove_title": "Remove user profile",
+    "confirm_remove": "Confirm profile removal",
+    "remove_button_label": "Remove profile",
+    "remove_button_loading": "Deleting...",
+    "remove_confirmation": "Are you sure you want to delete your user profile?",
+    "remove_success": "Your profile has been deleted successfully!"
+  },
+  "freelancers": {
+    "publish_button_loading": "Publishing...",
+    "publish_button_label": "Publish profile",
+    "projects": "Projects",
+    "button_save_projects": "Save projects",
+    "experience": "Experience",
+    "basic_info": "Basic Info",
+    "save_experience": "Save experience",
+    "image_label": "Add profile image",
+    "image_title": "Profile image",
+    "name": "Name",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "occupation": "Occupation",
+    "occupation_label": "What’s your occupation",
+    "location": "Location",
+    "travel": "Open to travel for the right opportunity",
+    "about": "About me",
+    "web_presence": "Web presence",
+    "next_skills": "Next: Set skills & services",
+    "work_experience_title": "Work experience",
+    "resume": "Resume",
+    "company_name": "Company name",
+    "company": "Company",
+    "job_title": "Job title",
+    "when_worked": "When have you worked there",
+    "from": "From",
+    "to": "To",
+    "description": "Description",
+    "add_experience": "Add work experience",
+    "experience_text": "Not required but recommended to enter at least last three positions",
+    "experience_saved": "Previous experience saved",
+    "publish_button": "Publish profile",
+    "my_profile": "My profile",
+    "present": "Present",
+    "publish_success": "Profile successfully published",
+    "add_cover": "Add cover image",
+    "cover": "Cover",
+    "project_title": "Project Title",
+    "add_images": "Add images",
+    "project_link": "Project link",
+    "tags_label": "Mobile app, Android, iOS",
+    "tags": "Tags",
+    "add_project": "Add project",
+    "skip": "Skip for now",
+    "saving": "Saving...",
+    "project_saved": "Projects saved",
+    "my_skills": "My skills & services",
+    "roles_interested": "Roles I'm interested in",
+    "select_roles": "Select roles",
+    "skills": "Skills",
+    "select_skills": "Select skills",
+    "next_experience": "Next: Work experience",
+    "apply_for_job": "Apply for job",
+    "cancel_job": "Cancel job",
+    "leave_feedback": "Leave feedback",
+    "published_warning": "Task applications are only enabled for freelancers with published profiles. Please publish your profile.",
+    "go_to_profile": "Go To Profile",
+    "message": "Message",
+    "project_details": "Project details",
+    "messages": "Messages",
+    "application_completed_message": "Application completed and feedback saved successfully",
+    "no_active_jobs": "You have no active jobs atm...",
+    "published": "Published",
+    "applied": "Applied",
+    "apply_success": "You applied for this task"
+  },
+  "404": {
+    "not_found": "Page or resource not found!",
+    "back": "Back to home"
+  },
+  "skills": {
+
+  },
+  "categories": {
+
   }
 }

@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h1 class="mb-5 d-none d-lg-block">Projects</h1>
+    <h1 class="mb-5 d-none d-lg-block">{{ $t('freelancers.projects') }}</h1>
 
     <b-form @submit.prevent="save" class="m-0">
       <div v-for="(item, index) in $v.items.$each.$iter" :key="index">
         <div class="row">
           <div class="col-12 col-lg-4 d-flex justify-content-center">
-            <image-uploader label="Add cover image"
+            <image-uploader :label="$t('freelancers.add_cover')"
                             class="mb-5"
-                            title="Cover"
+                            :title="$t('freelancers.cover')"
                             @input="coverAdded($event, index)"
                             :value="item.cover.$model"
                             type="public"
@@ -18,17 +18,17 @@
             <input-group name="title"
                          class="mb-3"
                          v-model="item.title.$model"
-                         placeholder="Project Title"
-                         label="Title"
+                         :placeholder="$t('freelancers.project_title')"
+                         :label="$t('freelancers.project_title')"
                          :validation="item.title"/>
 
             <textarea-group name="description"
                             class="mb-3"
                             v-model="item.description.$model"
-                            label="Description"
+                            :label="$t('freelancers.description')"
                             :validation="item.description"/>
 
-            <gallery-uploader label="Add images"
+            <gallery-uploader :label="$t('freelancers.add_images')"
                               :value="item.images.$model"
                               type="public"
                               class="mb-3"
@@ -37,15 +37,15 @@
             <input-group name="link"
                          class="mb-3"
                          v-model="item.link.$model"
-                         placeholder="Project link"
-                         label="Link"
+                         :placeholder="$t('freelancers.project_link')"
+                         :label="$t('freelancers.project_link')"
                          :validation="item.link"/>
 
             <input-group name="tags"
                          class="mb-3"
                          v-model="item.tags.$model"
-                         placeholder="Mobile app, Android, iOS"
-                         label="Tags"
+                         :placeholder="$t('freelancers.tags_label')"
+                         :label="$t('freelancers.tags')"
                          :validation="item.tags"/>
           </div>
 
@@ -54,7 +54,7 @@
         <hr class="mb-5 d-block">
       </div>
 
-      <a href="#" @click="addProject"><u>Add project</u></a>
+      <a href="#" @click="addProject"><u>{{ $t('freelancers.add_project') }}</u></a>
 
       <funnel-buttons :skip-url="skipUrl"
                       :saving="saving"
@@ -168,7 +168,7 @@ export default {
           } else {
             this.$store.dispatch('ui/showNotification', {
               type: 'success',
-              text: 'Projects saved',
+              text: this.$t('freelancers.project_saved'),
             });
           }
         } catch (err) {

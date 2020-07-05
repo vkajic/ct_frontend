@@ -1,7 +1,9 @@
 <template>
   <div>
-    <div class="duration" v-if="!task.negotiableDuration">{{task.duration}} days</div>
-    <div class="duration" v-else>Negotiable</div>
+    <div class="duration" v-if="!task.negotiableDuration">
+      {{task.duration}} {{$t('tasks.details.days')}}
+    </div>
+    <div class="duration" v-else>{{$t('tasks.details.negotiable')}}</div>
   </div>
 </template>
 

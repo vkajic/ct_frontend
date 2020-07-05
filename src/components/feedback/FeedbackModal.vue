@@ -3,17 +3,17 @@
            @close="close"
            @cancel="close"
            @hidden="close"
-           title="Leave your feedback"
+           :title="$t('feedback.form_title')"
            :ok-disabled="sending"
            :ok-title="okButtonText"
            @ok.prevent="saveRating">
     <b-form>
-      <star-rate-group label="Rate"
+      <star-rate-group :label="$t('feedback.rate')"
                        class="mb-3"
                        v-model="formData.rate"
                        :validation="$v.formData.rate"/>
 
-      <textarea-group label="Comment"
+      <textarea-group :label="$t('feedback.comment')"
                       v-model="formData.message"
                       :validation="$v.formData.message"/>
     </b-form>
@@ -73,7 +73,7 @@ export default {
      * @return {string}
      */
     okButtonText() {
-      return this.sending ? 'Saving...' : 'Save';
+      return this.sending ? this.$t('feedback.saving') : this.$t('feedback.save');
     },
   },
   methods: {

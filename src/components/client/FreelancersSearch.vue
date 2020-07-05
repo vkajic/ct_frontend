@@ -60,6 +60,9 @@ export default {
     loading() {
       return this.$store.state.ui.mainLoader;
     },
+    language() {
+      return this.$store.state.util.activeLanguage;
+    },
   },
   methods: {
     search(term) {
@@ -92,6 +95,11 @@ export default {
       this.lazyLoading = true;
       await this.$store.dispatch('freelancers/nextFreelancers');
       this.lazyLoading = false;
+    },
+  },
+  watch: {
+    language() {
+      this.runSearch();
     },
   },
 };

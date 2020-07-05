@@ -21,17 +21,17 @@
       </div>
       <div class="col-12 col-lg-7 order-lg-1">
         <b-tabs class="application-freelancer-tabs" :value="selectedTab" @input="selectTab">
-          <b-tab title="Project details" class="py-4">
+          <b-tab :title="$t('freelancers.project_details')" class="py-4">
             <template v-slot:title>
-              <span class="nav-link__title">Description</span>
+              <span class="nav-link__title">{{ $t('freelancers.description') }}</span>
               <clipboard-icon class="nav-link__icon" size="1.5x"></clipboard-icon>
             </template>
             <task-details :task="task" :applicable="false" class="d-lg-none mb-4"/>
             <task-description :description="task.description"/>
           </b-tab>
-          <b-tab title="Messages">
+          <b-tab :title="$t('freelancers.messages')">
             <template v-slot:title>
-              <span class="nav-link__title">Messages</span>
+              <span class="nav-link__title">{{$t('freelancers.messages')}}</span>
               <message-circle-icon class="nav-link__icon" size="1.5x"></message-circle-icon>
             </template>
               <chat-container :task="task" :application="application"/>
@@ -138,7 +138,7 @@ export default {
 
         this.$store.dispatch('ui/showNotification', {
           type: 'success',
-          text: 'Application completed and feedback saved successfully',
+          text: this.$t('freelancers.application_completed_message'),
         });
 
         this.$store.commit('tasks/closeFeedbackModal');

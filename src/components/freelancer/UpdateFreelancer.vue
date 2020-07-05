@@ -8,7 +8,8 @@
                     class="btn-round"
                     :disabled="publishing"
                     @click="publishProfile">
-            {{publishing ? 'Publishing...' : 'Publish profile'}}
+            {{publishing ? $t('freelancers.publish_button_loading') :
+            $t('freelancers.publish_button_label')}}
           </b-button>
         </template>
       </basic-info-preview>
@@ -17,20 +18,20 @@
     <div class="row mb-5">
       <div class="col-12 col-lg-10 offset-lg-1">
         <b-tabs content-class="py-4">
-          <b-tab title="Basic Info" active>
+          <b-tab :title="$t('freelancers.basic_info')" active>
             <update-basic-info :freelancer="freelancer"/>
           </b-tab>
-          <b-tab title="Projects">
+          <b-tab :title="$t('freelancers.projects')">
             <projects-form :freelancer="freelancer"
                            :skip-enabled="false"
                            :redirection-enabled="false"
-                           save-button-text="Save projects"/>
+                           :save-button-text="$t('freelancers.button_save_projects')"/>
           </b-tab>
-          <b-tab title="Experience">
+          <b-tab :title="$t('freelancers.experience')">
             <experience-form :freelancer="freelancer"
                              :skip-enabled="false"
                              :redirection-enabled="false"
-                             save-button-text="Save experience"/>
+                             :save-button-text="$t('freelancers.save_experience')"/>
           </b-tab>
         </b-tabs>
       </div>
