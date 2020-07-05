@@ -1,15 +1,15 @@
 <template>
   <div class="short-task-item">
     <div class="d-flex align-items-center justify-content-between mb-2">
-      <router-link :to="`clients/${taskData.postedById}`" class="client-name font-14-sm">
+      <language-router-link :to="`clients/${taskData.postedById}`" class="client-name font-14-sm">
         {{taskData.postedBy}}
-      </router-link>
+      </language-router-link>
       <div class="published-date">{{taskData.timePosted | date('MMM Do')}}</div>
     </div>
     <h4>
-      <router-link class="font-18-sm" :to="`/tasks/${task._id}`">
+      <language-router-link class="font-18-sm" :to="`/tasks/${task._id}`">
         {{taskData.title}}
-      </router-link>
+      </language-router-link>
     </h4>
     <div class="d-flex align-items-center mb-3">
       <task-duration class="pr-3" :task="taskData"/>
@@ -27,11 +27,13 @@ import { dateFilter } from 'vue-date-fns';
 import TaskTags from './TaskTags.vue';
 import TaskPrice from './TaskPrice.vue';
 import TaskDuration from './TaskDuration.vue';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'SearchTaskItem',
   components: {
+    LanguageRouterLink,
     TaskDuration,
     TaskPrice,
     TaskTags,

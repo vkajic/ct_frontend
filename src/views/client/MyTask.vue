@@ -44,9 +44,9 @@
               <div class="h1 mb-4">
                 {{$t('applications.no_applications')}}
               </div>
-              <router-link to="/freelancers"><u>
+              <language-router-link to="/freelancers"><u>
                 {{$t('tasks.details.browse_freelancers')}}
-              </u></router-link>
+              </u></language-router-link>
             </div>
           </b-tab>
           <b-tab :title="$t('applications.messages')">
@@ -116,11 +116,13 @@ import ReopenTaskButton from '../../components/client/ReopenTaskButton.vue';
 import CloseTaskButton from '../../components/client/CloseTaskButton.vue';
 import ClientApplicationButtons from '../../components/tasks/ClientApplicationButtons.vue';
 import ConfirmHireModal from '../../components/client/ConfirmHireModal.vue';
+import LanguageRouterLink from '../../components/ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MyTask',
   components: {
+    LanguageRouterLink,
     ConfirmHireModal,
     ReopenTaskButton,
     CloseTaskButton,

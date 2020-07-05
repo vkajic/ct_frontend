@@ -4,7 +4,17 @@
     "freelancers": "Freelancers",
     "delete": "Delete",
     "cancel": "Cancel",
-    "browse": "Browse"
+    "browse": "Browse",
+    "browse_jobs": "Browse Jobs",
+    "browse_freelancers": "Browse Freelancers",
+    "post_job": "Post Job",
+    "how_it_works": "How It Works",
+    "login": "Login",
+    "sign_up": "Sign Up",
+    "logout": "Logout",
+    "edit_profile": "Edit Profile",
+    "preview_profile": "Preview Profile",
+    "change_password": "Change password"
   },
   "auth": {
     "info": {
@@ -268,7 +278,11 @@
     "no_active_jobs": "You have no active jobs atm...",
     "published": "Published",
     "applied": "Applied",
-    "apply_success": "You applied for this task"
+    "apply_success": "You applied for this task",
+    "browse_jobs": "Browse jobs",
+    "my_jobs": "My jobs",
+    "applications_sent": "Applications sent",
+    "completed_jobs": "Completed jobs"
   },
   "404": {
     "not_found": "Page or resource not found!",
@@ -279,5 +293,11 @@
   },
   "categories": {
 
+  },
+  "clients": {
+    "browse_freelancers": "Browse freelancers",
+    "my_jobs": "My jobs",
+    "post_job": "Post job",
+    "messages": "Messages"
   }
 }

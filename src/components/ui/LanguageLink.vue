@@ -1,13 +1,15 @@
 <template>
-  <router-link :to="getTo()">
+  <language-router-link :to="getTo()">
     <slot />
-  </router-link>
+  </language-router-link>
 </template>
 
 <script>
 // noinspection JSUnusedGlobalSymbols
+import LanguageRouterLink from './LanguageRouterLink.vue';
 export default {
   name: 'LanguageLink',
+  components: { LanguageRouterLink },
   props: {
     to: {
       type: String,

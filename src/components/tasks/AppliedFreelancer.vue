@@ -7,9 +7,10 @@
                         :options="avatarOptions"/>
         <div>
           <div class="d-flex align-items-center">
-            <router-link :to="`/freelancers/${freelancer.id}`" class="freelancer-name mr-2">
+            <language-router-link :to="`/freelancers/${freelancer.id}`"
+                                  class="freelancer-name mr-2">
               {{freelancer.name}}
-            </router-link>
+            </language-router-link>
             <application-status-badge :application="application"/>
           </div>
           <div class="freelancer-occupation">
@@ -46,11 +47,13 @@ import AvatarDisplay from '../ui/AvatarDisplay.vue';
 import ClientApplicationButtons from './ClientApplicationButtons.vue';
 import ApplicationStatusBadge from './ApplicationStatusBadge.vue';
 import ApplicationFeedback from '../client/ApplicationFeedback.vue';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'AppliedFreelancer',
   components: {
+    LanguageRouterLink,
     ApplicationFeedback,
     ApplicationStatusBadge,
     ClientApplicationButtons,
@@ -97,7 +100,10 @@ export default {
   },
   methods: {
     leaveFeedback(status) {
-      this.$emit('feedback', { application: this.application, status });
+      this.$emit('feedback', {
+        application: this.application,
+        status,
+      });
     },
   },
 };

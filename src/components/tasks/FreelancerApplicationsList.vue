@@ -5,7 +5,7 @@
 
       <div v-if="!applications.length && !loading">
         <div class="h1 mb-4">{{ $t('freelancers.no_active_jobs') }}</div>
-        <router-link to="/tasks"><u>{{ $t('common.browse') }}</u></router-link>
+        <language-router-link to="/tasks"><u>{{ $t('common.browse') }}</u></language-router-link>
       </div>
     </div>
   </div>
@@ -14,11 +14,13 @@
 <script>
 import ShortApplicationItem from './ShortApplicationItem.vue';
 import ApiService from '../../services/api.service';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'FreelancerApplicationsList',
   components: {
+    LanguageRouterLink,
     ShortApplicationItem,
   },
   props: {

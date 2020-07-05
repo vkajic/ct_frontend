@@ -9,7 +9,8 @@
       </b-badge>
     </div>
     <h2>
-      <router-link class="font-18-sm" :to="`/my-tasks/${task.id}`">{{task.title}}</router-link>
+      <language-router-link class="font-18-sm" :to="`/my-tasks/${task.id}`">{{task.title}}
+      </language-router-link>
     </h2>
     <div class="d-flex align-items-center mb-3">
       <task-duration class="pr-3" :task="task"/>
@@ -27,6 +28,7 @@ import { dateFilter } from 'vue-date-fns';
 import TaskTags from './TaskTags.vue';
 import TaskPrice from './TaskPrice.vue';
 import TaskDuration from './TaskDuration.vue';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // TODO add number of views and applications like in design and edit link if applicable
 
@@ -34,6 +36,7 @@ import TaskDuration from './TaskDuration.vue';
 export default {
   name: 'MyShortTaskItem',
   components: {
+    LanguageRouterLink,
     TaskDuration,
     TaskPrice,
     TaskTags,

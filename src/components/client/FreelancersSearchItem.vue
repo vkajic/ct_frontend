@@ -1,16 +1,16 @@
 <template>
   <div class="freelancer-search-item d-flex align-items-start">
-    <router-link :to="`/freelancers/${id}`">
+    <language-router-link :to="`/freelancers/${id}`">
       <avatar-display :avatar="freelancer.avatar"
                       :user-name="fullName"
                       :options="avatarOptions"
                       class="mr-3 mr-lg-4"/>
-    </router-link>
+    </language-router-link>
     <div>
       <h2 class="mb-1 font-16-sm">
-        <router-link :to="`/freelancers/${id}`">
+        <language-router-link :to="`/freelancers/${id}`">
           {{fullName}}
-        </router-link>
+        </language-router-link>
       </h2>
       <div class="font-14-sm">
         {{freelancer.occupation}} <span
@@ -27,11 +27,13 @@
 
 <script>
 import AvatarDisplay from '../ui/AvatarDisplay.vue';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'FreelancersSearchItem',
   components: {
+    LanguageRouterLink,
     AvatarDisplay,
   },
   data() {

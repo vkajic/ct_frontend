@@ -1,34 +1,34 @@
 <template>
   <ul class="list-unstyled m-0">
     <li>
-      <router-link to="/tasks">
+      <language-router-link to="/tasks">
         <inbox-icon size="1.5x"/>
-        Browse jobs
-      </router-link>
+        {{ $t('freelancers.browse_jobs') }}
+      </language-router-link>
     </li>
     <li>
-      <router-link to="/in-progress">
+      <language-router-link to="/in-progress">
         <coffee-icon size="1.5x"/>
-        My jobs
-      </router-link>
+        {{ $t('freelancers.my_jobs') }}
+      </language-router-link>
     </li>
     <li>
-      <router-link to="/applications">
+      <language-router-link to="/applications">
         <check-square-icon size="1.5x"/>
-        Applications sent
-      </router-link>
+        {{ $t('freelancers.applications_sent') }}
+      </language-router-link>
     </li>
     <li class="d-none d-lg-block">
-      <router-link to="/completed">
+      <language-router-link to="/completed">
         <check-icon size="1.5x"/>
-        Completed jobs
-      </router-link>
+        {{ $t('freelancers.completed_jobs') }}
+      </language-router-link>
     </li>
     <li class="d-lg-none">
-      <router-link to="/messages">
+      <language-router-link to="/messages">
         <mail-icon size="1.5x"/>
-        Messages
-      </router-link>
+        {{ $t('freelancers.messages') }}
+      </language-router-link>
     </li>
   </ul>
 </template>
@@ -37,11 +37,13 @@
 import {
   CheckSquareIcon, CoffeeIcon, InboxIcon, MailIcon, CheckIcon,
 } from 'vue-feather-icons';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'FreelancerMenu',
   components: {
+    LanguageRouterLink,
     CheckSquareIcon,
     CoffeeIcon,
     InboxIcon,

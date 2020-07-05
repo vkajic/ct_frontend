@@ -40,8 +40,11 @@ import NotFound from './views/errors/404.vue';
 const domains = {
   'cryptotask.local': 'en',
   'app.cryptotask.org': 'en',
+  'app.dev.cryptotask.org': 'en',
   'freelancer.local': 'hr',
   'freelancer.hr': 'hr',
+  'app.freelancer.hr': 'hr',
+  'app.dev.freelancer.hr': 'hr',
 };
 
 const languages = ['en', 'hr'];
@@ -380,7 +383,7 @@ router.beforeEach(async (to, from, next) => {
     }
   } catch (err) {
     if (to.meta.requiresAuth && to.meta.layout !== 'auth') {
-      console.log('router 4');
+      console.log('router 4', to);
       next({
         path: `${langRoute}/login`,
         query: { redirect: to.path, ...to.query },

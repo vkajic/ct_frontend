@@ -27,7 +27,9 @@ class ApiService {
   }
 
   setHeader() {
-    axios.defaults.headers.common.Authorization = `Bearer ${TokenService.getToken()}`;
+    if (TokenService.getToken()) {
+      axios.defaults.headers.common.Authorization = `Bearer ${TokenService.getToken()}`;
+    }
     axios.defaults.headers.common['X-Language'] = localStorage.getItem('language') || 'en';
   }
 
