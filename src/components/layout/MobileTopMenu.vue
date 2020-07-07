@@ -6,23 +6,27 @@
               <menu-icon size="1.5x"/>
         </span>
     </template>
-    <b-dropdown-item to="/tasks">Browse Jobs</b-dropdown-item>
-    <b-dropdown-item to="/freelancers">Browse Freelancers</b-dropdown-item>
-    <b-dropdown-item to="/login">Post Job</b-dropdown-item>
-    <b-dropdown-item :href="landingUrl">How It Works</b-dropdown-item>
+    <language-dropdown-item to="/tasks">{{ $t('common.browse_jobs') }}</language-dropdown-item>
+    <language-dropdown-item to="/freelancers">{{ $t('common.browse_freelancers') }}
+    </language-dropdown-item>
+    <language-dropdown-item to="/login">{{ $t('common.post_job') }}</language-dropdown-item>
+    <b-dropdown-item :href="landingUrl">{{ $t('common.how_it_works') }}
+    </b-dropdown-item>
     <b-dropdown-divider/>
-    <b-dropdown-item to="/login">Login</b-dropdown-item>
-    <b-dropdown-item to="/sign-up">Sign up</b-dropdown-item>
+    <language-dropdown-item to="/login">{{ $t('auth.login.title') }}</language-dropdown-item>
+    <language-dropdown-item to="/sign-up">{{ $t('auth.sign_up.title') }}</language-dropdown-item>
   </b-dropdown>
 </template>
 
 <script>
 import { MenuIcon } from 'vue-feather-icons';
+import LanguageDropdownItem from '../ui/LanguageDropdownItem.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MobileTopMenu',
   components: {
+    LanguageDropdownItem,
     MenuIcon,
   },
   computed: {
