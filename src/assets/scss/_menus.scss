@@ -100,3 +100,15 @@
     }
   }
 }
+
+.language-button {
+  line-height: 1;
+
+  path {
+    fill: black;
+  }
+}
+
+.dark-theme .language-button path {
+  fill: $gray-400;
+}
