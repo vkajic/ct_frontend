@@ -1,8 +1,10 @@
 <template>
-  <b-dropdown size="lg" variant="link" class="w-auto" no-caret
-              toggle-class="border-0 m-0 d-flex align-items-center">
+  <b-dropdown size="lg" variant="link" class="w-auto px-4" no-caret
+              toggle-class="border-0 m-0 p-0 d-flex align-items-center">
     <template v-slot:button-content>
-      <span class="small">{{selectedLanguage}}</span>
+      <span class="small language-button">
+        <img src="@/assets/img/langIcon.svg" class="language-icon"/>
+      </span>
     </template>
     <b-dropdown-item v-for="l in languages" :key="l.code" @click="selectLanguage(l)">
       {{l.label}}
@@ -45,3 +47,9 @@ export default {
   },
 };
 </script>
+
+<style>
+  .language-button {
+    line-height: 1;
+  }
+</style>
