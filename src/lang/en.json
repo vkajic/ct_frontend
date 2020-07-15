@@ -14,7 +14,8 @@
     "logout": "Logout",
     "edit_profile": "Edit Profile",
     "preview_profile": "Preview Profile",
-    "change_password": "Change password"
+    "change_password": "Change password",
+    "affiliate": "Affiliate"
   },
   "auth": {
     "info": {

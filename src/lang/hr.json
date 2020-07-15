@@ -14,7 +14,8 @@
     "logout": "Odjava",
     "edit_profile": "Izmijeni profil",
     "preview_profile": "Pogledaj profil",
-    "change_password": "Promijeni lozinku"
+    "change_password": "Promijeni lozinku",
+    "affiliate": "Posredništvo"
   },
   "auth": {
     "info": {
