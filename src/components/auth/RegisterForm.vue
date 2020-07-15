@@ -110,6 +110,11 @@ export default {
         try {
           this.form.role = this.registrationRole;
 
+          const { referrer } = this.$route.query;
+          if (referrer) {
+            this.form.referrer = referrer;
+          }
+
           await this.$store.dispatch('user/register', this.form);
           this.form = initialForm;
           this.$v.$reset();
