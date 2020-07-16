@@ -300,5 +300,11 @@
     "my_jobs": "Moji poslovi",
     "post_job": "Objavi posao",
     "messages": "Poruke"
+  },
+  "affiliate": {
+    "title": "Posredništvo (affiliate)",
+    "introduction": "Pomozite nam dovesti nove korisnike na Freelance.hr/CryptoTask dijeleći posredničku poveznicu. Dobivati ćete postotak svog platnog prometa koji korisnici ostvare kroz platformu.",
+    "affiliate_link": "Vaša posrednička poveznica (affiliate link - kopirajte i dijelite preko emaila, chat aplikacija, društvenih medija):",
+    "num_invitees": "Do sada ste posredovali u dovođenju {numOfInvitees} korisnika."
   }
 }
