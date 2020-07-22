@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex align-items-center justify-content-between">
       <h3>
-        <router-link :to="`/tasks/${task.id}`">{{task.title}}</router-link>
+        <language-router-link :to="`/tasks/${task.id}`">{{task.title}}</language-router-link>
       </h3>
       <div class="text-muted">{{createdDate}}</div>
     </div>
@@ -15,10 +15,12 @@
 <script>
 import moment from 'moment';
 import { truncate } from 'lodash';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ClientTasksListItem',
+  components: { LanguageRouterLink },
   props: {
     task: {
       type: Object,

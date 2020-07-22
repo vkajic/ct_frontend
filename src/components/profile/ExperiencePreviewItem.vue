@@ -6,7 +6,7 @@
       <p class="text-muted">
         {{item.from | date('YYYY')}} -
         <span v-if="item.to">{{item.to | date('YYYY')}}</span>
-        <span v-if="!item.to">Present</span>
+        <span v-if="!item.to">{{ $t('freelancers.present') }}</span>
       </p>
     </div>
     <div class="col-12 col-lg-8" v-html="item.description"></div>

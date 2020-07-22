@@ -7,7 +7,9 @@
         <template slot="button-content">
           <more-horizontal-icon size="1.5x"/>
         </template>
-        <b-dropdown-item href="#" @click="$emit('delete', attachment)">Delete</b-dropdown-item>
+        <b-dropdown-item href="#" @click="$emit('delete', attachment)">
+          {{$t('common.delete')}}
+        </b-dropdown-item>
       </b-dropdown>
     </div>
     <a href="#" @click.prevent="open" class="image-attachment">

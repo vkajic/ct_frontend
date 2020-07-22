@@ -1,0 +1,9 @@
+{
+  "auth": {
+    "why_cryptotask": "Zašto Cryptotask",
+    "forgot_password": "Zaboravili ste lozinku?"
+  },
+  "tasks": {
+    "no_tasks": "Niti jedan posao nije pronađen..."
+  }
+}

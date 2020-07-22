@@ -16,7 +16,7 @@
       <lazy-loader :visible="lazyLoading"/>
 
       <div class="h1 mb-4" v-if="!freelancers.length && !loading">
-        No freelancers available...
+        {{$t('freelancers_search.nothing')}}
       </div>
     </div>
   </div>
@@ -60,6 +60,9 @@ export default {
     loading() {
       return this.$store.state.ui.mainLoader;
     },
+    language() {
+      return this.$store.state.util.activeLanguage;
+    },
   },
   methods: {
     search(term) {
@@ -92,6 +95,11 @@ export default {
       this.lazyLoading = true;
       await this.$store.dispatch('freelancers/nextFreelancers');
       this.lazyLoading = false;
+    },
+  },
+  watch: {
+    language() {
+      this.runSearch();
     },
   },
 };

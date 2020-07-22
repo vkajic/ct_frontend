@@ -1,14 +1,14 @@
 <template>
   <div class="auth-form">
-    <h1 class="mb-5 text-center text-lg-left">Reset Password.</h1>
+    <h1 class="mb-5 text-center text-lg-left">{{$t('auth.reset_password.title')}}</h1>
 
     <b-form @submit.prevent="resetPassword">
-      <b-form-group :description="passwordDescription">
+      <b-form-group :description="$t('auth.reset_password.password_description')">
         <b-form-input
           v-model="form.newPassword"
           type="password"
           size="lg"
-          placeholder="New Password"
+          :placeholder="$t('auth.reset_password.new')"
           :state="$v.form.newPassword.$dirty ? !$v.form.newPassword.$error : null"/>
       </b-form-group>
 
@@ -17,14 +17,14 @@
           v-model="form.newPasswordConfirmation"
           type="password"
           size="lg"
-          placeholder="New Password Again"
+          :placeholder="$t('auth.reset_password.new_again')"
           :state="$v.form.newPasswordConfirmation.$dirty
             ? !$v.form.newPasswordConfirmation.$error
             : null"/>
       </b-form-group>
 
       <b-button type="submit" variant="primary" size="lg" block :disabled="sending">
-        Set password
+        {{$t('auth.reset_password.button_label')}}
       </b-button>
     </b-form>
   </div>
@@ -44,8 +44,6 @@ export default {
         newPasswordConfirmation: null,
       },
       sending: false,
-      passwordDescription: `Make sure it's at least 15 characters OR at least
-      8 characters including a number and a lowercase letter.`,
     };
   },
   validations: {
@@ -77,7 +75,7 @@ export default {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'success',
-            text: 'New password is set. You can now log in.',
+            text: this.$t('auth.reset_password.success_notification'),
           });
           this.$router.replace('/login');
         } catch (err) {

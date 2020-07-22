@@ -2,9 +2,9 @@
   <b-form @submit.prevent="save">
     <div class="row">
       <div class="col-12 col-lg-4 d-flex justify-content-center">
-        <image-uploader label="Add profile image"
+        <image-uploader :label="$t('freelancers.image_label')"
                         class="image-uploader-basic mb-5"
-                        title="Profile image"
+                        :title="$t('freelancers.image_title')"
                         @input="avatarAdded"
                         :value="form.avatar"
                         :validation="$v.form.avatar"
@@ -13,17 +13,17 @@
                         :options="avatarOptions"/>
       </div>
       <div class="col-12 col-lg-8">
-        <h1 class="d-none d-lg-block mb-5">Basic Info</h1>
+        <h1 class="d-none d-lg-block mb-5">{{$t('freelancers.basic_info')}}</h1>
         <div class="mb-3">
-          <label>Name</label>
+          <label>{{ $t('freelancers.name') }}</label>
           <b-input-group>
             <input-field name="firstName"
                          v-model="form.firstName"
-                         placeholder="First Name"
+                         :placeholder="$t('freelancers.first_name')"
                          :validation="$v.form.firstName"/>
             <input-field name="lastName"
                          v-model="form.lastName"
-                         placeholder="Last Name"
+                         :placeholder="$t('freelancers.last_name')"
                          :validation="$v.form.lastName"/>
             <validation-messages title="First Name" :validation="$v.form.firstName"/>
             <validation-messages title="Last Name" :validation="$v.form.lastName"/>
@@ -33,27 +33,25 @@
         <input-group name="occupation"
                      class="mb-3"
                      v-model="form.occupation"
-                     placeholder="Occupation"
-                     label="What’s your occupation"/>
+                     :placeholder="$t('freelancers.occupation')"
+                     :label="$t('freelancers.occupation_label')"/>
 
         <input-group name="location"
                      class="mb-3"
                      v-model="form.location"
-                     placeholder="Location"
-                     label="Location"/>
+                     :placeholder="$t('freelancers.location')"
+                     :label="$t('freelancers.location')"/>
 
         <b-form-checkbox v-model="form.travel"
                          class="mb-3"
-                         name="travel">
-          Open to travel for the right opportunity
-        </b-form-checkbox>
+                         name="travel">{{ $t('freelancers.travel') }}</b-form-checkbox>
 
         <textarea-group name="bio"
                         class="mb-4"
                         v-model="form.bio"
-                        label="About me"/>
+                        :label="$t('freelancers.about')"/>
 
-        <h4 class="mb-3">Web presence</h4>
+        <h4 class="mb-3">{{ $t('freelancers.web_presence') }}</h4>
 
         <input-group name="linkedIn"
                      class="mb-3"
@@ -76,7 +74,7 @@
           </div>
         </div>
 
-        <funnel-buttons submit-text="Next: Set skills & services"
+        <funnel-buttons :submit-text="$t('freelancers.next_skills')"
                         :saving="saving"/>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isTyping" class="typing-user">{{typingUser}} is typing...</div>
+  <div v-if="isTyping" class="typing-user">{{typingUser}} {{$t('chat.is_typing')}}</div>
 </template>
 
 <script>

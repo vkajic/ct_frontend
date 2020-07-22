@@ -9,17 +9,17 @@
     <div class="row">
       <div class="col-12 col-lg-10 offset-lg-1">
         <b-tabs content-class="py-4">
-          <b-tab title="Bio" active>
+          <b-tab :title="$t('freelancer_info.bio')" active>
             <div v-html="freelancer.bio"></div>
           </b-tab>
-          <b-tab title="Projects">
+          <b-tab :title="$t('freelancer_info.projects')">
             <projects-preview :projects="freelancer.projects"/>
           </b-tab>
-          <b-tab title="Experience">
+          <b-tab :title="$t('freelancer_info.experience')">
             <experience-preview :items="freelancer.workExperiences"
                                 :resume="freelancer.resume"/>
           </b-tab>
-          <b-tab title="Feedbacks">
+          <b-tab :title="$t('freelancer_info.feedbacks')">
             <freelancer-feedbacks :freelancer-id="freelancer.id"/>
           </b-tab>
         </b-tabs>

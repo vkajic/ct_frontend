@@ -1,14 +1,14 @@
 <template>
   <div>
     <div class="d-none d-lg-block py-2">
-      <router-link to="/">
+      <language-router-link to="/">
         <div class="logo">
           <img v-if="isDarkThemeEnabled" src="@/assets/img/cryptotask-logo--light.svg"
                alt="Cryptotask"/>
           <img v-else src="@/assets/img/cryptotask-logo.svg"
                alt="Cryptotask"/>
         </div>
-      </router-link>
+      </language-router-link>
     </div>
     <div class="d-lg-none">
       <template v-if="funnelItemNum > 0">
@@ -18,14 +18,14 @@
         <strong>{{funnelItemTitle}}</strong> {{funnelItemNum}}/{{funnelItemsCount}}
       </template>
       <template v-else>
-        <router-link to="/" class="d-block">
+        <language-router-link to="/" class="d-block">
           <div class="logo">
             <img v-if="isDarkThemeEnabled" src="@/assets/img/cryptotask-logo--light.svg"
                  alt="Cryptotask"/>
             <img v-else src="@/assets/img/cryptotask-logo.svg"
                  alt="Cryptotask"/>
           </div>
-        </router-link>
+        </language-router-link>
       </template>
     </div>
   </div>
@@ -33,11 +33,13 @@
 
 <script>
 import { ArrowLeftIcon } from 'vue-feather-icons';
+import LanguageRouterLink from './LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'LogoBack',
   components: {
+    LanguageRouterLink,
     ArrowLeftIcon,
   },
   data() {

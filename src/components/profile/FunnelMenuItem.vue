@@ -1,9 +1,9 @@
 <template>
   <li :class="[stepClass]">
-    <router-link :to="step.route" v-if="clickable">
+    <language-router-link :to="step.route" v-if="clickable">
       <check-circle-icon/>
       {{step.label}}
-    </router-link>
+    </language-router-link>
     <span v-if="!clickable">
       <check-circle-icon/>
       {{step.label}}
@@ -13,11 +13,13 @@
 
 <script>
 import { CheckCircleIcon } from 'vue-feather-icons';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'FunnelMenuItem',
   components: {
+    LanguageRouterLink,
     CheckCircleIcon,
   },
   props: {

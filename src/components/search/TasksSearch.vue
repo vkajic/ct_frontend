@@ -16,7 +16,7 @@
       <lazy-loader :visible="lazyLoading"/>
 
       <div class="h1 mb-4" v-if="!tasks.length && !loading">
-        No tasks available...
+        {{$t('tasks.no_tasks')}}
       </div>
     </div>
   </div>
@@ -53,6 +53,9 @@ export default {
     loading() {
       return this.$store.state.ui.mainLoader;
     },
+    language() {
+      return this.$store.state.util.activeLanguage;
+    },
   },
   methods: {
     search(term) {
@@ -88,6 +91,11 @@ export default {
   },
   created() {
     this.runSearch();
+  },
+  watch: {
+    language() {
+      this.runSearch();
+    },
   },
 };
 </script>

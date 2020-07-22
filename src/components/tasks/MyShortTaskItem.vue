@@ -2,14 +2,15 @@
   <div class="short-job-item">
     <div class="d-flex align-items-center mb-2">
       <div class="active-since" v-if="task.published">
-        Published {{task.createdAt | date('MMM Do')}}
+        {{$t('tasks.published')}} {{task.createdAt | date('MMM Do')}}
       </div>
       <b-badge variant="danger" v-if="!task.published">
-        Unpublished
+        {{$t('tasks.unpublished')}}
       </b-badge>
     </div>
     <h2>
-      <router-link class="font-18-sm" :to="`/my-tasks/${task.id}`">{{task.title}}</router-link>
+      <language-router-link class="font-18-sm" :to="`/my-tasks/${task.id}`">{{task.title}}
+      </language-router-link>
     </h2>
     <div class="d-flex align-items-center mb-3">
       <task-duration class="pr-3" :task="task"/>
@@ -27,6 +28,7 @@ import { dateFilter } from 'vue-date-fns';
 import TaskTags from './TaskTags.vue';
 import TaskPrice from './TaskPrice.vue';
 import TaskDuration from './TaskDuration.vue';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // TODO add number of views and applications like in design and edit link if applicable
 
@@ -34,6 +36,7 @@ import TaskDuration from './TaskDuration.vue';
 export default {
   name: 'MyShortTaskItem',
   components: {
+    LanguageRouterLink,
     TaskDuration,
     TaskPrice,
     TaskTags,

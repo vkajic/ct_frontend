@@ -1,11 +1,11 @@
 <template>
   <div>
     <div>
-      <strong class="d-block mb-3 font-14-sm">Why Cryptotask</strong>
+      <strong class="d-block mb-3 font-14-sm">{{$t('auth.info.why_cryptotask')}}</strong>
       <ul class="list-unstyled m-0">
-        <li class="mb-3 font-12-sm">Just 3% fees</li>
-        <li class="mb-3 font-12-sm">More high paying clients</li>
-        <li class="font-12-sm">Effective escrow and dispute mechanism</li>
+        <li class="mb-3 font-12-sm">{{$t('auth.info.line1')}}</li>
+        <li class="mb-3 font-12-sm">{{$t('auth.info.line2')}}</li>
+        <li class="font-12-sm">{{$t('auth.info.line3')}}</li>
       </ul>
     </div>
   </div>

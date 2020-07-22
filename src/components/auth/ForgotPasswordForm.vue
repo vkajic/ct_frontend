@@ -1,6 +1,6 @@
 <template>
   <div class="auth-form">
-    <h1 class="mb-5 text-center text-lg-left">Forgot Password.</h1>
+    <h1 class="mb-5 text-center text-lg-left">{{$t('auth.forgot_password.title')}}</h1>
 
     <b-form @submit.prevent="sendToken">
       <b-form-group>
@@ -8,12 +8,12 @@
           v-model="form.email"
           type="email"
           size="lg"
-          placeholder="Email"
+          :placeholder="$t('auth.forgot_password.email')"
           :state="$v.form.email.$dirty ? !$v.form.email.$error : null"/>
       </b-form-group>
 
       <b-button type="submit" size="lg" block variant="primary" :disabled="sending">
-        Send token
+        {{$t('auth.forgot_password.button_label')}}
       </b-button>
     </b-form>
   </div>
@@ -55,7 +55,7 @@ export default {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'success',
-            text: 'Password reset token is sent to your email address. Please follow instructions from email.',
+            text: this.$t('auth.forgot_password.success_notification'),
           });
         } catch (err) {
           this.sending = false;

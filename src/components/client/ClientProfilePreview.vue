@@ -25,10 +25,10 @@
     <div class="row">
       <div class="col-12 col-lg-10 offset-lg-1">
         <b-tabs content-class="py-4">
-          <b-tab title="Published Tasks" active>
+          <b-tab :title="$t('client_profile.published_tasks')" active>
             <client-tasks-list :client-id="client.id"/>
           </b-tab>
-          <b-tab title="Feedbacks">
+          <b-tab :title="$t('client_profile.feedbacks')">
             <client-feedbacks :client-id="client.id"/>
           </b-tab>
         </b-tabs>

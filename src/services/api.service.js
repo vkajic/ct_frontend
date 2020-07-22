@@ -4,6 +4,7 @@ import TokenService from './token.service';
 class ApiService {
   init(baseURL, store) {
     axios.defaults.baseURL = baseURL;
+    this.store = store;
 
     axios.interceptors.response.use(
       response => response,
@@ -12,6 +13,7 @@ class ApiService {
           error.response.data.error === 'token_not_provided'
           || error.response.data.error === 'invalid_token')
         ) {
+          // console.log('logging out');
           store.dispatch('user/logout');
           /* store.dispatch('ui/showNotification', {
             text: 'Unauthorized, please log in!',
@@ -25,7 +27,10 @@ class ApiService {
   }
 
   setHeader() {
-    axios.defaults.headers.common.Authorization = `Bearer ${TokenService.getToken()}`;
+    if (TokenService.getToken()) {
+      axios.defaults.headers.common.Authorization = `Bearer ${TokenService.getToken()}`;
+    }
+    axios.defaults.headers.common['X-Language'] = localStorage.getItem('language') || 'en';
   }
 
   removeHeader() {

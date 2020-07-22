@@ -3,15 +3,15 @@
     <div class="d-flex align-items-center justify-content-between mb-2">
       <div class="client-name">{{application.client.name}}</div>
       <div class="published-date">
-        Published {{application.task.createdAt | date('MMM Do')}} |
-        Applied {{application.createdAt | date('MMM Do')}}
+        {{$t('freelancers.published')}} {{application.task.createdAt | date('MMM Do')}} |
+        {{$t('freelancers.applied')}} {{application.createdAt | date('MMM Do')}}
       </div>
     </div>
     <div class="d-flex align-items-center mb-2">
       <h4 class="m-0 mr-2">
-        <router-link class="font-18-sm" :to="url">
+        <language-router-link class="font-18-sm" :to="url">
           {{application.task.title}}
-        </router-link>
+        </language-router-link>
       </h4>
       <application-status-badge :application="application"/>
     </div>
@@ -33,11 +33,12 @@ import { applicationUrl } from '../mixins/applicationUrl';
 import ApplicationStatusBadge from './ApplicationStatusBadge.vue';
 import TaskPrice from './TaskPrice.vue';
 import TaskDuration from './TaskDuration.vue';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ShortApplicationItem',
-  components: { TaskDuration, TaskPrice, ApplicationStatusBadge, TaskTags },
+  components: { LanguageRouterLink, TaskDuration, TaskPrice, ApplicationStatusBadge, TaskTags },
   mixins: [applicationUrl],
   filters: {
     date: dateFilter,

@@ -1,28 +1,28 @@
 <template>
   <ul class="list-unstyled m-0">
     <li>
-      <router-link to="/freelancers">
+      <language-router-link to="/freelancers">
         <users-icon size="1.5x"/>
-        Browse freelancers
-      </router-link>
+        {{ $t('clients.browse_freelancers') }}
+      </language-router-link>
     </li>
     <li>
-      <router-link to="/my-tasks">
+      <language-router-link to="/my-tasks">
         <coffee-icon size="1.5x"/>
-        My jobs
-      </router-link>
+        {{ $t('clients.my_jobs') }}
+      </language-router-link>
     </li>
     <li>
-      <router-link to="/create-task">
+      <language-router-link to="/create-task">
         <briefcase-icon size="1.5x"/>
-        Post job
-      </router-link>
+        {{ $t('clients.post_job') }}
+      </language-router-link>
     </li>
     <li class="d-lg-none">
-      <router-link to="/messages">
+      <language-router-link to="/messages">
         <mail-icon size="1.5x"/>
-        Messages
-      </router-link>
+        {{ $t('clients.messages') }}
+      </language-router-link>
     </li>
   </ul>
 </template>
@@ -31,11 +31,13 @@
 import {
   UsersIcon, CoffeeIcon, BriefcaseIcon, MailIcon,
 } from 'vue-feather-icons';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ClientMenu',
   components: {
+    LanguageRouterLink,
     UsersIcon,
     CoffeeIcon,
     BriefcaseIcon,

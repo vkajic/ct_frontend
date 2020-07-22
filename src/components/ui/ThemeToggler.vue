@@ -1,5 +1,5 @@
 <template>
-  <a href="#" @click.prevent="toggleDarkTheme" class="mr-3 d-flex align-items-center">
+  <a href="#" @click.prevent="toggleDarkTheme" class="d-flex align-items-center">
     <sun-icon v-if="isDarkThemeEnabled" class="theme-icon" size="1.5x"/>
     <moon-icon v-else class="theme-icon" size="1.5x"/>
   </a>

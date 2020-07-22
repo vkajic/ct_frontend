@@ -1,6 +1,6 @@
 <template>
   <b-form @submit.prevent="search" class="quick-search">
-    <b-form-input v-model="searchTerm" placeholder="Search"/>
+    <b-form-input v-model="searchTerm" :placeholder="$t('freelancers_search.search')"/>
     <button type="submit">
       <search-icon size="24"/>
     </button>

@@ -6,7 +6,7 @@
     <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none px-0" no-caret>
       <template slot="button-content">
         <div class="dropdown__button-wrapper">
-          <strong>{{category ? category : 'Select category'}}</strong>
+          <strong>{{category ? category : $t('freelancers_search.select_category')}}</strong>
           <chevron-down-icon size="16" class="ml-2"/>
         </div>
       </template>
@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     categories() {
-      return this.$store.state.util.skills.map(c => c.name);
+      return _.orderBy(this.$store.state.util.skills, [skill => skill.name.toLowerCase()], 'asc').map(c => c.name);
     },
   },
   methods: {

@@ -6,7 +6,7 @@
     <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none px-0" no-caret>
       <template slot="button-content">
         <div class="dropdown__button-wrapper">
-          <strong>{{skill ? skill : 'Select skill'}}</strong>
+          <strong>{{skill ? skill : $t('freelancers_search.select_skills')}}</strong>
           <chevron-down-icon size="16" class="ml-2"/>
         </div>
       </template>
@@ -43,10 +43,8 @@ export default {
   computed: {
     skills() {
       if (this.category) {
-        return this.$store.state.util.skills
-          .find(c => c.name === this.category)
-          .skills
-          .map(s => s.name);
+        //orderBy sorts alphabetically ignoring case, then sortBy moves skill Other to the end
+        return _.sortBy(_.orderBy(this.$store.state.util.skills.find(c => c.name === this.category).skills, [skill => skill.name.toLowerCase()], 'asc'), function(skill) { return skill.name === 'Other' ? 1 : 0; }).map(s => s.name);
       }
 
       return [];

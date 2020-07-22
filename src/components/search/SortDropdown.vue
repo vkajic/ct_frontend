@@ -3,7 +3,7 @@
     <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none px-0" no-caret>
       <template slot="button-content">
         <div class="dropdown__button-wrapper">
-          <strong>Sort</strong>
+          <strong>{{$t('tasks.sort')}}</strong>
           <chevron-down-icon size="16" class="ml-2"/>
         </div>
       </template>
@@ -13,8 +13,8 @@
                               @click="selectSort(c.key)">
         <div class="d-flex align-items-center justify-content-between">
           <span class="pr-2">{{c.label}}</span>
-          <chevrons-down-icon size="1x" v-if="c.key === sort.by && sort.dir === 'desc'" />
-          <chevrons-up-icon size="1x" v-if="c.key === sort.by && sort.dir === 'asc'" />
+          <chevrons-down-icon size="1x" v-if="c.key === sort.by && sort.dir === 'desc'"/>
+          <chevrons-up-icon size="1x" v-if="c.key === sort.by && sort.dir === 'asc'"/>
         </div>
       </b-dropdown-item-button>
     </b-dropdown>

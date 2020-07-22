@@ -3,7 +3,7 @@
     <credit-card-icon size="20" class="mr-3"/>
     <div>
       <div class="small-heading">
-        VALUE
+        {{$t('tasks.details.value')}}
       </div>
       <task-price :task="task"/>
     </div>

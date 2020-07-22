@@ -6,9 +6,9 @@
 
       <div v-if="!tasks.length && !loading">
         <div class="h1 mb-4">
-          You have no tasks atm...
+          {{$t('tasks.no_my_tasks')}}
         </div>
-        <router-link to="/create-task"><u>Create</u></router-link>
+        <language-router-link to="/create-task"><u>{{$t('tasks.create')}}</u></language-router-link>
       </div>
     </div>
   </div>
@@ -17,11 +17,13 @@
 <script>
 import MyTasksList from '../../components/tasks/MyTasksList.vue';
 import MyTasksHeading from '../../components/tasks/MyTasksHeading.vue';
+import LanguageRouterLink from '../../components/ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MyTasks',
   components: {
+    LanguageRouterLink,
     MyTasksHeading,
     MyTasksList,
   },

@@ -4,10 +4,8 @@
       <short-application-item v-for="(a, i) in applications" :key="i" :application="a"/>
 
       <div v-if="!applications.length && !loading">
-        <div class="h1 mb-4">
-          You have no active jobs atm...
-        </div>
-        <router-link to="/tasks"><u>Browse</u></router-link>
+        <div class="h1 mb-4">{{ $t('freelancers.no_active_jobs') }}</div>
+        <language-router-link to="/tasks"><u>{{ $t('common.browse') }}</u></language-router-link>
       </div>
     </div>
   </div>
@@ -16,11 +14,13 @@
 <script>
 import ShortApplicationItem from './ShortApplicationItem.vue';
 import ApiService from '../../services/api.service';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'FreelancerApplicationsList',
   components: {
+    LanguageRouterLink,
     ShortApplicationItem,
   },
   props: {

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12 col-lg-7">
       <paper>
-        <h1 class="mb-5 text-center text-lg-left">Change Password.</h1>
+        <h1 class="mb-5 text-center text-lg-left">{{$t('auth.change_password.title')}}</h1>
 
         <b-form @submit.prevent="changePassword">
           <b-form-group>
@@ -10,7 +10,7 @@
               v-model="form.oldPassword"
               type="password"
               size="lg"
-              placeholder="Old Password"
+              :placeholder="$t('auth.change_password.old')"
               :state="$v.form.oldPassword.$dirty ? !$v.form.oldPassword.$error : null"/>
             <validation-messages title="Old password" :validation="$v.form.oldPassword"/>
           </b-form-group>
@@ -20,7 +20,7 @@
               v-model="form.newPassword"
               type="password"
               size="lg"
-              placeholder="New Password"
+              :placeholder="$t('auth.change_password.new')"
               :state="$v.form.newPassword.$dirty ? !$v.form.newPassword.$error : null"/>
             <validation-messages title="New password" :validation="$v.form.newPassword"/>
           </b-form-group>
@@ -30,7 +30,7 @@
               v-model="form.newPasswordConfirmation"
               type="password"
               size="lg"
-              placeholder="New Password Again"
+              :placeholder="$t('auth.change_password.new_again')"
               :state="$v.form.newPasswordConfirmation.$dirty
             ? !$v.form.newPasswordConfirmation.$error
             : null"/>
@@ -39,7 +39,7 @@
           </b-form-group>
 
           <b-button type="submit" variant="primary" size="lg" block v-if="!sending">
-            Update password
+            {{$t('auth.change_password.button_label')}}
           </b-button>
           <b-button type="submit"
                     variant="primary"
@@ -47,7 +47,7 @@
                     block
                     :disabled="true"
                     v-if="sending">
-            Updating password...
+            {{$t('auth.change_password.button_loading')}}
           </b-button>
         </b-form>
       </paper>
@@ -110,7 +110,7 @@ export default {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'success',
-            text: 'New password is saved.',
+            text: this.$t('auth.change_password.saved'),
           });
         } catch (err) {
           this.$store.dispatch('ui/showNotification', {

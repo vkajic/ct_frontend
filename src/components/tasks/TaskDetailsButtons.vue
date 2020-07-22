@@ -3,13 +3,13 @@
     <b-link :to="`/my-tasks/${task.id}/edit`"
             class="btn btn-primary btn-block btn-round mt-4 btn-primary--dark"
             v-if="editAllowed">
-      Edit
+      {{$t('tasks.details.edit')}}
     </b-link>
 
     <b-button class="btn btn-secondary btn-block btn-round mt-3"
               @click="deleteTask"
               v-if="editAllowed">
-      Delete
+      {{$t('tasks.details.delete')}}
     </b-button>
   </div>
 </template>
@@ -40,14 +40,14 @@ export default {
   methods: {
     async deleteTask() {
       const confirm = await this.$bvModal
-        .msgBoxConfirm('Are you sure you want to delete this task?');
+        .msgBoxConfirm(this.$t('tasks.details.delete_confirmation'));
 
       if (confirm) {
         await this.$store.dispatch('tasks/delete', this.task.id);
         await this.$router.replace('/my-tasks');
         await this.$store.dispatch('ui/showNotification', {
           type: 'success',
-          text: 'Task deleted successfully!',
+          text: this.$t('tasks.details.delete_success'),
         });
       }
     },

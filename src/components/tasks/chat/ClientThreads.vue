@@ -13,7 +13,7 @@
                 @click="openThread"/>
       </template>
       <template v-else>
-        <p class="text-center">No applications for this task.</p>
+        <p class="text-center">{{$t('tasks.details.no_applications')}}</p>
       </template>
     </template>
   </div>

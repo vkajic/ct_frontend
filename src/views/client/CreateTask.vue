@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-12 col-lg-9">
       <paper>
-        <task-form/>
+        <task-form :title="$t('tasks.form.title')"/>
       </paper>
     </div>
   </div>
@@ -23,7 +23,7 @@ export default {
     if (!this.$store.state.user.user.client.name) {
       this.$store.dispatch('ui/showNotification', {
         type: 'danger',
-        text: 'Client data must be set to be able to create new task',
+        text: this.$t('tasks.form.warning'),
       });
       this.$router.replace('/profile');
     }

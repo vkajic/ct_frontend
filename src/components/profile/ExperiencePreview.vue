@@ -1,6 +1,6 @@
 <template>
   <div class="experience-preview">
-    <h2 class="mb-3">Experience</h2>
+    <h2 class="mb-3">{{$t('freelancer_info.experience')}}</h2>
     <div v-html="resume"></div>
     <experience-preview-item class="mb-5" v-for="(item, index) in items" :key="index" :item="item"/>
   </div>

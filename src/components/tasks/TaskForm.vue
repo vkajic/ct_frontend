@@ -7,8 +7,8 @@
         <input-group name="title"
                      class="mb-3"
                      v-model="form.title"
-                     placeholder="Job title"
-                     label="Title"
+                     :placeholder="$t('tasks.form.job_title')"
+                     :label="$t('tasks.form.job_label')"
                      :validation="$v.form.title"/>
 
         <div class="row">
@@ -16,15 +16,15 @@
             <input-group name="duration"
                          class="mb-3"
                          v-model="form.duration"
-                         placeholder="Job duration"
-                         label="Duration"
+                         :placeholder="$t('tasks.form.job_duration')"
+                         :label="$t('tasks.form.duration')"
                          :disabled="form.negotiableDuration"
                          :validation="$v.form.duration">
-              <template slot="prepend">days</template>
+              <template slot="prepend">{{$t('tasks.form.days')}}</template>
               <template slot="append">
                 <label class="m-0">
                   <input type="checkbox" v-model="form.negotiableDuration">
-                  Negotiable
+                  {{$t('tasks.form.negotiable')}}
                 </label>
               </template>
             </input-group>
@@ -33,15 +33,15 @@
             <input-group name="price"
                          class="mb-3"
                          v-model="form.price"
-                         placeholder="Job value"
-                         label="Value"
+                         :placeholder="$t('tasks.form.job_value')"
+                         :label="$t('tasks.form.value')"
                          :disabled="form.negotiablePrice"
                          :validation="$v.form.price">
               <template slot="prepend">$</template>
               <template slot="append">
                 <label class="m-0">
                   <input type="checkbox" v-model="form.negotiablePrice">
-                  Negotiable
+                  {{$t('tasks.form.negotiable')}}
                 </label>
               </template>
             </input-group>
@@ -53,8 +53,8 @@
             <input-group name="type"
                          class="mb-3"
                          v-model="form.type"
-                         placeholder="Job type"
-                         label="Type"
+                         :placeholder="$t('tasks.form.job_type')"
+                         :label="$t('tasks.form.type')"
                          :options="types"
                          :validation="$v.form.type"/>
           </div>
@@ -62,24 +62,24 @@
             <input-group name="location"
                          class="mb-3"
                          v-model="form.location"
-                         placeholder="Job location"
-                         label="Location"
+                         :placeholder="$t('tasks.form.job_location')"
+                         :label="$t('tasks.form.location')"
                          :options="locations"
                          :validation="$v.form.location"/>
           </div>
         </div>
 
-        <input-tags label="Task categories"
+        <input-tags :label="$t('tasks.form.categories_label')"
                     class="mb-3"
                     v-model="form.categories"
                     :options="categories"
-                    placeholder="Select categories"
+                    :placeholder="$t('tasks.form.select_categories')"
                     options-label="name"/>
 
-        <input-tags label="Required skills"
+        <input-tags :label="$t('tasks.form.skills_label')"
                     class="mb-3"
                     v-model="form.skills"
-                    placeholder="Select skills"
+                    :placeholder="$t('tasks.form.select_skills')"
                     :options="skills"
                     options-label="name"
                     :validation="$v.form.skills"/>
@@ -87,13 +87,13 @@
         <wysiwyg-textarea-group id="description"
                                 class="mb-4"
                                 v-model="form.description"
-                                label="Description"
+                                :label="$t('tasks.form.description')"
                                 :validation="$v.form.description"/>
 
         <div class="pt-5 d-flex justify-content-end align-items-center">
           <b-button type="submit" variant="info" class="btn-round" :disabled="sending">
-            <template v-if="!sending">Post job</template>
-            <template v-if="sending">Saving...</template>
+            <template v-if="!sending">{{$t('tasks.form.button_label')}}</template>
+            <template v-if="sending">{{$t('tasks.form.button_loading')}}</template>
           </b-button>
         </div>
       </b-form>
@@ -135,7 +135,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'Post new job',
+      default: '',
     },
     task: {
       type: Object,
@@ -151,25 +151,25 @@ export default {
       types: [
         {
           value: 'fulltime',
-          text: 'Full Time',
+          text: this.$t('tasks.form.fulltime'),
         },
         {
           value: 'parttime',
-          text: 'Part Time',
+          text: this.$t('tasks.form.parttime'),
         },
         {
           value: 'onetime',
-          text: 'One Time',
+          text: this.$t('tasks.form.onetime'),
         },
       ],
       locations: [
         {
           value: 'onsite',
-          text: 'On Site',
+          text: this.$t('tasks.form.onsite'),
         },
         {
           value: 'remote',
-          text: 'Remote',
+          text: this.$t('tasks.form.remote'),
         },
       ],
     };
@@ -273,6 +273,9 @@ export default {
 
         try {
           if (!this.task || !this.task.id) {
+            this.form = Object.assign({}, this.form, {
+              languageId: this.$store.getters['util/getCurrentLanguage'].id,
+            });
             await this.$store.dispatch('tasks/create', this.form);
             this.form = Object.assign({}, initialForm);
           } else {
@@ -285,7 +288,7 @@ export default {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'success',
-            text: 'Task saved successfully. It will be reviewed and published in next 24 hours.',
+            text: this.$t('tasks.form.success_notification'),
           });
           this.$router.push('/my-tasks');
         } catch (err) {
@@ -293,7 +296,7 @@ export default {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',
-            text: 'Task save failed.',
+            text: this.$t('tasks.form.error_notification'),
           });
         }
       }
