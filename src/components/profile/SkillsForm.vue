@@ -102,7 +102,7 @@ export default {
      * Get all categories
      */
     categories() {
-      return _.orderBy(this.$store.state.util.skills, [skill => skill.name.toLowerCase()], 'asc');
+      return this.$store.getters['util/getCategories'];
     },
 
     /**
@@ -111,17 +111,7 @@ export default {
      */
     skills() {
       const selectedIds = this.form.categories ? this.form.categories.map(r => r.id) : [];
-      const selectedRoles = this.$store.state.util.skills
-        .filter(r => selectedIds.indexOf(r.id) > -1);
-
-      const skills = [];
-
-      selectedRoles.forEach((r) => {
-        //orderBy sorts alphabetically ignoring case, then sortBy moves skill Other to the end
-        skills.push(..._.sortBy(_.orderBy(r.skills, [skill => skill.name.toLowerCase()], 'asc'), function(skill) { return skill.name === 'Other' ? 1 : 0; }));
-      });
-
-      return skills;
+      return this.$store.getters['util/getSkillsByCategories'](selectedIds);
     },
   },
 };

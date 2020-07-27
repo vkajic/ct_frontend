@@ -1,3 +1,5 @@
+import orderBy from 'lodash/orderBy';
+import sortBy from 'lodash/sortBy';
 import apiService from '../services/api.service';
 
 /* eslint-disable no-param-reassign */
@@ -78,17 +80,29 @@ const mutations = {
   },
 };
 
-const getters = {
+const gtrs = {
   /**
    * Get all skills without categories
    * @param state
+   * @param getters
    */
-  getAllSkills(state) {
-    const skills = [];
+  getAllSkills(state, getters) {
+    const currentLanguage = getters.getCurrentLanguage;
+    let skills = [];
 
-    state.skills.forEach((c) => {
-      skills.push(...c.skills);
-    });
+    if (currentLanguage) {
+      state.skills.forEach((c) => {
+        skills.push(...c.skills);
+      });
+
+      skills = skills.map(s => ({
+        id: s.id,
+        categoryId: s.categoryId,
+        name: s.translations
+          .find(t => t.languageId === currentLanguage.id)
+          .displayTranslation,
+      }));
+    }
 
     return skills;
   },
@@ -101,6 +115,70 @@ const getters = {
   getCurrentLanguage(state) {
     return state.languages.find(l => l.code === state.activeLanguage);
   },
+
+  /**
+   * Get categories with flat translations
+   * @param state
+   * @param getters
+   */
+  getCategories(state, getters) {
+    const currentLanguage = getters.getCurrentLanguage;
+
+    if (currentLanguage) {
+      const cats = state.skills.map(s => ({
+        id: s.id,
+        name: s.translations
+          .find(t => t.languageId === currentLanguage.id)
+          .displayTranslation,
+      }));
+
+      return orderBy(cats, 'name');
+    }
+
+    return [];
+  },
+
+  /**
+   * Get skills by category Id
+   * @param state
+   * @param getters
+   * @return {function(*): *}
+   */
+  getSkillsByCategory: (state, getters) => (categoryId) => {
+    const skills = getters.getAllSkills.filter(s => s.categoryId === categoryId);
+
+    return sortBy(
+      orderBy(
+        skills,
+        'name',
+        'asc',
+      ),
+      skill => (skill.name === 'Other' ? 1 : 0),
+    );
+  },
+
+  /**
+   * Get skills by selected category IDs
+   * @param state
+   * @param getters
+   * @return {function(*): *}
+   */
+  getSkillsByCategories: (state, getters) => (categoryIds) => {
+    const skills = getters.getAllSkills.filter(s => categoryIds.indexOf(s.categoryId) > -1);
+
+    if (skills.length) {
+      return sortBy(
+        orderBy(
+          skills,
+          'name',
+          'asc',
+        ),
+        skill => (skill.name === 'Other' ? 1 : 0),
+      );
+    }
+
+    return [];
+  },
 };
 
 const store = {
@@ -108,7 +186,7 @@ const store = {
   state: initialState,
   mutations,
   actions,
-  getters,
+  getters: gtrs,
 };
 
 export default store;

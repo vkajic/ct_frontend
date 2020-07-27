@@ -6,7 +6,7 @@
     <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none px-0" no-caret>
       <template slot="button-content">
         <div class="dropdown__button-wrapper">
-          <strong>{{category ? category : $t('freelancers_search.select_category')}}</strong>
+          <strong>{{category ? category.name : $t('freelancers_search.select_category')}}</strong>
           <chevron-down-icon size="16" class="ml-2"/>
         </div>
       </template>
@@ -14,7 +14,7 @@
                               :active="c === category"
                               :key="i"
                               @click="selectCategory(c)">
-        {{c}}
+        {{c.name}}
       </b-dropdown-item-button>
     </b-dropdown>
   </div>
@@ -32,13 +32,13 @@ export default {
   },
   props: {
     category: {
-      type: String,
+      type: Object,
       default: null,
     },
   },
   computed: {
     categories() {
-      return _.orderBy(this.$store.state.util.skills, [skill => skill.name.toLowerCase()], 'asc').map(c => c.name);
+      return this.$store.getters['util/getCategories'];
     },
   },
   methods: {

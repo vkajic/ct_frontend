@@ -124,7 +124,7 @@ const actions = {
         sortBy: state.sort.by,
         sortDir: state.sort.dir,
         q: state.queryTerm,
-        category: state.category,
+        category: state.category ? state.category.name : null,
         page: state.page,
         perPage: state.perPage,
       };

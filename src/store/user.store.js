@@ -154,18 +154,6 @@ const actions = {
   },
 
   /**
-   * Create freelancer basic data
-   * @param commit
-   * @param {Object} data
-   * @return {Promise<void>}
-   */
-  async createFreelancerBasicInfo({ commit }, data) {
-    const freelancerData = await apiService.post('/freelancers', data);
-
-    commit('setFreelancerBasicData', freelancerData.data.data);
-  },
-
-  /**
    * Update freelancer basic data
    * @param commit
    * @param {Object} data
@@ -190,30 +178,6 @@ const actions = {
   },
 
   /**
-   * Update freelancer resume file
-   * @param commit
-   * @param data
-   * @return {Promise<void>}
-   */
-  async updateFreelancerResume({ commit }, data) {
-    await apiService.put('/freelancers/resume', data);
-
-    commit('setFreelancerResume', data);
-  },
-
-  /**
-   * Delete freelancer resume
-   * @param commit
-   * @param data
-   * @return {Promise<void>}
-   */
-  async removeFreelancerResume({ commit }, data) {
-    await apiService.delete('/freelancers/resume', data);
-
-    commit('setFreelancerResume', null);
-  },
-
-  /**
    * Update freelancer working experience
    * @param commit
    * @param {Object[]} data
@@ -235,18 +199,6 @@ const actions = {
     await apiService.put('/freelancers/projects', data);
 
     commit('setFreelancerProjects', data);
-  },
-
-  /**
-   * Create client basic data
-   * @param commit
-   * @param {Object} data
-   * @return {Promise<void>}
-   */
-  async createClientBasicInfo({ commit }, data) {
-    const clientData = await apiService.post('/clients', data);
-
-    commit('setClientBasicData', clientData.data.data);
   },
 
   /**

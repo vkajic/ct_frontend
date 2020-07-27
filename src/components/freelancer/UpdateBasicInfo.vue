@@ -116,7 +116,6 @@ import ImageUploader from '../form/ImageUploader.vue';
 import InputField from '../form/InputField.vue';
 import ValidationMessages from '../form/ValidationMessages.vue';
 import InputGroup from '../form/InputGroup.vue';
-import TextareaGroup from '../form/TextareaGroup.vue';
 import InputTags from '../form/InputTags.vue';
 import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
 
@@ -126,7 +125,6 @@ export default {
   components: {
     WysiwygTextareaGroup,
     InputTags,
-    TextareaGroup,
     InputGroup,
     ValidationMessages,
     InputField,
@@ -179,23 +177,22 @@ export default {
     },
   },
   watch: {
-    freelancer(n) {
-      if (n && n.id) {
-        this.form = Object.assign({}, this.form, n);
-      }
+    freelancer() {
+      this.setupForm();
+    },
+    currentLanguage() {
+      this.setupForm();
     },
   },
   created() {
-    if (this.freelancer) {
-      this.form = Object.assign({}, this.form, this.freelancer);
-    }
+    this.setupForm();
   },
   computed: {
     /**
      * Get all categories
      */
     categories() {
-      return _.orderBy(this.$store.state.util.skills, [skill => skill.name.toLowerCase()], 'asc');
+      return this.$store.getters['util/getCategories'];
     },
 
     /**
@@ -204,17 +201,7 @@ export default {
      */
     skills() {
       const selectedIds = this.form.categories ? this.form.categories.map(r => r.id) : [];
-      const selectedRoles = this.$store.state.util.skills
-        .filter(r => selectedIds.indexOf(r.id) > -1);
-
-      const skills = [];
-
-      selectedRoles.forEach((r) => {
-        //orderBy sorts alphabetically ignoring case, then sortBy moves skill Other to the end
-        skills.push(..._.sortBy(_.orderBy(r.skills, [skill => skill.name.toLowerCase()], 'asc'), function(skill) { return skill.name === 'Other' ? 1 : 0; }));
-      });
-
-      return skills;
+      return this.$store.getters['util/getSkillsByCategories'](selectedIds);
     },
 
     /**
@@ -222,6 +209,13 @@ export default {
      */
     buttonText() {
       return this.freelancer.published ? 'Save profile' : 'Save and publish';
+    },
+
+    /**
+     * Get current language
+     */
+    currentLanguage() {
+      return this.$store.getters['util/getCurrentLanguage'];
     },
   },
   methods: {
@@ -238,6 +232,24 @@ export default {
      */
     avatarRemoved() {
       this.form.avatar = null;
+    },
+
+    setupForm() {
+      if (this.freelancer && this.currentLanguage) {
+        this.form = Object.assign({}, this.form, this.freelancer);
+
+        this.form.categories = this.form.categories.map(c => ({
+          id: c.id,
+          name: c.translations
+            .find(t => t.languageId === this.currentLanguage.id).displayTranslation,
+        }));
+
+        this.form.skills = this.form.skills.map(c => ({
+          id: c.id,
+          name: c.translations
+            .find(t => t.languageId === this.currentLanguage.id).displayTranslation,
+        }));
+      }
     },
 
     /**

@@ -5,7 +5,7 @@
                       :avatar="freelancer.avatar"
                       :user-name="fullName"
                       :options="avatarOptions"/>
-      <web-presence-group v-if="isThereWebPresence" :freelancer="freelancer" />
+      <web-presence-group v-if="isThereWebPresence" :freelancer="freelancer"/>
       <freelancer-rate :freelancer-id="freelancer.id"/>
     </div>
     <div class="col-12 col-lg-8">
@@ -19,7 +19,7 @@
 
       <p class="mb-4 lead">{{bio}}</p>
 
-      <tags-display :tags="freelancer.skills"
+      <tags-display :tags="skills"
                     :linkable="skillsClickable"
                     class="mb-lg-5"
                     @click="$emit('skill-click', $event)"/>
@@ -88,6 +88,20 @@ export default {
 
     isThereWebPresence() {
       return this.freelancer.linkedin || this.freelancer.web || this.freelancer.blog;
+    },
+
+    skills() {
+      const currentLanguage = this.$store.getters['util/getCurrentLanguage'];
+      const freelancerSkills = this.freelancer.skills;
+
+      if (freelancerSkills && currentLanguage) {
+        return freelancerSkills.map(s => ({
+          id: s.id,
+          name: s.translations.find(t => t.languageId === currentLanguage.id).displayTranslation,
+        }));
+      }
+
+      return [];
     },
   },
 };

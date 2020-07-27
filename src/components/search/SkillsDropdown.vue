@@ -6,7 +6,7 @@
     <b-dropdown size="lg" variant="link" toggle-class="text-decoration-none px-0" no-caret>
       <template slot="button-content">
         <div class="dropdown__button-wrapper">
-          <strong>{{skill ? skill : $t('freelancers_search.select_skills')}}</strong>
+          <strong>{{skill ? skill.name : $t('freelancers_search.select_skills')}}</strong>
           <chevron-down-icon size="16" class="ml-2"/>
         </div>
       </template>
@@ -14,7 +14,7 @@
                               :active="c === skill"
                               :key="i"
                               @click="selectSkill(c)">
-        {{c}}
+        {{c.name}}
       </b-dropdown-item-button>
     </b-dropdown>
   </div>
@@ -32,19 +32,18 @@ export default {
   },
   props: {
     category: {
-      type: String,
+      type: Object,
       default: null,
     },
     skill: {
-      type: String,
+      type: Object,
       default: null,
     },
   },
   computed: {
     skills() {
       if (this.category) {
-        //orderBy sorts alphabetically ignoring case, then sortBy moves skill Other to the end
-        return _.sortBy(_.orderBy(this.$store.state.util.skills.find(c => c.name === this.category).skills, [skill => skill.name.toLowerCase()], 'asc'), function(skill) { return skill.name === 'Other' ? 1 : 0; }).map(s => s.name);
+        return this.$store.getters['util/getSkillsByCategory'](this.category.id);
       }
 
       return [];

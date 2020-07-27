@@ -22,8 +22,8 @@ const actions = {
     const params = {
       page: state.page,
       perPage: state.perPage,
-      category: state.category,
-      skill: state.skill,
+      category: state.category ? state.category.name : null,
+      skill: state.skill ? state.skill.name : null,
       q: state.term,
     };
     try {

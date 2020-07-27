@@ -227,7 +227,7 @@ export default {
     },
 
     categories() {
-      return this.$store.state.util.skills;
+      return this.$store.getters['util/getCategories'];
     },
 
     /**
@@ -235,16 +235,7 @@ export default {
      */
     skills() {
       const selectedIds = this.form.categories ? this.form.categories.map(r => r.id) : [];
-      const selectedRoles = this.$store.state.util.skills
-        .filter(r => selectedIds.indexOf(r.id) > -1);
-
-      const skills = [];
-
-      selectedRoles.forEach((r) => {
-        skills.push(...r.skills);
-      });
-
-      return skills;
+      return this.$store.getters['util/getSkillsByCategories'](selectedIds);
     },
 
     /**

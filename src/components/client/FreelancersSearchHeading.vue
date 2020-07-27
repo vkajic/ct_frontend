@@ -29,11 +29,11 @@ export default {
       default: null,
     },
     category: {
-      type: String,
+      type: Object,
       default: null,
     },
     skill: {
-      type: String,
+      type: Object,
       default: null,
     },
   },
