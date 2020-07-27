@@ -3,7 +3,7 @@
     <div class="d-flex align-items-center">
       <h1 class="d-flex align-items-center">
         {{task.title}}
-        <bc-check-status :task="task" class="ml-2"/>
+        <bc-check-status checkType="task" :task="task" class="ml-2"/>
       </h1>
       <slot name="title"/>
     </div>

@@ -140,8 +140,7 @@ class SmartContract {
   async setFreelancerProperties(freelancerData) {
     const bcData = this.getBcData();
     console.log('bcdata', bcData);
-    const flancerInfoHash = Buffer.from(Crypto.hash([freelancerData.name, freelancerData.bio, freelancerData.resume].join('')))
-      .toString('hex');
+    const flancerInfoHash = this.createFlancerInfoHash(freelancerData);
     const resNonce = await bcData.contract.methods.getNonce(bcData.keypairFormatted.publicKey);
     const nonce = resNonce.decodedResult;
     console.log('nonce', nonce);
@@ -162,6 +161,16 @@ class SmartContract {
       nonce,
       flancerInfoHash,
     });
+  }
+
+  /**
+   * createFlancerInfoHash
+   * @param {Object} freelancerData
+   * @return {String} flancerInfoHash
+   */
+  createFlancerInfoHash(freelancerData) {
+    return Buffer.from(Crypto.hash([freelancerData.name, freelancerData.bio, freelancerData.resume].join('')))
+      .toString('hex');
   }
 
   /**
