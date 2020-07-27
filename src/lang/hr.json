@@ -20,9 +20,10 @@
   "auth": {
     "info": {
       "why_cryptotask": "Zašto CryptoTask?",
-      "line1": "Samo 3% provizije",
-      "line2": "Više kvalitetnih klijenata",
-      "line3": "Kvalitetniji escrow i sustav rješavanja sporova"
+      "line1": "Bez provizije za osnovno korištenje",
+      "line2": "Objavite posao za manje od minute",
+      "line3": "Više kvalitetnih klijenata",
+      "line4": "Pouzdan escrow i sustav rješavanja sporova"
     },
     "login": {
       "title": "Prijava",
