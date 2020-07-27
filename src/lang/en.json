@@ -19,9 +19,10 @@
   "auth": {
     "info": {
       "why_cryptotask": "Why Cryptotask",
-      "line1": "Just 3% fees",
-      "line2": "More high paying clients",
-      "line3": "Effective escrow and dispute mechanism"
+      "line1": "Zero fees for basic use",
+      "line2": "Post a job in under a minute",
+      "line3": "More high paying clients",
+      "line4": "Effective escrow and dispute mechanism"
     },
     "login": {
       "title": "Login.",

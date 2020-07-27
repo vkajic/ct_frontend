@@ -5,7 +5,8 @@
       <ul class="list-unstyled m-0">
         <li class="mb-3 font-12-sm">{{$t('auth.info.line1')}}</li>
         <li class="mb-3 font-12-sm">{{$t('auth.info.line2')}}</li>
-        <li class="font-12-sm">{{$t('auth.info.line3')}}</li>
+        <li class="mb-3 font-12-sm">{{$t('auth.info.line3')}}</li>
+        <li class="font-12-sm">{{$t('auth.info.line4')}}</li>
       </ul>
     </div>
   </div>
