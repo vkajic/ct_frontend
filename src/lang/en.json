@@ -14,7 +14,8 @@
     "logout": "Logout",
     "edit_profile": "Edit Profile",
     "preview_profile": "Preview Profile",
-    "change_password": "Change password"
+    "change_password": "Change password",
+    "affiliate": "Affiliate"
   },
   "auth": {
     "info": {
@@ -299,5 +300,11 @@
     "my_jobs": "My jobs",
     "post_job": "Post job",
     "messages": "Messages"
+  },
+  "affiliate": {
+    "title": "Affiliate",
+    "introduction": "Help us bring new users to CryptoTask by sharing your affiliate link. You will be making a percentage on all payments these users make through the platform.",
+    "affiliate_link": "Your affiliate link (copy/paste and share through email, chat apps, social media):",
+    "num_invitees": "You currently have {numOfInvitees} users signed up through you."
   }
 }
