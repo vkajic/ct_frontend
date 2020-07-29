@@ -36,6 +36,7 @@ import MyPublicProfile from './views/common/MyPublicProfile.vue';
 import Client from './views/freelancer/Client.vue';
 import Unsubscribe from './views/common/Unsubscribe.vue';
 import NotFound from './views/errors/404.vue';
+import Affiliate from './views/common/Affiliate.vue';
 
 const domains = {
   'cryptotask.local': 'en',
@@ -84,6 +85,14 @@ const router = new Router({
           path: 'profile',
           name: 'updateProfile',
           component: UpdateProfile,
+          meta: {
+            requiresAuth: true,
+          },
+        },
+        {
+          path: 'affiliate',
+          name: 'Affiliate',
+          component: Affiliate,
           meta: {
             requiresAuth: true,
           },

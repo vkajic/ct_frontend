@@ -11,6 +11,7 @@
     <b-dropdown-item to="/profile">{{ $t('common.edit_profile') }}</b-dropdown-item>
     <b-dropdown-item to="/profile/preview">{{ $t('common.preview_profile') }}</b-dropdown-item>
     <b-dropdown-item to="/change-password">{{ $t('common.change_password') }}</b-dropdown-item>
+    <b-dropdown-item to="/affiliate">{{ $t('common.affiliate') }}</b-dropdown-item>
   </b-dropdown>
 </template>
 
