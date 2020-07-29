@@ -30,6 +30,14 @@ export default {
           label: 'Hrvatski',
           code: 'hr',
         },
+        {
+          label: 'Español',
+          code: 'es',
+        },
+        {
+          label: 'Tiếng Việt',
+          code: 'vn',
+        },
       ],
     };
   },

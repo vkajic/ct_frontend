@@ -48,7 +48,7 @@ const domains = {
   'app.dev.freelancer.hr': 'hr',
 };
 
-const languages = ['en', 'hr'];
+const languages = ['en', 'hr', 'es', 'vn'];
 
 Vue.use(Router);
 Vue.use(Meta);
