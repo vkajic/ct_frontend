@@ -56,16 +56,19 @@ export default {
 
       if (this.checkType === 'task') {
         if (this.task.bcId !== null && this.task.bcId !== undefined && this.isBcDataSet && bcData) {
-          const bcTask = await bcData.contract.methods.getTask(this.task.bcId);
+          const bcTask = await bcData.contractStore.methods.getTask(this.task.bcId);
           console.log(bcTask);
           this.isOnBc = bcTask.decodedResult.infoHash === this.$smartContract.createTaskInfoHash(this.task);
         }
       } else if (this.checkType === 'client') {
 
       } else if (this.checkType === 'freelancer') {
+        console.log(this.freelancer);
         if (this.freelancer.bcId !== null && this.freelancer.bcId !== undefined && this.isBcDataSet && bcData) {
-          const bcProfile = await bcData.contract.methods.getProfile(this.freelancer.bcId);
+          const bcProfile = await bcData.contractStore.methods.getProfile(this.freelancer.bcId);
           console.log(bcProfile);
+          console.log(bcProfile.decodedResult.flancerInfoHash);
+          console.log(this.$smartContract.createFlancerInfoHash(this.freelancer));
           this.isOnBc = bcProfile.decodedResult.flancerInfoHash === this.$smartContract.createFlancerInfoHash(this.freelancer);
         }
       } else if (this.checkType === 'feedback') {

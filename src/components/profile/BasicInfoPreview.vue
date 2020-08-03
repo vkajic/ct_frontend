@@ -11,6 +11,7 @@
     <div class="col-12 col-lg-8">
       <h1 class="text-center text-lg-left">
         {{fullName}}
+        <bc-check-status checkType="freelancer" :freelancer="freelancer" class="ml-2"/>
       </h1>
       <h6 class="mb-4 font-weight-normal text-center text-lg-left">
         <span v-if="freelancer.occupation">{{freelancer.occupation}}</span>
@@ -37,6 +38,7 @@ import TagsDisplay from '../ui/TagsDisplay.vue';
 import AvatarDisplay from '../ui/AvatarDisplay.vue';
 import FreelancerRate from '../freelancer/FreelancerRate.vue';
 import WebPresenceGroup from './WebPresenceGroup.vue';
+import BcCheckStatus from '../common/BcCheckStatus.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -46,6 +48,7 @@ export default {
     AvatarDisplay,
     TagsDisplay,
     WebPresenceGroup,
+    BcCheckStatus,
   },
   data() {
     return {

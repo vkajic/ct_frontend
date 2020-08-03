@@ -119,14 +119,13 @@ const actions = {
       .then(async() => {
         commit('activateBcData');
 
-        console.log(login.data.data);
         try {
-          if (typeof login.data.data.freelancer !== "undefined") {
-            const bcFreelancer = await this._vm.$smartContract.setFreelancerProperties(login.data.data.freelancer);
+          if (user.data.data.freelancer != null && user.data.data.freelancer.name && user.data.data.freelancer.bcId == null) {
+            const bcFreelancer = await this._vm.$smartContract.setFreelancerProperties(user.data.data.freelancer);
             await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
             console.log(bcFreelancer);
-          } else if (typeof login.data.data.client !== "undefined") {
-            /*const bcClient = await this._vm.$smartContract.setClientProperties(login.data.data.client);
+          } else if (user.data.data.client != null && user.data.data.client.name && user.data.data.client.bcId == null) {
+            /*const bcClient = await this._vm.$smartContract.setClientProperties(user.data.data.client);
             await apiService.post('/clients/regBcClient', bcClient);
             console.log(bcClient);*/
           }

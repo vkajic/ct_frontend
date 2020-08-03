@@ -13,7 +13,7 @@
 
 <script>
 import SmallEmployer from './SmallEmployer.vue';
-import BcCheckStatus from './BcCheckStatus.vue';
+import BcCheckStatus from '../common/BcCheckStatus.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
