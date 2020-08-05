@@ -79,7 +79,7 @@ export default {
           type: 'success',
           text: this.$t('freelancers.apply_success'),
         });
-        await this.$router.push(`/applications/${this.application.id}`);
+        await this.$router.push(`/${this.$route.params.lang}/applications/${this.application.id}`);
         this.applied = true;
         this.letter = null;
       } catch (err) {

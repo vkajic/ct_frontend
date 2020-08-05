@@ -23,36 +23,36 @@ export default {
     return {
       steps: [
         {
-          route: '/create-freelancer/basic-info',
+          route: 'basic-info',
           order: 1,
-          label: 'Basic info',
+          label: 'freelancers.basic_info',
         },
         {
-          route: '/create-freelancer/skills',
+          route: 'skills',
           order: 2,
-          label: 'Skills & services',
+          label: 'freelancers.skills_services',
         },
         {
-          route: '/create-freelancer/work-experience',
+          route: 'work-experience',
           order: 3,
-          label: 'Work experience',
+          label: 'freelancers.work_experience',
         },
         {
-          route: '/create-freelancer/projects',
+          route: 'projects',
           order: 4,
-          label: 'Add projects',
+          label: 'freelancers.add_projects',
         },
         {
-          route: '/create-freelancer/preview',
+          route: 'preview',
           order: 5,
-          label: 'Publish profile',
+          label: 'freelancers.publish_button',
         },
       ],
     };
   },
   computed: {
     currentOrder() {
-      const routePath = this.$route.path;
+      const routePath = this.$route.name;
       const currentStep = this.steps.find(s => s.route === routePath);
       return currentStep.order;
     },

@@ -1,12 +1,12 @@
 <template>
   <li :class="[stepClass]">
-    <language-router-link :to="step.route" v-if="clickable">
+    <language-router-link :to="stepRoute" v-if="clickable">
       <check-circle-icon/>
-      {{step.label}}
+      {{$t(step.label)}}
     </language-router-link>
     <span v-if="!clickable">
       <check-circle-icon/>
-      {{step.label}}
+      {{$t(step.label)}}
     </span>
   </li>
 </template>
@@ -45,6 +45,9 @@ export default {
       }
 
       return '';
+    },
+    stepRoute() {
+      return `${this.$route.params.lang}/create-freelancer/${this.step.route}`;
     },
     clickable() {
       return this.currentOrder > this.step.order;

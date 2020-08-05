@@ -234,9 +234,10 @@ const router = new Router({
           children: [
             {
               path: 'basic-info',
-              name: 'basicInfo',
+              name: 'basic-info',
               component: BasicInfo,
               meta: {
+                layout: 'profile',
                 requiresAuth: true,
                 forbidAccess: 'client',
                 menuWidth: 0,
@@ -247,6 +248,7 @@ const router = new Router({
               name: 'skills',
               component: Skills,
               meta: {
+                layout: 'profile',
                 requiresAuth: true,
                 forbidAccess: 'client',
                 menuWidth: 0,
@@ -254,9 +256,10 @@ const router = new Router({
             },
             {
               path: 'work-experience',
-              name: 'workExperience',
+              name: 'work-experience',
               component: Experience,
               meta: {
+                layout: 'profile',
                 requiresAuth: true,
                 forbidAccess: 'client',
                 menuWidth: 0,
@@ -267,6 +270,7 @@ const router = new Router({
               name: 'projects',
               component: Projects,
               meta: {
+                layout: 'profile',
                 requiresAuth: true,
                 forbidAccess: 'client',
                 menuWidth: 0,
@@ -277,6 +281,7 @@ const router = new Router({
               name: 'preview',
               component: Preview,
               meta: {
+                layout: 'profile',
                 requiresAuth: true,
                 forbidAccess: 'client',
                 menuWidth: 0,
