@@ -66,6 +66,7 @@ import InputGroup from '../form/InputGroup.vue';
 import ValidationMessages from '../form/ValidationMessages.vue';
 import FunnelButtons from './FunnelButtons.vue';
 import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
+import languageRouter from '../mixins/languageRouter';
 
 const initialForm = {
   company: null,
@@ -85,6 +86,7 @@ export default {
     Datepicker,
     InputGroup,
   },
+  mixins: [languageRouter],
   props: {
     freelancer: {
       type: Object,
@@ -147,7 +149,7 @@ export default {
           });
           this.saving = false;
           if (this.redirectionEnabled) {
-            this.$router.push('/create-freelancer/projects');
+            this.push('/create-freelancer/projects');
           } else {
             this.$store.dispatch('ui/showNotification', {
               type: 'success',

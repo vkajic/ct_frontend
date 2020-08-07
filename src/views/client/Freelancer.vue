@@ -54,6 +54,7 @@ import ProjectsPreview from '../../components/freelancer/ProjectsPreview.vue';
 import InviteToJobModal from '../../components/client/InviteToJobModal.vue';
 import Paper from '../../components/ui/Paper.vue';
 import FreelancerFeedbacks from '../../components/freelancer/FreelancerFeedbacks.vue';
+import languageRouter from '../../components/mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -66,6 +67,7 @@ export default {
     ExperiencePreview,
     BasicInfoPreview,
   },
+  mixins: [languageRouter],
   data() {
     return {
       freelancer: null,
@@ -109,7 +111,7 @@ export default {
      */
     async skillClicked($event) {
       await this.$store.dispatch('freelancers/setSkillCategory', $event);
-      await this.$router.push('/freelancers');
+      await this.push('/freelancers');
     },
 
     /**
@@ -124,7 +126,7 @@ export default {
         this.$store.commit('ui/hideLoader');
       } catch (e) {
         if (e.response && e.response.status === 404) {
-          this.$router.replace({ name: '404' });
+          this.replace({ name: 'notFoundPage' });
         }
       }
     },

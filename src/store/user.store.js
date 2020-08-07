@@ -1,5 +1,4 @@
 /* eslint-disable import/no-cycle */
-import router from '../router';
 import apiService from '../services/api.service';
 import tokenService from '../services/token.service';
 
@@ -63,10 +62,6 @@ const actions = {
         commit('setActiveRole', firstRole);
 
         dispatch('chat/getThreads', null, { root: true });
-
-        if (!userData[firstRole]) {
-          await router.replace(`/create-${firstRole}/basic-info`);
-        }
       } catch (err) {
         tokenService.removeToken();
         apiService.removeHeader();
@@ -141,8 +136,6 @@ const actions = {
    * @param commit
    */
   logout({ commit }) {
-    router.replace('/login');
-
     commit('setToken', null);
 
     tokenService.removeToken();

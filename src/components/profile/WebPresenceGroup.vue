@@ -1,7 +1,7 @@
 <template>
   <div class="web-presence-group mb-4">
     <web-presence-item v-if="freelancer.linkedin" class="web-presence-group__item"
-                       :href="freelancer.linkedin" ariaLabel="Link to the Linkedin profile">
+                       :href="linkedinUrl" ariaLabel="Link to the Linkedin profile">
       <font-awesome-icon :icon="linkedinIcon" size="lg"/>
     </web-presence-item>
     <web-presence-item v-if="freelancer.web" class="web-presence-group__item" :href="websiteUrl"
@@ -64,6 +64,16 @@ export default {
       }
 
       return this.freelancer.blog;
+    },
+
+    linkedinUrl() {
+      const pattern = /^((http|https|ftp):\/\/)/;
+
+      if (!pattern.test(this.freelancer.linkedin)) {
+        return `http://${this.freelancer.linkedin}`;
+      }
+
+      return this.freelancer.linkedin;
     },
   },
 };

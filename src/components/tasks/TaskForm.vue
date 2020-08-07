@@ -108,6 +108,7 @@ import {
 import InputGroup from '../form/InputGroup.vue';
 import InputTags from '../form/InputTags.vue';
 import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
+import languageRouter from '../mixins/languageRouter';
 
 // TODO add attachments uploader
 
@@ -132,6 +133,7 @@ export default {
     InputTags,
     InputGroup,
   },
+  mixins: [languageRouter],
   props: {
     title: {
       type: String,
@@ -281,7 +283,7 @@ export default {
             type: 'success',
             text: this.$t('tasks.form.success_notification'),
           });
-          this.$router.push('/my-tasks');
+          this.push('/my-tasks');
         } catch (err) {
           console.error(err);
           this.sending = false;

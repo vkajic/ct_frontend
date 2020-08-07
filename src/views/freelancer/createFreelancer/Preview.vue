@@ -35,6 +35,7 @@
 import FunnelContainer from '../../../components/profile/FunnelContainer.vue';
 import BasicInfoPreview from '../../../components/profile/BasicInfoPreview.vue';
 import ExperiencePreview from '../../../components/profile/ExperiencePreview.vue';
+import languageRouter from '../../../components/mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -44,6 +45,7 @@ export default {
     BasicInfoPreview,
     FunnelContainer,
   },
+  mixins: [languageRouter],
   data() {
     return {
       publishing: false,
@@ -65,7 +67,7 @@ export default {
         type: 'success',
         text: this.$t('freelancers.publish_success'),
       });
-      this.$router.replace('/');
+      this.replace('/');
     },
   },
 };

@@ -27,6 +27,7 @@ import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import SingleTaskTitle from '../../components/tasks/SingleTaskTitle.vue';
 import FreelancerTaskButtons from '../../components/tasks/FreelancerTaskButtons.vue';
 import TaskDescription from '../../components/tasks/TaskDescription.vue';
+import languageRouter from '../../components/mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -38,6 +39,7 @@ export default {
     RequiredSkills,
     TaskDetails,
   },
+  mixins: [languageRouter],
   data() {
     return {
       application: null,
@@ -58,7 +60,7 @@ export default {
         await this.$store.dispatch('tasks/selectTask', id);
       } catch (e) {
         if (e.response && e.response.status === 404) {
-          this.$router.replace({ name: '404' });
+          this.replace({ name: 'notFoundPage' });
         }
       }
     },
@@ -79,7 +81,7 @@ export default {
           type: 'success',
           text: this.$t('freelancers.apply_success'),
         });
-        await this.$router.push(`/${this.$route.params.lang}/applications/${this.application.id}`);
+        await this.push(`/applications/${this.application.id}`);
         this.applied = true;
         this.letter = null;
       } catch (err) {

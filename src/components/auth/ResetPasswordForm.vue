@@ -33,10 +33,12 @@
 <script>
 import { required, minLength, sameAs } from 'vuelidate/lib/validators';
 import ApiService from '../../services/api.service';
+import languageRouter from '../mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ResetPasswordForm',
+  mixins: [languageRouter],
   data() {
     return {
       form: {
@@ -77,7 +79,7 @@ export default {
             type: 'success',
             text: this.$t('auth.reset_password.success_notification'),
           });
-          this.$router.replace('/login');
+          this.replace('/login');
         } catch (err) {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {

@@ -15,11 +15,13 @@
 </template>
 
 <script>
-// noinspection JSUnusedGlobalSymbols
 import { get } from 'lodash';
+import languageRouter from '../mixins/languageRouter';
 
+// noinspection JSUnusedGlobalSymbols
 export default {
   name: 'TaskDetailsButtons',
+  mixins: [languageRouter],
   props: {
     task: {
       type: Object,
@@ -44,7 +46,7 @@ export default {
 
       if (confirm) {
         await this.$store.dispatch('tasks/delete', this.task.id);
-        await this.$router.replace('/my-tasks');
+        await this.replace('/my-tasks');
         await this.$store.dispatch('ui/showNotification', {
           type: 'success',
           text: this.$t('tasks.details.delete_success'),

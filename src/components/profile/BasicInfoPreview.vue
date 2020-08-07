@@ -93,12 +93,16 @@ export default {
     skills() {
       const currentLanguage = this.$store.getters['util/getCurrentLanguage'];
       const freelancerSkills = this.freelancer.skills;
+      const skillIds = freelancerSkills.map(s => s.id);
 
       if (freelancerSkills && currentLanguage) {
-        return freelancerSkills.map(s => ({
-          id: s.id,
-          name: s.translations.find(t => t.languageId === currentLanguage.id).displayTranslation,
-        }));
+        const skills = this.$store.getters['util/getAllSkills'];
+
+        return skills.filter(s => skillIds.indexOf(s.id) > -1)
+          .map(s => ({
+            id: s.id,
+            name: s.name,
+          }));
       }
 
       return [];

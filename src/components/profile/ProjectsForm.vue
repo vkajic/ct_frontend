@@ -70,6 +70,7 @@ import InputGroup from '../form/InputGroup.vue';
 import TextareaGroup from '../form/TextareaGroup.vue';
 import GalleryUploader from '../form/GalleryUploader.vue';
 import FunnelButtons from './FunnelButtons.vue';
+import languageRouter from '../mixins/languageRouter';
 
 const initialForm = {
   title: null,
@@ -88,6 +89,7 @@ export default {
     InputGroup,
     ImageUploader,
   },
+  mixins: [languageRouter],
   props: {
     freelancer: {
       type: Object,
@@ -164,7 +166,7 @@ export default {
           await this.$store.dispatch('user/updateFreelancerProjects', this.items);
           this.saving = false;
           if (this.redirectionEnabled) {
-            this.$router.push('/create-freelancer/preview');
+            this.push('/create-freelancer/preview');
           } else {
             this.$store.dispatch('ui/showNotification', {
               type: 'success',

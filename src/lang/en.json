@@ -28,6 +28,7 @@
       "title": "Login.",
       "forgot_password": "Forgot password?",
       "button_label": "Login to CryptoTask",
+      "button_label_sending": "Processing...",
       "password": "Password",
       "email": "Email"
     },

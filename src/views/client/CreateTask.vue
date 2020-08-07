@@ -11,6 +11,7 @@
 <script>
 import TaskForm from '../../components/tasks/TaskForm.vue';
 import Paper from '../../components/ui/Paper.vue';
+import languageRouter from '../../components/mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -19,13 +20,14 @@ export default {
     Paper,
     TaskForm,
   },
+  mixins: [languageRouter],
   created() {
     if (!this.$store.state.user.user.client.name) {
       this.$store.dispatch('ui/showNotification', {
         type: 'danger',
         text: this.$t('tasks.form.warning'),
       });
-      this.$router.replace('/profile');
+      this.replace('/profile');
     }
   },
 };

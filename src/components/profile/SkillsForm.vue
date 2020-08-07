@@ -29,11 +29,13 @@
 import { required } from 'vuelidate/src/validators';
 import InputTags from '../form/InputTags.vue';
 import FunnelButtons from './FunnelButtons.vue';
+import languageRouter from '../mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'SkillsForm',
   components: { FunnelButtons, InputTags },
+  mixins: [languageRouter],
   props: {
     freelancer: {
       type: Object,
@@ -68,7 +70,7 @@ export default {
         try {
           await this.$store.dispatch('user/updateFreelancerSkills', this.form);
           this.saving = false;
-          this.$router.push('/create-freelancer/work-experience');
+          this.push('/create-freelancer/work-experience');
         } catch (err) {
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',

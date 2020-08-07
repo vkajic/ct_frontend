@@ -27,7 +27,8 @@
                 size="lg"
                 block
                 class="mb-3"
-                :disabled="sending">{{$t('auth.login.button_label')}}
+                :disabled="sending">{{sending ? $t('auth.login.button_label_sending') :
+        $t('auth.login.button_label')}}
       </b-button>
 
       <div class="text-center">
@@ -41,6 +42,7 @@
 import { required, email } from 'vuelidate/lib/validators';
 import ValidationMessages from '../form/ValidationMessages.vue';
 import LanguageLink from '../ui/LanguageLink.vue';
+import languageRouter from '../mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -49,6 +51,7 @@ export default {
     LanguageLink,
     ValidationMessages,
   },
+  mixins: [languageRouter],
   data() {
     return {
       form: {
@@ -83,19 +86,22 @@ export default {
 
           this.form = {};
           this.$v.$reset();
-          this.sending = false;
 
           if (!profileCompleted) {
-            await this.$router.replace(`/create-${activeRole}/basic-info`);
+            await this.replace(`/create-${activeRole}/basic-info`);
           } else {
             const { redirect } = this.$route.query;
+
+            console.log(redirect);
 
             if (redirect) {
               await this.$router.replace(redirect);
             } else {
-              await this.$router.replace('/');
+              await this.replace('/');
             }
           }
+
+          this.sending = false;
         } catch (err) {
           this.sending = false;
           this.$store.dispatch('ui/showNotification', {

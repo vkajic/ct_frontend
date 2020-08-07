@@ -16,6 +16,7 @@ import './assets/scss/style.scss';
 import MainLayout from './layouts/main/MainLayout.vue';
 import ProfileLayout from './layouts/profile/ProfileLayout.vue';
 import AuthLayout from './layouts/auth/AuthLayout.vue';
+import ErrorsLayout from './layouts/errors/ErrorsLayout.vue';
 
 Vue.use(BootstrapVue);
 Vue.use(Vuelidate);
@@ -53,6 +54,7 @@ Vue.prototype.$smartContract = SmartContract;
 Vue.component('main-layout', MainLayout);
 Vue.component('profile-layout', ProfileLayout);
 Vue.component('auth-layout', AuthLayout);
+Vue.component('errors-layout', ErrorsLayout);
 
 new Vue({
   router,

@@ -17,6 +17,7 @@
 
 <script>
 import { UserIcon } from 'vue-feather-icons';
+import languageRouter from '../mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -24,12 +25,14 @@ export default {
   components: {
     UserIcon,
   },
+  mixins: [languageRouter],
   methods: {
     /**
      * Logout
      */
-    logout() {
-      this.$store.dispatch('user/logout');
+    async logout() {
+      await this.$store.dispatch('user/logout');
+      await this.replace('/login');
     },
   },
   computed: {

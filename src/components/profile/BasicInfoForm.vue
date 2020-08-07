@@ -89,10 +89,12 @@ import InputGroup from '../form/InputGroup.vue';
 import TextareaGroup from '../form/TextareaGroup.vue';
 import ImageUploader from '../form/ImageUploader.vue';
 import FunnelButtons from './FunnelButtons.vue';
+import languageRouter from '../mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'BasicInfoForm',
+  mixins: [languageRouter],
   props: {
     freelancer: {
       type: Object,
@@ -157,7 +159,7 @@ export default {
             role: 'freelancer',
           });
           this.saving = false;
-          this.$router.push('/create-freelancer/skills');
+          this.push('/create-freelancer/skills');
         } catch (err) {
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',

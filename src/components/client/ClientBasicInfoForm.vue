@@ -49,6 +49,7 @@ import { required } from 'vuelidate/src/validators';
 import ImageUploader from '../form/ImageUploader.vue';
 import InputGroup from '../form/InputGroup.vue';
 import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
+import languageRouter from '../mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -58,6 +59,7 @@ export default {
     InputGroup,
     ImageUploader,
   },
+  mixins: [languageRouter],
   props: {
     client: {
       type: Object,
@@ -114,7 +116,7 @@ export default {
             text: this.$t('client_profile.success_notification'),
           });
           if (this.redirectAfterSave) {
-            this.$router.replace('/freelancers');
+            this.replace('/freelancers');
           }
         } catch (err) {
           this.$store.dispatch('ui/showNotification', {

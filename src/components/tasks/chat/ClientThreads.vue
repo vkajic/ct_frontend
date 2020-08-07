@@ -22,6 +22,7 @@
 <script>
 import ClientGroupedThreads from './ClientGroupedThreads.vue';
 import Thread from './Thread.vue';
+import languageRouter from '../../mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -30,6 +31,7 @@ export default {
     Thread,
     ClientGroupedThreads,
   },
+  mixins: [languageRouter],
   props: {
     taskId: {
       type: Number,
@@ -58,7 +60,7 @@ export default {
       // redirect to page if not already there
       const path = `/my-tasks/${thread.taskId}`;
       if (this.$route.path !== path) {
-        await this.$router.push(path);
+        await this.push(path);
       }
     },
   },

@@ -11,12 +11,13 @@
 <script>
 import Thread from './Thread.vue';
 import { applicationUrl } from '../../mixins/applicationUrl';
+import languageRouter from '../../mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'FreelancerThreads',
   components: { Thread },
-  mixins: [applicationUrl],
+  mixins: [applicationUrl, languageRouter],
   computed: {
     threads() {
       return this.$store.getters['chat/getSortedThreads'];
@@ -33,7 +34,7 @@ export default {
       // redirect to page if not already there
       const path = this.generateApplicationUrl(thread);
       if (this.$route.path !== path) {
-        await this.$router.push(path);
+        await this.push(path);
       }
     },
   },

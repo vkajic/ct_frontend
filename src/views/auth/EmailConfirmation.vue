@@ -14,10 +14,12 @@
 
 <script>
 import ApiService from '../../services/api.service';
+import languageRouter from '../../components/mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'EmailConfirmation',
+  mixins: [languageRouter],
   data() {
     return {
       error: null,
@@ -34,7 +36,7 @@ export default {
             text: this.$t('auth.confirmation.confirmed'),
             type: 'success',
           });
-          this.$router.replace('/login');
+          this.replace('/login');
         })
         .catch((err) => {
           this.$store.dispatch('ui/showNotification', {

@@ -58,6 +58,9 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/',
+    },
+    {
       path: '/:lang/',
       component: Entry,
       children: [
@@ -358,12 +361,23 @@ const router = new Router({
             layout: 'auth',
           },
         },
+        {
+          path: '*',
+          name: 'notFound',
+          component: NotFound,
+          meta: {
+            layout: 'errors',
+          },
+        },
+        {
+          path: 'not-found',
+          name: 'notFoundPage',
+          component: NotFound,
+          meta: {
+            layout: 'errors',
+          },
+        },
       ],
-    },
-    {
-      path: '*',
-      name: '404',
-      component: NotFound,
     },
   ],
 });
@@ -377,6 +391,12 @@ router.beforeEach(async (to, from, next) => {
   const langRoute = `/${defaultLang}`;
   const redirectTo = langExists ? to.fullPath : `${langRoute}${to.fullPath}`;
 
+  /* console.log('lang', lang);
+  console.log('exists', langExists);
+  console.log('domainLang', domainLang);
+  console.log('defaultLang', defaultLang);
+  console.log('redirectTo', redirectTo); */
+
   // init users data
   try {
     await store.dispatch('util/setActiveLanguage', defaultLang);
@@ -389,7 +409,7 @@ router.beforeEach(async (to, from, next) => {
         path: langRoute,
       });
     } else if (to.fullPath !== redirectTo) {
-      console.log('router 2');
+      console.log('router 2', to, redirectTo);
       next({ path: redirectTo });
     } else {
       console.log('router 3');
@@ -403,10 +423,10 @@ router.beforeEach(async (to, from, next) => {
         query: { redirect: to.path, ...to.query },
       });
     } else if (to.fullPath !== redirectTo) {
-      console.log('router 5');
+      console.log('router 5', to);
       next({ path: redirectTo });
     } else {
-      console.log('router 6');
+      console.log('router 6', to);
       next();
     }
   }
