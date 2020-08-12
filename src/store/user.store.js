@@ -116,7 +116,7 @@ const actions = {
 
     this._vm.$smartContract.createKeypairs(credentials);
     this._vm.$smartContract.createBcData()
-      .then(async() => {
+      .then(async () => {
         commit('activateBcData');
 
         try {
@@ -125,9 +125,9 @@ const actions = {
             await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
             console.log(bcFreelancer);
           } else if (user.data.data.client != null && user.data.data.client.name && user.data.data.client.bcId == null) {
-            /*const bcClient = await this._vm.$smartContract.setClientProperties(user.data.data.client);
+            /* const bcClient = await this._vm.$smartContract.setClientProperties(user.data.data.client);
             await apiService.post('/clients/regBcClient', bcClient);
-            console.log(bcClient);*/
+            console.log(bcClient); */
           }
         } catch (e) {
           console.log(e);
@@ -281,6 +281,15 @@ const actions = {
    * @return {Promise<void>}
    */
   async publishFreelancerProfile({ commit }) {
+    try {
+      this._vm.$smartContract.setFreelancerProperties(store.state.user.freelancer).then(async (bcFreelancer) => {
+        await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
+        console.log(bcFreelancer);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
     await apiService.put('/freelancers/publish');
 
     commit('setFreelancerPublished');
