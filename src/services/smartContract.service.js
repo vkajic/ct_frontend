@@ -173,7 +173,7 @@ class SmartContract {
    * @return {String} flancerInfoHash
    */
   createFlancerInfoHash(freelancerData) {
-    return Buffer.from(Crypto.hash([freelancerData.name, freelancerData.bio, freelancerData.resume].join('')))
+    return Buffer.from(Crypto.hash([freelancerData.name, freelancerData.bio].join('')))
       .toString('hex');
   }
 
