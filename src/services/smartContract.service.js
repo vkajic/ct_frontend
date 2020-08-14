@@ -139,9 +139,10 @@ class SmartContract {
   /**
    * Update freelancer properties with smart contract properties
    * @param {Object} freelancerData
+   * @param {int} langId
    * @return {Promise<any>}
    */
-  async setFreelancerProperties(freelancerData) {
+  async setFreelancerProperties(freelancerData, langId) {
     const bcData = this.getBcData();
     console.log('bcdata', bcData);
     const flancerInfoHash = this.createFlancerInfoHash(freelancerData);
@@ -149,7 +150,7 @@ class SmartContract {
     const nonce = resNonce.decodedResult;
     console.log('nonce', nonce);
 
-    const args = `1${nonce.toString()}signUpnull${flancerInfoHash}11`;
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}signUpnull${flancerInfoHash}1${langId.toString()}`;
     console.log(args);
     const hash = Crypto.hash(args);
     console.log('hash', hash);
@@ -162,8 +163,10 @@ class SmartContract {
     return Object.assign({}, freelancerData, {
       publicKey: bcData.keypairFormatted.publicKey,
       sig,
+      logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
       nonce,
       flancerInfoHash,
+      langId,
     });
   }
 

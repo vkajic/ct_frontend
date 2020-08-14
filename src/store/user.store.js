@@ -121,7 +121,7 @@ const actions = {
 
         try {
           if (user.data.data.freelancer != null && user.data.data.freelancer.name && user.data.data.freelancer.bcId == null) {
-            const bcFreelancer = await this._vm.$smartContract.setFreelancerProperties(user.data.data.freelancer);
+            const bcFreelancer = await this._vm.$smartContract.setFreelancerProperties(user.data.data.freelancer, user.data.data.languageId);
             await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
             console.log(bcFreelancer);
           } else if (user.data.data.client != null && user.data.data.client.name && user.data.data.client.bcId == null) {
@@ -281,18 +281,18 @@ const actions = {
    * @return {Promise<void>}
    */
   async publishFreelancerProfile({ commit }) {
+    await apiService.put('/freelancers/publish');
+
+    commit('setFreelancerPublished');
+
     try {
-      this._vm.$smartContract.setFreelancerProperties(store.state.user.freelancer).then(async (bcFreelancer) => {
+      this._vm.$smartContract.setFreelancerProperties(store.state.user.freelancer, store.state.user.languageId).then(async (bcFreelancer) => {
         await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
         console.log(bcFreelancer);
       });
     } catch (e) {
       console.log(e);
     }
-
-    await apiService.put('/freelancers/publish');
-
-    commit('setFreelancerPublished');
   },
 
   /**
