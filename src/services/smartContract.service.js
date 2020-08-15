@@ -4,6 +4,7 @@ import { Crypto, MemoryAccount, Node } from '@aeternity/aepp-sdk';
 import Ae from '@aeternity/aepp-sdk/es/ae/universal';
 
 const KEYPAIRS_KEY = 'keypairs_key';
+const langMappings = { en: 1, hr: 2, es: 3, vi: 4 };
 
 class SmartContract {
   constructor() {
@@ -139,10 +140,12 @@ class SmartContract {
   /**
    * Update freelancer properties with smart contract properties
    * @param {Object} freelancerData
-   * @param {int} langId
+   * @param {string} langCode
    * @return {Promise<any>}
    */
-  async setFreelancerProperties(freelancerData, langId) {
+  async setFreelancerProperties(freelancerData, langCode) {
+    const langIdBc = langMappings[langCode];
+
     const bcData = this.getBcData();
     console.log('bcdata', bcData);
     const flancerInfoHash = this.createFlancerInfoHash(freelancerData);
@@ -150,7 +153,7 @@ class SmartContract {
     const nonce = resNonce.decodedResult;
     console.log('nonce', nonce);
 
-    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}signUpnull${flancerInfoHash}1${langId.toString()}`;
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}signUpnull${flancerInfoHash}1${langIdBc.toString()}`;
     console.log(args);
     const hash = Crypto.hash(args);
     console.log('hash', hash);
@@ -166,7 +169,7 @@ class SmartContract {
       logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
       nonce,
       flancerInfoHash,
-      langId,
+      langIdBc,
     });
   }
 

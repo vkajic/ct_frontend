@@ -84,10 +84,11 @@ const actions = {
    * Login user
    * @param commit
    * @param dispatch
+   * @param rootState
    * @param {Object} credentials
    * @return {Promise<*>}
    */
-  async login({ commit, dispatch }, credentials) {
+  async login({ commit, dispatch, rootState }, credentials) {
     const login = await apiService.post('/auth/login', credentials);
     commit('setToken', login.data.data.token);
 
@@ -121,7 +122,7 @@ const actions = {
 
         try {
           if (user.data.data.freelancer != null && user.data.data.freelancer.name && user.data.data.freelancer.bcId == null) {
-            const bcFreelancer = await this._vm.$smartContract.setFreelancerProperties(user.data.data.freelancer, user.data.data.languageId);
+            const bcFreelancer = await this._vm.$smartContract.setFreelancerProperties(user.data.data.freelancer, rootState.util.activeLanguage);
             await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
             console.log(bcFreelancer);
           } else if (user.data.data.client != null && user.data.data.client.name && user.data.data.client.bcId == null) {
@@ -278,15 +279,16 @@ const actions = {
   /**
    * Publish freelancer profile
    * @param commit
+   * @param rootState
    * @return {Promise<void>}
    */
-  async publishFreelancerProfile({ commit }) {
+  async publishFreelancerProfile({ commit, rootState }) {
     await apiService.put('/freelancers/publish');
 
     commit('setFreelancerPublished');
 
     try {
-      this._vm.$smartContract.setFreelancerProperties(store.state.user.freelancer, store.state.user.languageId).then(async (bcFreelancer) => {
+      this._vm.$smartContract.setFreelancerProperties(store.state.user.freelancer,  rootState.util.activeLanguage).then(async (bcFreelancer) => {
         await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
         console.log(bcFreelancer);
       });
