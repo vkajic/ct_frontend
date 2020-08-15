@@ -30,6 +30,12 @@ export default {
         return {};
       },
     },
+    client: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
   },
   data() {
     return {
@@ -44,6 +50,9 @@ export default {
       this.checkBc();
     },
     freelancer() {
+      this.checkBc();
+    },
+    client() {
       this.checkBc();
     },
     isBcDataSet() {
@@ -61,7 +70,14 @@ export default {
           this.isOnBc = bcTask.decodedResult.infoHash === this.$smartContract.createTaskInfoHash(this.task);
         }
       } else if (this.checkType === 'client') {
-
+        console.log(this.client);
+        if (this.client.bcId !== null && this.client.bcId !== undefined && this.isBcDataSet && bcData) {
+          const bcProfile = await bcData.contractStore.methods.getProfile(this.client.bcId);
+          console.log(bcProfile);
+          console.log(bcProfile.decodedResult.clientInfoHash);
+          console.log(this.$smartContract.createClientInfoHash(this.client));
+          this.isOnBc = bcProfile.decodedResult.clientInfoHash === this.$smartContract.createClientInfoHash(this.client);
+        }
       } else if (this.checkType === 'freelancer') {
         console.log(this.freelancer);
         if (this.freelancer.bcId !== null && this.freelancer.bcId !== undefined && this.isBcDataSet && bcData) {

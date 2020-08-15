@@ -184,6 +184,53 @@ class SmartContract {
   }
 
   /**
+   * Update client properties with smart contract properties
+   * @param {Object} clientData
+   * @param {string} langCode
+   * @return {Promise<any>}
+   */
+  async setClientProperties(clientData, langCode) {
+    const langIdBc = langMappings[langCode];
+
+    const bcData = this.getBcData();
+    console.log('bcdata', bcData);
+    const clientInfoHash = this.createClientInfoHash(clientData);
+    const resNonce = await bcData.contractLogic.methods.getNonce(bcData.keypairFormatted.publicKey);
+    const nonce = resNonce.decodedResult;
+    console.log('nonce', nonce);
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}signUp${clientInfoHash}null1${langIdBc.toString()}`;
+    console.log(args);
+    const hash = Crypto.hash(args);
+    console.log('hash', hash);
+    const signedHash = Crypto.sign(hash, bcData.keypair.secretKey);
+    console.log(signedHash);
+    const sig = Buffer.from(signedHash)
+      .toString('hex');
+    console.log(sig);
+
+    return Object.assign({}, clientData, {
+      publicKey: bcData.keypairFormatted.publicKey,
+      sig,
+      logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
+      nonce,
+      clientInfoHash,
+      langIdBc,
+    });
+  }
+
+  /**
+   * createClientInfoHash
+   * @param {Object} clientData
+   * @return {String} clientInfoHash
+   */
+  createClientInfoHash(clientData) {
+    return Buffer.from(Crypto.hash([clientData.name, clientData.about].join('')))
+      .toString('hex');
+  }
+
+
+  /**
    * Update task properties with smart contract properties
    * @param {Object} taskData
    * @return {Promise<any>}

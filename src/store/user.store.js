@@ -126,9 +126,9 @@ const actions = {
             await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
             console.log(bcFreelancer);
           } else if (user.data.data.client != null && user.data.data.client.name && user.data.data.client.bcId == null) {
-            /* const bcClient = await this._vm.$smartContract.setClientProperties(user.data.data.client);
-            await apiService.post('/clients/regBcClient', bcClient);
-            console.log(bcClient); */
+            const bcClient = await this._vm.$smartContract.setClientProperties(user.data.data.client, rootState.util.activeLanguage);
+            await apiService.put('/clients/regBcClient', bcClient);
+            console.log(bcClient);
           }
         } catch (e) {
           console.log(e);
@@ -267,13 +267,23 @@ const actions = {
   /**
    * Update client basic data
    * @param commit
+   * @param rootState
    * @param {Object} data
    * @return {Promise<void>}
    */
-  async updateClientBasicInfo({ commit }, data) {
+  async updateClientBasicInfo({ commit, rootState }, data) {
     const clientData = await apiService.put('/clients', data);
 
     commit('setClientBasicData', clientData.data.data);
+
+    try {
+      this._vm.$smartContract.setClientProperties(store.state.user.client,  rootState.util.activeLanguage).then(async (bcClient) => {
+        await apiService.put('/clients/regBcClient', bcClient);
+        console.log(bcClient);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   /**

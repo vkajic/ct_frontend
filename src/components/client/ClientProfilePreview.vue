@@ -13,6 +13,7 @@
         <div class="col-12 col-lg-8">
           <h1 class="text-center text-lg-left">
             {{client.name}}
+            <bc-check-status checkType="client" :client="client" class="ml-2"/>
           </h1>
           <h6 class="mb-4 font-weight-normal text-center text-lg-left">
             <template v-if="client.location">{{client.location}}</template>
@@ -43,6 +44,7 @@ import AvatarDisplay from '../ui/AvatarDisplay.vue';
 import ClientFeedbacks from './ClientFeedbacks.vue';
 import ClientTasksList from './ClientTasksList.vue';
 import ClientRate from './ClientRate.vue';
+import BcCheckStatus from '../common/BcCheckStatus.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -53,6 +55,7 @@ export default {
     ClientFeedbacks,
     AvatarDisplay,
     Paper,
+    BcCheckStatus,
   },
   props: {
     client: {
