@@ -18,6 +18,7 @@ const actions = {
   /**
    * Create new task
    * @param commit
+   * @param rootState
    * @param {Object} data - task data
    * @param {String} data.title - task title
    * @param {String} data.description - task description
@@ -26,11 +27,19 @@ const actions = {
    * @param {Boolean} data.published - task published
    * @return {Promise<void>}
    */
-  async create({ commit }, data) {
-    const newData = await this._vm.$smartContract.setTaskProperties(data);
-    const res = await ApiService.post('/tasks', newData);
+  async create({ commit, rootState }, data) {
+    const res = await ApiService.post('/tasks', data);
 
     commit('addMyTask', res.data.data);
+
+    try {
+      this._vm.$smartContract.setTaskProperties(res.data.data, rootState.util.activeLanguage).then(async (bcTask) => {
+        await ApiService.put('/tasks/regBcTask', bcTask);
+        console.log(bcTask);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   /**

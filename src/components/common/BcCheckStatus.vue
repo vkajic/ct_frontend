@@ -36,6 +36,12 @@ export default {
         return {};
       },
     },
+    feedback: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
   },
   data() {
     return {
@@ -55,6 +61,9 @@ export default {
     client() {
       this.checkBc();
     },
+    feedback() {
+      this.checkBc();
+    },
     isBcDataSet() {
       this.checkBc();
     },
@@ -64,9 +73,12 @@ export default {
       const bcData = this.$smartContract.getBcData();
 
       if (this.checkType === 'task') {
+        console.log(this.task);
         if (this.task.bcId !== null && this.task.bcId !== undefined && this.isBcDataSet && bcData) {
           const bcTask = await bcData.contractStore.methods.getTask(this.task.bcId);
           console.log(bcTask);
+          console.log(bcTask.decodedResult.infoHash);
+          console.log(this.$smartContract.createTaskInfoHash(this.task));
           this.isOnBc = bcTask.decodedResult.infoHash === this.$smartContract.createTaskInfoHash(this.task);
         }
       } else if (this.checkType === 'client') {

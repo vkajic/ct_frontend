@@ -4,7 +4,9 @@ import { Crypto, MemoryAccount, Node } from '@aeternity/aepp-sdk';
 import Ae from '@aeternity/aepp-sdk/es/ae/universal';
 
 const KEYPAIRS_KEY = 'keypairs_key';
-const langMappings = { en: 1, hr: 2, es: 3, vi: 4 };
+const langMappings = {
+  en: 1, hr: 2, es: 3, vi: 4,
+};
 
 class SmartContract {
   constructor() {
@@ -229,28 +231,23 @@ class SmartContract {
       .toString('hex');
   }
 
-
   /**
    * Update task properties with smart contract properties
    * @param {Object} taskData
+   * @param {string} langCode
    * @return {Promise<any>}
    */
-  async setTaskProperties(taskData) {
+  async setTaskProperties(taskData, langCode) {
+    const langIdBc = langMappings[langCode];
+
     const bcData = this.getBcData();
     console.log('bcdata', bcData);
-    const descriptionHash = Buffer.from(Crypto.hash(taskData.description))
-      .toString('hex');
+    const taskInfoHash = this.createTaskInfoHash(taskData);
     const resNonce = await bcData.contractLogic.methods.getNonce(bcData.keypairFormatted.publicKey);
     const nonce = resNonce.decodedResult;
     console.log('nonce', nonce);
 
-    const price = taskData.price && !taskData.negotiablePrice
-      ? taskData.price.toString()
-      : '0';
-    const duration = taskData.duration && !taskData.negotiableDuration
-      ? taskData.duration.toString()
-      : '0';
-    const args = `${nonce.toString()}postTask${taskData.title}${descriptionHash}${price}${duration}`;
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}postTask${taskInfoHash}${langIdBc.toString()}`;
     console.log(args);
     const hash = Crypto.hash(args);
     console.log('hash', hash);
@@ -263,9 +260,21 @@ class SmartContract {
     return Object.assign({}, taskData, {
       publicKey: bcData.keypairFormatted.publicKey,
       sig,
+      logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
       nonce,
-      descriptionHash,
+      taskInfoHash,
+      langIdBc,
     });
+  }
+
+  /**
+   * createTaskInfoHash
+   * @param {Object} taskData
+   * @return {String} taskInfoHash
+   */
+  createTaskInfoHash(taskData) {
+    return Buffer.from(Crypto.hash([taskData.title, taskData.description].join('')))
+      .toString('hex');
   }
 
   /**
