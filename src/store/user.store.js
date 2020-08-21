@@ -277,7 +277,7 @@ const actions = {
     commit('setClientBasicData', clientData.data.data);
 
     try {
-      this._vm.$smartContract.setClientProperties(store.state.user.client,  rootState.util.activeLanguage).then(async (bcClient) => {
+      this._vm.$smartContract.setClientProperties(store.state.user.client, rootState.util.activeLanguage).then(async (bcClient) => {
         await apiService.put('/clients/regBcClient', bcClient);
         console.log(bcClient);
       });
@@ -298,7 +298,7 @@ const actions = {
     commit('setFreelancerPublished');
 
     try {
-      this._vm.$smartContract.setFreelancerProperties(store.state.user.freelancer,  rootState.util.activeLanguage).then(async (bcFreelancer) => {
+      this._vm.$smartContract.setFreelancerProperties(store.state.user.freelancer, rootState.util.activeLanguage).then(async (bcFreelancer) => {
         await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
         console.log(bcFreelancer);
       });

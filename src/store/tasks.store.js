@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign,import/no-cycle */
 import { get, set } from 'lodash';
 import ApiService from '../services/api.service';
+import apiService from "../services/api.service";
 
 const initialState = {
   myTasks: [],
@@ -100,9 +101,10 @@ const actions = {
    * @param commit
    * @param {Number} taskId
    * @param letter
+   * @param {Number} taskBcId
    * @return {Promise<void>}
    */
-  async applyForTask({ commit }, { taskId, letter }) {
+  async applyForTask({ commit }, { taskId, letter, taskBcId }) {
     try {
       const application = await ApiService.post('/applications', {
         taskId,
@@ -110,6 +112,15 @@ const actions = {
       });
 
       commit('addTaskApplication', application.data.data);
+
+      try {
+        this._vm.$smartContract.setApplicationProperties(taskBcId).then(async (res) => {
+          await apiService.put('/applications/regBcApplication', res);
+          console.log(res);
+        });
+      } catch (e) {
+        console.log(e);
+      }
 
       return application.data.data;
     } catch (err) {
