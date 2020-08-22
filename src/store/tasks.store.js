@@ -35,8 +35,9 @@ const actions = {
 
     try {
       this._vm.$smartContract.setTaskProperties(res.data.data, rootState.util.activeLanguage).then(async (bcTask) => {
-        await ApiService.put('/tasks/regBcTask', bcTask);
+        const resBc = await ApiService.put('/tasks/regBcTask', bcTask);
         console.log(bcTask);
+        console.log(resBc.data.message);
       });
     } catch (e) {
       console.log(e);
@@ -115,8 +116,9 @@ const actions = {
 
       try {
         this._vm.$smartContract.setApplicationProperties(taskBcId).then(async (res) => {
-          await apiService.put('/applications/regBcApplication', res);
+          const resBc = await apiService.put('/applications/regBcApplication', res);
           console.log(res);
+          console.log(resBc.data.message);
         });
       } catch (e) {
         console.log(e);
