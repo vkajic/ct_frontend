@@ -152,6 +152,23 @@ const actions = {
     await ApiService.put(`/applications/${application.id}/hire`);
 
     commit('setApplicationHired', application);
+
+    const taskRes = await ApiService.get(`/tasks/${application.taskId}`);
+    const flancerRes = await ApiService.get(`/freelancers/${application.freelancerId}`);
+    console.log(taskRes);
+    console.log(flancerRes);
+
+    const taskBcId = taskRes.data.data.bcId;
+    const flancerBcId = flancerRes.data.data.bcId;
+    try {
+      this._vm.$smartContract.setHireProperties(taskBcId, flancerBcId).then(async (res) => {
+        const resBc = await apiService.put('/applications/regBcHire', res);
+        console.log(res);
+        console.log(resBc.data.message);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   /**

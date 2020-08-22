@@ -309,6 +309,40 @@ class SmartContract {
   }
 
   /**
+   * Update application hire properties with smart contract properties
+   * @param {Number} taskBcId
+   * @param {Number} flancerBcId
+   * @return {Promise<any>}
+   */
+  async setHireProperties(taskBcId, flancerBcId) {
+    const bcData = this.getBcData();
+    console.log('bcdata', bcData);
+    const resNonce = await bcData.contractLogic.methods.getNonce(bcData.keypairFormatted.publicKey);
+    const nonce = resNonce.decodedResult;
+    console.log('nonce', nonce);
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}acceptForTask${taskBcId}${flancerBcId}`;
+    console.log(args);
+    const hash = Crypto.hash(args);
+    console.log('hash', hash);
+    const signedHash = Crypto.sign(hash, bcData.keypair.secretKey);
+    console.log(signedHash);
+    const sig = Buffer.from(signedHash)
+      .toString('hex');
+    console.log(sig);
+
+    return {
+      publicKey: bcData.keypairFormatted.publicKey,
+      sig,
+      logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
+      nonce,
+      taskBcId,
+      flancerBcId,
+    };
+  }
+
+
+  /**
    * Get task from smart contract by BC ID
    * @param bcId
    * @return {Promise<*>}
