@@ -117,6 +117,7 @@ import CloseTaskButton from '../../components/client/CloseTaskButton.vue';
 import ClientApplicationButtons from '../../components/tasks/ClientApplicationButtons.vue';
 import ConfirmHireModal from '../../components/client/ConfirmHireModal.vue';
 import LanguageRouterLink from '../../components/ui/LanguageRouterLink.vue';
+import apiService from "../../services/api.service";
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -294,6 +295,36 @@ export default {
         });
 
         this.$store.commit('tasks/closeFeedbackModal');
+
+
+
+        const taskRes = await ApiService.get(`/tasks/${this.application.taskId}`);
+        const flancerRes = await ApiService.get(`/freelancers/${this.application.freelancerId}`);
+        const taskBcId = taskRes.data.data.bcId;
+        const flancerBcId = flancerRes.data.data.bcId;
+        try {
+          console.log('formData rate and message:');
+          console.log(formData.rate);
+          console.log(formData.message);
+
+          console.log('Application status: ' + res.data.data.application.status);
+          if(res.data.data.application.status === 2) {
+            this._vm.$smartContract.setFinalizeProperties(res.data.data.feedback.id, taskBcId, flancerBcId, formData.rate, formData.message).then(async (res) => {
+              const resBc = await apiService.put('/feedbacks/regBcFinalize', res);
+              console.log(res);
+              console.log(resBc.data.message);
+            });
+          } if(res.data.data.application.status === 4) {
+            console.log('Application status: ' + res.data.data.application.status);
+          } else {
+            console.log('Application status: ' + res.data.data.application.status);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+
+
+
       } catch (err) {
         console.error(err);
         this.$store.dispatch('ui/showNotification', {
@@ -327,6 +358,7 @@ export default {
     resetSelectedApplication() {
       this.$store.commit('tasks/setSelectedApplication', null);
     },
+
     /**
      * Map data and open feedback modal
      * @param statusValue

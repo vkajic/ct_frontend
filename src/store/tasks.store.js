@@ -155,9 +155,6 @@ const actions = {
 
     const taskRes = await ApiService.get(`/tasks/${application.taskId}`);
     const flancerRes = await ApiService.get(`/freelancers/${application.freelancerId}`);
-    console.log(taskRes);
-    console.log(flancerRes);
-
     const taskBcId = taskRes.data.data.bcId;
     const flancerBcId = flancerRes.data.data.bcId;
     try {
