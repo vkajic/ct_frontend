@@ -6,6 +6,7 @@
         <p>{{f.clientFeedback}}</p>
         <div class="d-flex align-items-center justify-content-between">
           <star-rating v-model="f.clientRate" :read-only="true" :star-size="15"/>
+          <bc-check-status checkType="freelancerFeedbacks" :feedback="f" class="ml-2"/>
           <div class="text-muted">
             {{f.client.name}} - {{f.application.task.title}}
           </div>
@@ -20,6 +21,7 @@
 import StarRating from 'vue-star-rating';
 import apiService from '../../services/api.service';
 import LazyLoader from '../ui/LazyLoader.vue';
+import BcCheckStatus from '../common/BcCheckStatus.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -27,6 +29,7 @@ export default {
   components: {
     LazyLoader,
     StarRating,
+    BcCheckStatus,
   },
   props: {
     freelancerId: {

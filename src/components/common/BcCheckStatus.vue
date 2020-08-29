@@ -99,8 +99,22 @@ export default {
           console.log(this.$smartContract.createFlancerInfoHash(this.freelancer));
           this.isOnBc = bcProfile.decodedResult.flancerInfoHash === this.$smartContract.createFlancerInfoHash(this.freelancer);
         }
-      } else if (this.checkType === 'feedback') {
-
+      } else if (this.checkType === 'freelancerFeedbacks') {
+        console.log(this.feedback);
+        if (this.feedback.bcId !== null && this.feedback.bcId !== undefined && this.isBcDataSet && bcData) {
+          const bcFeedback = await bcData.contractStore.methods.getFeedback(this.feedback.bcId);
+          console.log(bcFeedback);
+          console.log(bcFeedback.decodedResult.flancersScore);
+          this.isOnBc = bcFeedback.decodedResult.flancersScore === this.feedback.clientRate;
+        }
+      } else if (this.checkType === 'clientFeedbacks') {
+        console.log(this.feedback);
+        if (this.feedback.bcId !== null && this.feedback.bcId !== undefined && this.isBcDataSet && bcData) {
+          const bcFeedback = await bcData.contractStore.methods.getFeedback(this.feedback.bcId);
+          console.log(bcFeedback);
+          console.log(bcFeedback.decodedResult.clientsScore);
+          this.isOnBc = bcFeedback.decodedResult.clientsScore === this.feedback.freelancerRate;
+        }
       } else {
         console.log('BC check type not found!');
       }
