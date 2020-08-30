@@ -341,7 +341,7 @@ class SmartContract {
   }
 
   /**
-   * Update application hire properties with smart contract properties
+   * Update finalize feedback properties with smart contract properties
    * @param {Number} feedbackId
    * @param {Number} taskBcId
    * @param {Number} flancerBcId
@@ -357,6 +357,84 @@ class SmartContract {
     console.log('nonce', nonce);
 
     const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}finalize${taskBcId}${flancerBcId}${rate}${message}`;
+    console.log(args);
+    const hash = Crypto.hash(args);
+    console.log('hash', hash);
+    const signedHash = Crypto.sign(hash, bcData.keypair.secretKey);
+    console.log(signedHash);
+    const sig = Buffer.from(signedHash)
+      .toString('hex');
+    console.log(sig);
+
+    return {
+      feedbackId,
+      publicKey: bcData.keypairFormatted.publicKey,
+      sig,
+      logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
+      nonce,
+      taskBcId,
+      flancerBcId,
+      rate,
+      message,
+    };
+  }
+
+  /**
+   * Update client cancel feedback properties with smart contract properties
+   * @param {Number} feedbackId
+   * @param {Number} taskBcId
+   * @param {Number} flancerBcId
+   * @param {Number} rate
+   * @param {String} message
+   * @return {Promise<any>}
+   */
+  async setCancelContractClientProperties(feedbackId, taskBcId, flancerBcId, rate, message) {
+    const bcData = this.getBcData();
+    console.log('bcdata', bcData);
+    const resNonce = await bcData.contractLogic.methods.getNonce(bcData.keypairFormatted.publicKey);
+    const nonce = resNonce.decodedResult;
+    console.log('nonce', nonce);
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}cancelContractClient${taskBcId}${flancerBcId}${rate}${message}`;
+    console.log(args);
+    const hash = Crypto.hash(args);
+    console.log('hash', hash);
+    const signedHash = Crypto.sign(hash, bcData.keypair.secretKey);
+    console.log(signedHash);
+    const sig = Buffer.from(signedHash)
+      .toString('hex');
+    console.log(sig);
+
+    return {
+      feedbackId,
+      publicKey: bcData.keypairFormatted.publicKey,
+      sig,
+      logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
+      nonce,
+      taskBcId,
+      flancerBcId,
+      rate,
+      message,
+    };
+  }
+
+  /**
+   * Update client leave feedback properties with smart contract properties
+   * @param {Number} feedbackId
+   * @param {Number} taskBcId
+   * @param {Number} flancerBcId
+   * @param {Number} rate
+   * @param {String} message
+   * @return {Promise<any>}
+   */
+  async setLeaveFeedbackClientProperties(feedbackId, taskBcId, flancerBcId, rate, message) {
+    const bcData = this.getBcData();
+    console.log('bcdata', bcData);
+    const resNonce = await bcData.contractLogic.methods.getNonce(bcData.keypairFormatted.publicKey);
+    const nonce = resNonce.decodedResult;
+    console.log('nonce', nonce);
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}leaveFeedbackClient${taskBcId}${flancerBcId}${rate}${message}`;
     console.log(args);
     const hash = Crypto.hash(args);
     console.log('hash', hash);

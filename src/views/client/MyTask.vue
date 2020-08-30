@@ -314,10 +314,18 @@ export default {
               console.log(res);
               console.log(resBc.data.message);
             });
-          } if (res.data.data.application.status === 4) {
-            console.log(`Application status: ${res.data.data.application.status}`);
+          } else if (res.data.data.application.status === 4) {
+            smartContract.setCancelContractClientProperties(res.data.data.feedback.id, taskBcId, flancerBcId, formData.rate, formData.message).then(async (res) => {
+              const resBc = await apiService.put('/feedbacks/regBcCancelContractClient', res);
+              console.log(res);
+              console.log(resBc.data.message);
+            });
           } else {
-            console.log(`Application status: ${res.data.data.application.status}`);
+            smartContract.setLeaveFeedbackClientProperties(res.data.data.feedback.id, taskBcId, flancerBcId, formData.rate, formData.message).then(async (res) => {
+              const resBc = await apiService.put('/feedbacks/regBcLeaveFeedbackClient', res);
+              console.log(res);
+              console.log(resBc.data.message);
+            });
           }
         } catch (e) {
           console.log(e);
