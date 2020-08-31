@@ -320,7 +320,7 @@ export default {
               console.log(res);
               console.log(resBc.data.message);
             });
-          } else {
+          } else if (res.data.data.application.status === 3){
             smartContract.setLeaveFeedbackClientProperties(res.data.data.feedback.id, taskBcId, flancerBcId, formData.rate, formData.message).then(async (res) => {
               const resBc = await apiService.put('/feedbacks/regBcLeaveFeedbackClient', res);
               console.log(res);

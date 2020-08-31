@@ -356,7 +356,9 @@ class SmartContract {
     const nonce = resNonce.decodedResult;
     console.log('nonce', nonce);
 
-    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}finalize${taskBcId}${flancerBcId}${rate}${message}`;
+    const messageHash = Buffer.from(Crypto.hash(message)).toString('hex');
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}finalize${taskBcId}${flancerBcId}${rate}${messageHash}`;
     console.log(args);
     const hash = Crypto.hash(args);
     console.log('hash', hash);
@@ -375,7 +377,7 @@ class SmartContract {
       taskBcId,
       flancerBcId,
       rate,
-      message,
+      messageHash,
     };
   }
 
@@ -395,7 +397,9 @@ class SmartContract {
     const nonce = resNonce.decodedResult;
     console.log('nonce', nonce);
 
-    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}cancelContractClient${taskBcId}${flancerBcId}${rate}${message}`;
+    const messageHash = Buffer.from(Crypto.hash(message)).toString('hex');
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}cancelContractClient${taskBcId}${flancerBcId}${rate}${messageHash}`;
     console.log(args);
     const hash = Crypto.hash(args);
     console.log('hash', hash);
@@ -414,7 +418,7 @@ class SmartContract {
       taskBcId,
       flancerBcId,
       rate,
-      message,
+      messageHash,
     };
   }
 
@@ -434,7 +438,9 @@ class SmartContract {
     const nonce = resNonce.decodedResult;
     console.log('nonce', nonce);
 
-    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}leaveFeedbackClient${taskBcId}${flancerBcId}${rate}${message}`;
+    const messageHash = Buffer.from(Crypto.hash(message)).toString('hex');
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}leaveFeedbackClient${taskBcId}${flancerBcId}${rate}${messageHash}`;
     console.log(args);
     const hash = Crypto.hash(args);
     console.log('hash', hash);
@@ -453,7 +459,85 @@ class SmartContract {
       taskBcId,
       flancerBcId,
       rate,
-      message,
+      messageHash,
+    };
+  }
+
+  /**
+   * Update flancer leave feedback properties with smart contract properties
+   * @param {Number} feedbackId
+   * @param {Number} taskBcId
+   * @param {Number} rate
+   * @param {String} message
+   * @return {Promise<any>}
+   */
+  async setLeaveFeedbackFlancerProperties(feedbackId, taskBcId, rate, message) {
+    const bcData = this.getBcData();
+    console.log('bcdata', bcData);
+    const resNonce = await bcData.contractLogic.methods.getNonce(bcData.keypairFormatted.publicKey);
+    const nonce = resNonce.decodedResult;
+    console.log('nonce', nonce);
+
+    const messageHash = Buffer.from(Crypto.hash(message)).toString('hex');
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}leaveFeedbackFlancer${taskBcId}${rate}${messageHash}`;
+    console.log(args);
+    const hash = Crypto.hash(args);
+    console.log('hash', hash);
+    const signedHash = Crypto.sign(hash, bcData.keypair.secretKey);
+    console.log(signedHash);
+    const sig = Buffer.from(signedHash)
+      .toString('hex');
+    console.log(sig);
+
+    return {
+      feedbackId,
+      publicKey: bcData.keypairFormatted.publicKey,
+      sig,
+      logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
+      nonce,
+      taskBcId,
+      rate,
+      messageHash,
+    };
+  }
+
+  /**
+   * Update flancer cancel contract feedback properties with smart contract properties
+   * @param {Number} feedbackId
+   * @param {Number} taskBcId
+   * @param {Number} rate
+   * @param {String} message
+   * @return {Promise<any>}
+   */
+  async setCancelContractFlancerProperties(feedbackId, taskBcId, rate, message) {
+    const bcData = this.getBcData();
+    console.log('bcdata', bcData);
+    const resNonce = await bcData.contractLogic.methods.getNonce(bcData.keypairFormatted.publicKey);
+    const nonce = resNonce.decodedResult;
+    console.log('nonce', nonce);
+
+    const messageHash = Buffer.from(Crypto.hash(message)).toString('hex');
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}cancelContractFlancer${taskBcId}${rate}${messageHash}`;
+    console.log(args);
+    const hash = Crypto.hash(args);
+    console.log('hash', hash);
+    const signedHash = Crypto.sign(hash, bcData.keypair.secretKey);
+    console.log(signedHash);
+    const sig = Buffer.from(signedHash)
+      .toString('hex');
+    console.log(sig);
+
+    return {
+      feedbackId,
+      publicKey: bcData.keypairFormatted.publicKey,
+      sig,
+      logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
+      nonce,
+      taskBcId,
+      rate,
+      messageHash,
     };
   }
 

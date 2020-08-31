@@ -71,6 +71,8 @@ import ApplicationStatusBadge from './ApplicationStatusBadge.vue';
 import FreelancerTaskButtons from './FreelancerTaskButtons.vue';
 import ApiService from '../../services/api.service';
 import TaskDescription from './TaskDescription.vue';
+import smartContract from "../../services/smartContract.service";
+import apiService from "../../services/api.service";
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -100,7 +102,7 @@ export default {
     showActionsDropdown() {
       const { status, feedback } = this.application;
       if (status === 1) return true;
-      if (status === 2) return !feedback.freelancerFeedback;
+      if (status === 2 || status === 4) return !feedback.freelancerFeedback;
       return false;
     },
   },
@@ -133,8 +135,8 @@ export default {
       console.log(formData);
       try {
         const res = await ApiService.post('/feedbacks', formData);
-        this.$store.commit('tasks/setFreelancerApplicationFeedback', res.data.data);
-        this.$store.commit('tasks/setFreelancerApplicationStatus', formData.status);
+        this.$store.commit('tasks/setFreelancerApplicationFeedback', res.data.data.feedback);
+        this.$store.commit('tasks/setFreelancerApplicationStatus', res.data.data.application.status);
 
         this.$store.dispatch('ui/showNotification', {
           type: 'success',
@@ -142,6 +144,32 @@ export default {
         });
 
         this.$store.commit('tasks/closeFeedbackModal');
+
+
+        const taskRes = await ApiService.get(`/tasks/${this.application.taskId}`);
+        const taskBcId = taskRes.data.data.bcId;
+        try {
+          console.log('formData rate and message:');
+          console.log(formData.rate);
+          console.log(formData.message);
+
+          console.log(`Application status: ${res.data.data.application.status}`);
+          if (res.data.data.application.status === 2 || res.data.data.application.status === 4) {
+            smartContract.setLeaveFeedbackFlancerProperties(res.data.data.feedback.id, taskBcId, formData.rate, formData.message).then(async (res) => {
+              const resBc = await apiService.put('/feedbacks/regBcLeaveFeedbackFlancer', res);
+              console.log(res);
+              console.log(resBc.data.message);
+            });
+          } else if(res.data.data.application.status === 3) {
+            smartContract.setCancelContractFlancerProperties(res.data.data.feedback.id, taskBcId, formData.rate, formData.message).then(async (res) => {
+              const resBc = await apiService.put('/feedbacks/regBcCancelContractFlancer', res);
+              console.log(res);
+              console.log(resBc.data.message);
+            });
+          }
+        } catch (e) {
+          console.log(e);
+        }
       } catch (err) {
         console.error(err);
         this.$store.dispatch('ui/showNotification', {
