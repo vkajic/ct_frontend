@@ -20,13 +20,17 @@
             <input-field name="firstName"
                          v-model="form.firstName"
                          :placeholder="$t('freelancers.first_name')"
+                         :disabled="freelancer.published"
                          :validation="$v.form.firstName"/>
             <input-field name="lastName"
                          v-model="form.lastName"
+                         :disabled="freelancer.published"
                          :placeholder="$t('freelancers.last_name')"
                          :validation="$v.form.lastName"/>
-            <validation-messages title="First Name" :validation="$v.form.firstName"/>
-            <validation-messages title="Last Name" :validation="$v.form.lastName"/>
+            <validation-messages :title="$t('freelancers.first_name')"
+                                 :validation="$v.form.firstName"/>
+            <validation-messages :title="$t('freelancers.last_name')"
+                                 :validation="$v.form.lastName"/>
           </b-input-group>
         </div>
 
@@ -44,7 +48,8 @@
 
         <b-form-checkbox v-model="form.travel"
                          class="mb-3"
-                         name="travel">{{ $t('freelancers.travel') }}</b-form-checkbox>
+                         name="travel">{{ $t('freelancers.travel') }}
+        </b-form-checkbox>
 
         <textarea-group name="bio"
                         class="mb-4"
@@ -109,18 +114,17 @@ export default {
     ValidationMessages,
     InputField,
   },
-  validations: {
-    form: {
-      avatar: {
-        required,
-      },
-      firstName: {
-        required,
-      },
-      lastName: {
-        required,
-      },
-    },
+  validations() {
+    const v = { form: {} };
+
+    if (!this.freelancer.published) {
+      v.form.firstName = { required };
+      v.form.lastName = { required };
+    }
+
+    v.form.avatar = { required };
+
+    return v;
   },
   data() {
     return {

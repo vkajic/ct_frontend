@@ -88,23 +88,25 @@ const gtrs = {
    */
   getAllSkills(state, getters) {
     const currentLanguage = getters.getCurrentLanguage;
-    let skills = [];
+    const skills = [];
 
     if (currentLanguage) {
       state.skills.forEach((c) => {
         skills.push(...c.skills);
       });
 
-      skills = skills.map(s => ({
-        id: s.id,
-        categoryId: s.categoryId,
-        name: s.translations
-          .find(t => t.languageId === currentLanguage.id)
-          .displayTranslation,
-      }));
+      return skills.map((s) => {
+        const translation = (s.translations && s.translations.length) ? s.translations
+          .find(t => t.languageId === currentLanguage.id) : null;
+        return {
+          id: s.id,
+          categoryId: s.categoryId,
+          name: translation ? translation.displayTranslation : '',
+        };
+      });
     }
 
-    return skills;
+    return [];
   },
 
   /**
@@ -125,12 +127,14 @@ const gtrs = {
     const currentLanguage = getters.getCurrentLanguage;
 
     if (currentLanguage) {
-      const cats = state.skills.map(s => ({
-        id: s.id,
-        name: s.translations
-          .find(t => t.languageId === currentLanguage.id)
-          .displayTranslation,
-      }));
+      const cats = state.skills.map((s) => {
+        const translation = (s.translations && s.translations.length) ? s.translations
+          .find(t => t.languageId === currentLanguage.id) : null;
+        return {
+          id: s.id,
+          name: translation ? translation.displayTranslation : '',
+        };
+      });
 
       return orderBy(cats, 'name');
     }

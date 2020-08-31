@@ -287,7 +287,11 @@
     "browse_jobs": "Browse jobs",
     "my_jobs": "My jobs",
     "applications_sent": "Applications sent",
-    "completed_jobs": "Completed jobs"
+    "completed_jobs": "Completed jobs",
+    "confirmed_warning": "Only reviewed profiles can apply for jobs and your profile is still in review process.",
+    "save_profile": "Save profile",
+    "save_publish": "Save and publish",
+    "blog": "Blog"
   },
   "404": {
     "not_found": "Page or resource not found!",

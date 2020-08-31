@@ -309,6 +309,7 @@ const router = new Router({
                 requiresAuth: true,
                 forbidAccess: 'freelancer',
                 menuWidth: 0,
+                layout: 'profile',
               },
             },
           ],

@@ -130,7 +130,6 @@ export default {
      * Save feedback data
      */
     async saveFeedback(formData) {
-      console.log(formData);
       try {
         const res = await ApiService.post('/feedbacks', formData);
         this.$store.commit('tasks/setFreelancerApplicationFeedback', res.data.data);

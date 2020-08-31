@@ -16,6 +16,7 @@
         <input-group name="name"
                      class="mb-3"
                      v-model="form.name"
+                     :disabled="client.published"
                      :placeholder="$t('client_profile.name')"
                      :label="$t('client_profile.name')"
                      :validation="$v.form.name"/>
@@ -72,12 +73,14 @@ export default {
       default: false,
     },
   },
-  validations: {
-    form: {
-      name: {
-        required,
-      },
-    },
+  validations() {
+    const v = { form: {} };
+
+    if (!this.client.published) {
+      v.form.name = { required };
+    }
+
+    return v;
   },
   data() {
     return {

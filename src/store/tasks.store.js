@@ -84,6 +84,7 @@ const actions = {
     const task = await ApiService.get(`/tasks/${taskId}`);
 
     commit('setSelectedTask', task.data.data);
+    commit('setTaskApplications', task.data.data.applications);
   },
 
   /**
@@ -219,6 +220,15 @@ const mutations = {
    */
   setSelectedTask(state, task) {
     state.selectedTask = task;
+  },
+
+  /**
+   * Set selected task applications
+   * @param state
+   * @param applications
+   */
+  setTaskApplications(state, applications) {
+    state.selectedTaskApplications = applications;
   },
 
   /**
@@ -382,6 +392,10 @@ const getters = {
       && !!selectedTask
       && selectedTask.postedBy !== currentUser.id
       && selectedTaskApplications.length;
+  },
+
+  selectedTaskApplications(state) {
+    return state.selectedTask.applications;
   },
 };
 

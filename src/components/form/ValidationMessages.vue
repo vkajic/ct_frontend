@@ -59,12 +59,14 @@ export default {
     messages() {
       const errors = [];
 
-      Object.keys(this.validation.$params)
-        .forEach((p) => {
-          if (!this.validation[p]) {
-            errors.push(p);
-          }
-        });
+      if (this.validation.$params) {
+        Object.keys(this.validation.$params)
+          .forEach((p) => {
+            if (!this.validation[p]) {
+              errors.push(p);
+            }
+          });
+      }
 
       return errors;
     },

@@ -9,7 +9,9 @@
       <div class="col-12 col-lg-3 offset-lg-1 order-lg-2">
         <task-details :task="task">
           <template slot="buttons">
-            <freelancer-task-buttons @apply="apply" :application="application" :task="task"/>
+            <freelancer-task-buttons @apply="apply"
+                                     :application="freelancerApplication"
+                                     :task="task"/>
           </template>
         </task-details>
         <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
@@ -40,11 +42,6 @@ export default {
     TaskDetails,
   },
   mixins: [languageRouter],
-  data() {
-    return {
-      application: null,
-    };
-  },
   mounted() {
     const { id } = this.$route.params;
     this.selectTask(id);
@@ -53,6 +50,12 @@ export default {
     task() {
       return this.$store.state.tasks.selectedTask || {};
     },
+    applications() {
+      return this.$store.state.tasks.selectedTaskApplications;
+    },
+    freelancerApplication() {
+      return this.applications.length ? this.applications[0] : null;
+    },
   },
   methods: {
     async selectTask(id) {
@@ -60,28 +63,28 @@ export default {
         await this.$store.dispatch('tasks/selectTask', id);
       } catch (e) {
         if (e.response && e.response.status === 404) {
-          this.replace({ name: 'notFoundPage' });
+          await this.replace({ name: 'notFoundPage' });
         }
       }
     },
     async apply(letter) {
       try {
-        this.application = await this.$store.dispatch('tasks/applyForTask', {
+        const application = await this.$store.dispatch('tasks/applyForTask', {
           taskId: this.task.id,
           letter,
         });
         // add new thread from new application
-        this.$store.commit('chat/addThread', this.application);
+        this.$store.commit('chat/addThread', application);
 
         // emit to socket that freelancer applied to task
-        this.$socket.emit('applied', this.application);
+        this.$socket.emit('applied', application);
 
         // show toast
         await this.$store.dispatch('ui/showNotification', {
           type: 'success',
           text: this.$t('freelancers.apply_success'),
         });
-        await this.push(`/applications/${this.application.id}`);
+        await this.push(`/applications/${application.id}`);
         this.applied = true;
         this.letter = null;
       } catch (err) {

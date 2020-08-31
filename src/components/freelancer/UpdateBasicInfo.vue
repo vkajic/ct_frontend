@@ -3,58 +3,63 @@
     <div>
       <div class="row">
         <div class="col-12 col-lg-4 d-flex justify-content-center">
-          <image-uploader label="Add profile image"
-                          class="mb-5"
-                          title="Profile image"
+          <image-uploader :label="$t('freelancers.image_label')"
+                          class="image-uploader-basic mb-5"
+                          :title="$t('freelancers.image_title')"
                           @input="avatarAdded"
                           :value="form.avatar"
+                          :validation="$v.form.avatar"
                           type="public"
-                          @remove="avatarRemoved"/>
-          <validation-messages title="Profile image" :validation="$v.form.avatar"/>
+                          @remove="avatarRemoved"
+                          :options="avatarOptions"/>
         </div>
         <div class="col-12 col-lg-8">
 
-          <h1 class="mb-5 d-none d-lg-block">Basic Info</h1>
+          <h1 class="mb-5 d-none d-lg-block">{{$t('freelancers.basic_info')}}</h1>
 
           <div class="mb-3">
             <label>Name</label>
             <b-input-group>
               <input-field name="firstName"
                            v-model="form.firstName"
-                           placeholder="First Name"
+                           :placeholder="$t('freelancers.first_name')"
+                           :disabled="freelancer.published"
                            :validation="$v.form.firstName"/>
               <input-field name="lastName"
                            v-model="form.lastName"
-                           placeholder="Last Name"
+                           :disabled="freelancer.published"
+                           :placeholder="$t('freelancers.last_name')"
                            :validation="$v.form.lastName"/>
-              <validation-messages title="First Name" :validation="$v.form.firstName"/>
-              <validation-messages title="Last Name" :validation="$v.form.lastName"/>
+              <validation-messages :title="$t('freelancers.first_name')"
+                                   :validation="$v.form.firstName"/>
+              <validation-messages :title="$t('freelancers.last_name')"
+                                   :validation="$v.form.lastName"/>
             </b-input-group>
           </div>
 
           <input-group name="occupation"
                        class="mb-3"
                        v-model="form.occupation"
-                       placeholder="Occupation"
-                       label="What’s your occupation"/>
+                       :placeholder="$t('freelancers.occupation')"
+                       :label="$t('freelancers.occupation_label')"/>
 
           <input-group name="location"
                        class="mb-3"
                        v-model="form.location"
-                       placeholder="Location"
-                       label="Location"/>
+                       :placeholder="$t('freelancers.location')"
+                       :label="$t('freelancers.location')"/>
 
           <b-form-checkbox v-model="form.travel"
                            class="mb-3"
                            name="travel">
-            Open to travel for the right opportunity
+            {{$t('freelancers.travel')}}
           </b-form-checkbox>
 
           <wysiwyg-textarea-group class="mb-4"
                                   v-model="form.bio"
-                                  label="About me"/>
+                                  :label="$t('freelancers.about')"/>
 
-          <h4 class="mb-3">Web presence</h4>
+          <h4 class="mb-3">{{$t('freelancers.web_presence')}}</h4>
 
           <input-group name="linkedIn"
                        class="mb-3"
@@ -73,24 +78,24 @@
               <input-group name="blog"
                            v-model="form.blog"
                            placeholder="http://"
-                           label="Blog"/>
+                           :label="$t('freelancers.blog')"/>
             </div>
           </div>
 
-          <h1 class="mb-5 mt-6">My skills & services</h1>
+          <h1 class="mb-5 mt-6">{{$t('freelancers.my_skills')}}</h1>
 
-          <input-tags label="Roles I'm interested in"
+          <input-tags :label="$t('freelancers.roles_interested')"
                       class="mb-3"
                       v-model="form.categories"
                       :options="categories"
-                      placeholder="Select roles"
+                      :placeholder="$t('freelancers.select_roles')"
                       options-label="name"
                       :validation="$v.form.categories"/>
 
-          <input-tags label="Skills"
+          <input-tags :label="$t('freelancers.skills')"
                       class="mb-3"
                       v-model="form.skills"
-                      placeholder="Select skills"
+                      :placeholder="$t('freelancers.select_skills')"
                       :options="skills"
                       options-label="name"
                       :validation="$v.form.skills"/>
@@ -101,7 +106,7 @@
         align-items-center">
             <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
               <template v-if="!saving">{{buttonText}}</template>
-              <template v-if="saving">Saving...</template>
+              <template v-if="saving">{{$t('freelancers.saving')}}</template>
             </b-button>
           </div>
         </div>
@@ -153,28 +158,27 @@ export default {
         skills: [],
       },
       saving: false,
+      avatarOptions: {
+        resize: {
+          width: 240,
+          height: 240,
+        },
+      },
     };
   },
-  validations: {
-    form: {
-      avatar: {
-        required,
-      },
-      firstName: {
-        required,
-      },
-      lastName: {
-        required,
-      },
-      categories: {
-        required,
-        minLength: minLength(1),
-      },
-      skills: {
-        required,
-        minLength: minLength(1),
-      },
-    },
+  validations() {
+    const v = { form: {} };
+
+    if (!this.freelancer.published) {
+      v.form.firstName = { required };
+      v.form.lastName = { required };
+    }
+
+    v.form.avatar = { required };
+    v.form.categories = { required, minLength: minLength(1) };
+    v.form.skills = { required, minLength: minLength(1) };
+
+    return v;
   },
   watch: {
     freelancer() {
@@ -208,7 +212,9 @@ export default {
      * Save button text
      */
     buttonText() {
-      return this.freelancer.published ? 'Save profile' : 'Save and publish';
+      return this.freelancer.published
+        ? this.$t('freelancers.save_profile')
+        : this.$t('freelancers.save_publish');
     },
 
     /**
