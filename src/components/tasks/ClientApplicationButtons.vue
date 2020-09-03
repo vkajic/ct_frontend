@@ -21,7 +21,7 @@
     </b-button>
 
     <b-button class="btn-round"
-              @click="leaveFeedback(3)"
+              @click="leaveFeedback(4)"
               v-if="completeEnabled">
       {{$t('applications.cancel')}}
     </b-button>
