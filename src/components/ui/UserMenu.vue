@@ -31,8 +31,8 @@ export default {
      * Logout
      */
     async logout() {
-      await this.$store.dispatch('user/logout');
       await this.replace('/login');
+      await this.$store.dispatch('user/logout');
     },
   },
   computed: {

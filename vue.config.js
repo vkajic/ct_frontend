@@ -1,6 +1,10 @@
 const path = require('path');
 const CKEditorWebpackPlugin = require('@ckeditor/ckeditor5-dev-webpack-plugin');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { styles } = require('@ckeditor/ckeditor5-dev-utils');
+// const CompressionPlugin = require('compression-webpack-plugin');
+// eslint-disable-next-line import/no-extraneous-dependencies
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 
 module.exports = {
   lintOnSave: false,
@@ -11,6 +15,26 @@ module.exports = {
     /ckeditor5-[^/\\]+[/\\]src[/\\].+\.js$/,
   ],
 
+  pluginOptions: {
+    compression: {
+      brotli: {
+        filename: '[path].br[query]',
+        algorithm: 'brotliCompress',
+        include: /\.(js|css|html|svg|json)(\?.*)?$/i,
+        compressionOptions: {
+          level: 11,
+        },
+        minRatio: 0.8,
+      },
+      gzip: {
+        filename: '[path].gz[query]',
+        algorithm: 'gzip',
+        include: /\.(js|css|html|svg|json)(\?.*)?$/i,
+        minRatio: 0.8,
+      },
+    },
+  },
+
   configureWebpack: {
     plugins: [
       // CKEditor needs its own plugin to be built using webpack.
@@ -18,6 +42,9 @@ module.exports = {
         // See https://ckeditor.com/docs/ckeditor5/latest/features/ui-language.html
         language: 'en',
       }),
+      new ContextReplacementPlugin(/moment[/\\]locale$/, /hr|en/),
+      // new CompressionPlugin(),
+      // new BundleAnalyzerPlugin(),
     ],
   },
 

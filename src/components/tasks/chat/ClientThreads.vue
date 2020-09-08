@@ -58,9 +58,9 @@ export default {
       this.$store.commit('ui/setTaskSelectedTab', 3);
 
       // redirect to page if not already there
-      const path = `/my-tasks/${thread.taskId}`;
-      if (this.$route.path !== path) {
-        await this.push(path);
+      const routeName = 'myTask';
+      if (this.$route.name !== routeName) {
+        await this.push(`/my-tasks/${thread.taskId}`);
       }
     },
   },
