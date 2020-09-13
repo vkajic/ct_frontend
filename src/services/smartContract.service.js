@@ -277,6 +277,38 @@ class SmartContract {
   }
 
   /**
+   * Update edit task properties with smart contract properties
+   * @param {Object} taskData
+   * @return {Promise<any>}
+   */
+  async setEditTaskProperties(taskData) {
+    const bcData = this.getBcData();
+    console.log('bcdata', bcData);
+    const taskInfoHash = this.createTaskInfoHash(taskData);
+    const resNonce = await bcData.contractLogic.methods.getNonce(bcData.keypairFormatted.publicKey);
+    const nonce = resNonce.decodedResult;
+    console.log('nonce', nonce);
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}editTask${taskData.bcId}${taskInfoHash}`;
+    console.log(args);
+    const hash = Crypto.hash(args);
+    console.log('hash', hash);
+    const signedHash = Crypto.sign(hash, bcData.keypair.secretKey);
+    console.log(signedHash);
+    const sig = Buffer.from(signedHash)
+      .toString('hex');
+    console.log(sig);
+
+    return Object.assign({}, taskData, {
+      publicKey: bcData.keypairFormatted.publicKey,
+      sig,
+      logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
+      nonce,
+      taskInfoHash,
+    });
+  }
+
+  /**
    * Update application properties with smart contract properties
    * @param {Number} taskBcId
    * @return {Promise<any>}

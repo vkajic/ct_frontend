@@ -58,6 +58,16 @@ const actions = {
       id,
       taskData: res.data.data,
     });
+
+    try {
+      this._vm.$smartContract.setEditTaskProperties(res.data.data).then(async (bcTask) => {
+        const resBc = await ApiService.put('/tasks/regBcEditTask', bcTask);
+        console.log(bcTask);
+        console.log(resBc.data.message);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   /**
