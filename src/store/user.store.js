@@ -189,9 +189,21 @@ const actions = {
    * @return {Promise<void>}
    */
   async updateFreelancerBasicInfo({ commit }, data) {
-    const freelancerData = await apiService.put('/freelancers', data);
+    const freelancerData = await apiService.put('/freelancers', data.data);
 
     commit('setFreelancerBasicData', freelancerData.data.data);
+
+    if(data.caller === 'update') {
+      try {
+        this._vm.$smartContract.setEditFreelancerProperties(store.state.user.freelancer).then(async (bcFreelancer) => {
+          const resBc = await apiService.put('/freelancers/regBcEditFreelancer', bcFreelancer);
+          console.log(bcFreelancer);
+          console.log(resBc.data.message);
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    }
   },
 
   /**

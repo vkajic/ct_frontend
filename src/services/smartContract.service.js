@@ -185,6 +185,38 @@ class SmartContract {
   }
 
   /**
+   * Update edit freelancer properties with smart contract properties
+   * @param {Object} freelancerData
+   * @return {Promise<any>}
+   */
+  async setEditFreelancerProperties(freelancerData) {
+    const bcData = this.getBcData();
+    console.log('bcdata', bcData);
+    const flancerInfoHash = this.createFlancerInfoHash(freelancerData);
+    const resNonce = await bcData.contractLogic.methods.getNonce(bcData.keypairFormatted.publicKey);
+    const nonce = resNonce.decodedResult;
+    console.log('nonce', nonce);
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}editProfilenull${flancerInfoHash}1`;
+    console.log(args);
+    const hash = Crypto.hash(args);
+    console.log('hash', hash);
+    const signedHash = Crypto.sign(hash, bcData.keypair.secretKey);
+    console.log(signedHash);
+    const sig = Buffer.from(signedHash)
+      .toString('hex');
+    console.log(sig);
+
+    return Object.assign({}, freelancerData, {
+      publicKey: bcData.keypairFormatted.publicKey,
+      sig,
+      logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
+      nonce,
+      flancerInfoHash,
+    });
+  }
+
+  /**
    * Update client properties with smart contract properties
    * @param {Object} clientData
    * @param {string} langCode
@@ -228,6 +260,38 @@ class SmartContract {
   createClientInfoHash(clientData) {
     return Buffer.from(Crypto.hash([clientData.name, clientData.about].join('')))
       .toString('hex');
+  }
+
+  /**
+   * Update edit client properties with smart contract properties
+   * @param {Object} clientData
+   * @return {Promise<any>}
+   */
+  async setEditClientProperties(clientData) {
+    const bcData = this.getBcData();
+    console.log('bcdata', bcData);
+    const clientInfoHash = this.createClientInfoHash(clientData);
+    const resNonce = await bcData.contractLogic.methods.getNonce(bcData.keypairFormatted.publicKey);
+    const nonce = resNonce.decodedResult;
+    console.log('nonce', nonce);
+
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}signUp${clientInfoHash}null1`;
+    console.log(args);
+    const hash = Crypto.hash(args);
+    console.log('hash', hash);
+    const signedHash = Crypto.sign(hash, bcData.keypair.secretKey);
+    console.log(signedHash);
+    const sig = Buffer.from(signedHash)
+      .toString('hex');
+    console.log(sig);
+
+    return Object.assign({}, clientData, {
+      publicKey: bcData.keypairFormatted.publicKey,
+      sig,
+      logicVersion: process.env.VUE_APP_BC_LOGIC_VERSION,
+      nonce,
+      clientInfoHash,
+    });
   }
 
   /**
