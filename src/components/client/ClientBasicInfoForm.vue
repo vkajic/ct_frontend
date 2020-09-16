@@ -69,6 +69,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    caller: {
+      type: String,
+      default: 'create',
+    },
   },
   validations: {
     form: {
@@ -101,7 +105,10 @@ export default {
         this.saving = true;
 
         try {
-          await this.$store.dispatch('user/updateClientBasicInfo', this.form);
+          await this.$store.dispatch('user/updateClientBasicInfo', {
+            data: this.form,
+            caller: this.caller,
+          });
 
           this.$store.commit('user/setProfileAvatar', {
             avatar: this.form.avatar,

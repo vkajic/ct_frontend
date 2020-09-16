@@ -286,18 +286,30 @@ const actions = {
    * @return {Promise<void>}
    */
   async updateClientBasicInfo({ commit, rootState }, data) {
-    const clientData = await apiService.put('/clients', data);
+    const clientData = await apiService.put('/clients', data.data);
 
     commit('setClientBasicData', clientData.data.data);
 
-    try {
-      this._vm.$smartContract.setClientProperties(store.state.user.client, rootState.util.activeLanguage).then(async (bcClient) => {
-        const resBc = await apiService.put('/clients/regBcClient', bcClient);
-        console.log(bcClient);
-        console.log(resBc.data.message);
-      });
-    } catch (e) {
-      console.log(e);
+    if(data.caller === 'create') {
+      try {
+        this._vm.$smartContract.setClientProperties(store.state.user.client, rootState.util.activeLanguage).then(async (bcClient) => {
+          const resBc = await apiService.put('/clients/regBcClient', bcClient);
+          console.log(bcClient);
+          console.log(resBc.data.message);
+        });
+      } catch (e) {
+        console.log(e);
+      }
+    } else if(data.caller === 'update') {
+      try {
+        this._vm.$smartContract.setEditClientProperties(store.state.user.client).then(async (bcClient) => {
+          const resBc = await apiService.put('/clients/regBcEditClient', bcClient);
+          console.log(bcClient);
+          console.log(resBc.data.message);
+        });
+      } catch (e) {
+        console.log(e);
+      }
     }
   },
 

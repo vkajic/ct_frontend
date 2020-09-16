@@ -275,7 +275,7 @@ class SmartContract {
     const nonce = resNonce.decodedResult;
     console.log('nonce', nonce);
 
-    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}signUp${clientInfoHash}null1`;
+    const args = `${process.env.VUE_APP_BC_LOGIC_VERSION}${nonce.toString()}editProfile${clientInfoHash}null1`;
     console.log(args);
     const hash = Crypto.hash(args);
     console.log('hash', hash);
