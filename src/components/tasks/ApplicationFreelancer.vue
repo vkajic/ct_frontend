@@ -20,39 +20,29 @@
         <required-skills class="skills p-4 m-2" :skills="task.skills" v-if="task.skills"/>
       </div>
       <div class="col-12 col-lg-7 order-lg-1">
-        <b-tabs class="application-freelancer-tabs" :value="selectedTab" @input="selectTab">
+        <b-tabs class="application-freelancer-tabs" nav-class="align-items-center"
+                :value="selectedTab" @input="selectTab">
           <b-tab :title="$t('freelancers.project_details')" class="py-4">
             <template v-slot:title>
-              <span class="nav-link__title">{{ $t('freelancers.description') }}</span>
-              <clipboard-icon class="nav-link__icon" size="1.5x"></clipboard-icon>
+              <span class="nav-link__title d-none d-xxl-block">
+                {{ $t('freelancers.description') }}
+              </span>
+              <clipboard-icon class="nav-link__icon d-xxl-none" size="1.5x"/>
             </template>
             <task-details :task="task" :applicable="false" class="d-lg-none mb-4"/>
             <task-description :description="task.description"/>
           </b-tab>
           <b-tab :title="$t('freelancers.messages')">
             <template v-slot:title>
-              <span class="nav-link__title">{{$t('freelancers.messages')}}</span>
-              <message-circle-icon class="nav-link__icon" size="1.5x"></message-circle-icon>
+              <span class="nav-link__title d-none d-xxl-block">
+                {{ $t('freelancers.messages') }}
+              </span>
+              <message-circle-icon class="nav-link__icon d-xxl-none" size="1.5x"/>
             </template>
-              <chat-container :task="task" :application="application"/>
+            <chat-container :task="task" :application="application"/>
           </b-tab>
           <template v-if="showActionsDropdown" v-slot:tabs-end>
-              <b-dropdown class="application-freelancer-tabs__actions-dropdown"
-                          id="dropdown-buttons"
-                          boundary="viewport"
-                          size="sm"
-                          no-flip
-                          variant="link"
-                          toggle-class="text-decoration-none"
-                          no-caret>
-                <template v-slot:button-content>
-                  <chevron-down-icon size="1x"></chevron-down-icon>
-                </template>
-                <b-dropdown-item>
-                  <freelancer-task-buttons :application="application"
-                                           @feedback="saveFeedback"/>
-                </b-dropdown-item>
-              </b-dropdown>
+            <freelancer-application-dropdown :application="application"/>
           </template>
         </b-tabs>
       </div>
@@ -71,11 +61,13 @@ import ApplicationStatusBadge from './ApplicationStatusBadge.vue';
 import FreelancerTaskButtons from './FreelancerTaskButtons.vue';
 import ApiService from '../../services/api.service';
 import TaskDescription from './TaskDescription.vue';
+import FreelancerApplicationDropdown from '@/components/tasks/FreelancerApplicationDropdown.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ApplicationFreelancer',
   components: {
+    FreelancerApplicationDropdown,
     TaskDescription,
     FreelancerTaskButtons,
     ApplicationStatusBadge,

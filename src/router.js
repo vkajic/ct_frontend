@@ -205,6 +205,15 @@ const router = new Router({
           },
         },
         {
+          path: 'canceled/:id',
+          name: 'canceledApplication',
+          component: Application,
+          meta: {
+            requiresAuth: true,
+            forbidAccess: 'client',
+          },
+        },
+        {
           path: 'messages',
           name: 'chats',
           component: Chats,

@@ -17,6 +17,9 @@
 }
 
 .dropdown-menu {
+  &:focus {
+    outline: transparent;
+  }
   @include apply-dark-theme() {
     background: t("dropdown-bg-color");
   }

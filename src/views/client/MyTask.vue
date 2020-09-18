@@ -16,19 +16,19 @@
         <required-skills class="p-4 m-2" :skills="task.skills" v-if="task.skills"/>
       </div>
       <div class="col-12 col-lg-7 order-lg-1">
-        <b-tabs :value="selectedTab" nav-class="my-task-tabs" @input="selectTab">
+        <b-tabs :value="selectedTab" nav-class="my-task-tabs align-items-center" @input="selectTab">
           <b-tab :title="$t('common.description')" class="py-4">
             <template v-slot:title>
-              <span class="nav-link__title">{{$t('common.description')}}</span>
-              <clipboard-icon class="nav-link__icon" size="1.5x"></clipboard-icon>
+              <span class="nav-link__title d-none d-xxl-block">{{ $t('common.description') }}</span>
+              <clipboard-icon class="nav-link__icon d-xxl-none" size="1.5x"/>
             </template>
-              <task-details :task="task" :applicable="false" class="d-lg-none mb-4"/>
-              <task-description :description="task.description"/>
+            <task-details :task="task" :applicable="false" class="d-lg-none mb-4"/>
+            <task-description :description="task.description"/>
           </b-tab>
           <b-tab :title="$t('common.freelancers')" class="pt-3">
             <template v-slot:title>
-              <span class="nav-link__title">{{$t('common.freelancers')}}</span>
-              <users-icon class="nav-link__icon" size="1.5x"></users-icon>
+              <span class="nav-link__title d-none d-xxl-block">{{ $t('common.freelancers') }}</span>
+              <users-icon class="nav-link__icon d-xxl-none" size="1.5x"/>
             </template>
             <div v-if="task.applications">
               <applied-freelancer :application="a"
@@ -42,17 +42,19 @@
             </div>
             <div v-if="!task.applications || !task.applications.length">
               <div class="h1 mb-4">
-                {{$t('applications.no_applications')}}
+                {{ $t('applications.no_applications') }}
               </div>
               <language-router-link to="/freelancers"><u>
-                {{$t('tasks.details.browse_freelancers')}}
+                {{ $t('tasks.details.browse_freelancers') }}
               </u></language-router-link>
             </div>
           </b-tab>
           <b-tab :title="$t('applications.messages')">
             <template v-slot:title>
-              <span class="nav-link__title">{{$t('applications.messages')}}</span>
-              <message-circle-icon class="nav-link__icon" size="1.5x"></message-circle-icon>
+              <span class="nav-link__title d-none d-xxl-block">
+                {{ $t('applications.messages') }}
+              </span>
+              <message-circle-icon class="nav-link__icon d-xxl-none" size="1.5x"/>
             </template>
             <client-threads :task-id="task.id" class="pt-3" @select="goToMessages"/>
           </b-tab>
@@ -60,29 +62,12 @@
             <chat-container :task="task"
                             :application="selectedApplication"/>
           </b-tab>
-          <template v-if="selectedApplication" v-slot:tabs-end>
-            <div class="my-task-tabs__wrapper">
-              <client-application-buttons class="my-task-tabs__action-btn"
-                                          :application="selectedApplication"
-                                          :reply-enabled="false"
-                                          @hire="openHireModal(selectedApplication)"
-                                          @feedback="mapDataAndOpenFeedbackModal($event)"/>
-              <b-dropdown class="my-task-tabs__actions-dropdown"
-                          id="dropdown-dropup"
-                          boundary="viewport"
-                          size="sm"
-                          no-flip
-                          variant="link"
-                          toggle-class="text-decoration-none"
-                          no-caret>
-                  <template v-slot:button-content>
-                     <chevron-down-icon size="1x"></chevron-down-icon>
-                  </template>
-                <b-dropdown-item>
-                  <b-button>{{$t('common.cancel')}}</b-button>
-                </b-dropdown-item>
-              </b-dropdown>
-            </div>
+          <template v-slot:tabs-end>
+            <client-freelancer-dropdown :application="selectedApplication"
+                                        @hire="openHireModal(selectedApplication)"
+                                        @feedback="mapDataAndOpenFeedbackModal($event)"
+                                        :class="dropDownClasses"
+                                        v-if="selectedApplication"/>
           </template>
         </b-tabs>
       </div>
@@ -98,10 +83,9 @@
 </template>
 
 <script>
-import { get, truncate } from 'lodash';
 import { mapState } from 'vuex';
 import {
-  ChevronDownIcon, UsersIcon, MessageCircleIcon, ClipboardIcon,
+  UsersIcon, MessageCircleIcon, ClipboardIcon,
 } from 'vue-feather-icons';
 import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
@@ -114,14 +98,15 @@ import ApiService from '../../services/api.service';
 import TaskDescription from '../../components/tasks/TaskDescription.vue';
 import ReopenTaskButton from '../../components/client/ReopenTaskButton.vue';
 import CloseTaskButton from '../../components/client/CloseTaskButton.vue';
-import ClientApplicationButtons from '../../components/tasks/ClientApplicationButtons.vue';
 import ConfirmHireModal from '../../components/client/ConfirmHireModal.vue';
 import LanguageRouterLink from '../../components/ui/LanguageRouterLink.vue';
+import ClientFreelancerDropdown from '@/components/tasks/ClientFreelancerDropdown.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'MyTask',
   components: {
+    ClientFreelancerDropdown,
     LanguageRouterLink,
     ConfirmHireModal,
     ReopenTaskButton,
@@ -134,11 +119,9 @@ export default {
     AppliedFreelancer,
     RequiredSkills,
     TaskDetails,
-    ChevronDownIcon,
     UsersIcon,
     MessageCircleIcon,
     ClipboardIcon,
-    ClientApplicationButtons,
   },
   data() {
     return {
@@ -159,19 +142,47 @@ export default {
       return this.$store.state.ui.taskSelectedTab;
     },
 
-    /**
-     * Freelancer name for selected application
-     */
-    selectedFreelancerName() {
-      return this.selectedApplication
-        ? get(this, 'selectedApplication.freelancer.name', '')
-        : '';
+    dropDownClasses() {
+      return this.selectedTab === 3 ? 'active' : '';
     },
+
+    freelancer() {
+      return this.selectedApplication.freelancer || {};
+    },
+
+    /**
+     * Selected freelancer first name
+     */
+    selectedFreelancerFirstName() {
+      return this.freelancer.firstName;
+    },
+
+    /**
+     * Cut first name to first letter
+     */
+    selectedFreelancerFirstNameInitial() {
+      return this.selectedFreelancerFirstName.charAt(0)
+        .toUpperCase();
+    },
+
+    /**
+     * Cut last name to first letter
+     */
+    selectedFreelancerLastNameInitial() {
+      const { lastName } = this.freelancer;
+
+      return lastName ? lastName.charAt(0)
+        .toUpperCase() : '';
+    },
+
     /**
      * Truncate freelancer name
      */
     truncatedFreelancerName() {
-      return truncate(this.selectedFreelancerName, { length: 15 });
+      const fullName = `${this.selectedFreelancerFirstName} ${this.selectedFreelancerLastNameInitial}.`;
+      const initials = `${this.selectedFreelancerFirstNameInitial}.${this.selectedFreelancerLastNameInitial}.`;
+
+      return fullName.length > 10 ? initials : fullName;
     },
   },
   methods: {
@@ -332,7 +343,10 @@ export default {
      * @param statusValue
      */
     mapDataAndOpenFeedbackModal(statusValue) {
-      const payload = { application: this.selectedApplication, status: statusValue };
+      const payload = {
+        application: this.selectedApplication,
+        status: statusValue
+      };
       this.openFeedbackModal(payload);
     },
   },

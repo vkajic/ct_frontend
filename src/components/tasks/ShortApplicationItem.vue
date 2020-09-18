@@ -1,16 +1,16 @@
 <template>
   <div class="short-task-item">
     <div class="d-flex align-items-center justify-content-between mb-2">
-      <div class="client-name">{{application.client.name}}</div>
+      <div class="client-name">{{ application.client.name }}</div>
       <div class="published-date">
-        {{$t('freelancers.published')}} {{application.task.createdAt | date('MMM Do')}} |
-        {{$t('freelancers.applied')}} {{application.createdAt | date('MMM Do')}}
+        {{ $t('freelancers.published') }} {{ application.task.createdAt | date('MMM Do') }} |
+        {{ $t('freelancers.applied') }} {{ application.createdAt | date('MMM Do') }}
       </div>
     </div>
     <div class="d-flex align-items-center mb-2">
       <h4 class="m-0 mr-2">
         <language-router-link class="font-18-sm" :to="url">
-          {{application.task.title}}
+          {{ application.task.title }}
         </language-router-link>
       </h4>
       <application-status-badge :application="application"/>
@@ -38,7 +38,13 @@ import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ShortApplicationItem',
-  components: { LanguageRouterLink, TaskDuration, TaskPrice, ApplicationStatusBadge, TaskTags },
+  components: {
+    LanguageRouterLink,
+    TaskDuration,
+    TaskPrice,
+    ApplicationStatusBadge,
+    TaskTags,
+  },
   mixins: [applicationUrl],
   filters: {
     date: dateFilter,

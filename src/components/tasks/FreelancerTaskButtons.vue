@@ -5,8 +5,8 @@
                 block
                 class="btn-round mb-4"
                 v-if="applyVisible"
-                to="/sign-up"
-      >{{ $t('freelancers.apply_for_job') }}
+                :to="signUpUrl">
+        {{ $t('freelancers.apply_for_job') }}
       </b-button>
     </div>
     <div v-if="isFreelancer">
@@ -134,8 +134,13 @@ export default {
      */
     leaveFeedbackVisible() {
       return (this.application.status === 2 || this.application.status === 3)
-        && this.application.feedback
-        && !this.application.feedback.freelancerCreatedAt;
+          && this.application.feedback
+          && !this.application.feedback.freelancerCreatedAt;
+    },
+
+    signUpUrl() {
+      const { lang } = this.$route.params;
+      return `/${lang}/sign-up`;
     },
   },
   methods: {

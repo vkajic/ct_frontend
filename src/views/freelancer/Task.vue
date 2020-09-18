@@ -51,7 +51,7 @@ export default {
       return this.$store.state.tasks.selectedTask || {};
     },
     applications() {
-      return this.$store.state.tasks.selectedTaskApplications;
+      return this.$store.state.tasks.selectedTaskApplications || [];
     },
     freelancerApplication() {
       return this.applications.length ? this.applications[0] : null;

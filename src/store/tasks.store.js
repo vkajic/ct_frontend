@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign,import/no-cycle */
+import Vue from 'vue';
 import { get, set } from 'lodash';
 import ApiService from '../services/api.service';
 
@@ -271,6 +272,7 @@ const mutations = {
    * Accept freelancers application, set status to accepted (1)
    * @param state
    * @param {Object} application
+   * TODO check and optimize this
    */
   setApplicationHired(state, application) {
     if (state.selectedTask) {
@@ -281,19 +283,40 @@ const mutations = {
         set(state, ['selectedTask', 'status'], 1);
       }
     }
+
+    if (state.selectedApplication) {
+      set(state, ['selectedApplication', 'status'], 1);
+      set(state, ['selectedTask', 'status'], 1);
+    }
   },
 
+  /**
+   * TODO check and optimize this
+   * @param state
+   * @param applicationId
+   * @param status
+   */
   setClientApplicationStatus(state, { applicationId, status }) {
     if (state.selectedTask) {
       const index = state.selectedTask.applications
         .findIndex(a => a.id === applicationId);
 
       if (index > -1) {
-        set(state, ['selectedTask', 'applications', index, 'status'], status);
+        Vue.set(state.selectedTask.applications, index, { status });
       }
+    }
+
+    if (state.selectedApplication) {
+      set(state, ['selectedApplication', 'status'], status);
     }
   },
 
+  /**
+   * TODO check and optimize this
+   * @param state
+   * @param applicationId
+   * @param feedback
+   */
   setClientApplicationFeedback(state, { applicationId, feedback }) {
     if (state.selectedTask) {
       const index = state.selectedTask.applications
@@ -302,6 +325,10 @@ const mutations = {
       if (index > -1) {
         set(state, ['selectedTask', 'applications', index, 'feedback'], feedback);
       }
+    }
+
+    if (state.selectedApplication) {
+      set(state, ['selectedApplication', 'feedback'], feedback);
     }
   },
 

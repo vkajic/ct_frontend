@@ -3,17 +3,17 @@
     <div class="container">
       <div class="row align-items-center">
         <div
-          class="col-5 col-lg-3 col-xxl-2 d-flex text-md-left text-center align-content-center">
+          class="col-5 col-xl-3 col-xxl-2 d-flex text-md-left text-center align-content-center">
           <logo-back/>
         </div>
-        <div class="d-none col-lg-7 d-xl-flex align-content-center px-0">
+        <div class="d-none col-xl-6 col-xxl-7 d-xl-flex align-content-center px-0">
           <top-menu/>
         </div>
-        <div class="col-7 col-lg-3 d-flex justify-content-end align-content-center ml-auto">
+        <div class="col-7 col-xl-3 d-flex justify-content-end align-content-center ml-auto">
           <theme-toggler/>
           <language-switcher/>
           <user-info/>
-          <mobile-top-menu/>
+          <mobile-top-menu class="d-xl-none"/>
         </div>
       </div>
     </div>

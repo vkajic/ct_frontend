@@ -22,6 +22,7 @@
               size="lg"
               :placeholder="$t('auth.change_password.new')"
               :state="$v.form.newPassword.$dirty ? !$v.form.newPassword.$error : null"/>
+            <password v-model="form.newPassword" :strength-meter-only="true"/>
             <validation-messages title="New password" :validation="$v.form.newPassword"/>
           </b-form-group>
 
@@ -56,10 +57,12 @@
 </template>
 
 <script>
+import Password from 'vue-password-strength-meter';
 import { required, minLength, sameAs } from 'vuelidate/lib/validators';
 import ApiService from '../../services/api.service';
 import ValidationMessages from '../../components/form/ValidationMessages.vue';
 import Paper from '../../components/ui/Paper.vue';
+import passwordStrength from '../../validations/passwordStrength';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -67,6 +70,7 @@ export default {
   components: {
     Paper,
     ValidationMessages,
+    Password,
   },
   data() {
     return {
@@ -88,6 +92,7 @@ export default {
       newPassword: {
         required,
         minLength: minLength(8),
+        passwordStrength,
       },
       newPasswordConfirmation: {
         required,

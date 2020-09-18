@@ -14,21 +14,6 @@
   }
 }
 
-@mixin nav-link {
-  &__icon {
-    @media only screen and (min-width: 1400px) {
-      display: none;
-    }
-  }
-  &__title {
-    display: none;
-
-    @media only screen and (min-width: 1400px) {
-      display: block;
-    }
-  }
-}
-
 .short-task-item, .short-job-item {
   .duration, .price, .published-date {
     font-size: .875rem;
@@ -61,8 +46,6 @@
     .btn-info,
     &:active,
     &:focus {
-      background: $almost-black !important;
-      border-color: $almost-black;
       box-shadow: none;
     }
 
@@ -203,6 +186,7 @@
       width: auto;
     }
   }
+
   .employer {
     .avatar-container {
       .avatar {
@@ -214,111 +198,10 @@
   }
 }
 
-
 .my-task-tabs {
-  display: flex;
-  align-items: center;
-
-  &.nav-tabs {
-    overflow-x: auto;
-    overflow-y: hidden;
-    display: -webkit-box;
-    display: -moz-box;
-
-    .nav-item {
-      // Freelancer name tab - float right
-      &:nth-child(4) {
-        margin-left: auto;
-
-        .nav-link {
-          padding-right: .4rem;
-        }
-
-        @media only screen and (min-width: 1400px) {
-          margin-left: 0;
-        }
-      }
-    }
-
-    .nav-link {
-      @include nav-link;
-
-      padding: 1rem .8rem;
-      border-bottom: none !important;
-    }
-  }
-
-  &__wrapper {
-    display: flex;
-  }
-
-  &__action-btn {
-    button {
-      margin-right: .8rem !important;
-      padding: 0 .6rem;
-      font-size: .65em;
-    }
-  }
-
-  &__actions-dropdown {
-    padding: 0;
-
-    button {
-      padding: 0;
-    }
-
-    ul {
-      li {
-        .dropdown-item {
-          padding: .2rem .5rem;
-          font-size: .8em;
-        }
-      }
-
-      button {
-        @include dropdown-button;
-      }
-    }
-  }
-}
-
-.application-freelancer-tabs {
-  .nav-link {
-    @include nav-link;
-  }
-
-  ul {
-    outline: none;
-  }
-
-  &__actions-dropdown {
-    margin-left: 1rem;
-    width: auto;
-
-    @include media-breakpoint-up(lg) {
-      display: none;
-    }
-
-    a {
-      padding: .2rem .5rem;
-      font-size: .8em;
-
-      &:hover button {
-        @include apply-dark-theme() {
-          background: $dark-grayish-navy !important;
-        }
-      }
-    }
-
-    button {
-      @include dropdown-button;
-      @include apply-dark-theme() {
-        background: $almost-black !important;
-        border-radius: 0;
-      }
-      padding: 0;
-      margin-bottom: 0 !important;
-      text-align: left;
+  .active {
+    .dropdown-toggle {
+      color: $success;
     }
   }
 }

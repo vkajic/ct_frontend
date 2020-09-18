@@ -1,6 +1,6 @@
 <template>
   <div class="global-notification d-flex justify-content-center">
-    <b-alert :variant="type" :show="text" dismissible @dismissed="removeNotification">
+    <b-alert :variant="type" :show="displayed" dismissible @dismissed="removeNotification">
       {{text}}
 
       <template slot="dismiss">
@@ -25,6 +25,9 @@ export default {
       text: state => state.notificationText,
       type: state => state.notificationType,
     }),
+    displayed() {
+      return !!this.text;
+    },
   },
   methods: {
     removeNotification() {

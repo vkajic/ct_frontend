@@ -1,6 +1,6 @@
 <template>
   <div class="auth-form">
-    <h1 class="mb-5 text-center text-lg-left">{{$t('auth.login.title')}}</h1>
+    <h1 class="mb-5 text-center text-lg-left">{{ $t('auth.login.title') }}</h1>
     <b-form @submit.prevent="login">
       <b-form-group>
         <b-form-input
@@ -27,12 +27,14 @@
                 size="lg"
                 block
                 class="mb-3"
-                :disabled="sending">{{sending ? $t('auth.login.button_label_sending') :
-        $t('auth.login.button_label')}}
+                :disabled="sending">{{
+          sending ? $t('auth.login.button_label_sending') :
+            $t('auth.login.button_label')
+        }}
       </b-button>
 
       <div class="text-center">
-        <language-link to="/forgot-password">{{$t('auth.login.forgot_password')}}</language-link>
+        <language-link to="/forgot-password">{{ $t('auth.login.forgot_password') }}</language-link>
       </div>
     </b-form>
   </div>
@@ -92,8 +94,6 @@ export default {
           } else {
             const { redirect } = this.$route.query;
 
-            console.log(redirect);
-
             if (redirect) {
               await this.$router.replace(redirect);
             } else {
@@ -104,7 +104,7 @@ export default {
           this.sending = false;
         } catch (err) {
           this.sending = false;
-          this.$store.dispatch('ui/showNotification', {
+          await this.$store.dispatch('ui/showNotification', {
             type: 'danger',
             text: err.response ? err.response.data.message : err,
           });

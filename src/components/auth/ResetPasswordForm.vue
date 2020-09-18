@@ -1,6 +1,6 @@
 <template>
   <div class="auth-form">
-    <h1 class="mb-5 text-center text-lg-left">{{$t('auth.reset_password.title')}}</h1>
+    <h1 class="mb-5 text-center text-lg-left">{{ $t('auth.reset_password.title') }}</h1>
 
     <b-form @submit.prevent="resetPassword">
       <b-form-group :description="$t('auth.reset_password.password_description')">
@@ -10,6 +10,9 @@
           size="lg"
           :placeholder="$t('auth.reset_password.new')"
           :state="$v.form.newPassword.$dirty ? !$v.form.newPassword.$error : null"/>
+        <password v-model="form.newPassword" :strength-meter-only="true"/>
+        <validation-messages :title="$t('auth.reset_password.new')"
+                             :validation="$v.form.newPassword"/>
       </b-form-group>
 
       <b-form-group>
@@ -21,23 +24,32 @@
           :state="$v.form.newPasswordConfirmation.$dirty
             ? !$v.form.newPasswordConfirmation.$error
             : null"/>
+        <validation-messages :title="$t('auth.reset_password.new_again')"
+                             :validation="$v.form.newPasswordConfirmation"/>
       </b-form-group>
 
       <b-button type="submit" variant="primary" size="lg" block :disabled="sending">
-        {{$t('auth.reset_password.button_label')}}
+        {{ $t('auth.reset_password.button_label') }}
       </b-button>
     </b-form>
   </div>
 </template>
 
 <script>
+import Password from 'vue-password-strength-meter';
 import { required, minLength, sameAs } from 'vuelidate/lib/validators';
 import ApiService from '../../services/api.service';
 import languageRouter from '../mixins/languageRouter';
+import passwordStrength from '../../validations/passwordStrength';
+import ValidationMessages from '../form/ValidationMessages.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ResetPasswordForm',
+  components: {
+    Password,
+    ValidationMessages,
+  },
   mixins: [languageRouter],
   data() {
     return {
@@ -53,6 +65,7 @@ export default {
       newPassword: {
         required,
         minLength: minLength(8),
+        passwordStrength,
       },
       newPasswordConfirmation: {
         required,
