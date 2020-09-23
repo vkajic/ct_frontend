@@ -3,11 +3,12 @@
     <lazy-loader :visible="loading"/>
     <template v-for="(f, i) in validFeedbacks">
       <div class="client-feedback" :key="i">
-        <p>{{f.freelancerFeedback}}</p>
+        <p>{{ f.freelancerFeedback }}</p>
         <div class="d-flex align-items-center justify-content-between">
           <star-rating v-model="f.freelancerRate" :read-only="true" :star-size="15"/>
           <div class="text-muted">
-            {{f.freelancer.name}} - {{f.application.task.title}}
+            {{ f.freelancer.name }} - {{ f.application.task.title }} -
+            {{ f.createdAt | date('D.M.YYYY HH:mm') }}
           </div>
         </div>
         <hr>
@@ -18,6 +19,7 @@
 
 <script>
 import StarRating from 'vue-star-rating';
+import { dateFilter } from 'vue-date-fns';
 import apiService from '../../services/api.service';
 import LazyLoader from '../ui/LazyLoader.vue';
 
@@ -27,6 +29,9 @@ export default {
   components: {
     LazyLoader,
     StarRating,
+  },
+  filters: {
+    date: dateFilter,
   },
   props: {
     clientId: {
@@ -43,10 +48,10 @@ export default {
   created() {
     this.loading = true;
     apiService.get(`/clients/${this.clientId}/feedbacks`)
-      .then((res) => {
-        this.feedbacks = res.data.data;
-        this.loading = false;
-      });
+        .then((res) => {
+          this.feedbacks = res.data.data;
+          this.loading = false;
+        });
   },
   computed: {
     validFeedbacks() {

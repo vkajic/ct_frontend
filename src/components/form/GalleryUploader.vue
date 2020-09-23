@@ -89,6 +89,7 @@ export default {
           width: 240,
           height: 160,
         },
+        rotate: null,
       },
     };
   },

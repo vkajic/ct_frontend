@@ -29,7 +29,7 @@ export default {
       const imageRequest = JSON.stringify({
         bucket: process.env.VUE_APP_PUBLIC_BUCKET,
         key: this.file.fileName,
-        edits: this.options,
+        edits: Object.assign({}, this.options, { rotate: null }),
       });
       return `${process.env.VUE_APP_IMAGE_BASE_URL}/${btoa(imageRequest)}`;
     },

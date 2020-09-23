@@ -94,6 +94,10 @@
     "sort": "Sort",
     "published": "Published",
     "unpublished": "Unpublished",
+    "applied_freelancers": "Applied freelancers",
+    "blockchain_title": "Blockchain info",
+    "blockchain_label": "Your record is securely written on blockchain",
+    "more_details": "more details",
     "form": {
       "title": "Post new job",
       "warning": "Client data must be set to be able to create new task",

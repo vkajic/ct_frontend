@@ -10,7 +10,7 @@
             <image-icon v-if="!uploading" size="4x"/>
             <b-spinner v-if="uploading" class="text-dark" large/>
             <p class="text-center">
-              <a href="#" @click="selectFile"><u>{{label}}</u></a> or drag and drop file
+              <a href="#" @click="selectFile"><u>{{ label }}</u></a> or drag and drop file
             </p>
           </div>
 
@@ -30,7 +30,7 @@
         <template v-else>
           <div class="h-100 d-flex flex-column align-items-center justify-content-center">
             <div>uploading...</div>
-            <h3>{{uploadPercentage}}%</h3>
+            <h3>{{ uploadPercentage }}%</h3>
           </div>
         </template>
 
@@ -43,7 +43,7 @@
     </div>
 
     <b-form-invalid-feedback :force-show="!!error">
-      {{error}}
+      {{ error }}
     </b-form-invalid-feedback>
 
     <validation-messages v-if="validation" :title="title" :validation="validation"/>
@@ -171,7 +171,10 @@ export default {
         const imageRequest = JSON.stringify({
           bucket: process.env.VUE_APP_PUBLIC_BUCKET,
           key: n.fileName,
-          edits: this.options,
+          edits: {
+            ...this.options,
+            rotate: null,
+          },
         });
         this.imageUrl = `${process.env.VUE_APP_IMAGE_BASE_URL}/${btoa(imageRequest)}`;
       }

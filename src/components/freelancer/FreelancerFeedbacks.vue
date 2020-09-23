@@ -7,7 +7,8 @@
         <div class="d-flex align-items-center justify-content-between">
           <star-rating v-model="f.clientRate" :read-only="true" :star-size="15"/>
           <div class="text-muted">
-            {{f.client.name}} - {{f.application.task.title}}
+            {{f.client.name}} - {{f.application.task.title}} -
+            {{ f.createdAt | date('D.M.YYYY HH:mm') }}
           </div>
         </div>
         <hr>
@@ -18,6 +19,7 @@
 
 <script>
 import StarRating from 'vue-star-rating';
+import { dateFilter } from 'vue-date-fns';
 import apiService from '../../services/api.service';
 import LazyLoader from '../ui/LazyLoader.vue';
 
@@ -27,6 +29,9 @@ export default {
   components: {
     LazyLoader,
     StarRating,
+  },
+  filters: {
+    date: dateFilter,
   },
   props: {
     freelancerId: {
