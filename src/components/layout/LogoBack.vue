@@ -2,12 +2,7 @@
   <div>
     <div class="d-none d-lg-block py-2">
       <language-router-link to="/">
-        <div class="logo">
-          <img v-if="isDarkThemeEnabled" src="@/assets/img/cryptotask-logo--light.svg"
-               alt="Cryptotask"/>
-          <img v-else src="@/assets/img/cryptotask-logo.svg"
-               alt="Cryptotask"/>
-        </div>
+        <logo-image/>
       </language-router-link>
     </div>
     <div class="d-lg-none">
@@ -15,16 +10,11 @@
         <a href="#" @click.prevent="goBack" class="mr-3" v-if="funnelItemNum > 1">
           <arrow-left-icon size="1.5x"/>
         </a>
-        <strong>{{funnelItemTitle}}</strong> {{funnelItemNum}}/{{funnelItemsCount}}
+        <strong>{{ funnelItemTitle }}</strong> {{ funnelItemNum }}/{{ funnelItemsCount }}
       </template>
       <template v-else>
         <language-router-link to="/" class="d-block">
-          <div class="logo">
-            <img v-if="isDarkThemeEnabled" src="@/assets/img/cryptotask-logo--light.svg"
-                 alt="Cryptotask"/>
-            <img v-else src="@/assets/img/cryptotask-logo.svg"
-                 alt="Cryptotask"/>
-          </div>
+          <logo-image/>
         </language-router-link>
       </template>
     </div>
@@ -33,27 +23,27 @@
 
 <script>
 import { ArrowLeftIcon } from 'vue-feather-icons';
-import LanguageRouterLink from './LanguageRouterLink.vue';
+import LogoImage from '@/components/layout/LogoImage.vue';
+import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'LogoBack',
   components: {
+    LogoImage,
     LanguageRouterLink,
     ArrowLeftIcon,
   },
-  data() {
-    return {
-      freelancerFunnelMapping: {
-        basicInfo: 'Basic info',
-        skills: 'Skills & services',
-        workExperience: 'Work experience',
-        projects: 'Projects',
-        preview: 'Publish profile',
-      },
-    };
-  },
   computed: {
+    freelancerFunnelMapping() {
+      return {
+        basicInfo: this.$t('freelancers.basic_info'),
+        skills: this.$t('freelancers.skills_services'),
+        workExperience: this.$t('freelancers.work_experience'),
+        projects: this.$t('freelancers.projects'),
+        preview: this.$t('freelancers.publish_button'),
+      };
+    },
     /**
      * Count of items in funnel menu
      */
@@ -78,13 +68,6 @@ export default {
     funnelItemTitle() {
       const current = this.$route.name;
       return this.freelancerFunnelMapping[current];
-    },
-    /**
-     * Check if dark theme is enabled
-     * @return boolean
-     * */
-    isDarkThemeEnabled() {
-      return this.$store.state.ui.isDarkThemeEnabled;
     },
   },
   methods: {

@@ -24,7 +24,7 @@
 import TopMenu from '../../components/layout/TopMenu.vue';
 import MobileTopMenu from '../../components/layout/MobileTopMenu.vue';
 import UserInfo from '../../components/ui/UserInfo.vue';
-import LogoBack from '../../components/ui/LogoBack.vue';
+import LogoBack from '../../components/layout/LogoBack.vue';
 import ThemeToggler from '../../components/ui/ThemeToggler.vue';
 import LanguageSwitcher from '../../components/ui/LanguageSwitcher.vue';
 

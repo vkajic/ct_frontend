@@ -47,6 +47,7 @@ header.main-header {
 
       @include media-breakpoint-up(lg) {
         height: auto;
+        max-height: 3.5rem;
       }
     }
   }

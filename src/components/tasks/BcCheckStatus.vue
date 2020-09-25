@@ -1,7 +1,8 @@
 <template>
   <div class="on-bc" v-if="isOnBc">
     <a v-b-modal.blockchain-modal>
-      <img src="@/assets/img/bc_icon.png" alt="Blockchain"/>
+      <img v-if="!isDarkMode" src="@/assets/img/bc_icon.png" alt="Blockchain"/>
+      <img v-if="isDarkMode" src="@/assets/img/bc_icon_dark.png" alt="Blockchain"/>
     </a>
 
     <b-modal id="blockchain-modal" :centered="true" :hide-footer="true"
@@ -60,6 +61,9 @@ export default {
   computed: {
     isBcDataSet() {
       return this.$store.state.user.bcDataSet;
+    },
+    isDarkMode() {
+      return this.$store.state.ui.isDarkThemeEnabled;
     },
   },
 };
