@@ -1,7 +1,9 @@
 <template>
   <div class="logo">
     <template v-if="currentLanguage === 'hr'">
-      <img src="@/assets/img/powered_by_cryptotask.png"
+      <img v-if="isDarkThemeEnabled" src="@/assets/img/powered_by_cryptotask_dark.png"
+           alt="Freelance.hr"/>
+      <img v-else src="@/assets/img/powered_by_cryptotask_light.png"
            alt="Freelance.hr"/>
     </template>
     <template v-else>
