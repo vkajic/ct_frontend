@@ -15,6 +15,16 @@ yarn run serve
 yarn run build
 ```
 
+### Deploys on staging or production
+You need aws cli and need to be logged in
+```
+yarn deploy:staging
+```
+or
+```
+yarn deploy:production
+```
+
 ### Run your tests
 ```
 yarn run test
