@@ -13,7 +13,7 @@
                 @click="openThread"/>
       </template>
       <template v-else>
-        <p class="text-center">{{$t('tasks.details.no_applications')}}</p>
+        <p class="text-center">{{ $t('tasks.details.no_applications') }}</p>
       </template>
     </template>
   </div>
@@ -59,7 +59,7 @@ export default {
 
       // redirect to page if not already there
       const routeName = 'myTask';
-      if (this.$route.name !== routeName) {
+      if (this.$route.name !== routeName || (this.$route.name === routeName && this.$route.params.id && this.$route.params.id !== `${thread.taskId}`)) {
         await this.push(`/my-tasks/${thread.taskId}`);
       }
     },

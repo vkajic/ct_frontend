@@ -5,10 +5,10 @@
       <template v-slot:button-content>
         <menu-icon/>
       </template>
-      <b-dropdown-item-button variant="info" v-if="hireEnabled" @click="hire" class="text-center">
+      <b-dropdown-item-button v-if="hireEnabled" @click="hire" class="text-center">
         {{ $t('applications.hire') }}
       </b-dropdown-item-button>
-      <b-dropdown-item-button variant="info" v-if="completeEnabled" class="text-center"
+      <b-dropdown-item-button v-if="completeEnabled" class="text-center"
                               @click="leaveFeedback(2)">
         {{ $t('applications.complete') }}
       </b-dropdown-item-button>
