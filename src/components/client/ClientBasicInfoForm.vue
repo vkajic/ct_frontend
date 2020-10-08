@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/src/validators';
+import { required, maxLength } from 'vuelidate/lib/validators';
 import ImageUploader from '../form/ImageUploader.vue';
 import InputGroup from '../form/InputGroup.vue';
 import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
@@ -77,7 +77,7 @@ export default {
     const v = { form: {} };
 
     if (!this.client.published) {
-      v.form.name = { required };
+      v.form.name = { required, maxLength: maxLength(50) };
     }
 
     return v;
