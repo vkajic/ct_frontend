@@ -11,7 +11,7 @@ export default {
   components: { FreelancerApplicationsList },
   data() {
     return {
-      statuses: [2, 3],
+      statuses: [2, 3, 4],
     };
   },
 };

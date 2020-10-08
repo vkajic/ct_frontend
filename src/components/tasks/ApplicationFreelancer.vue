@@ -52,7 +52,8 @@
 
 <script>
 import { mapState } from 'vuex';
-import { ChevronDownIcon, MessageCircleIcon, ClipboardIcon } from 'vue-feather-icons';
+import { MessageCircleIcon, ClipboardIcon } from 'vue-feather-icons';
+import FreelancerApplicationDropdown from '@/components/tasks/FreelancerApplicationDropdown.vue';
 import TaskDetails from './TaskDetails.vue';
 import RequiredSkills from './RequiredSkills.vue';
 import ChatContainer from './chat/ChatContainer.vue';
@@ -61,7 +62,7 @@ import ApplicationStatusBadge from './ApplicationStatusBadge.vue';
 import FreelancerTaskButtons from './FreelancerTaskButtons.vue';
 import ApiService from '../../services/api.service';
 import TaskDescription from './TaskDescription.vue';
-import FreelancerApplicationDropdown from '@/components/tasks/FreelancerApplicationDropdown.vue';
+import smartContract from '../../services/smartContract.service';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -75,7 +76,6 @@ export default {
     ChatContainer,
     RequiredSkills,
     TaskDetails,
-    ChevronDownIcon,
     MessageCircleIcon,
     ClipboardIcon,
   },
@@ -92,7 +92,7 @@ export default {
     showActionsDropdown() {
       const { status, feedback } = this.application;
       if (status === 1) return true;
-      if (status === 2) return !feedback.freelancerFeedback;
+      if (status === 2 || status === 4) return !feedback.freelancerFeedback;
       return false;
     },
   },
@@ -124,8 +124,8 @@ export default {
     async saveFeedback(formData) {
       try {
         const res = await ApiService.post('/feedbacks', formData);
-        this.$store.commit('tasks/setFreelancerApplicationFeedback', res.data.data);
-        this.$store.commit('tasks/setFreelancerApplicationStatus', formData.status);
+        this.$store.commit('tasks/setFreelancerApplicationFeedback', res.data.data.feedback);
+        this.$store.commit('tasks/setFreelancerApplicationStatus', res.data.data.application.status);
 
         this.$store.dispatch('ui/showNotification', {
           type: 'success',
@@ -133,6 +133,37 @@ export default {
         });
 
         this.$store.commit('tasks/closeFeedbackModal');
+
+
+        const taskRes = await ApiService.get(`/tasks/${this.application.taskId}`);
+        const taskBcId = taskRes.data.data.bcId;
+        try {
+          if (res.data.data.application.status === 2 || res.data.data.application.status === 4) {
+            smartContract
+              .setLeaveFeedbackFlancerProperties(
+                res.data.data.feedback.id,
+                taskBcId,
+                formData.rate,
+                formData.message,
+              )
+              .then((r) => {
+                ApiService.put('/feedbacks/regBcLeaveFeedbackFlancer', r);
+              });
+          } else if (res.data.data.application.status === 3) {
+            smartContract
+              .setCancelContractFlancerProperties(
+                res.data.data.feedback.id,
+                taskBcId,
+                formData.rate,
+                formData.message,
+              )
+              .then((r) => {
+                ApiService.put('/feedbacks/regBcCancelContractFlancer', r);
+              });
+          }
+        } catch (e) {
+          console.log(e);
+        }
       } catch (err) {
         console.error(err);
         this.$store.dispatch('ui/showNotification', {

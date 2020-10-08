@@ -3,7 +3,7 @@
     <b-badge variant="success" v-if="application.status === 2">
       {{$t('applications.completed')}}
     </b-badge>
-    <b-badge variant="danger" v-if="application.status === 3">
+    <b-badge variant="danger" v-if="application.status === 3 || application.status === 4">
       {{$t('applications.canceled')}}
     </b-badge>
   </div>

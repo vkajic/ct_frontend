@@ -1,7 +1,7 @@
 <template>
   <div>
     <paper class="mb-5">
-      <client-basic-info-form :client="client" :redirect-after-save="false"/>
+      <client-basic-info-form :client="client" :redirect-after-save="false" caller="update"/>
     </paper>
 
     <paper class="mb-5">

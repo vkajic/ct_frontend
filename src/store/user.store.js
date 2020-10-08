@@ -79,10 +79,11 @@ const actions = {
    * Login user
    * @param commit
    * @param dispatch
+   * @param rootState
    * @param {Object} credentials
    * @return {Promise<*>}
    */
-  async login({ commit, dispatch }, credentials) {
+  async login({ commit, dispatch, rootState }, credentials) {
     const login = await apiService.post('/auth/login', credentials);
     commit('setToken', login.data.data.token);
 
@@ -111,8 +112,26 @@ const actions = {
 
     this._vm.$smartContract.createKeypairs(credentials);
     this._vm.$smartContract.createBcData()
-      .then(() => {
+      .then(async () => {
         commit('activateBcData');
+
+        try {
+          if (user.data.data.freelancer != null
+            && user.data.data.freelancer.name && user.data.data.freelancer.bcId == null) {
+            const bcFreelancer = await this._vm
+              .$smartContract
+              .setFreelancerProperties(user.data.data.freelancer, rootState.util.activeLanguage);
+            await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
+          } else if (user.data.data.client != null
+            && user.data.data.client.name && user.data.data.client.bcId == null) {
+            const bcClient = await this._vm
+              .$smartContract
+              .setClientProperties(user.data.data.client, rootState.util.activeLanguage);
+            await apiService.put('/clients/regBcClient', bcClient);
+          }
+        } catch (e) {
+          console.log(e);
+        }
       });
 
     // reset socket connection
@@ -149,13 +168,25 @@ const actions = {
   /**
    * Update freelancer basic data
    * @param commit
+   * @param state
    * @param {Object} data
    * @return {Promise<void>}
    */
-  async updateFreelancerBasicInfo({ commit }, data) {
-    const freelancerData = await apiService.put('/freelancers', data);
+  async updateFreelancerBasicInfo({ commit, state }, data) {
+    const freelancerData = await apiService.put('/freelancers', data.data);
 
     commit('setFreelancerBasicData', freelancerData.data.data);
+
+    if (data.caller === 'update') {
+      try {
+        this._vm.$smartContract.setEditFreelancerProperties(state.user.freelancer)
+          .then(async (bcFreelancer) => {
+            await apiService.put('/freelancers/regBcEditFreelancer', bcFreelancer);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    }
   },
 
   /**
@@ -197,24 +228,59 @@ const actions = {
   /**
    * Update client basic data
    * @param commit
+   * @param rootState
+   * @param state
    * @param {Object} data
    * @return {Promise<void>}
    */
-  async updateClientBasicInfo({ commit }, data) {
-    const clientData = await apiService.put('/clients', data);
+  async updateClientBasicInfo({ commit, rootState, state }, data) {
+    const clientData = await apiService.put('/clients', data.data);
 
     commit('setClientBasicData', clientData.data.data);
+
+    if (data.caller === 'create') {
+      try {
+        this._vm.$smartContract
+          .setClientProperties(state.user.client, rootState.util.activeLanguage)
+          .then((bcClient) => {
+            apiService.put('/clients/regBcClient', bcClient);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    } else if (data.caller === 'update') {
+      try {
+        this._vm.$smartContract.setEditClientProperties(state.user.client)
+          .then((bcClient) => {
+            apiService.put('/clients/regBcEditClient', bcClient);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    }
   },
 
   /**
    * Publish freelancer profile
    * @param commit
+   * @param rootState
+   * @param state
    * @return {Promise<void>}
    */
-  async publishFreelancerProfile({ commit }) {
+  async publishFreelancerProfile({ commit, rootState, state }) {
     await apiService.put('/freelancers/publish');
 
     commit('setFreelancerPublished');
+
+    try {
+      this._vm.$smartContract
+        .setFreelancerProperties(state.user.freelancer, rootState.util.activeLanguage)
+        .then((bcFreelancer) => {
+          apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   /**

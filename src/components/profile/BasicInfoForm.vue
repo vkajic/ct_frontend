@@ -156,7 +156,10 @@ export default {
         this.saving = true;
 
         try {
-          await this.$store.dispatch('user/updateFreelancerBasicInfo', this.form);
+          await this.$store.dispatch('user/updateFreelancerBasicInfo', {
+            data: this.form,
+            caller: 'create',
+          });
 
           this.$store.commit('user/setProfileAvatar', {
             avatar: this.form.avatar,

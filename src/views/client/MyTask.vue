@@ -87,6 +87,7 @@ import { mapState } from 'vuex';
 import {
   UsersIcon, MessageCircleIcon, ClipboardIcon,
 } from 'vue-feather-icons';
+import ClientFreelancerDropdown from '@/components/tasks/ClientFreelancerDropdown.vue';
 import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
@@ -100,7 +101,7 @@ import ReopenTaskButton from '../../components/client/ReopenTaskButton.vue';
 import CloseTaskButton from '../../components/client/CloseTaskButton.vue';
 import ConfirmHireModal from '../../components/client/ConfirmHireModal.vue';
 import LanguageRouterLink from '../../components/ui/LanguageRouterLink.vue';
-import ClientFreelancerDropdown from '@/components/tasks/ClientFreelancerDropdown.vue';
+import smartContract from '../../services/smartContract.service';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -305,6 +306,43 @@ export default {
         });
 
         this.$store.commit('tasks/closeFeedbackModal');
+
+
+        const taskRes = await ApiService.get(`/tasks/${this.application.taskId}`);
+        const flancerRes = await ApiService.get(`/freelancers/${this.application.freelancerId}`);
+        const taskBcId = taskRes.data.data.bcId;
+        const flancerBcId = flancerRes.data.data.bcId;
+        try {
+          console.log('formData rate and message:');
+          console.log(formData.rate);
+          console.log(formData.message);
+
+          console.log(`Application status: ${res.data.data.application.status}`);
+          if (res.data.data.application.status === 2) {
+            smartContract.setFinalizeProperties(res.data.data.feedback.id, taskBcId, flancerBcId, formData.rate, formData.message)
+              .then(async (res) => {
+                const resBc = await ApiService.put('/feedbacks/regBcFinalize', res);
+                console.log(res);
+                console.log(resBc.data.message);
+              });
+          } else if (res.data.data.application.status === 4) {
+            smartContract.setCancelContractClientProperties(res.data.data.feedback.id, taskBcId, flancerBcId, formData.rate, formData.message)
+              .then(async (res) => {
+                const resBc = await ApiService.put('/feedbacks/regBcCancelContractClient', res);
+                console.log(res);
+                console.log(resBc.data.message);
+              });
+          } else if (res.data.data.application.status === 3) {
+            smartContract.setLeaveFeedbackClientProperties(res.data.data.feedback.id, taskBcId, flancerBcId, formData.rate, formData.message)
+              .then(async (res) => {
+                const resBc = await ApiService.put('/feedbacks/regBcLeaveFeedbackClient', res);
+                console.log(res);
+                console.log(resBc.data.message);
+              });
+          }
+        } catch (e) {
+          console.log(e);
+        }
       } catch (err) {
         console.error(err);
         this.$store.dispatch('ui/showNotification', {
@@ -338,6 +376,7 @@ export default {
     resetSelectedApplication() {
       this.$store.commit('tasks/setSelectedApplication', null);
     },
+
     /**
      * Map data and open feedback modal
      * @param statusValue
@@ -345,7 +384,7 @@ export default {
     mapDataAndOpenFeedbackModal(statusValue) {
       const payload = {
         application: this.selectedApplication,
-        status: statusValue
+        status: statusValue,
       };
       this.openFeedbackModal(payload);
     },

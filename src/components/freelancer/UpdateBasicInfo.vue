@@ -269,8 +269,11 @@ export default {
 
         try {
           await this.$store.dispatch('user/updateFreelancerBasicInfo', {
-            ...this.form,
-            published: true,
+            data: {
+              ...this.form,
+              published: true,
+            },
+            caller: 'update',
           });
 
           this.$store.commit('user/setProfileAvatar', {

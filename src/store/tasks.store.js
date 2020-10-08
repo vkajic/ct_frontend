@@ -19,6 +19,7 @@ const actions = {
   /**
    * Create new task
    * @param commit
+   * @param rootState
    * @param {Object} data - task data
    * @param {String} data.title - task title
    * @param {String} data.description - task description
@@ -27,11 +28,19 @@ const actions = {
    * @param {Boolean} data.published - task published
    * @return {Promise<void>}
    */
-  async create({ commit }, data) {
-    const newData = await this._vm.$smartContract.setTaskProperties(data);
-    const res = await ApiService.post('/tasks', newData);
+  async create({ commit, rootState }, data) {
+    const res = await ApiService.post('/tasks', data);
 
     commit('addMyTask', res.data.data);
+
+    try {
+      this._vm.$smartContract.setTaskProperties(res.data.data, rootState.util.activeLanguage)
+        .then((bcTask) => {
+          ApiService.put('/tasks/regBcTask', bcTask);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   /**
@@ -48,6 +57,17 @@ const actions = {
       id,
       taskData: res.data.data,
     });
+
+    try {
+      this._vm.$smartContract.setEditTaskProperties(res.data.data)
+        .then(async (bcTask) => {
+          const resBc = await ApiService.put('/tasks/regBcEditTask', bcTask);
+          console.log(bcTask);
+          console.log(resBc.data.message);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   /**
@@ -93,9 +113,10 @@ const actions = {
    * @param commit
    * @param {Number} taskId
    * @param letter
+   * @param {Number} taskBcId
    * @return {Promise<void>}
    */
-  async applyForTask({ commit }, { taskId, letter }) {
+  async applyForTask({ commit }, { taskId, letter, taskBcId }) {
     try {
       const application = await ApiService.post('/applications', {
         taskId,
@@ -103,6 +124,15 @@ const actions = {
       });
 
       commit('addTaskApplication', application.data.data);
+
+      try {
+        this._vm.$smartContract.setApplicationProperties(taskBcId)
+          .then((res) => {
+            ApiService.put('/applications/regBcApplication', res);
+          });
+      } catch (e) {
+        console.log(e);
+      }
 
       return application.data.data;
     } catch (err) {
@@ -132,6 +162,19 @@ const actions = {
     await ApiService.put(`/applications/${application.id}/hire`);
 
     commit('setApplicationHired', application);
+
+    const taskRes = await ApiService.get(`/tasks/${application.taskId}`);
+    const flancerRes = await ApiService.get(`/freelancers/${application.freelancerId}`);
+    const taskBcId = taskRes.data.data.bcId;
+    const flancerBcId = flancerRes.data.data.bcId;
+    try {
+      this._vm.$smartContract.setHireProperties(taskBcId, flancerBcId)
+        .then((res) => {
+          ApiService.put('/applications/regBcHire', res);
+        });
+    } catch (e) {
+      console.log(e);
+    }
   },
 
   /**

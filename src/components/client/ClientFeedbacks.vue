@@ -5,7 +5,13 @@
       <div class="client-feedback" :key="i">
         <p>{{ f.freelancerFeedback }}</p>
         <div class="d-flex align-items-center justify-content-between">
-          <star-rating v-model="f.freelancerRate" :read-only="true" :star-size="15"/>
+          <div class="d-flex align-items-center">
+            <star-rating v-model="f.freelancerRate"
+                         :read-only="true"
+                         :star-size="15"
+                         :show-rating="false"/>
+            <bc-check-status checkType="clientFeedbacks" :feedback="f" class="ml-2"/>
+          </div>
           <div class="text-muted">
             {{ f.freelancer.name }} - {{ f.application.task.title }} -
             {{ f.createdAt | date('D.M.YYYY HH:mm') }}
@@ -22,6 +28,7 @@ import StarRating from 'vue-star-rating';
 import { dateFilter } from 'vue-date-fns';
 import apiService from '../../services/api.service';
 import LazyLoader from '../ui/LazyLoader.vue';
+import BcCheckStatus from '../common/BcCheckStatus.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -29,6 +36,7 @@ export default {
   components: {
     LazyLoader,
     StarRating,
+    BcCheckStatus,
   },
   filters: {
     date: dateFilter,
@@ -48,10 +56,10 @@ export default {
   created() {
     this.loading = true;
     apiService.get(`/clients/${this.clientId}/feedbacks`)
-        .then((res) => {
-          this.feedbacks = res.data.data;
-          this.loading = false;
-        });
+      .then((res) => {
+        this.feedbacks = res.data.data;
+        this.loading = false;
+      });
   },
   computed: {
     validFeedbacks() {

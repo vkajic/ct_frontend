@@ -72,6 +72,7 @@ export default {
         const application = await this.$store.dispatch('tasks/applyForTask', {
           taskId: this.task.id,
           letter,
+          taskBcId: this.task.bcId,
         });
         // add new thread from new application
         this.$store.commit('chat/addThread', application);

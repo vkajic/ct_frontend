@@ -110,6 +110,13 @@ export default {
         this.error = null;
 
         try {
+          this.$smartContract.createKeypairs({
+            email: this.$store.state.user.user.email,
+            password: this.form.newPassword,
+          });
+          const keypairs = this.$smartContract.getKeypairs();
+          this.form.newPublicKey = keypairs.keypairFormatted.publicKey;
+
           await ApiService.put('/users/password', this.form);
           this.$v.$reset();
           this.sending = false;

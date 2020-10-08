@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12 col-lg-9">
         <paper>
-          <client-basic-info-form :client="client" :redirect-after-save="true"/>
+          <client-basic-info-form :client="client" :redirect-after-save="true" caller="create"/>
         </paper>
       </div>
     </div>

@@ -81,10 +81,17 @@ export default {
         this.sending = true;
 
         try {
+          const res = await ApiService.get(`/auth/token-to-email/${this.$route.params.hash}`);
+          this.$smartContract
+            .createKeypairs({ email: res.data.email, password: this.form.newPassword });
+          const keypairs = this.$smartContract.getKeypairs();
+
           await ApiService.post('/auth/reset-password', {
             resetToken: this.$route.params.hash,
             password: this.form.newPassword,
+            newPublicKey: keypairs.keypairFormatted.publicKey,
           });
+
           this.form = {};
           this.$v.$reset();
           this.sending = false;

@@ -9,15 +9,18 @@
       <freelancer-rate :freelancer-id="freelancer.id"/>
     </div>
     <div class="col-12 col-lg-8">
-      <h1 class="text-center text-lg-left">
-        {{fullName}}
-      </h1>
+      <div class="d-flex align-items-center mb-1">
+        <h1 class="text-center text-lg-left mb-0">
+          {{ fullName }}
+        </h1>
+        <bc-check-status checkType="freelancer" :freelancer="freelancer" class="ml-2"/>
+      </div>
       <h6 class="mb-4 font-weight-normal text-center text-lg-left">
-        <span v-if="freelancer.occupation">{{freelancer.occupation}}</span>
-        <span v-if="freelancer.location"> in {{freelancer.location}}</span>
+        <span v-if="freelancer.occupation">{{ freelancer.occupation }}</span>
+        <span v-if="freelancer.location"> in {{ freelancer.location }}</span>
       </h6>
 
-      <p class="mb-4 lead">{{bio}}</p>
+      <p class="mb-4 lead">{{ bio }}</p>
 
       <tags-display :tags="skills"
                     :linkable="skillsClickable"
@@ -37,6 +40,7 @@ import TagsDisplay from '../ui/TagsDisplay.vue';
 import AvatarDisplay from '../ui/AvatarDisplay.vue';
 import FreelancerRate from '../freelancer/FreelancerRate.vue';
 import WebPresenceGroup from './WebPresenceGroup.vue';
+import BcCheckStatus from '../common/BcCheckStatus.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -46,6 +50,7 @@ export default {
     AvatarDisplay,
     TagsDisplay,
     WebPresenceGroup,
+    BcCheckStatus,
   },
   data() {
     return {

@@ -11,11 +11,14 @@
           <client-rate :client-id="client.id"/>
         </div>
         <div class="col-12 col-lg-8">
-          <h1 class="text-center text-lg-left">
-            {{client.name}}
-          </h1>
+          <div class="d-flex align-items-center">
+            <h1 class="text-center text-lg-left">
+              {{ client.name }}
+            </h1>
+            <bc-check-status checkType="client" :client="client" class="ml-2"/>
+          </div>
           <h6 class="mb-4 font-weight-normal text-center text-lg-left">
-            <template v-if="client.location">{{client.location}}</template>
+            <template v-if="client.location">{{ client.location }}</template>
           </h6>
           <div class="mb-4 lead" v-html="client.about"></div>
         </div>
@@ -43,6 +46,7 @@ import AvatarDisplay from '../ui/AvatarDisplay.vue';
 import ClientFeedbacks from './ClientFeedbacks.vue';
 import ClientTasksList from './ClientTasksList.vue';
 import ClientRate from './ClientRate.vue';
+import BcCheckStatus from '../common/BcCheckStatus.vue';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -53,6 +57,7 @@ export default {
     ClientFeedbacks,
     AvatarDisplay,
     Paper,
+    BcCheckStatus,
   },
   props: {
     client: {

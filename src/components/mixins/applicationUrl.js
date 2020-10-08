@@ -3,6 +3,7 @@ const statusMapping = {
   1: 'in-progress',
   2: 'completed',
   3: 'canceled',
+  4: 'completed',
 };
 
 // eslint-disable-next-line import/prefer-default-export
