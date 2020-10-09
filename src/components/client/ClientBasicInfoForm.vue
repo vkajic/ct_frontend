@@ -25,11 +25,13 @@
                      class="mb-3"
                      v-model="form.location"
                      :placeholder="$t('client_profile.location')"
-                     :label="$t('client_profile.location')"/>
+                     :label="$t('client_profile.location')"
+                     :validation="$v.form.location"/>
 
         <wysiwyg-textarea-group class="mb-4"
                                 v-model="form.about"
-                                :label="$t('client_profile.bio')"/>
+                                :label="$t('client_profile.bio')"
+                                :validation="$v.form.about"/>
 
         <div class="pt-5 d-flex flex-column flex-lg-row
         justify-content-center justify-content-lg-end
@@ -79,6 +81,8 @@ export default {
     if (!this.client.published) {
       v.form.name = { required, maxLength: maxLength(50) };
     }
+    v.form.location = { maxLength: maxLength(40) };
+    v.form.about = { maxLength: maxLength(5000) };
 
     return v;
   },

@@ -196,6 +196,7 @@ export default {
       },
       description: {
         required,
+        maxLength: maxLength(5000),
       },
       price: {
         // eslint-disable-next-line func-names
