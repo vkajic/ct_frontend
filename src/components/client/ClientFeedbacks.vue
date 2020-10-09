@@ -10,7 +10,7 @@
                          :read-only="true"
                          :star-size="15"
                          :show-rating="false"/>
-            <bc-check-status checkType="clientFeedbacks" :feedback="f" class="ml-2"/>
+            <bc-check-status checkType="clientFeedbacks" :feedback="f" class="ml-1"/>
           </div>
           <div class="text-muted">
             {{ f.freelancer.name }} - {{ f.application.task.title }} -

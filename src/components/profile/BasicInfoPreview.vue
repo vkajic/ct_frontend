@@ -13,7 +13,7 @@
         <h1 class="text-center text-lg-left mb-0">
           {{ fullName }}
         </h1>
-        <bc-check-status checkType="freelancer" :freelancer="freelancer" class="ml-2"/>
+        <bc-check-status checkType="freelancer" :freelancer="freelancer" class="ml-3"/>
       </div>
       <h6 class="mb-4 font-weight-normal text-center text-lg-left">
         <span v-if="freelancer.occupation">{{ freelancer.occupation }}</span>

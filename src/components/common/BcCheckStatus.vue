@@ -1,5 +1,5 @@
 <template>
-  <div class="on-bc" v-if="isOnBc">
+  <div class="on-bc" v-if="true">
     <a v-b-modal.blockchain-modal>
       <img v-if="!isDarkMode" src="@/assets/img/bc_icon.png" alt="Blockchain"/>
       <img v-if="isDarkMode" src="@/assets/img/bc_icon_dark.png" alt="Blockchain"/>

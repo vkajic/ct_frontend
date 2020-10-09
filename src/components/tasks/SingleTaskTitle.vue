@@ -5,7 +5,7 @@
         <h1 class="mb-0">
           {{ task.title }}
         </h1>
-        <bc-check-status checkType="task" :task="task" class="ml-2"/>
+        <bc-check-status checkType="task" :task="task" class="ml-3"/>
       </div>
       <slot name="title"/>
     </div>

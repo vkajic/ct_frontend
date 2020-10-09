@@ -15,7 +15,7 @@
             <h1 class="text-center text-lg-left">
               {{ client.name }}
             </h1>
-            <bc-check-status checkType="client" :client="client" class="ml-2"/>
+            <bc-check-status checkType="client" :client="client" class="ml-3"/>
           </div>
           <h6 class="mb-4 font-weight-normal text-center text-lg-left">
             <template v-if="client.location">{{ client.location }}</template>
