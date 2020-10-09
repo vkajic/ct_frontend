@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/src/validators';
+import { required, maxLength } from 'vuelidate/lib/validators';
 import Datepicker from 'vuejs-datepicker/src/components/Datepicker.vue';
 import InputGroup from '../form/InputGroup.vue';
 import ValidationMessages from '../form/ValidationMessages.vue';
@@ -112,15 +112,18 @@ export default {
       $each: {
         company: {
           required,
+          maxLength: maxLength(40),
         },
         title: {
           required,
+          maxLength: maxLength(40),
         },
         from: {
           required,
+          maxLength: maxLength(40),
         },
-        to: {},
-        description: {},
+        to: { maxLength: maxLength(40) },
+        description: { maxLength: maxLength(500) },
       },
     },
   },
