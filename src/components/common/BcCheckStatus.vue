@@ -1,10 +1,20 @@
 <template>
   <div class="on-bc" v-if="isOnBc">
-    <a
-      href="https://explorer.aeternity.io/contracts/transactions/ct_DeRuk3os1AaoiNtpiHnX5GnUHCVhqgZP9uQnEdx1UzNMq65Pf"
-      target="_blank" rel="noopener noreferrer">
-      <img src="@/assets/img/aeternity.png" alt="Aeternity"/>
+    <a v-b-modal.blockchain-modal>
+      <img v-if="!isDarkMode" src="@/assets/img/bc_icon.png" alt="Blockchain"/>
+      <img v-if="isDarkMode" src="@/assets/img/bc_icon_dark.png" alt="Blockchain"/>
     </a>
+
+    <b-modal id="blockchain-modal" :centered="true" :hide-footer="true"
+             :title="$t('tasks.blockchain_title')">
+      <p class="my-4">
+        {{ $t('tasks.blockchain_label') }},
+        <a
+          href="https://explorer.aeternity.io/contracts/transactions/ct_DeRuk3os1AaoiNtpiHnX5GnUHCVhqgZP9uQnEdx1UzNMq65Pf">
+          {{ $t('tasks.more_details') }}
+        </a>
+      </p>
+    </b-modal>
   </div>
 </template>
 
@@ -113,6 +123,10 @@ export default {
   computed: {
     isBcDataSet() {
       return this.$store.state.user.bcDataSet;
+    },
+
+    isDarkMode() {
+      return this.$store.state.ui.isDarkThemeEnabled;
     },
   },
 };
