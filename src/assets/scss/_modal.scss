@@ -1,6 +1,6 @@
 .modal {
   @include apply-dark-theme() {
-    background: $almost-black;
+    //background: $almost-black;
 
     .modal-content {
       box-shadow: 0 0 1rem $very-dark-blue;
@@ -25,5 +25,11 @@
         }
       }
     }
+  }
+}
+
+.modal-backdrop {
+  @include apply-dark-theme() {
+    background-color: rgba($almost-black, .9);
   }
 }
