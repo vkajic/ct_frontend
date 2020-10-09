@@ -138,6 +138,11 @@ export default {
         const taskRes = await ApiService.get(`/tasks/${this.application.taskId}`);
         const taskBcId = taskRes.data.data.bcId;
         try {
+          console.log('formData rate and message:');
+          console.log(formData.rate);
+          console.log(formData.message);
+          console.log(`Application status: ${res.data.data.application.status}`);
+
           if (res.data.data.application.status === 2 || res.data.data.application.status === 4) {
             smartContract
               .setLeaveFeedbackFlancerProperties(
@@ -146,8 +151,10 @@ export default {
                 formData.rate,
                 formData.message,
               )
-              .then((r) => {
-                ApiService.put('/feedbacks/regBcLeaveFeedbackFlancer', r);
+              .then(async (r) => {
+                const resBc = await ApiService.put('/feedbacks/regBcLeaveFeedbackFlancer', r);
+                console.log(res);
+                console.log(resBc.data.message);
               });
           } else if (res.data.data.application.status === 3) {
             smartContract
@@ -157,8 +164,10 @@ export default {
                 formData.rate,
                 formData.message,
               )
-              .then((r) => {
-                ApiService.put('/feedbacks/regBcCancelContractFlancer', r);
+              .then(async (r) => {
+                const resBc = await ApiService.put('/feedbacks/regBcCancelContractFlancer', r);
+                console.log(res);
+                console.log(resBc.data.message);
               });
           }
         } catch (e) {

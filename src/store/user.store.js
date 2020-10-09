@@ -121,13 +121,17 @@ const actions = {
             const bcFreelancer = await this._vm
               .$smartContract
               .setFreelancerProperties(user.data.data.freelancer, rootState.util.activeLanguage);
-            await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
+            const resBc = await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
+            console.log(bcFreelancer);
+            console.log(resBc.data.message);
           } else if (user.data.data.client != null
             && user.data.data.client.name && user.data.data.client.bcId == null) {
             const bcClient = await this._vm
               .$smartContract
               .setClientProperties(user.data.data.client, rootState.util.activeLanguage);
-            await apiService.put('/clients/regBcClient', bcClient);
+            const resBc = await apiService.put('/clients/regBcClient', bcClient);
+            console.log(bcClient);
+            console.log(resBc.data.message);
           }
         } catch (e) {
           console.log(e);
@@ -181,7 +185,9 @@ const actions = {
       try {
         this._vm.$smartContract.setEditFreelancerProperties(state.user.freelancer)
           .then(async (bcFreelancer) => {
-            await apiService.put('/freelancers/regBcEditFreelancer', bcFreelancer);
+            const resBc = await apiService.put('/freelancers/regBcEditFreelancer', bcFreelancer);
+            console.log(bcFreelancer);
+            console.log(resBc.data.message);
           });
       } catch (e) {
         console.log(e);
@@ -242,8 +248,10 @@ const actions = {
       try {
         this._vm.$smartContract
           .setClientProperties(state.user.client, rootState.util.activeLanguage)
-          .then((bcClient) => {
-            apiService.put('/clients/regBcClient', bcClient);
+          .then(async (bcClient) => {
+            const resBc = await apiService.put('/clients/regBcClient', bcClient);
+            console.log(bcClient);
+            console.log(resBc.data.message);
           });
       } catch (e) {
         console.log(e);
@@ -251,8 +259,10 @@ const actions = {
     } else if (data.caller === 'update') {
       try {
         this._vm.$smartContract.setEditClientProperties(state.user.client)
-          .then((bcClient) => {
-            apiService.put('/clients/regBcEditClient', bcClient);
+          .then(async (bcClient) => {
+            const resBc = await apiService.put('/clients/regBcEditClient', bcClient);
+            console.log(bcClient);
+            console.log(resBc.data.message);
           });
       } catch (e) {
         console.log(e);
@@ -275,8 +285,10 @@ const actions = {
     try {
       this._vm.$smartContract
         .setFreelancerProperties(state.user.freelancer, rootState.util.activeLanguage)
-        .then((bcFreelancer) => {
-          apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
+        .then(async (bcFreelancer) => {
+          const resBc = await apiService.put('/freelancers/regBcFreelancer', bcFreelancer);
+          console.log(bcFreelancer);
+          console.log(resBc.data.message);
         });
     } catch (e) {
       console.log(e);

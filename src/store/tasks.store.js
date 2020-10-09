@@ -35,8 +35,10 @@ const actions = {
 
     try {
       this._vm.$smartContract.setTaskProperties(res.data.data, rootState.util.activeLanguage)
-        .then((bcTask) => {
-          ApiService.put('/tasks/regBcTask', bcTask);
+        .then(async (bcTask) => {
+          const resBc = await ApiService.put('/tasks/regBcTask', bcTask);
+          console.log(bcTask);
+          console.log(resBc.data.message);
         });
     } catch (e) {
       console.log(e);
@@ -127,8 +129,10 @@ const actions = {
 
       try {
         this._vm.$smartContract.setApplicationProperties(taskBcId)
-          .then((res) => {
-            ApiService.put('/applications/regBcApplication', res);
+          .then(async (res) => {
+            const resBc = await ApiService.put('/applications/regBcApplication', res);
+            console.log(res);
+            console.log(resBc.data.message);
           });
       } catch (e) {
         console.log(e);
@@ -169,8 +173,10 @@ const actions = {
     const flancerBcId = flancerRes.data.data.bcId;
     try {
       this._vm.$smartContract.setHireProperties(taskBcId, flancerBcId)
-        .then((res) => {
-          ApiService.put('/applications/regBcHire', res);
+        .then(async (res) => {
+          const resBc = await ApiService.put('/applications/regBcHire', res);
+          console.log(res);
+          console.log(resBc.data.message);
         });
     } catch (e) {
       console.log(e);

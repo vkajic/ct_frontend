@@ -319,24 +319,45 @@ export default {
 
           console.log(`Application status: ${res.data.data.application.status}`);
           if (res.data.data.application.status === 2) {
-            smartContract.setFinalizeProperties(res.data.data.feedback.id, taskBcId, flancerBcId, formData.rate, formData.message)
-              .then(async (res) => {
-                const resBc = await ApiService.put('/feedbacks/regBcFinalize', res);
-                console.log(res);
+            smartContract
+              .setFinalizeProperties(
+                res.data.data.feedback.id,
+                taskBcId,
+                flancerBcId,
+                formData.rate,
+                formData.message,
+              )
+              .then(async (r) => {
+                const resBc = await ApiService.put('/feedbacks/regBcFinalize', r);
+                console.log(r);
                 console.log(resBc.data.message);
               });
           } else if (res.data.data.application.status === 4) {
-            smartContract.setCancelContractClientProperties(res.data.data.feedback.id, taskBcId, flancerBcId, formData.rate, formData.message)
-              .then(async (res) => {
-                const resBc = await ApiService.put('/feedbacks/regBcCancelContractClient', res);
-                console.log(res);
+            smartContract
+              .setCancelContractClientProperties(
+                res.data.data.feedback.id,
+                taskBcId,
+                flancerBcId,
+                formData.rate,
+                formData.message,
+              )
+              .then(async (r) => {
+                const resBc = await ApiService.put('/feedbacks/regBcCancelContractClient', r);
+                console.log(r);
                 console.log(resBc.data.message);
               });
           } else if (res.data.data.application.status === 3) {
-            smartContract.setLeaveFeedbackClientProperties(res.data.data.feedback.id, taskBcId, flancerBcId, formData.rate, formData.message)
-              .then(async (res) => {
-                const resBc = await ApiService.put('/feedbacks/regBcLeaveFeedbackClient', res);
-                console.log(res);
+            smartContract
+              .setLeaveFeedbackClientProperties(
+                res.data.data.feedback.id,
+                taskBcId,
+                flancerBcId,
+                formData.rate,
+                formData.message,
+              )
+              .then(async (r) => {
+                const resBc = await ApiService.put('/feedbacks/regBcLeaveFeedbackClient', r);
+                console.log(r);
                 console.log(resBc.data.message);
               });
           }

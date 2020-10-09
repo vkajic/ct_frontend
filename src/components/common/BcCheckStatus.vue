@@ -87,6 +87,9 @@ export default {
         if (this.task.bcId !== null && this.task.bcId !== undefined && this.isBcDataSet && bcData) {
           const bcTask = await bcData.contractStore.methods.getTask(this.task.bcId);
           const hash = this.$smartContract.createTaskInfoHash(this.task);
+          console.log(bcTask);
+          console.log(bcTask.decodedResult.infoHash);
+          console.log(hash);
           this.isOnBc = bcTask.decodedResult.infoHash === hash;
         }
       } else if (this.checkType === 'client') {
@@ -94,6 +97,9 @@ export default {
           && this.client.bcId !== undefined && this.isBcDataSet && bcData) {
           const bcProfile = await bcData.contractStore.methods.getProfile(this.client.bcId);
           const hash = this.$smartContract.createClientInfoHash(this.client);
+          console.log(bcProfile);
+          console.log(bcProfile.decodedResult.clientInfoHash);
+          console.log(hash);
           this.isOnBc = bcProfile.decodedResult.clientInfoHash === hash;
         }
       } else if (this.checkType === 'freelancer') {
@@ -101,18 +107,25 @@ export default {
           && this.freelancer.bcId !== undefined && this.isBcDataSet && bcData) {
           const bcProfile = await bcData.contractStore.methods.getProfile(this.freelancer.bcId);
           const hash = this.$smartContract.createFlancerInfoHash(this.freelancer);
+          console.log(bcProfile);
+          console.log(bcProfile.decodedResult.flancerInfoHash);
+          console.log(hash);
           this.isOnBc = bcProfile.decodedResult.flancerInfoHash === hash;
         }
       } else if (this.checkType === 'freelancerFeedbacks') {
         if (this.feedback.bcId !== null
           && this.feedback.bcId !== undefined && this.isBcDataSet && bcData) {
           const bcFeedback = await bcData.contractStore.methods.getFeedback(this.feedback.bcId);
+          console.log(bcFeedback);
+          console.log(bcFeedback.decodedResult.flancersScore);
           this.isOnBc = bcFeedback.decodedResult.flancersScore === this.feedback.clientRate;
         }
       } else if (this.checkType === 'clientFeedbacks') {
         if (this.feedback.bcId !== null
           && this.feedback.bcId !== undefined && this.isBcDataSet && bcData) {
           const bcFeedback = await bcData.contractStore.methods.getFeedback(this.feedback.bcId);
+          console.log(bcFeedback);
+          console.log(bcFeedback.decodedResult.clientsScore);
           this.isOnBc = bcFeedback.decodedResult.clientsScore === this.feedback.freelancerRate;
         }
       } else {
