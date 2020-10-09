@@ -19,7 +19,7 @@
       {{title}} must have at least {{validation.$params.minLength.min}} value
     </div>
     <div v-if="errorVisible('maxLength')">
-      {{title}} can't have more then {{validation.$params.maxLength.max}} characters
+      {{title}} can't have more than {{validation.$params.maxLength.max}} characters
     </div>
     <div v-if="errorVisible('minLength')">
       {{title}} must have at least {{validation.$params.minLength.max}} values

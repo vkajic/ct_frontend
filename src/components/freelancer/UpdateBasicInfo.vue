@@ -116,7 +116,7 @@
 </template>
 
 <script>
-import { required, minLength } from 'vuelidate/lib/validators';
+import { required, minLength, maxLength } from 'vuelidate/lib/validators';
 import ImageUploader from '../form/ImageUploader.vue';
 import InputField from '../form/InputField.vue';
 import ValidationMessages from '../form/ValidationMessages.vue';
@@ -170,9 +170,15 @@ export default {
     const v = { form: {} };
 
     if (!this.freelancer.published) {
-      v.form.firstName = { required };
-      v.form.lastName = { required };
+      v.form.firstName = { required, maxLength: maxLength(40) };
+      v.form.lastName = { required, maxLength: maxLength(40) };
     }
+    v.form.occupation = { maxLength: maxLength(100) };
+    v.form.location = { maxLength: maxLength(40) };
+    v.form.bio = { maxLength: maxLength(5000) };
+    v.form.linkedin = { maxLength: maxLength(500) };
+    v.form.web = { maxLength: maxLength(500) };
+    v.form.blog = { maxLength: maxLength(500) };
 
     v.form.avatar = { required };
     v.form.categories = { required, minLength: minLength(1) };

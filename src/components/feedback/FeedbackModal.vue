@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { required, minValue } from 'vuelidate/lib/validators';
+import { required, minValue, maxLength } from 'vuelidate/lib/validators';
 import TextareaGroup from '../form/TextareaGroup.vue';
 import StarRateGroup from '../form/StarRateGroup.vue';
 
@@ -49,6 +49,7 @@ export default {
       },
       message: {
         required,
+        maxLength: maxLength(1000),
       },
     },
   },

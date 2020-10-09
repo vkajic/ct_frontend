@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/src/validators';
+import { required, maxLength } from 'vuelidate/lib/validators';
 import ImageUploader from '../form/ImageUploader.vue';
 import InputGroup from '../form/InputGroup.vue';
 import TextareaGroup from '../form/TextareaGroup.vue';
@@ -122,13 +122,16 @@ export default {
         cover: {},
         link: {
           required,
+          maxLength: maxLength(500),
         },
         title: {
           required,
+          maxLength: maxLength(100),
         },
-        tags: {},
+        tags: { maxLength: maxLength(200) },
         description: {
           required,
+          maxLength: maxLength(1000),
         },
         images: {},
       },
