@@ -283,7 +283,15 @@
     "browse_jobs": "Pretraži poslove",
     "my_jobs": "Moji poslovi",
     "applications_sent": "Aplicirani poslovi",
-    "completed_jobs": "Završeni poslovi"
+    "completed_jobs": "Završeni poslovi",
+    "select_job_placeholder": "Odaberite posao",
+    "select_job_label": "Odaberite posao za poziv",
+    "invitation_title": "Pozovite na posao",
+    "invitation_message_label": "Poruka",
+    "invitation_success_message": "Poziv uspješno poslan",
+    "invitation_success_error": "Slanje poziva nije uspjelo.",
+    "invitation_send_button": "Pošaljite poziv",
+    "invitation_sending_button": "Šalje se..."
   },
   "404": {
     "not_found": "Stranica nije pronađena!",

@@ -6,7 +6,7 @@
     </template>
     <template slot="modal-title">
       <div class="text-uppercase pl-lg-7">
-        Invite to Job
+        {{ $t('freelancers.invitation_title') }}
       </div>
     </template>
     <div class="px-lg-7 pb-5">
@@ -18,23 +18,23 @@
         <input-group name="job"
                      class="mb-3"
                      v-model="form.job"
-                     placeholder="Select job"
-                     label="Select job to invite to"
+                     :placeholder="$t('freelancers.select_job_placeholder')"
+                     :label="$t('freelancers.select_job_label')"
                      :options="tasks"
                      :validation="$v.form.job"/>
 
         <textarea-group name="letter"
                         class="mb-4"
                         v-model="form.letter"
-                        label="Message"
+                        :label="$t('freelancers.invitation_message_label')"
                         :rows="12"
                         :validation="$v.form.letter"/>
 
         <div class="pt-5 d-flex justify-content-end align-items-center">
-          <b-button type="submit" variant="info" class="btn-round" :disabled="inviting">
-            <template v-if="!inviting">Sent Invite</template>
-            <template v-if="inviting">Sending...</template>
-          </b-button>
+          <loading-button type="submit" variant="info" class="btn-round"
+                          :label="$t('freelancers.invitation_send_button')"
+                          :loading-label="$t('freelancers.invitation_sending_button')"
+                          :loading="inviting"/>
         </div>
       </b-form>
     </div>
@@ -44,15 +44,17 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import { XIcon } from 'vue-feather-icons';
-import InputGroup from '../form/InputGroup.vue';
-import TextareaGroup from '../form/TextareaGroup.vue';
-import FreelancersSearchItem from './FreelancersSearchItem.vue';
-import apiService from '../../services/api.service';
+import LoadingButton from '@/components/ui/LoadingButton.vue';
+import InputGroup from '@/components/form/InputGroup.vue';
+import FreelancersSearchItem from '@/components/client/FreelancersSearchItem.vue';
+import TextareaGroup from '@/components/form/TextareaGroup.vue';
+import apiService from '@/services/api.service';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'InviteToJobModal',
   components: {
+    LoadingButton,
     FreelancersSearchItem,
     TextareaGroup,
     InputGroup,
@@ -91,11 +93,16 @@ export default {
     this.$store.dispatch('tasks/loadMyTasks');
   },
   computed: {
+    /**
+     * List of tasks for dropdown
+     * @return {{text: *, value: string}[]}
+     */
     tasks() {
-      return this.$store.state.tasks.myTasks.map(t => ({
-        text: t.title,
-        value: `${t.id}`,
-      }));
+      return this.$store.state.tasks.myTasks
+        .map(t => ({
+          text: t.title,
+          value: `${t.id}`,
+        }));
     },
     skills() {
       return this.freelancer.skills ? this.freelancer.skills.map(s => s.name) : [];
@@ -116,16 +123,29 @@ export default {
             freelancerId: this.freelancer.id,
             letter: this.form.letter,
           });
+
           this.$store.dispatch('ui/showNotification', {
             type: 'success',
-            text: 'Invitation sent successfully',
+            text: this.$t('freelancers.invitation_success_message'),
           });
+
+          // end loading
           this.inviting = false;
+
+          // reset form data
+          this.form = {
+            job: null,
+            letter: null,
+          };
+          // reset form validation
+          this.$v.$reset();
+
+          // close modal
           this.$emit('close');
         } catch (err) {
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',
-            text: `Invitation sending failed. ${err.response.data.message}`,
+            text: `${this.$t('freelancers.invitation_success_error')} ${err.response.data.message}`,
           });
           this.inviting = false;
         }

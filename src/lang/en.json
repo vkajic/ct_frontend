@@ -96,7 +96,7 @@
     "unpublished": "Unpublished",
     "applied_freelancers": "Applied freelancers",
     "blockchain_title": "Blockchain info",
-    "blockchain_label": "Your record is securely written on blockchain",
+    "blockchain_label": "This record is securely written on blockchain",
     "more_details": "more details",
     "form": {
       "title": "Post new job",
@@ -295,17 +295,19 @@
     "confirmed_warning": "Only reviewed profiles can apply for jobs and your profile is still in review process.",
     "save_profile": "Save profile",
     "save_publish": "Save and publish",
-    "blog": "Blog"
+    "blog": "Blog",
+    "select_job_placeholder": "Select job",
+    "select_job_label": "Select job to invite to",
+    "invitation_title": "Invite to Job",
+    "invitation_message_label": "Message",
+    "invitation_success_message": "Invitation sent successfully",
+    "invitation_success_error": "Invitation sending failed.",
+    "invitation_send_button": "Send Invitation",
+    "invitation_sending_button": "Sending..."
   },
   "404": {
     "not_found": "Page or resource not found!",
     "back": "Back to home"
-  },
-  "skills": {
-
-  },
-  "categories": {
-
   },
   "clients": {
     "browse_freelancers": "Browse freelancers",

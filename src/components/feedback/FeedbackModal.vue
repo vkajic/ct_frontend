@@ -4,8 +4,7 @@
            @cancel="close"
            @hidden="close"
            :title="$t('feedback.form_title')"
-           :ok-disabled="sending"
-           :ok-title="okButtonText"
+           :ok-title="$t('feedback.save')"
            @ok.prevent="saveRating">
     <b-form>
       <star-rate-group :label="$t('feedback.rate')"
@@ -68,26 +67,16 @@ export default {
     modalData() {
       return this.$store.state.tasks.feedbackModalData;
     },
-
-    /**
-     * Override OK button text
-     * @return {string}
-     */
-    okButtonText() {
-      return this.sending ? this.$t('feedback.saving') : this.$t('feedback.save');
-    },
   },
   methods: {
     close() {
       this.$store.commit('tasks/closeFeedbackModal');
-      this.sending = false;
     },
 
     async saveRating() {
       this.$v.$touch();
 
       if (!this.$v.$invalid) {
-        this.sending = true;
         this.$emit('save', { ...this.formData, ...this.modalData });
       }
     },
