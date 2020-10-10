@@ -104,7 +104,7 @@
           <div class="pt-5 d-flex flex-column flex-lg-row
         justify-content-center justify-content-lg-end
         align-items-center">
-            <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
+            <b-button type="submit" variant="info" class="btn-round" :disabled="saving">
               <template v-if="!saving">{{buttonText}}</template>
               <template v-if="saving">{{$t('freelancers.saving')}}</template>
             </b-button>

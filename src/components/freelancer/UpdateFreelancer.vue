@@ -3,14 +3,14 @@
     <paper class="mb-5">
       <basic-info-preview :freelancer="freelancer">
         <template slot="buttons">
-          <b-button variant="info"
+          <!--<b-button variant="info"
                     v-if="publishButtonVisible"
                     class="btn-round"
                     :disabled="publishing"
                     @click="publishProfile">
             {{publishing ? $t('freelancers.publish_button_loading') :
             $t('freelancers.publish_button_label')}}
-          </b-button>
+          </b-button>-->
         </template>
       </basic-info-preview>
     </paper>

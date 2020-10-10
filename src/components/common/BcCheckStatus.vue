@@ -1,15 +1,15 @@
 <template>
-  <div class="on-bc" v-if="true">
-    <a v-b-modal.blockchain-modal>
+  <div class="on-bc" v-if="isOnBc">
+    <a @click.prevent="$bvModal.show(modalId)">
       <img v-if="!isDarkMode" src="@/assets/img/bc_icon.png" alt="Blockchain"/>
       <img v-if="isDarkMode" src="@/assets/img/bc_icon_dark.png" alt="Blockchain"/>
     </a>
 
-    <b-modal id="blockchain-modal" :centered="true" :hide-footer="true"
+    <b-modal :id="modalId" :centered="true" :hide-footer="true"
              :title="$t('tasks.blockchain_title')">
       <p class="my-4">
         {{ $t('tasks.blockchain_label') }},
-        <a
+        <a target="_blank"
           href="https://explorer.aeternity.io/contracts/transactions/ct_DeRuk3os1AaoiNtpiHnX5GnUHCVhqgZP9uQnEdx1UzNMq65Pf">
           {{ $t('tasks.more_details') }}
         </a>
@@ -140,6 +140,14 @@ export default {
 
     isDarkMode() {
       return this.$store.state.ui.isDarkThemeEnabled;
+    },
+
+    modalId() {
+      return `blockchain-modal${Math.random()
+        .toString(36)
+        .substring(2, 15)}${Math.random()
+        .toString(36)
+        .substring(2, 15)}`;
     },
   },
 };
