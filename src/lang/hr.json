@@ -62,7 +62,7 @@
       "title": "Registracija",
       "iam": "Ja sam",
       "freelancer": "Freelancer",
-      "client": "Klijent",
+      "client": "Poslodavac",
       "email": "Email",
       "password": "Lozinka",
       "password_confirmation": "Potvrda lozinke",
@@ -95,7 +95,7 @@
     "unpublished": "Neobjavljeno",
     "form": {
       "title": "Objavite novi posao",
-      "warning": "Klijentski profil mora biti ispunjen da bi mogli objaviti posao",
+      "warning": "Vaš profil mora biti ispunjen da bi mogli objaviti posao",
       "job_title": "Naziv posla",
       "job_label": "Naziv",
       "job_duration": "Trajanje posla",
@@ -184,7 +184,7 @@
   },
   "chat": {
     "loading": "Učitavanje...",
-    "warning": "Nemojte početi raditi dok vas klijent nije prihvatio!",
+    "warning": "Nemojte početi raditi dok vas poslodavac nije prihvatio!",
     "send": "Pošalji",
     "input_placeholder": "Upiši poruku",
     "is_typing": "tipka..."
