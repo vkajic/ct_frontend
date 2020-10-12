@@ -38,6 +38,7 @@ const MyPublicProfile = () => import('./views/common/MyPublicProfile.vue');
 const Client = () => import('./views/freelancer/Client.vue');
 const Unsubscribe = () => import('./views/common/Unsubscribe.vue');
 const Affiliate = () => import('./views/common/Affiliate.vue');
+const About = () => import('./views/common/About.vue');
 
 const domains = {
   'cryptotask.local': 'en',
@@ -70,6 +71,15 @@ const router = new Router({
           name: 'home',
           component: Home,
           meta: { requiresAuth: true },
+        },
+        {
+          path: 'info',
+          name: 'about',
+          component: About,
+          meta: {
+            requiresAuth: false,
+            layout: 'auth',
+          },
         },
         {
           path: 'change-password',

@@ -2,14 +2,14 @@
   <div class="short-job-item">
     <div class="d-flex align-items-center mb-2">
       <div class="active-since" v-if="task.published">
-        {{$t('tasks.published')}} {{task.createdAt | date('MMM Do')}}
+        {{ $t('tasks.published') }} {{ task.createdAt | date('MMM Do') }}
       </div>
       <b-badge variant="danger" v-if="!task.published">
-        {{$t('tasks.unpublished')}}
+        {{ $t('tasks.unpublished') }}
       </b-badge>
     </div>
     <h2>
-      <language-router-link class="font-18-sm" :to="`/my-tasks/${task.id}`">{{task.title}}
+      <language-router-link class="font-18-sm" :to="`/my-tasks/${task.id}`">{{ task.title }}
       </language-router-link>
     </h2>
     <div class="d-flex align-items-center mb-3">
@@ -17,7 +17,7 @@
       <task-price :task="task"/>
     </div>
 
-    <task-tags :tags="task.skills"/>
+    <task-tags :tags="skills"/>
 
     <hr class="mb-4">
   </div>
@@ -50,6 +50,20 @@ export default {
       default() {
         return {};
       },
+    },
+  },
+  computed: {
+    currentLanguage() {
+      return this.$store.getters['util/getCurrentLanguage'];
+    },
+
+    skills() {
+      return this.task.skills
+        ? this.task.skills.map(s => ({
+          name: s.translations
+            .find(t => t.languageId === this.currentLanguage.id).displayTranslation,
+        }))
+        : [];
     },
   },
 };

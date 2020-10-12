@@ -320,5 +320,10 @@
     "introduction": "Help us bring new users to CryptoTask by sharing your affiliate link. You will be making a percentage on all payments these users make through the platform.",
     "affiliate_link": "Your affiliate link (copy/paste and share through email, chat apps, social media):",
     "num_invitees": "You currently have {numOfInvitees} users signed up through you."
+  },
+  "about": {
+    "title": "How Cryptotask Works",
+    "text": "<p>CryptoTask (CT) is a decentralized freelance market ecosystem skipping 3rd party fees by directly connecting hirees and applicants peer to peer. CT uses a commercially scalable consensus mechanism with a reviewer board selection built into the blockchain.” + this “This means job disputes are resolved much faster and cheaper, while your reputation is stored on blockchain and there is no arbitrary censorship or hidden tampering, such as hidden boosting, something that centralized platforms are infamous for.</p>\n            <p>Here at CryptoTask we strive to be the most significant cost saving freelance application based on our decentralized solution and trustless dispute review mechanism.</p>",
+    "future": "CryptoTask Future of Work"
   }
 }

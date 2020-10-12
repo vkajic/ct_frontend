@@ -20,11 +20,11 @@
                          :label="$t('tasks.form.duration')"
                          :disabled="form.negotiableDuration"
                          :validation="$v.form.duration">
-              <template slot="prepend">{{$t('tasks.form.days')}}</template>
+              <template slot="prepend">{{ $t('tasks.form.days') }}</template>
               <template slot="append">
                 <label class="m-0">
                   <input type="checkbox" v-model="form.negotiableDuration">
-                  {{$t('tasks.form.negotiable')}}
+                  {{ $t('tasks.form.negotiable') }}
                 </label>
               </template>
             </input-group>
@@ -41,7 +41,7 @@
               <template slot="append">
                 <label class="m-0">
                   <input type="checkbox" v-model="form.negotiablePrice">
-                  {{$t('tasks.form.negotiable')}}
+                  {{ $t('tasks.form.negotiable') }}
                 </label>
               </template>
             </input-group>
@@ -91,10 +91,10 @@
                                 :validation="$v.form.description"/>
 
         <div class="pt-5 d-flex justify-content-end align-items-center">
-          <b-button type="submit" variant="info" class="btn-round" :disabled="sending">
-            <template v-if="!sending">{{$t('tasks.form.button_label')}}</template>
-            <template v-if="sending">{{$t('tasks.form.button_loading')}}</template>
-          </b-button>
+          <loading-button type="submit" variant="info" class="btn-round"
+                          :loading="sending"
+                          :label="$t('tasks.form.button_label')"
+                          :loading-label="$t('tasks.form.button_loading')"/>
         </div>
       </b-form>
     </div>
@@ -105,10 +105,11 @@
 import {
   required, integer, minValue, decimal, requiredIf, maxLength, minLength,
 } from 'vuelidate/lib/validators';
-import InputGroup from '../form/InputGroup.vue';
-import InputTags from '../form/InputTags.vue';
-import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
-import languageRouter from '../mixins/languageRouter';
+import InputGroup from '@/components/form/InputGroup.vue';
+import InputTags from '@/components/form/InputTags.vue';
+import WysiwygTextareaGroup from '@/components/form/WysiwygTextareaGroup.vue';
+import languageRouter from '@/components/mixins/languageRouter';
+import LoadingButton from '@/components/ui/LoadingButton.vue';
 
 // TODO add attachments uploader
 
@@ -129,6 +130,7 @@ const initialForm = {
 export default {
   name: 'TaskForm',
   components: {
+    LoadingButton,
     WysiwygTextareaGroup,
     InputTags,
     InputGroup,
@@ -180,12 +182,16 @@ export default {
     task(nv) {
       if (nv) {
         this.form = Object.assign({}, this.form, this.task);
+        this.form.skills = this.extractTags(this.form.skills);
+        this.form.categories = this.extractTags(this.form.categories);
       }
     },
   },
   mounted() {
     if (this.task) {
       this.form = Object.assign({}, this.form, this.task);
+      this.form.skills = this.extractTags(this.form.skills);
+      this.form.categories = this.extractTags(this.form.categories);
     }
   },
   validations: {
@@ -302,6 +308,19 @@ export default {
      */
     attach(files) {
       this.form.attachments = files;
+    },
+
+    extractTags(tags) {
+      const currentLang = this.$store.getters['util/getCurrentLanguage'];
+
+      if (tags && tags.length) {
+        return tags.map(tag => ({
+          id: tag.id,
+          name: tag.translations
+            .find(t => t.languageId === currentLang.id).displayTranslation,
+        }));
+      }
+      return [];
     },
   },
 };

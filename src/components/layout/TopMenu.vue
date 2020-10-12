@@ -11,7 +11,9 @@
       <language-router-link to="/login">{{ $t('common.post_job') }}</language-router-link>
     </li>
     <li class="list-inline-item">
-      <a :href="landingUrl">{{ $t('common.how_it_works') }}</a>
+      <language-router-link to="/info">
+        {{ $t('common.how_it_works') }}
+      </language-router-link>
     </li>
   </ul>
 </template>

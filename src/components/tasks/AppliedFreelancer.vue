@@ -9,24 +9,24 @@
           <div class="d-flex align-items-center">
             <language-router-link :to="`/freelancers/${freelancer.id}`"
                                   class="freelancer-name mr-2">
-              {{freelancer.name}}
+              {{ freelancer.name }}
             </language-router-link>
             <application-status-badge :application="application"/>
           </div>
           <div class="freelancer-occupation">
-            {{freelancer.occupation}} {{$t('applications.in')}} {{freelancer.location}}
+            {{ freelancer.occupation }} {{ $t('applications.in') }} {{ freelancer.location }}
           </div>
           <div class="freelancer-meta">
-            {{matchingSkills.length}}/{{this.task.skills.length}}
-            {{$t('applications.skills_required')}}
+            {{ matchingSkills.length }}/{{ this.task.skills.length }}
+            {{ $t('applications.skills_required') }}
           </div>
         </div>
       </div>
       <div class="text-muted">
-        <small>{{application.createdAt | date('MMM Do')}}</small>
+        <small>{{ application.createdAt | date('MMM Do') }}</small>
       </div>
     </header>
-    <p class="pt-3 pr-3">{{application.letter}}</p>
+    <p class="pt-3 pr-3">{{ application.letter }}</p>
 
     <client-application-buttons :application="application"
                                 @hire="$emit('hire', application)"
@@ -92,10 +92,14 @@ export default {
      * Returns array of matching skills between task and freelancer
      */
     matchingSkills() {
-      const taskSkills = this.task.skills.map(t => t.id);
-      const freelancerSkills = this.freelancer.skills.map(f => f.id);
+      if (this.task.skills && this.freelancer.skills) {
+        const taskSkills = this.task.skills.map(t => t.id);
+        const freelancerSkills = this.freelancer.skills.map(f => f.id);
 
-      return intersection(taskSkills, freelancerSkills);
+        return intersection(taskSkills, freelancerSkills);
+      }
+
+      return [];
     },
   },
   methods: {
