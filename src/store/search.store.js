@@ -10,7 +10,7 @@ const initialState = {
   queryTerm: null,
   tasks: [],
   page: 1,
-  perPage: 20,
+  perPage: 8,
   total: 0,
   sortOptions: [
     {

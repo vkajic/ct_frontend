@@ -181,17 +181,19 @@ export default {
   watch: {
     task(nv) {
       if (nv) {
-        this.form = Object.assign({}, this.form, this.task);
-        this.form.skills = this.extractTags(this.form.skills);
-        this.form.categories = this.extractTags(this.form.categories);
+        this.form = Object.assign({}, this.form, this.task, {
+          categories: this.extractTags(nv.categories),
+          skills: this.extractTags(nv.skills),
+        });
       }
     },
   },
   mounted() {
     if (this.task) {
-      this.form = Object.assign({}, this.form, this.task);
-      this.form.skills = this.extractTags(this.form.skills);
-      this.form.categories = this.extractTags(this.form.categories);
+      this.form = Object.assign({}, this.form, this.task, {
+        categories: this.extractTags(this.task.categories),
+        skills: this.extractTags(this.task.skills),
+      });
     }
   },
   validations: {

@@ -3,7 +3,7 @@ import BootstrapVue from 'bootstrap-vue';
 import Vuelidate from 'vuelidate';
 import VueSocketIO from 'vue-socket.io';
 import CKEditor from '@ckeditor/ckeditor5-vue';
-import VueGtag from 'VueGtag';
+import VueGtag from 'vue-gtag';
 import Tawk from 'vue-tawk';
 import App from './App.vue';
 import router from './router';

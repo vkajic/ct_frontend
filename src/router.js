@@ -45,9 +45,9 @@ const domains = {
   'app.cryptotask.org': 'en',
   'app.dev.cryptotask.org': 'en',
   'freelancer.local': 'hr',
-  'freelancer.hr': 'hr',
-  'app.freelancer.hr': 'hr',
-  'app.dev.freelancer.hr': 'hr',
+  'freelance.hr': 'hr',
+  'app.freelance.hr': 'hr',
+  'app.dev.freelance.hr': 'hr',
 };
 
 const languages = ['en', 'hr', 'es', 'vn'];

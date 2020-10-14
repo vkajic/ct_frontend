@@ -92,6 +92,9 @@ export default {
   created() {
     this.runSearch();
   },
+  destroyed() {
+    this.$store.commit('search/resetPage');
+  },
   watch: {
     language() {
       this.runSearch();
