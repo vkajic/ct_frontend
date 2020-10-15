@@ -10,7 +10,7 @@
       <p class="my-4">
         {{ $t('tasks.blockchain_label') }},
         <a target="_blank"
-          href="https://explorer.aeternity.io/contracts/transactions/ct_DeRuk3os1AaoiNtpiHnX5GnUHCVhqgZP9uQnEdx1UzNMq65Pf">
+          href="https://explorer.aeternity.io/contracts/transactions/ct_X3szYGp5irejPsowXpHE91fXhizyfTGGZdPer9XZp2A1FigcQ">
           {{ $t('tasks.more_details') }}
         </a>
       </p>

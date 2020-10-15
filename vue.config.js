@@ -17,7 +17,7 @@ module.exports = {
 
   pluginOptions: {
     compression: {
-      brotli: {
+      /* brotli: {
         filename: '[path].br[query]',
         algorithm: 'brotliCompress',
         include: /\.(js|css|html|svg|json)(\?.*)?$/i,
@@ -25,7 +25,7 @@ module.exports = {
           level: 11,
         },
         minRatio: 0.8,
-      },
+      }, */
       gzip: {
         filename: '[path].gz[query]',
         algorithm: 'gzip',

@@ -61,7 +61,7 @@
       <p>Želimo Vam ugodno korištenje našeg web portala.</p>
       <h2>HDNP &#8211; naš partner</h2>
       <a href="https://hdnp.hr/" target="_blank" rel="noopener noreferrer"><img
-        src="https://dev.freelance.hr/wp-content/uploads/2020/10/logo_hdnp_gray-300x63.png" alt="HDNP partner"
+        src="https://www.freelance.hr/wp-content/uploads/2020/10/logo_hdnp_gray-300x63.png" alt="HDNP partner"
         width="300" height="63" class="size-medium wp-image-98"/></a>
     </div>
   </div>
