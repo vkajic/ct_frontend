@@ -27,7 +27,7 @@ export default {
     loading() {
       return this.$store.state.ui.mainLoader || this.manualLoading;
     },
-  }
+  },
 };
 </script>
 

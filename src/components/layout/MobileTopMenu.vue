@@ -10,8 +10,7 @@
     <language-dropdown-item to="/freelancers">{{ $t('common.browse_freelancers') }}
     </language-dropdown-item>
     <language-dropdown-item to="/login">{{ $t('common.post_job') }}</language-dropdown-item>
-    <b-dropdown-item :href="landingUrl">{{ $t('common.how_it_works') }}
-    </b-dropdown-item>
+    <language-dropdown-item to="/info">{{ $t('common.how_it_works') }}</language-dropdown-item>
     <b-dropdown-divider/>
     <language-dropdown-item to="/login">{{ $t('auth.login.title') }}</language-dropdown-item>
     <language-dropdown-item to="/sign-up">{{ $t('auth.sign_up.title') }}</language-dropdown-item>

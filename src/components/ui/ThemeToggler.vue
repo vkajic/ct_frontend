@@ -14,20 +14,12 @@ export default {
     MoonIcon,
   },
   created() {
-    const { mode } = this.$route.query;
-    const isDarkThemeEnabled = localStorage.getItem('dark-theme');
-    if (mode) {
-      if (mode === 'dark') {
-        this.enableDarkTheme();
-        this.$store.commit('ui/enableDarkTheme');
-      } else {
-        this.$store.commit('ui/disableDarkTheme');
-        this.disableDarkTheme();
-      }
-    } else if (isDarkThemeEnabled) {
-      this.enableDarkTheme();
-      this.$store.commit('ui/enableDarkTheme');
-    }
+    this.setTheme();
+  },
+  watch: {
+    routeMode() {
+      this.setTheme();
+    },
   },
   computed: {
     /**
@@ -37,8 +29,23 @@ export default {
     isDarkThemeEnabled() {
       return this.$store.state.ui.isDarkThemeEnabled;
     },
+
+    routeMode() {
+      return this.$route.query.mode;
+    },
   },
   methods: {
+    setTheme() {
+      const isDarkThemeEnabled = localStorage.getItem('dark-theme');
+      if ((this.routeMode && this.routeMode === 'dark') || (!this.routeMode && isDarkThemeEnabled)) {
+        this.enableDarkTheme();
+        this.$store.commit('ui/enableDarkTheme');
+      } else {
+        this.disableDarkTheme();
+        this.$store.commit('ui/disableDarkTheme');
+      }
+    },
+
     /**
      * Enables dark theme, adds item to local storage
      * */
