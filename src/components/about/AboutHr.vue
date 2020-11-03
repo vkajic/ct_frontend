@@ -57,7 +57,7 @@
       <h2>Kontakt</h2>
       <p>Dragi korisnici,</p>
       <p>Ako imate kakva pitanja, pohvale, kritike ili prijedloge molimo Vas da nas kontaktirate na email: <em>pozdrav
-        -at- freelance.hr</em> ili <em>help -at- cryptotask.org</em></p>
+        -at- freelance.hr</em> ili <em>pozdrav -at- freelance.hr</em></p>
       <p>Želimo Vam ugodno korištenje našeg web portala.</p>
       <h2>HDNP &#8211; naš partner</h2>
       <a href="https://hdnp.hr/" target="_blank" rel="noopener noreferrer"><img

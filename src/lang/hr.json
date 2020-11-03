@@ -19,7 +19,7 @@
   },
   "auth": {
     "info": {
-      "why_cryptotask": "Zašto CryptoTask?",
+      "why_cryptotask": "Zašto mi?",
       "line1": "Bez provizije za osnovno korištenje",
       "line2": "Objavite posao za manje od minute",
       "line3": "Pouzdan escrow i sustav rješavanja sporova"
@@ -27,7 +27,7 @@
     "login": {
       "title": "Prijava",
       "forgot_password": "Zaboravljena lozinka?",
-      "button_label": "Prijava u CryptoTask",
+      "button_label": "Prijava",
       "password": "Lozinka",
       "email": "Email"
     },
@@ -66,9 +66,9 @@
       "email": "Email",
       "password": "Lozinka",
       "password_confirmation": "Potvrda lozinke",
-      "button_label": "Prijavite se za CryptoTask",
+      "button_label": "Prijavite se",
       "button_loading": "Spremamo...",
-      "terms_label": "Klikanjem “Prijavite se za CryptoTask”, prihvaćate naše uvjete korištenja i policu privatnosti. Povremeno ćemo vam slati emailove vezane za vaš račun.",
+      "terms_label": "Klikanjem “Prijavite se”, prihvaćate naše uvjete korištenja i policu privatnosti. Povremeno ćemo vam slati emailove vezane za vaš račun.",
       "password_description": "Molimo izaberite jaku lozinku (indikator neka pokazuje 4 zelena polja).",
       "success_notification": "Registrirani ste. Provjerite vaš email za potvrdu."
     }
@@ -198,8 +198,8 @@
   },
   "newsletter": {
     "unsubscribe_title": "Molimo pričekajte, otkazujemo vašu pretplatu",
-    "unsubscribed": "<h1>Unsubscribed!</h1><p>Žao nam je, otkazali ste pretplatu na CryptoTask informativne emailove.</p><p>Ako se želite ponovo pretplatiti, možete to učiniti u vašim postavkama.</p><p><strong>CryptoTask Team</strong></p>",
-    "unsubscribe_error": "<h1>Error!</h1><p>Nešto je pošlo po zlu.</p><p>{error}</p><p>Ako se ovo nastavi, kontaktirajte nas.</p><p><strong>CryptoTask Team</strong></p>",
+    "unsubscribed": "<h1>Unsubscribed!</h1><p>Žao nam je, otkazali ste pretplatu na informativne emailove.</p><p>Ako se želite ponovo pretplatiti, možete to učiniti u vašim postavkama.</p><p><strong>CryptoTask Team</strong></p>",
+    "unsubscribe_error": "<h1>Error!</h1><p>Nešto je pošlo po zlu.</p><p>{error}</p><p>Ako se ovo nastavi, kontaktirajte nas.</p>",
     "setting_title": "Pretplata na emailove.",
     "checkbox_label": "Pretplaćeni ste.",
     "button_label": "Ažurirajte preference",
@@ -311,7 +311,7 @@
   },
   "affiliate": {
     "title": "Posredništvo (affiliate)",
-    "introduction": "Pomozite nam dovesti nove korisnike na Freelance.hr/CryptoTask dijeleći posredničku poveznicu. Dobivati ćete postotak platnog prometa koji dovedeni korisnici ostvare kroz platformu.",
+    "introduction": "Pomozite nam dovesti nove korisnike na Freelance.hr dijeleći posredničku poveznicu. Dobivati ćete postotak platnog prometa koji dovedeni korisnici ostvare kroz platformu.",
     "affiliate_link": "Vaša posrednička poveznica (affiliate link - kopirajte i dijelite preko emaila, chat aplikacija, društvenih medija):",
     "num_invitees": "Do sada ste posredovali u dovođenju {numOfInvitees} korisnika."
   }

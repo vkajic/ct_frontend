@@ -19,7 +19,7 @@
   },
   "auth": {
     "info": {
-      "why_cryptotask": "Why CryptoTask",
+      "why_cryptotask": "Why us",
       "line1": "Zero fees for basic use",
       "line2": "Post a job in under a minute",
       "line3": "Effective escrow and dispute mechanism"
@@ -27,7 +27,7 @@
     "login": {
       "title": "Login.",
       "forgot_password": "Forgot password?",
-      "button_label": "Login to CryptoTask",
+      "button_label": "Login",
       "button_label_sending": "Processing...",
       "password": "Password",
       "email": "Email"
@@ -67,9 +67,9 @@
       "email": "Email",
       "password": "Password",
       "password_confirmation": "Password Confirmation",
-      "button_label": "Sign Up for CryptoTask",
+      "button_label": "Sign Up",
       "button_loading": "Saving...",
-      "terms_label": "By clicking “Sign up for CryptoTask”, you agree to our Terms of Service and Privacy Statement. We’ll occasionally send you account related emails.",
+      "terms_label": "By clicking “Sign up”, you agree to our Terms of Service and Privacy Statement. We’ll occasionally send you account related emails.",
       "password_description": "Please choose a strong password (indicator to at least 4 green bars).",
       "success_notification": "You are registered. Please check your email for confirmation"
     }
@@ -203,8 +203,8 @@
   },
   "newsletter": {
     "unsubscribe_title": "Please wait, we are unsubscribing you!",
-    "unsubscribed": "<h1>Unsubscribed!</h1><p>We are sorry to hear this but you are unsubscribed from all CryptoTask newsletters.</p><p>If you wish to subscribe again please set it in your settings.</p><p><strong>CryptoTask Team</strong></p>",
-    "unsubscribe_error": "<h1>Error!</h1><p>Something went wrong.</p><p>{error}</p><p>If this continues to happen please contact us.</p><p><strong>CryptoTask Team</strong></p>",
+    "unsubscribed": "<h1>Unsubscribed!</h1><p>We are sorry to hear this but you are unsubscribed from all of our newsletters.</p><p>If you wish to subscribe again please set it in your settings.</p>",
+    "unsubscribe_error": "<h1>Error!</h1><p>Something went wrong.</p><p>{error}</p><p>If this continues to happen please contact us.</p>",
     "setting_title": "Email subscription",
     "checkbox_label": "Subscribed",
     "button_label": "Update preferences",
@@ -317,13 +317,13 @@
   },
   "affiliate": {
     "title": "Affiliate",
-    "introduction": "Help us bring new users to CryptoTask by sharing your affiliate link. You will be making a percentage on all payments these users make through the platform.",
+    "introduction": "Help us bring new users to app by sharing your affiliate link. You will be making a percentage on all payments these users make through the platform.",
     "affiliate_link": "Your affiliate link (copy/paste and share through email, chat apps, social media):",
     "num_invitees": "You currently have {numOfInvitees} users signed up through you."
   },
   "about": {
-    "title": "How Cryptotask Works",
-    "text": "<p>CryptoTask (CT) is a decentralized freelance market ecosystem skipping 3rd party fees by directly connecting hirees and applicants peer to peer. CT uses a commercially scalable consensus mechanism with a reviewer board selection built into the blockchain.” + this “This means job disputes are resolved much faster and cheaper, while your reputation is stored on blockchain and there is no arbitrary censorship or hidden tampering, such as hidden boosting, something that centralized platforms are infamous for.</p>\n            <p>Here at CryptoTask we strive to be the most significant cost saving freelance application based on our decentralized solution and trustless dispute review mechanism.</p>",
-    "future": "CryptoTask Future of Work"
+    "title": "How It Works",
+    "text": "<p>We are a decentralized freelance market ecosystem skipping 3rd party fees by directly connecting hirees and applicants peer to peer. CT uses a commercially scalable consensus mechanism with a reviewer board selection built into the blockchain.” + this “This means job disputes are resolved much faster and cheaper, while your reputation is stored on blockchain and there is no arbitrary censorship or hidden tampering, such as hidden boosting, something that centralized platforms are infamous for.</p>\n            <p>Here at CryptoTask we strive to be the most significant cost saving freelance application based on our decentralized solution and trustless dispute review mechanism.</p>",
+    "future": "Future of Work"
   }
 }

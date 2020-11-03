@@ -19,11 +19,11 @@ export default {
       // if no subcomponents specify a metaInfo.title, this title will be used
       title: 'Rethink Work.',
       // all titles will be injected into this template
-      titleTemplate: '%s - CryptoTask',
+      titleTemplate: '%s - Post Job in under a minute',
       meta: [
         {
           property: 'og:title',
-          content: 'Rethink Work. - CryptoTask',
+          content: 'Rethink Work. - Post Job in under a minute',
           vmid: 'og:title',
         },
         {
@@ -38,7 +38,7 @@ export default {
         },
         {
           property: 'og:site_name',
-          content: 'CryptoTask',
+          content: 'Post Job in under a minute',
           vmid: 'og:site_name',
         },
         {
@@ -68,7 +68,7 @@ export default {
         },
         {
           property: 'twitter:title',
-          content: 'Rethink Work. - CryptoTask',
+          content: 'Rethink Work. - Post Job in under a minute',
           vmid: 'twitter:title',
         },
         {

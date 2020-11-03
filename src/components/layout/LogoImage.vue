@@ -7,10 +7,7 @@
            alt="Freelance.hr"/>
     </template>
     <template v-else>
-      <img v-if="isDarkThemeEnabled" src="@/assets/img/cryptotask-logo--light.svg"
-           alt="Cryptotask"/>
-      <img v-else src="@/assets/img/cryptotask-logo.svg"
-           alt="Cryptotask"/>
+      <img src="@/assets/img/cryptotask-logo-only.svg" alt="CT"/>
     </template>
   </div>
 </template>
