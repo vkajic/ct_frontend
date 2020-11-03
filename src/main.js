@@ -33,7 +33,7 @@ Vue.use(CKEditor);
 
 if (process.env.NODE_ENV !== 'development') {
   Vue.use(VueGtag, {
-    config: { id: process.env.VUE_APP_GTAG },
+    config: { id: process.env.VUE_APP_GTAG_HR },
   }, router);
 
   Vue.use(Tawk, {
