@@ -29,11 +29,11 @@ export default {
     return {
       languages: [
         {
-          label: 'English',
+          label: 'English section',
           code: 'en',
         },
         {
-          label: 'Hrvatski',
+          label: 'Hrvatska sekcija',
           code: 'hr',
         },
         /* {
