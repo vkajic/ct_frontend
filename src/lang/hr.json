@@ -291,7 +291,13 @@
     "invitation_success_message": "Poziv uspješno poslan",
     "invitation_success_error": "Slanje poziva nije uspjelo.",
     "invitation_send_button": "Pošaljite poziv",
-    "invitation_sending_button": "Šalje se..."
+    "invitation_sending_button": "Šalje se...",
+    "invitation": {
+      "not_found": "Posao nije pronađen",
+      "not_published": "Možete slati pozivnice samo za objavljene poslove",
+      "maximum_invitations": "Ne možete poslati više od 5 pozivnica za ovaj posao",
+      "already_invited": "Ovaj frelancer je već pozvan na odabrani posao"
+    }
   },
   "404": {
     "not_found": "Stranica nije pronađena!",

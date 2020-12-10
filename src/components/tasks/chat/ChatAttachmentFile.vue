@@ -40,7 +40,7 @@ export default {
   },
   computed: {
     fileUrl() {
-      return `${process.env.VUE_APP_PUBLIC_BUCKET}${this.attachment.fileName}`;
+      return `${process.env.VUE_APP_BUCKET_URL}/${this.attachment.fileName}`;
     },
   },
 };

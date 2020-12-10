@@ -145,7 +145,7 @@ export default {
         } catch (err) {
           this.$store.dispatch('ui/showNotification', {
             type: 'danger',
-            text: `${this.$t('freelancers.invitation_success_error')} ${err.response.data.message}`,
+            text: this.$t(`freelancers.invitation.${err.response.data.error}`),
           });
           this.inviting = false;
         }

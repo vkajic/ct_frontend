@@ -7,33 +7,14 @@
                               :skills-clickable="true"
                               @skill-click="skillClicked">
             <template slot="buttons">
-              <b-button variant="info"
-                        v-if="loggedIn"
-                        class="btn-round"
-                        @click="openInviteModal">
-                {{$t('freelancer_info.invite_button')}}
-              </b-button>
+              <invite-button v-if="loggedIn" @click="openInviteModal"/>
             </template>
           </basic-info-preview>
         </paper>
 
         <div class="row">
           <div class="col-12 col-lg-10 offset-lg-1">
-            <b-tabs content-class="py-4">
-              <b-tab :title="$t('freelancer_info.bio')" active>
-                <div v-html="freelancer.bio"></div>
-              </b-tab>
-              <b-tab :title="$t('freelancer_info.projects')">
-                <projects-preview :projects="freelancer.projects"/>
-              </b-tab>
-              <b-tab :title="$t('freelancer_info.experience')">
-                <experience-preview :items="freelancer.workExperiences"
-                                    :resume="freelancer.resume"/>
-              </b-tab>
-              <b-tab :title="$t('freelancer_info.feedbacks')">
-                <freelancer-feedbacks :freelancer-id="freelancer.id"/>
-              </b-tab>
-            </b-tabs>
+            <freelancer-profile-tabs :freelancer="freelancer"/>
           </div>
         </div>
       </template>
@@ -47,6 +28,8 @@
 </template>
 
 <script>
+import InviteButton from '@/views/client/InviteButton.vue';
+import FreelancerProfileTabs from '@/components/freelancer/FreelancerProfileTabs.vue';
 import apiService from '../../services/api.service';
 import BasicInfoPreview from '../../components/profile/BasicInfoPreview.vue';
 import ExperiencePreview from '../../components/profile/ExperiencePreview.vue';
@@ -60,6 +43,8 @@ import languageRouter from '../../components/mixins/languageRouter';
 export default {
   name: 'Freelancer',
   components: {
+    FreelancerProfileTabs,
+    InviteButton,
     FreelancerFeedbacks,
     Paper,
     InviteToJobModal,

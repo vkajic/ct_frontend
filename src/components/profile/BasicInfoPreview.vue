@@ -20,7 +20,7 @@
         <span v-if="freelancer.location"> in {{ freelancer.location }}</span>
       </h6>
 
-      <p class="mb-4 lead">{{ bio }}</p>
+      <p class="mb-4 lead" v-html="bio"></p>
 
       <tags-display :tags="skills"
                     :linkable="skillsClickable"

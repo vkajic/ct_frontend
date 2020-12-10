@@ -303,7 +303,13 @@
     "invitation_success_message": "Invitation sent successfully",
     "invitation_success_error": "Invitation sending failed.",
     "invitation_send_button": "Send Invitation",
-    "invitation_sending_button": "Sending..."
+    "invitation_sending_button": "Sending...",
+    "invitation": {
+      "not_found": "Task not found",
+      "not_published": "You can send invitations for published tasks only",
+      "maximum_invitations": "You cannot send more than 5 invitations",
+      "already_invited": "You have already invited this freelancer for this task"
+    }
   },
   "404": {
     "not_found": "Page or resource not found!",
