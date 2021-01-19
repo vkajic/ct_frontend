@@ -7,9 +7,9 @@
 </template>
 
 <script>
-// noinspection JSUnusedGlobalSymbols
 import ExperiencePreviewItem from './ExperiencePreviewItem.vue';
 
+// noinspection JSUnusedGlobalSymbols
 export default {
   name: 'ExperiencePreview',
   components: { ExperiencePreviewItem },

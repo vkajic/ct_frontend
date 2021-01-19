@@ -1,4 +1,6 @@
 /* eslint-disable import/no-cycle */
+import Vue from 'vue';
+import setProp from '@/lib/setProp.js';
 import apiService from '../services/api.service';
 import tokenService from '../services/token.service';
 
@@ -210,13 +212,16 @@ const actions = {
   /**
    * Update freelancer working experience
    * @param commit
-   * @param {Object[]} data
+   * @param {Object} data
+   * @param {String} data.resume
+   * @param {Object[]} data.items
    * @return {Promise<void>}
    */
   async updateFreelancerExperience({ commit }, data) {
     await apiService.put('/freelancers/experience', data);
 
-    commit('setFreelancerExperience', data);
+    commit('setFreelancerExperience', data.items);
+    commit('setFreelancerResume', data.resume);
   },
 
   /**
@@ -397,27 +402,21 @@ const mutations = {
   },
 
   /**
-   * Set freelancer resume file
-   * @param state
-   * @param data
-   */
-  setFreelancerResume(state, data) {
-    if (data) {
-      state.user.freelancer.resume = data;
-      state.user.freelancer.resumeId = data.id;
-    } else {
-      state.user.freelancer.resume = null;
-      state.user.freelancer.resumeId = null;
-    }
-  },
-
-  /**
    * Set freelancer working experiences
    * @param state
    * @param {Object[]} data
    */
   setFreelancerExperience(state, data) {
-    state.user.freelancer.experiences = data;
+    setProp(state, ['user', 'freelancer', 'workExperiences'], data);
+  },
+
+  /**
+   * Set freelancer resume
+   * @param state
+   * @param {String} data
+   */
+  setFreelancerResume(state, data) {
+    setProp(state, ['user', 'freelancer', 'resume'], data);
   },
 
   /**

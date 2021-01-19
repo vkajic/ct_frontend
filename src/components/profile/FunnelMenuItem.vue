@@ -47,7 +47,7 @@ export default {
       return '';
     },
     stepRoute() {
-      return `${this.$route.params.lang}/create-freelancer/${this.step.route}`;
+      return `/create-freelancer/${this.step.route}`;
     },
     clickable() {
       return this.currentOrder > this.step.order;
