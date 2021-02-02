@@ -43,8 +43,12 @@ export default {
   },
   mixins: [languageRouter],
   mounted() {
+    this.$store.commit('ui/showLoader');
     const { id } = this.$route.params;
     this.selectTask(id);
+  },
+  destroyed() {
+    this.$store.commit('tasks/setSelectedTask', {});
   },
   computed: {
     task() {
@@ -61,9 +65,11 @@ export default {
     async selectTask(id) {
       try {
         await this.$store.dispatch('tasks/selectTask', id);
+        this.$store.commit('ui/hideLoader');
       } catch (e) {
         if (e.response && e.response.status === 404) {
           await this.replace({ name: 'notFoundPage' });
+          this.$store.commit('ui/hideLoader');
         }
       }
     },

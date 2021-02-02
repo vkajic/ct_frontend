@@ -96,8 +96,12 @@ export default {
     this.$store.commit('search/resetPage');
   },
   watch: {
-    language() {
-      this.runSearch();
+    language(n, o) {
+      console.log(n, o);
+      if (n !== o) {
+        this.$store.commit('search/resetPage');
+        this.runSearch();
+      }
     },
   },
 };

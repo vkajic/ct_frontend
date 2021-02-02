@@ -425,29 +425,29 @@ router.beforeEach(async (to, from, next) => {
     const role = store.state.user.activeRole;
 
     if (to.meta.forbidAccess && role === to.meta.forbidAccess) {
-      console.log('router 1');
+      // console.log('router 1');
       next({
         path: langRoute,
       });
     } else if (to.fullPath !== redirectTo) {
-      console.log('router 2', to, redirectTo);
+      // console.log('router 2', to, redirectTo);
       next({ path: redirectTo });
     } else {
-      console.log('router 3');
+      // console.log('router 3');
       next();
     }
   } catch (err) {
     if (to.meta.requiresAuth && to.meta.layout !== 'auth') {
-      console.log('router 4', to);
+      // console.log('router 4', to);
       next({
         path: `${langRoute}/login`,
         query: { redirect: to.path, ...to.query },
       });
     } else if (to.fullPath !== redirectTo) {
-      console.log('router 5', to);
+      // console.log('router 5', to);
       next({ path: redirectTo });
     } else {
-      console.log('router 6', to);
+      // console.log('router 6', to);
       next();
     }
   }

@@ -38,6 +38,7 @@
     "core-js": "^2.6.5",
     "ethereumjs-abi": "^0.6.7",
     "html-to-text": "^5.1.1",
+    "js-base64": "^3.6.0",
     "lodash": "^4.17.15",
     "lodash.clonedeep": "^4.5.0",
     "moment": "^2.25.1",
