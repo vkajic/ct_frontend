@@ -1,10 +1,11 @@
 <template>
-  <language-router-link :to="`/clients/${employer.id}`" class="employer d-flex align-items-center">
+  <language-router-link :to="`/clients/${employer.slug}/${employer.id}`"
+                        class="employer d-flex align-items-center">
     <avatar-display :avatar="employer.avatar"
                     v-if="employer.avatar"
                     class="mr-2"
                     :options="avatarOptions"/>
-    {{employer.name}}
+    {{ employer.name }}
   </language-router-link>
 </template>
 
@@ -15,7 +16,10 @@ import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'SmallEmployer',
-  components: { LanguageRouterLink, AvatarDisplay },
+  components: {
+    LanguageRouterLink,
+    AvatarDisplay,
+  },
   data() {
     return {
       avatarOptions: {

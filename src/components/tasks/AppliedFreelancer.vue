@@ -7,7 +7,7 @@
                         :options="avatarOptions"/>
         <div>
           <div class="d-flex align-items-center">
-            <language-router-link :to="`/freelancers/${freelancer.id}`"
+            <language-router-link :to="`/freelancers/${freelancer.slug}/${freelancer.id}`"
                                   class="freelancer-name mr-2">
               {{ freelancer.name }}
             </language-router-link>

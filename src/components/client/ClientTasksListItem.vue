@@ -2,7 +2,9 @@
   <div>
     <div class="d-flex align-items-center justify-content-between">
       <h3>
-        <language-router-link :to="`/tasks/${task.id}`">{{ task.title }}</language-router-link>
+        <language-router-link :to="`/tasks/${task.slug}/${task.id}`">
+          {{ task.title }}
+        </language-router-link>
       </h3>
       <div class="text-muted">{{ createdDate }}</div>
     </div>

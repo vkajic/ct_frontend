@@ -132,6 +132,11 @@ const router = new Router({
           component: Task,
         },
         {
+          path: 'tasks/:slug/:id',
+          name: 'taskSluged',
+          component: Task,
+        },
+        {
           path: 'my-tasks',
           name: 'myTasks',
           component: MyTasks,
@@ -240,8 +245,19 @@ const router = new Router({
           component: Freelancer,
         },
         {
+          path: 'freelancers/:slug/:id',
+          name: 'freelancerPublicProfileSluged',
+          component: Freelancer,
+        },
+        {
           path: 'clients/:id',
           name: 'clientPublicProfile',
+          component: Client,
+          meta: { requiresAuth: false },
+        },
+        {
+          path: 'clients/:slug/:id',
+          name: 'clientPublicProfileSluged',
           component: Client,
           meta: { requiresAuth: false },
         },

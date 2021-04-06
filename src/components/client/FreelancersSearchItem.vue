@@ -1,6 +1,6 @@
 <template>
   <div class="freelancer-search-item d-flex align-items-start">
-    <language-router-link :to="`/freelancers/${id}`">
+    <language-router-link :to="`/freelancers/${freelancer.slug}/${id}`">
       <avatar-display :avatar="freelancer.avatar"
                       :user-name="fullName"
                       :options="avatarOptions"
@@ -8,7 +8,7 @@
     </language-router-link>
     <div>
       <h2 class="mb-1 font-16-sm">
-        <language-router-link :to="`/freelancers/${id}`">
+        <language-router-link :to="`/freelancers/${freelancer.slug}/${id}`">
           {{fullName}}
         </language-router-link>
       </h2>

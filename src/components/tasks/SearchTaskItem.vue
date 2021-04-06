@@ -1,13 +1,14 @@
 <template>
   <div class="short-task-item">
     <div class="d-flex align-items-center justify-content-between mb-2">
-      <language-router-link :to="`clients/${taskData.postedById}`" class="client-name font-14-sm">
+      <language-router-link :to="`clients/${taskData.postedBySlug}/${taskData.postedById}`"
+                            class="client-name font-14-sm">
         {{ taskData.postedBy }}
       </language-router-link>
       <div class="published-date">{{ taskData.timePosted | date('MMM Do') }}</div>
     </div>
     <h4>
-      <language-router-link class="font-18-sm" :to="`/tasks/${task._id}`">
+      <language-router-link class="font-18-sm" :to="`/tasks/${taskData.slug}/${task._id}`">
         {{ taskData.title }}
       </language-router-link>
     </h4>
