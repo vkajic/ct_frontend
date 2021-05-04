@@ -30,11 +30,15 @@ import { required } from 'vuelidate/src/validators';
 import InputTags from '../form/InputTags.vue';
 import FunnelButtons from './FunnelButtons.vue';
 import languageRouter from '../mixins/languageRouter';
+import extract from '../../lib/extractLanguage';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'SkillsForm',
-  components: { FunnelButtons, InputTags },
+  components: {
+    FunnelButtons,
+    InputTags,
+  },
   mixins: [languageRouter],
   props: {
     freelancer: {
@@ -80,24 +84,26 @@ export default {
         }
       }
     },
-  },
-  watch: {
-    freelancer(n) {
-      if (n && n.id) {
+
+    setForm() {
+      if (this.freelancer && this.currentLanguage) {
         this.form = Object.assign({}, this.form, {
-          skills: n.skills,
-          categories: n.categories,
+          skills: extract(this.freelancer.skills, this.currentLanguage.id),
+          categories: extract(this.freelancer.categories, this.currentLanguage.id),
         });
       }
     },
   },
+  watch: {
+    freelancer() {
+      this.setForm();
+    },
+    currentLanguage() {
+      this.setForm();
+    },
+  },
   mounted() {
-    if (this.freelancer && this.freelancer.id) {
-      this.form = Object.assign({}, this.form, {
-        skills: this.freelancer.skills,
-        categories: this.freelancer.categories,
-      });
-    }
+    this.setForm();
   },
   computed: {
     /**
@@ -114,6 +120,14 @@ export default {
     skills() {
       const selectedIds = this.form.categories ? this.form.categories.map(r => r.id) : [];
       return this.$store.getters['util/getSkillsByCategories'](selectedIds);
+    },
+
+    /**
+     * Get current language
+     * @returns {*}
+     */
+    currentLanguage() {
+      return this.$store.getters['util/getCurrentLanguage'];
     },
   },
 };
