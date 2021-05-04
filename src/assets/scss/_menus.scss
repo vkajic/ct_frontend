@@ -39,12 +39,22 @@
       }
     }
 
-    &.active {
+    &.previous {
       a, span {
         color: $green;
 
         .feather {
           stroke: $green;
+        }
+      }
+    }
+
+    &.active {
+      a, span {
+        color: $info;
+
+        .feather {
+          stroke: $info;
         }
       }
     }
