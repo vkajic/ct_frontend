@@ -99,6 +99,8 @@
     "blockchain_title": "Blockchain info",
     "blockchain_label": "This record is securely written on blockchain",
     "more_details": "more details",
+    "closed_success": "Task is closed for applications",
+    "opened_success": "Task is accepting applications again",
     "form": {
       "title": "Post new job",
       "warning": "Client data must be set to be able to create new task",
@@ -187,7 +189,8 @@
     "complete": "Complete",
     "cancel": "Cancel",
     "leave_feedback": "Leave feedback",
-    "messages": "Messages"
+    "messages": "Messages",
+    "hired_success": "Freelancer successfully hired"
   },
   "chat": {
     "loading": "Loading...",
@@ -201,7 +204,8 @@
     "rate": "Rate",
     "comment": "Comment",
     "saving": "Saving...",
-    "save": "Save"
+    "save": "Save",
+    "feedback_success": "Application completed and feedback saved successfully"
   },
   "newsletter": {
     "unsubscribe_title": "Please wait, we are unsubscribing you!",

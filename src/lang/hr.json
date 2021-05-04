@@ -94,6 +94,8 @@
     "sort": "Sortiraj",
     "published": "Objavljeno",
     "unpublished": "Neobjavljeno",
+    "closed_success": "Posao je zatvoren za prijave",
+    "opened_success": "Posao je opet otvoren za prijave",
     "form": {
       "title": "Objavite novi posao",
       "warning": "Vaš profil mora biti ispunjen da bi mogli objaviti posao",
@@ -182,7 +184,8 @@
     "complete": "Završi posao",
     "cancel": "Otkaži",
     "leave_feedback": "Ostavi ocjenu",
-    "messages": "Poruke"
+    "messages": "Poruke",
+    "hired_success": "Freelancer je uspješno zapošljen"
   },
   "chat": {
     "loading": "Učitavanje...",
@@ -196,7 +199,8 @@
     "rate": "Daj ocjenu.",
     "comment": "Komentiraj",
     "saving": "Spremamo...",
-    "save": "Spremi"
+    "save": "Spremi",
+    "feedback_success": "Prijava je završena i ocjena je postavljena"
   },
   "newsletter": {
     "unsubscribe_title": "Molimo pričekajte, otkazujemo vašu pretplatu",

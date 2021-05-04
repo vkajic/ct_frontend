@@ -212,7 +212,7 @@ export default {
 
         this.$store.dispatch('ui/showNotification', {
           type: 'success',
-          text: 'Freelancer successfully hired',
+          text: this.$t('applications.hired_success'),
         });
         this.resetSelectedApplication();
       } catch (err) {
@@ -231,7 +231,7 @@ export default {
         await this.$store.dispatch('tasks/reopen', this.task);
         await this.$store.dispatch('ui/showNotification', {
           type: 'success',
-          text: 'Task is accepting applications again',
+          text: this.$t('tasks.opened_success'),
         });
       } catch (err) {
         this.$store.dispatch('ui/showNotification', {
@@ -249,7 +249,7 @@ export default {
         await this.$store.dispatch('tasks/close', this.task);
         await this.$store.dispatch('ui/showNotification', {
           type: 'success',
-          text: 'Task is closed to applications',
+          text: this.$t('tasks.closed_success'),
         });
       } catch (err) {
         this.$store.dispatch('ui/showNotification', {
@@ -307,7 +307,7 @@ export default {
 
         this.$store.dispatch('ui/showNotification', {
           type: 'success',
-          text: 'Application completed and feedback saved successfully',
+          text: this.$t('feedback.feedback_success'),
         });
 
         this.$store.commit('tasks/closeFeedbackModal');

@@ -31,7 +31,7 @@ export default {
   computed: {
     /**
      * Is edit allowed on task
-     * Edit is allowed only if status is CREATED or HIRED and current user has created that task
+     * Edit is allowed only if status is CREATED and current user has created that task
      * @return {boolean}
      */
     editAllowed() {
