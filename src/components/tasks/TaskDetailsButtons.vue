@@ -45,12 +45,19 @@ export default {
         .msgBoxConfirm(this.$t('tasks.details.delete_confirmation'));
 
       if (confirm) {
-        await this.$store.dispatch('tasks/delete', this.task.id);
-        await this.replace('/my-tasks');
-        await this.$store.dispatch('ui/showNotification', {
-          type: 'success',
-          text: this.$t('tasks.details.delete_success'),
-        });
+        try {
+          await this.$store.dispatch('tasks/delete', this.task.id);
+          await this.replace('/my-tasks');
+          await this.$store.dispatch('ui/showNotification', {
+            type: 'success',
+            text: this.$t('tasks.details.delete_success'),
+          });
+        } catch (err) {
+          await this.$store.dispatch('ui/showNotification', {
+            type: 'danger',
+            text: this.$t('tasks.details.delete_error'),
+          });
+        }
       }
     },
   },

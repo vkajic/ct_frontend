@@ -15,7 +15,8 @@
     "edit_profile": "Izmijeni profil",
     "preview_profile": "Pogledaj profil",
     "change_password": "Promijeni lozinku",
-    "affiliate": "Posredništvo"
+    "affiliate": "Posredništvo",
+    "error": "Nešto se dogodilo, molimo kontaktiraj nas!"
   },
   "auth": {
     "info": {
@@ -139,6 +140,7 @@
       "delete": "Izbriši",
       "delete_confirmation": "Jeste li sigurni da želite izbrisati ovaj posao?",
       "delete_success": "Brisanje posla uspješno!",
+      "delete_error": "Brisanje posla nije napravljeno, došlo je do greške!",
       "status": "STATUS",
       "status_0": "Apliciranje omogućeno",
       "status_1": "Popunjeno",

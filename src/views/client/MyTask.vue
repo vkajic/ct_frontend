@@ -87,7 +87,7 @@ import { mapState } from 'vuex';
 import {
   UsersIcon, MessageCircleIcon, ClipboardIcon,
 } from 'vue-feather-icons';
-import ClientFreelancerDropdown from '@/components/tasks/ClientFreelancerDropdown.vue';
+import ClientFreelancerDropdown from '../../components/tasks/ClientFreelancerDropdown.vue';
 import TaskDetails from '../../components/tasks/TaskDetails.vue';
 import RequiredSkills from '../../components/tasks/RequiredSkills.vue';
 import AppliedFreelancer from '../../components/tasks/AppliedFreelancer.vue';
@@ -102,6 +102,7 @@ import CloseTaskButton from '../../components/client/CloseTaskButton.vue';
 import ConfirmHireModal from '../../components/client/ConfirmHireModal.vue';
 import LanguageRouterLink from '../../components/ui/LanguageRouterLink.vue';
 import smartContract from '../../services/smartContract.service';
+import languageRouter from '../../components/mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
@@ -124,6 +125,7 @@ export default {
     MessageCircleIcon,
     ClipboardIcon,
   },
+  mixins: [languageRouter],
   data() {
     return {
       application: null,
@@ -216,7 +218,7 @@ export default {
       } catch (err) {
         this.$store.dispatch('ui/showNotification', {
           type: 'danger',
-          text: 'Something went wrong',
+          text: this.$t('common.error'),
         });
       }
     },
@@ -234,7 +236,7 @@ export default {
       } catch (err) {
         this.$store.dispatch('ui/showNotification', {
           type: 'danger',
-          text: 'Something went wrong',
+          text: this.$t('common.error'),
         });
       }
     },
@@ -252,7 +254,7 @@ export default {
       } catch (err) {
         this.$store.dispatch('ui/showNotification', {
           type: 'danger',
-          text: 'Something went wrong',
+          text: this.$t('common.error'),
         });
       }
     },
@@ -260,7 +262,10 @@ export default {
     /**
      * Open feedback modal
      */
-    openFeedbackModal({ application, status }) {
+    openFeedbackModal({
+      application,
+      status,
+    }) {
       this.application = application;
       this.$store.commit('tasks/openFeedbackModal', {
         applicationId: this.application.id,
@@ -379,8 +384,16 @@ export default {
     async getData(val) {
       const id = parseInt(val, 10);
 
-      // get task data
-      await this.$store.dispatch('tasks/selectTask', id);
+      try {
+        // get task data
+        await this.$store.dispatch('tasks/selectTask', id);
+      } catch (err) {
+        this.$store.dispatch('ui/showNotification', {
+          type: 'danger',
+          text: this.$t('common.error'),
+        });
+        this.replace('/my-tasks');
+      }
     },
 
     /**

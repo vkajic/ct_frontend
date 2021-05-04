@@ -15,7 +15,8 @@
     "edit_profile": "Edit Profile",
     "preview_profile": "Preview Profile",
     "change_password": "Change password",
-    "affiliate": "Affiliate"
+    "affiliate": "Affiliate",
+    "error": "Something went wrong, please contact us!"
   },
   "auth": {
     "info": {
@@ -144,6 +145,7 @@
       "delete": "Delete",
       "delete_confirmation": "Are you sure you want to delete this task?",
       "delete_success": "Task deleted successfully!",
+      "delete_error": "Task deletion failed, something went wrong!",
       "status": "STATUS",
       "status_0": "Accepting applications",
       "status_1": "Filled",
