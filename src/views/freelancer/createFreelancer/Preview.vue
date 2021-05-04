@@ -5,11 +5,8 @@
         <template slot="buttons">
           <b-button variant="info"
                     class="btn-round"
-                    @click="publish"
-                    :disabled="publishing"
-                    v-if="!freelancer.published">
-            <template v-if="!publishing">{{ $t('freelancers.publish_button') }}</template>
-            <template v-else>{{ $t('freelancers.publish_button_loading') }}</template>
+                    @click="browse">
+            {{ $t('freelancers.browse_jobs') }}
           </b-button>
         </template>
       </basic-info-preview>
@@ -19,7 +16,7 @@
       <div class="col-12 col-lg-6 offset-lg-3">
         <b-tabs content-class="py-4">
           <b-tab :title="$t('freelancers.my_profile')" active>
-            {{freelancer.bio}}
+            {{ freelancer.bio }}
           </b-tab>
           <b-tab :title="$t('freelancers.projects')"></b-tab>
           <b-tab :title="$t('freelancers.experience')">
@@ -59,14 +56,7 @@ export default {
     },
   },
   methods: {
-    async publish() {
-      this.publishing = true;
-      await this.$store.dispatch('user/publishFreelancerProfile');
-      this.publishing = false;
-      this.$store.dispatch('ui/showNotification', {
-        type: 'success',
-        text: this.$t('freelancers.publish_success'),
-      });
+    browse() {
       this.replace('/');
     },
   },
