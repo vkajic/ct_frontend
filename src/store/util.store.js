@@ -1,6 +1,7 @@
 import orderBy from 'lodash/orderBy';
 import sortBy from 'lodash/sortBy';
 import apiService from '../services/api.service';
+import extract from '../lib/extractLanguage';
 
 /* eslint-disable no-param-reassign */
 const initialState = {
@@ -95,15 +96,7 @@ const gtrs = {
         skills.push(...c.skills);
       });
 
-      return skills.map((s) => {
-        const translation = (s.translations && s.translations.length) ? s.translations
-          .find(t => t.languageId === currentLanguage.id) : null;
-        return {
-          id: s.id,
-          categoryId: s.categoryId,
-          name: translation ? translation.displayTranslation : '',
-        };
-      });
+      return extract(skills, currentLanguage.id);
     }
 
     return [];
@@ -127,14 +120,7 @@ const gtrs = {
     const currentLanguage = getters.getCurrentLanguage;
 
     if (currentLanguage) {
-      const cats = state.skills.map((s) => {
-        const translation = (s.translations && s.translations.length) ? s.translations
-          .find(t => t.languageId === currentLanguage.id) : null;
-        return {
-          id: s.id,
-          name: translation ? translation.displayTranslation : '',
-        };
-      });
+      const cats = extract(state.skills, currentLanguage.id);
 
       return orderBy(cats, 'name');
     }

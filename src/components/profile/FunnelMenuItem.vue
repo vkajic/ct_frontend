@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     stepClass() {
-      const routePath = this.$route.path;
+      const routePath = this.$route.name;
 
       if (routePath === this.step.route) {
         return 'active';

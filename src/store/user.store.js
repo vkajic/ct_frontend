@@ -1,8 +1,8 @@
 /* eslint-disable import/no-cycle */
-import Vue from 'vue';
-import setProp from '@/lib/setProp.js';
+import setProp from '../lib/setProp';
 import apiService from '../services/api.service';
 import tokenService from '../services/token.service';
+import extract from '../lib/extractLanguage';
 
 const initialState = {
   token: null,
@@ -21,7 +21,11 @@ const actions = {
    * @param state
    * @param dispatch
    */
-  async init({ commit, state, dispatch }) {
+  async init({
+    commit,
+    state,
+    dispatch,
+  }) {
     // check if there is token already in store
     if (!state.token) {
       const token = tokenService.getToken();
@@ -85,7 +89,11 @@ const actions = {
    * @param {Object} credentials
    * @return {Promise<*>}
    */
-  async login({ commit, dispatch, rootState }, credentials) {
+  async login({
+    commit,
+    dispatch,
+    rootState,
+  }, credentials) {
     const login = await apiService.post('/auth/login', credentials);
     commit('setToken', login.data.data.token);
 
@@ -178,7 +186,10 @@ const actions = {
    * @param {Object} data
    * @return {Promise<void>}
    */
-  async updateFreelancerBasicInfo({ commit, state }, data) {
+  async updateFreelancerBasicInfo({
+    commit,
+    state,
+  }, data) {
     const freelancerData = await apiService.put('/freelancers', data.data);
 
     commit('setFreelancerBasicData', freelancerData.data.data);
@@ -244,7 +255,11 @@ const actions = {
    * @param {Object} data
    * @return {Promise<void>}
    */
-  async updateClientBasicInfo({ commit, rootState, state }, data) {
+  async updateClientBasicInfo({
+    commit,
+    rootState,
+    state,
+  }, data) {
     const clientData = await apiService.put('/clients', data.data);
 
     commit('setClientBasicData', clientData.data.data);
@@ -282,7 +297,11 @@ const actions = {
    * @param state
    * @return {Promise<void>}
    */
-  async publishFreelancerProfile({ commit, rootState, state }) {
+  async publishFreelancerProfile({
+    commit,
+    rootState,
+    state,
+  }) {
     await apiService.put('/freelancers/publish');
 
     commit('setFreelancerPublished');
@@ -465,7 +484,7 @@ const mutations = {
   },
 };
 
-const getters = {
+const userGetters = {
   /**
    * Get currently logged user ID
    * @param state
@@ -508,6 +527,40 @@ const getters = {
   },
 
   /**
+   * If freelancer return its skills
+   * @param state
+   * @param getters
+   * @param rootGetters
+   * @returns {*[]|*}
+   */
+  getFreelancerSkills(state, getters, rootGetters) {
+    const currentLanguage = rootGetters.util.getCurrentLanguage;
+    const freelancer = getters.getFreelancer;
+
+    if (currentLanguage && freelancer) {
+      return extract(freelancer.skills, currentLanguage.id);
+    }
+    return [];
+  },
+
+  /**
+   * If freelancer return its skills
+   * @param state
+   * @param getters
+   * @param rootGetters
+   * @returns {*[]|*}
+   */
+  getFreelancerCategories(state, getters, rootGetters) {
+    const currentLanguage = rootGetters.util.getCurrentLanguage;
+    const freelancer = getters.getFreelancer;
+
+    if (currentLanguage && freelancer) {
+      return extract(freelancer.categories, currentLanguage.id);
+    }
+    return [];
+  },
+
+  /**
    * Check if current user has completed his profile with required fields
    * @param state
    */
@@ -522,7 +575,7 @@ const store = {
   state: initialState,
   mutations,
   actions,
-  getters,
+  getters: userGetters,
 };
 
 export default store;
