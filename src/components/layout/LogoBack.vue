@@ -23,7 +23,7 @@
 
 <script>
 import { ArrowLeftIcon } from 'vue-feather-icons';
-import LogoImage from '@/components/layout/LogoImage.vue';
+import LogoImage from './LogoImage.vue';
 import LanguageRouterLink from '../ui/LanguageRouterLink.vue';
 
 // noinspection JSUnusedGlobalSymbols

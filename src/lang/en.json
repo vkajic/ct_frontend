@@ -64,7 +64,7 @@
       "title": "Sign Up.",
       "iam": "I'm a",
       "freelancer": "Freelancer",
-      "client": "Client",
+      "client": "Employer",
       "email": "Email",
       "password": "Password",
       "password_confirmation": "Password Confirmation",
@@ -103,7 +103,7 @@
     "opened_success": "Task is accepting applications again",
     "form": {
       "title": "Post new job",
-      "warning": "Client data must be set to be able to create new task",
+      "warning": "Employer data must be set to be able to create new task",
       "job_title": "Job title",
       "job_label": "Title",
       "job_duration": "Job duration",
