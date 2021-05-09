@@ -37,7 +37,7 @@
     "bootstrap-vue": "^2.2.1",
     "core-js": "^2.6.5",
     "ethereumjs-abi": "^0.6.7",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "lodash.clonedeep": "^4.5.0",
     "moment": "^2.25.1",
     "open-iconic": "^1.1.1",
