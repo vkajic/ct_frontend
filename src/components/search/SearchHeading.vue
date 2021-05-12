@@ -27,8 +27,10 @@ export default {
       default: null,
     },
     category: {
-      type: String,
-      default: null,
+      type: Object,
+      default() {
+        return {};
+      },
     },
     sort: {
       type: Object,

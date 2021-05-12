@@ -62,6 +62,7 @@
     "sign_up": {
       "title": "Registracija",
       "iam": "Ja sam",
+      "iam_an": "Ja sam",
       "freelancer": "Freelancer",
       "client": "Poslodavac",
       "email": "Email",

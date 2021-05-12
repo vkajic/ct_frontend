@@ -63,6 +63,7 @@
     "sign_up": {
       "title": "Sign Up.",
       "iam": "I'm a",
+      "iam_an": "I'm an",
       "freelancer": "Freelancer",
       "client": "Employer",
       "email": "Email",

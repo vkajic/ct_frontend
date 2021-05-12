@@ -14,7 +14,7 @@
          class="role h-100 d-flex align-items-center flex-grow-1 py-5 justify-content-center"
          @click.prevent="$emit('select', 'client')">
         <briefcase-icon size="3x" class="mr-3"/>
-        <span>{{$t('auth.sign_up.iam')}}<br/>{{$t('auth.sign_up.client')}}</span>
+        <span>{{$t('auth.sign_up.iam_an')}}<br/>{{$t('auth.sign_up.client')}}</span>
       </a>
     </div>
   </div>
