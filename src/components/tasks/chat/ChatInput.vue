@@ -24,7 +24,7 @@
            @change="uploadFiles($event.target.files)"/>
 
     <button type="submit" class="btn btn-round submit m-0 ml-2 mr-1" :disabled="uploading">
-      {{$t('chat.send')}}
+      {{ $t('chat.send') }}
     </button>
   </b-form>
 </template>
@@ -51,7 +51,7 @@ export default {
       uploading: false,
       errors: [],
       fileUrls: [],
-      maxSize: 1024,
+      maxSize: 10485760,
       timeout: null,
       uploadPercentage: 0,
     };
@@ -113,9 +113,7 @@ export default {
 
         Array.from(files)
           .forEach((f) => {
-            const size = f.size / maxSize / maxSize;
-
-            if (size > 1) {
+            if (f.size > maxSize) {
               // check whether the size is greater than the size limit
               this.errors.push(`Selected image ${f.name} is too big.`);
             } else {
@@ -124,16 +122,18 @@ export default {
           });
 
         // submit file to api
-        const response = await apiService.post('/files/multiple', formData, {
-          headers: { 'content-type': 'multipart/form-data' },
-          onUploadProgress: (progressEvent) => {
-            const percentage = (progressEvent.loaded / progressEvent.total) * 100;
-            this.uploadPercentage = Math.round(percentage);
-          },
-        });
+        if (formData.getAll('files') && formData.getAll('files').length) {
+          const response = await apiService.post('/files/multiple', formData, {
+            headers: { 'content-type': 'multipart/form-data' },
+            onUploadProgress: (progressEvent) => {
+              const percentage = (progressEvent.loaded / progressEvent.total) * 100;
+              this.uploadPercentage = Math.round(percentage);
+            },
+          });
 
-        // Emit response as file entry
-        this.$emit('attach', response.data.data);
+          // Emit response as file entry
+          this.$emit('attach', response.data.data);
+        }
 
         this.uploading = false;
         this.uploadPercentage = 0;
