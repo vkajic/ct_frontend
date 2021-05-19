@@ -1,31 +1,37 @@
 <template>
   <b-form-invalid-feedback :class="{'d-block': visible}">
     <div v-if="errorVisible('required')">
-      {{title}} is required
+      {{ title }} is required
     </div>
     <div v-if="errorVisible('integer')">
-      {{title}} must be number
+      {{ title }} must be number
     </div>
     <div v-if="errorVisible('numeric')">
-      {{title}} must be number
+      {{ title }} must be number
     </div>
     <div v-if="errorVisible('decimal')">
-      {{title}} must be number
+      {{ title }} must be number
     </div>
     <div v-if="errorVisible('minValue')">
-      {{title}} must be at least {{validation.$params.minValue.min}}
+      {{ title }} must be at least {{ validation.$params.minValue.min }}
     </div>
     <div v-if="errorVisible('minLength')">
-      {{title}} must have at least {{validation.$params.minLength.min}} value
+      {{ title }} must have at least {{ validation.$params.minLength.min }} value
     </div>
     <div v-if="errorVisible('maxLength')">
-      {{title}} can't have more than {{validation.$params.maxLength.max}} characters
+      {{ title }} can't have more than {{ validation.$params.maxLength.max }} characters
     </div>
     <div v-if="errorVisible('minLength')">
-      {{title}} must have at least {{validation.$params.minLength.max}} values
+      {{ title }} must have at least {{ validation.$params.minLength.max }} values
     </div>
     <div v-if="errorVisible('passwordStrength')">
-      {{title}} too weak
+      {{ title }} too weak
+    </div>
+    <div v-if="errorVisible('richTextMinCharacters')">
+      {{ title }} must have at least {{ validation.$params.richTextMinCharacters.min }} characters
+    </div>
+    <div v-if="errorVisible('richTextMaxCharacters')">
+      {{ title }} can't have more than {{ validation.$params.richTextMaxCharacters.max }} characters
     </div>
   </b-form-invalid-feedback>
 </template>

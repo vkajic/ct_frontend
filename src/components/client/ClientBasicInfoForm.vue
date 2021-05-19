@@ -9,10 +9,11 @@
                         :value="form.avatar"
                         type="public"
                         @remove="avatarRemoved"
+                        :validation="$v.form.avatar"
                         :options="avatarOptions"/>
       </div>
       <div class="col-12 col-lg-8">
-        <h1 class="d-none d-lg-block mb-5">{{$t('client_profile.basic_info_title')}}</h1>
+        <h1 class="d-none d-lg-block mb-5">{{ $t('client_profile.basic_info_title') }}</h1>
         <input-group name="name"
                      class="mb-3"
                      v-model="form.name"
@@ -37,8 +38,8 @@
         justify-content-center justify-content-lg-end
         align-items-center">
           <b-button type="submit" variant="primary" class="btn-round" :disabled="saving">
-            <template v-if="!saving">{{$t('client_profile.button_label')}}</template>
-            <template v-if="saving">{{$t('client_profile.button_loading')}}</template>
+            <template v-if="!saving">{{ $t('client_profile.button_label') }}</template>
+            <template v-if="saving">{{ $t('client_profile.button_loading') }}</template>
           </b-button>
         </div>
 
@@ -49,6 +50,8 @@
 
 <script>
 import { required, maxLength } from 'vuelidate/lib/validators';
+import richTextMinCharacters from '@/validations/richTextMinCharacters';
+import richTextMaxCharacters from '@/validations/richTextMaxCharacters';
 import ImageUploader from '../form/ImageUploader.vue';
 import InputGroup from '../form/InputGroup.vue';
 import WysiwygTextareaGroup from '../form/WysiwygTextareaGroup.vue';
@@ -83,10 +86,19 @@ export default {
     const v = { form: {} };
 
     if (!this.client.published) {
-      v.form.name = { required, maxLength: maxLength(50) };
+      v.form.name = {
+        required,
+        maxLength: maxLength(50),
+      };
     }
     v.form.location = { maxLength: maxLength(40) };
-    v.form.about = { maxLength: maxLength(5000) };
+    v.form.about = {
+      required,
+      richTextMinCharacters: richTextMinCharacters(200),
+      richTextMaxCharacters: richTextMaxCharacters(5000),
+    };
+
+    v.form.avatar = { required };
 
     return v;
   },

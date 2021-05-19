@@ -15,7 +15,7 @@
         </div>
         <div class="col-12 col-lg-8">
 
-          <h1 class="mb-5 d-none d-lg-block">{{$t('freelancers.basic_info')}}</h1>
+          <h1 class="mb-5 d-none d-lg-block">{{ $t('freelancers.basic_info') }}</h1>
 
           <div class="mb-3">
             <label>Name</label>
@@ -40,6 +40,7 @@
           <input-group name="occupation"
                        class="mb-3"
                        v-model="form.occupation"
+                       :validation="$v.form.occupation"
                        :placeholder="$t('freelancers.occupation')"
                        :label="$t('freelancers.occupation_label')"/>
 
@@ -52,14 +53,15 @@
           <b-form-checkbox v-model="form.travel"
                            class="mb-3"
                            name="travel">
-            {{$t('freelancers.travel')}}
+            {{ $t('freelancers.travel') }}
           </b-form-checkbox>
 
           <wysiwyg-textarea-group class="mb-4"
                                   v-model="form.bio"
+                                  :validation="$v.form.bio"
                                   :label="$t('freelancers.about')"/>
 
-          <h4 class="mb-3">{{$t('freelancers.web_presence')}}</h4>
+          <h4 class="mb-3">{{ $t('freelancers.web_presence') }}</h4>
 
           <input-group name="linkedIn"
                        class="mb-3"
@@ -82,7 +84,7 @@
             </div>
           </div>
 
-          <h1 class="mb-5 mt-6">{{$t('freelancers.my_skills')}}</h1>
+          <h1 class="mb-5 mt-6">{{ $t('freelancers.my_skills') }}</h1>
 
           <input-tags :label="$t('freelancers.roles_interested')"
                       class="mb-3"
@@ -100,13 +102,12 @@
                       options-label="name"
                       :validation="$v.form.skills"/>
 
-
           <div class="pt-5 d-flex flex-column flex-lg-row
         justify-content-center justify-content-lg-end
         align-items-center">
             <b-button type="submit" variant="info" class="btn-round" :disabled="saving">
-              <template v-if="!saving">{{buttonText}}</template>
-              <template v-if="saving">{{$t('freelancers.saving')}}</template>
+              <template v-if="!saving">{{ buttonText }}</template>
+              <template v-if="saving">{{ $t('freelancers.saving') }}</template>
             </b-button>
           </div>
         </div>
@@ -117,6 +118,8 @@
 
 <script>
 import { required, minLength, maxLength } from 'vuelidate/lib/validators';
+import richTextMinCharacters from '@/validations/richTextMinCharacters';
+import richTextMaxCharacters from '@/validations/richTextMaxCharacters';
 import ImageUploader from '../form/ImageUploader.vue';
 import InputField from '../form/InputField.vue';
 import ValidationMessages from '../form/ValidationMessages.vue';
@@ -170,19 +173,38 @@ export default {
     const v = { form: {} };
 
     if (!this.freelancer.published) {
-      v.form.firstName = { required, maxLength: maxLength(40) };
-      v.form.lastName = { required, maxLength: maxLength(40) };
+      v.form.firstName = {
+        required,
+        maxLength: maxLength(40),
+      };
+      v.form.lastName = {
+        required,
+        maxLength: maxLength(40),
+      };
     }
-    v.form.occupation = { maxLength: maxLength(100) };
+    v.form.occupation = {
+      maxLength: maxLength(100),
+      required,
+    };
     v.form.location = { maxLength: maxLength(40) };
-    v.form.bio = { maxLength: maxLength(5000) };
+    v.form.bio = {
+      required,
+      richTextMinCharacters: richTextMinCharacters(300),
+      richTextMaxCharacters: richTextMaxCharacters(5000),
+    };
     v.form.linkedin = { maxLength: maxLength(500) };
     v.form.web = { maxLength: maxLength(500) };
     v.form.blog = { maxLength: maxLength(500) };
 
     v.form.avatar = { required };
-    v.form.categories = { required, minLength: minLength(1) };
-    v.form.skills = { required, minLength: minLength(1) };
+    v.form.categories = {
+      required,
+      minLength: minLength(1),
+    };
+    v.form.skills = {
+      required,
+      minLength: minLength(1),
+    };
 
     return v;
   },

@@ -13,7 +13,7 @@
                         :options="avatarOptions"/>
       </div>
       <div class="col-12 col-lg-8">
-        <h1 class="d-none d-lg-block mb-5">{{$t('freelancers.basic_info')}}</h1>
+        <h1 class="d-none d-lg-block mb-5">{{ $t('freelancers.basic_info') }}</h1>
         <div class="mb-3">
           <label>{{ $t('freelancers.name') }}</label>
           <b-input-group>
@@ -88,6 +88,8 @@
 
 <script>
 import { required, maxLength } from 'vuelidate/lib/validators';
+import richTextMinCharacters from '@/validations/richTextMinCharacters';
+import richTextMaxCharacters from '@/validations/richTextMaxCharacters';
 import InputField from '../form/InputField.vue';
 import ValidationMessages from '../form/ValidationMessages.vue';
 import InputGroup from '../form/InputGroup.vue';
@@ -118,12 +120,25 @@ export default {
     const v = { form: {} };
 
     if (!this.freelancer.published) {
-      v.form.firstName = { required, maxLength: maxLength(40) };
-      v.form.lastName = { required, maxLength: maxLength(40) };
+      v.form.firstName = {
+        required,
+        maxLength: maxLength(40),
+      };
+      v.form.lastName = {
+        required,
+        maxLength: maxLength(40),
+      };
     }
-    v.form.occupation = { maxLength: maxLength(100) };
+    v.form.occupation = {
+      maxLength: maxLength(100),
+      required,
+    };
     v.form.location = { maxLength: maxLength(40) };
-    v.form.bio = { maxLength: maxLength(5000) };
+    v.form.bio = {
+      required,
+      richTextMinCharacters: richTextMinCharacters(300),
+      richTextMaxCharacters: richTextMaxCharacters(5000),
+    };
     v.form.linkedin = { maxLength: maxLength(500) };
     v.form.web = { maxLength: maxLength(500) };
     v.form.blog = { maxLength: maxLength(500) };

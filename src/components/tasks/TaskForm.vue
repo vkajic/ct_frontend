@@ -35,7 +35,6 @@
                          v-model="form.price"
                          :placeholder="$t('tasks.form.job_value')"
                          :label="$t('tasks.form.value')"
-                         :disabled="form.negotiablePrice"
                          :validation="$v.form.price">
               <template slot="prepend">$</template>
               <template slot="append">
@@ -110,6 +109,8 @@ import InputTags from '@/components/form/InputTags.vue';
 import WysiwygTextareaGroup from '@/components/form/WysiwygTextareaGroup.vue';
 import languageRouter from '@/components/mixins/languageRouter';
 import LoadingButton from '@/components/ui/LoadingButton.vue';
+import richTextMinCharacters from '@/validations/richTextMinCharacters';
+import richTextMaxCharacters from '@/validations/richTextMaxCharacters';
 
 // TODO add attachments uploader
 
@@ -204,13 +205,11 @@ export default {
       },
       description: {
         required,
-        maxLength: maxLength(5000),
+        richTextMinCharacters: richTextMinCharacters(300),
+        richTextMaxCharacters: richTextMaxCharacters(5000),
       },
       price: {
-        // eslint-disable-next-line func-names
-        required: requiredIf(function () {
-          return !this.isPriceNegotiable;
-        }),
+        required,
         decimal,
         minValue: minValue(1),
       },
