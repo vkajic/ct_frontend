@@ -205,7 +205,7 @@ export default {
       },
       description: {
         required,
-        richTextMinCharacters: richTextMinCharacters(300),
+        richTextMinCharacters: richTextMinCharacters(200),
         richTextMaxCharacters: richTextMaxCharacters(5000),
       },
       price: {

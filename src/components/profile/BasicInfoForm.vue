@@ -37,6 +37,7 @@
         <input-group name="occupation"
                      class="mb-3"
                      v-model="form.occupation"
+                     :validation="$v.form.occupation"
                      :placeholder="$t('freelancers.occupation')"
                      :label="$t('freelancers.occupation_label')"/>
 
@@ -51,10 +52,10 @@
                          name="travel">{{ $t('freelancers.travel') }}
         </b-form-checkbox>
 
-        <textarea-group name="bio"
-                        class="mb-4"
-                        v-model="form.bio"
-                        :label="$t('freelancers.about')"/>
+        <wysiwyg-textarea-group class="mb-4"
+                                v-model="form.bio"
+                                :validation="$v.form.bio"
+                                :label="$t('freelancers.about')"/>
 
         <h4 class="mb-3">{{ $t('freelancers.web_presence') }}</h4>
 
@@ -90,10 +91,10 @@
 import { required, maxLength } from 'vuelidate/lib/validators';
 import richTextMinCharacters from '@/validations/richTextMinCharacters';
 import richTextMaxCharacters from '@/validations/richTextMaxCharacters';
+import WysiwygTextareaGroup from '@/components/form/WysiwygTextareaGroup.vue';
 import InputField from '../form/InputField.vue';
 import ValidationMessages from '../form/ValidationMessages.vue';
 import InputGroup from '../form/InputGroup.vue';
-import TextareaGroup from '../form/TextareaGroup.vue';
 import ImageUploader from '../form/ImageUploader.vue';
 import FunnelButtons from './FunnelButtons.vue';
 import languageRouter from '../mixins/languageRouter';
@@ -109,9 +110,9 @@ export default {
     },
   },
   components: {
+    WysiwygTextareaGroup,
     FunnelButtons,
     ImageUploader,
-    TextareaGroup,
     InputGroup,
     ValidationMessages,
     InputField,
