@@ -18,6 +18,13 @@
   .duration, .price, .published-date, .applications-count {
     font-size: .875rem;
   }
+
+  .avatar {
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
 }
 
 .task-tags {
