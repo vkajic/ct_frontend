@@ -3,24 +3,36 @@
     <b-link :to="`/my-tasks/${task.id}/edit`"
             class="btn btn-primary btn-block btn-round mt-4 btn-primary--dark"
             v-if="editAllowed">
-      {{$t('tasks.details.edit')}}
+      {{ $t('tasks.details.edit') }}
     </b-link>
 
     <b-button class="btn btn-secondary btn-block btn-round mt-3"
               @click="deleteTask"
               v-if="editAllowed">
-      {{$t('tasks.details.delete')}}
+      {{ $t('tasks.details.delete') }}
     </b-button>
+
+    <close-task-button v-if="statusUpdateButtonVisible" :task="task" @close="close" class="mt-3"/>
+    <reopen-task-button v-if="statusUpdateButtonVisible"
+                        :task="task"
+                        @reopen="reopen"
+                        class="mt-3"/>
   </div>
 </template>
 
 <script>
 import { get } from 'lodash';
-import languageRouter from '../mixins/languageRouter';
+import CloseTaskButton from '@/components/client/CloseTaskButton.vue';
+import ReopenTaskButton from '@/components/client/ReopenTaskButton.vue';
+import languageRouter from '@/components/mixins/languageRouter';
 
 // noinspection JSUnusedGlobalSymbols
 export default {
   name: 'TaskDetailsButtons',
+  components: {
+    ReopenTaskButton,
+    CloseTaskButton,
+  },
   mixins: [languageRouter],
   props: {
     task: {
@@ -35,8 +47,12 @@ export default {
      * @return {boolean}
      */
     editAllowed() {
+      return this.statusUpdateButtonVisible && !this.task.applications.length;
+    },
+
+    statusUpdateButtonVisible() {
       const client = get(this, '$store.state.user.user.client');
-      return this.task.status === 0 && client && client.id === this.task.postedBy;
+      return client && client.id === this.task.postedBy;
     },
   },
   methods: {
@@ -60,10 +76,42 @@ export default {
         }
       }
     },
+
+    /**
+     * Reopen task again
+     */
+    async reopen() {
+      try {
+        await this.$store.dispatch('tasks/reopen', this.task);
+        await this.$store.dispatch('ui/showNotification', {
+          type: 'success',
+          text: this.$t('tasks.opened_success'),
+        });
+      } catch (err) {
+        this.$store.dispatch('ui/showNotification', {
+          type: 'danger',
+          text: this.$t('common.error'),
+        });
+      }
+    },
+
+    /**
+     * Close task to applications
+     */
+    async close() {
+      try {
+        await this.$store.dispatch('tasks/close', this.task);
+        await this.$store.dispatch('ui/showNotification', {
+          type: 'success',
+          text: this.$t('tasks.closed_success'),
+        });
+      } catch (err) {
+        this.$store.dispatch('ui/showNotification', {
+          type: 'danger',
+          text: this.$t('common.error'),
+        });
+      }
+    },
   },
 };
 </script>
-
-<style scoped>
-
-</style>

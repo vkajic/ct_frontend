@@ -21,8 +21,13 @@ export default {
     },
   },
   computed: {
+    /**
+     * Set button visibility depending on task status
+     * If task is created or opened make button visible
+     * @returns {boolean}
+     */
     buttonVisible() {
-      return this.task.status === 2;
+      return [0, 2].indexOf(this.task.status) > -1;
     },
   },
   methods: {

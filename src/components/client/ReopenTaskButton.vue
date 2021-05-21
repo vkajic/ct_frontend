@@ -21,6 +21,10 @@ export default {
     },
   },
   computed: {
+    /**
+     * Make button visible if task status is filled
+     * @returns {boolean}
+     */
     buttonVisible() {
       return this.task.status === 1;
     },

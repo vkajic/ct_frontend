@@ -47,7 +47,7 @@
       </a>
     </div> -->
 
-    <task-details-buttons v-if="!task.applications || !task.applications.length" :task="task"/>
+    <task-details-buttons :task="task"/>
   </div>
 </template>
 
