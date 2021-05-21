@@ -10,7 +10,7 @@
       <div class="col-12 col-lg-10 offset-lg-1">
         <b-tabs content-class="py-4">
           <b-tab :title="$t('freelancer_info.bio')" active>
-            <div v-html="freelancer.bio"></div>
+            <div v-html="freelancer.bio" class="text-wrap"></div>
           </b-tab>
           <b-tab :title="$t('freelancer_info.projects')">
             <projects-preview :projects="freelancer.projects"/>

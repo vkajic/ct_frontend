@@ -55,7 +55,7 @@ export default {
         } catch (err) {
           await this.$store.dispatch('ui/showNotification', {
             type: 'danger',
-            text: this.$t('tasks.details.delete_error'),
+            text: err.response.data.message,
           });
         }
       }
